@@ -195,3 +195,7 @@ shortens it (`import("libs/math") as m` → `m::add(...)`).
 
 ### Cross-compilation
 
+```
+NOX_OS=windows NOX_ARCH=amd64 nox build
+```
+
