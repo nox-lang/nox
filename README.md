@@ -128,3 +128,7 @@ at the repository root is a **from-source-only** copy of nox-tcc
 the `nox` binary (`embed.go`, `internal/toolchain`). The first time a build
 actually needs it, `nox`:
 
+1. extracts that source tree into a per-user cache directory
+   (`os.UserCacheDir()/nox/toolchain-v1/`);
+2. runs its `./configure` + `make` (for a native build) or
+   `make cross-x86_64-win32` (the first time a Windows target is built —
