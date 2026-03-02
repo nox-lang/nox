@@ -54,3 +54,7 @@ This implements essentially the full language: package/import/include, `let`
 with type inference, slices *and* fixed-size arrays with all their methods
 (plus `make`/`range`/associative arrays), strings, functions (defaults,
 variadics, closures), classes (including `static` members), `if` (as a
+statement *and* an expression), `for`/`while`/`switch`, `break`/`next`/`yield`,
+`defer`, `try`/`catch`/`?`, `async`/`await`/`parallel` *and* the explicit
+`Thread`/`Task` API, pointers, `.delete()`, the six standard library
+packages, `type` aliases, and the `nox` CLI (`init`/`build`/`get`) with
