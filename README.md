@@ -50,3 +50,7 @@ Hello, World!
 
 ## Status
 
+This implements essentially the full language: package/import/include, `let`
+with type inference, slices *and* fixed-size arrays with all their methods
+(plus `make`/`range`/associative arrays), strings, functions (defaults,
+variadics, closures), classes (including `static` members), `if` (as a
