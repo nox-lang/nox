@@ -12,3 +12,7 @@ installed tcc either.
 $ cat hello.nox
 package main
 
+import(
+    "io"
+)
+
