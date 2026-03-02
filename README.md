@@ -80,3 +80,7 @@ of the language and toolchain at once:
   produces a compile error pointing at this.
 - **`type Name = T`** declares a transparent type alias (Go-style),
   anywhere a type could otherwise be written.
+- **Slices and arrays are distinct types.** `[]T` is a slice (a growable,
+  reference-like view — what "array" meant before); `[N]T` is a genuine
+  fixed-size array, copied by value like a small struct. `make([]T, len[,
+  cap])` allocates a slice with spare capacity up front; `s[lo:hi]` slices
