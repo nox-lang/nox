@@ -118,3 +118,7 @@ library), so it builds offline:
 go build -o nox ./cmd/nox
 ```
 
+Put the resulting `nox` binary on your `PATH`.
+
+### The bundled toolchain
+
