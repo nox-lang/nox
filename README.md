@@ -109,3 +109,5 @@ of the language and toolchain at once:
   `nox build` runs (reading `nox.toml`), matching how `nox get` reads
   elsewhere as "declare a dependency", not "fetch it right now".
 
+## Building the compiler itself
+
