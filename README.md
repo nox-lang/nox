@@ -151,3 +151,7 @@ bundled toolchain entirely and use a specific external tcc binary instead.
   memory management, linked for a native (non-Windows-target) build only.
   `apt install libgc-dev` on Debian/Ubuntu (needed on the *build* machine
   only, to link against — not needed at all for a Windows-target build,
+  cross or native, which uses a non-collecting allocator instead; see
+  `include/nox/nox.h`'s `NOX_USE_GC`).
+- **pthreads** — linked for `async`/`await`/`parallel`/`Thread`/`Task`, for
+  a native non-Windows-target build only. A Windows target (cross-compiled
