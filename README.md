@@ -135,3 +135,7 @@ actually needs it, `nox`:
    tcc cross-builds itself, see `tcc/GC_BUNDLE.md`) there, once;
 3. every later build reuses that cached binary directly.
 
+The Nox standard library itself lives in **`include/`** (`nox/nox.h`, what
+every generated program `#include`s) and **`lib/`** (`nox_*.c`, compiled
+alongside the generated program) at the repository root, also embedded and
+extracted the same way. Both are ordinary, readable files — nothing about
