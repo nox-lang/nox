@@ -104,3 +104,7 @@ of the language and toolchain at once:
   for a C#-`Task`-flavored alternative to `async func`+`await`.
 - **nox-tcc is now bundled inside `nox` itself** — see "The bundled
   toolchain" below — rather than being a separately installed `tcc`.
+- **`nox get` no longer clones immediately.** It only records the
+  dependency in `nox.toml`; the actual `git clone` happens the next time
+  `nox build` runs (reading `nox.toml`), matching how `nox get` reads
+  elsewhere as "declare a dependency", not "fetch it right now".
