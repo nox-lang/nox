@@ -92,3 +92,7 @@ of the language and toolchain at once:
 - **`for (v in range(lo, hi[, step]))`** (and `range(hi)`, `range(lo, hi)`)
   — a direct counting loop, compiled without ever materializing a slice.
 - **The blank identifier `_`** discards a value — `let _ = f()`,
+  `for (_, v in xs)` — exactly like Go's.
+- **`static`** on a class field or method makes it a class-level member —
+  one `Counter.Total` shared by every instance, not per-object — reached
+  as `ClassName.member` from anywhere (subject to the same
