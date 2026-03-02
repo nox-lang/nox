@@ -22,3 +22,7 @@ nox.bin
 /examples/05_async_await_parallel.c
 /examples/06_strings_and_sorting
 /examples/06_strings_and_sorting.c
+/examples/07_recursion_and_globals
+/examples/07_recursion_and_globals.c
+/examples/08_stdlib_and_nested_loops
+/examples/08_stdlib_and_nested_loops.c
