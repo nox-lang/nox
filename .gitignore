@@ -2,3 +2,7 @@
 /dist/
 *.o
 *.out
+*.exe
+/cmd/dumpast/
+nox.bin
+
