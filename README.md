@@ -40,3 +40,7 @@ Hello, World!
 >   `private` was removed in favor of Go-style capitalization-is-visibility
 >   everywhere (including the standard library, and the entry point, now
 >   `func Main()`); `type` aliases; a real `[]T` slice / `[N]T` array
+>   distinction plus `make`/`range`/associative arrays (`map<K, V>`); `_`;
+>   `static` class members; `Thread`/`Task` (alongside the still-present
+>   `async`/`await`/`parallel`); nox-tcc fully bundled into `nox` itself;
+>   and `nox get` deferring its `git clone` to the next `nox build`.
