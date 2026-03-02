@@ -183,3 +183,6 @@ The distinction is deliberate: `nox build` alone only makes sense for a
 package that has a `nox.toml` (created by `nox init`), and always produces
 `build/<package-name>` (plus `build/<package-name>.c`), matching the spec's
 description of multiple files under `src/` becoming one executable.
+`nox build <file.nox>` is the lightweight, no-ceremony path for a single
+file — by default it leaves nothing behind but the executable itself.
+
