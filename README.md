@@ -174,3 +174,7 @@ nox build <file.nox>             Build one file -> an executable next to it. No 
                                   no .c file kept, unless...
 nox build <file.nox> --emit-c    ...this is passed, which also writes <file>.c next to it.
 nox get <source>                 Declare a dependency (e.g. github.com/user/repo) in nox.toml.
+                                  This does NOT clone it — that happens on the next 'nox build',
+                                  which reads nox.toml for what to fetch (see internal/pkgmgr's
+                                  EnsureDeps). 'nox get' alone only ever edits nox.toml.
+```
