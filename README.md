@@ -36,3 +36,7 @@ Hello, World!
 > - The original round: **`return`/`next`/`yield` split apart** (see
 >   below) and, at the time, lowercase standard-library names — since
 >   superseded again by the round below.
+> - **A 2026 redesign — see "2026 redesign" below** for the full list:
+>   `private` was removed in favor of Go-style capitalization-is-visibility
+>   everywhere (including the standard library, and the entry point, now
+>   `func Main()`); `type` aliases; a real `[]T` slice / `[N]T` array
