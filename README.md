@@ -230,3 +230,7 @@ selected by `#if defined(_WIN32)`:
   threads, `TlsAlloc`/`TlsGetValue`/`TlsSetValue` for thread-local storage.
   `<pthread.h>` is never included on this path, and no pthreads
   implementation (bundled, static, or DLL) is a dependency of a Windows
+  build at all.
+- **Everywhere else**: plain POSIX pthreads (`pthread_create`/`pthread_join`,
+  `pthread_key_t`). tcc does not support the `__thread` storage-class
+  keyword, which is why thread-local storage goes through an explicit
