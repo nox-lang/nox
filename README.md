@@ -58,3 +58,7 @@ statement *and* an expression), `for`/`while`/`switch`, `break`/`next`/`yield`,
 `defer`, `try`/`catch`/`?`, `async`/`await`/`parallel` *and* the explicit
 `Thread`/`Task` API, pointers, `.delete()`, the six standard library
 packages, `type` aliases, and the `nox` CLI (`init`/`build`/`get`) with
+cross-compilation via a fully bundled nox-tcc. It's been exercised with the
+programs under `examples/` (see "What's been tested"), but it's a
+from-scratch implementation and has **not** had long-term, adversarial
+testing — a solid, working first version, not a hardened toolchain.
