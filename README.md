@@ -141,3 +141,7 @@ alongside the generated program) at the repository root, also embedded and
 extracted the same way. Both are ordinary, readable files — nothing about
 the embedding changes what's in them.
 
+The only thing this still asks of the *host* machine is **some C compiler**
+(`cc`, `gcc`, or `clang` — tried in that order) to perform that one-time
+bootstrap in step 2; after that, the host compiler is never invoked again.
+`NOX_TCC=/path/to/tcc` remains available as an escape hatch to bypass the
