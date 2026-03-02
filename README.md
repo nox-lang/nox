@@ -8,3 +8,7 @@ and nothing else** — no gcc, no clang, anywhere in the generated program's
 own compilation, and (after the very first run on a machine) no separately
 installed tcc either.
 
+```
+$ cat hello.nox
+package main
+
