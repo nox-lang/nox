@@ -224,3 +224,5 @@ under Wine to the same program built natively for Linux.
 "Error handling" below) both need threads and thread-local storage.
 `runtime.c` abstracts both behind small macros
 (`NOX_THREAD_CREATE`/`NOX_THREAD_JOIN`/`NOX_TLS_*`) with two implementations
+selected by `#if defined(_WIN32)`:
+
