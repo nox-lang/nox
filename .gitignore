@@ -14,3 +14,7 @@ nox.bin
 /examples/01_hello.c
 /examples/02_arrays_and_functions
 /examples/02_arrays_and_functions.c
+/examples/03_classes_and_control_flow
+/examples/03_classes_and_control_flow.c
+/examples/04_errors_closures_pointers
+/examples/04_errors_closures_pointers.c
