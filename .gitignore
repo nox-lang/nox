@@ -18,3 +18,7 @@ nox.bin
 /examples/03_classes_and_control_flow.c
 /examples/04_errors_closures_pointers
 /examples/04_errors_closures_pointers.c
+/examples/05_async_await_parallel
+/examples/05_async_await_parallel.c
+/examples/06_strings_and_sorting
+/examples/06_strings_and_sorting.c
