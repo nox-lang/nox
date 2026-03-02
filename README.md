@@ -72,3 +72,7 @@ of the language and toolchain at once:
   anything — a top-level `func`/`let`/`class`, or a class field/method —
   whose name starts with an uppercase letter is public; a lowercase-initial
   name is private to its file (top level) or its class (members). The
+  standard library follows the same rule, so it now reads `io::Println`,
+  `fs::Read`, `math::Sqrt`, and so on (package names themselves —
+  `io`, `fs`, `math` — stay lowercase, exactly like a Go package name).
+  The program's entry point is now capitalized too: **`func Main()`**, not
