@@ -76,3 +76,7 @@ of the language and toolchain at once:
   `fs::Read`, `math::Sqrt`, and so on (package names themselves —
   `io`, `fs`, `math` — stay lowercase, exactly like a Go package name).
   The program's entry point is now capitalized too: **`func Main()`**, not
+  `func main()`. `private` itself is a reserved word that now always
+  produces a compile error pointing at this.
+- **`type Name = T`** declares a transparent type alias (Go-style),
+  anywhere a type could otherwise be written.
