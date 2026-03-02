@@ -65,3 +65,6 @@ testing — a solid, working first version, not a hardened toolchain.
 
 ## 2026 redesign
 
+A later pass through the whole compiler changed several load-bearing pieces
+of the language and toolchain at once:
+
