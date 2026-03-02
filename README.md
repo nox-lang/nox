@@ -170,3 +170,7 @@ nothing beyond what tcc's win32 `.def`-based import stubs already provide.
 nox init <name>                  Scaffold a new package: ./<name>/nox.toml, ./<name>/src/main.nox
 nox build                        Build the package in the current directory (nox.toml + src/) -> build/<name>
                                   Dependencies declared via 'nox get' are cloned here first, if missing.
+nox build <file.nox>             Build one file -> an executable next to it. No build/ directory,
+                                  no .c file kept, unless...
+nox build <file.nox> --emit-c    ...this is passed, which also writes <file>.c next to it.
+nox get <source>                 Declare a dependency (e.g. github.com/user/repo) in nox.toml.
