@@ -155,3 +155,7 @@ bundled toolchain entirely and use a specific external tcc binary instead.
   `include/nox/nox.h`'s `NOX_USE_GC`).
 - **pthreads** — linked for `async`/`await`/`parallel`/`Thread`/`Task`, for
   a native non-Windows-target build only. A Windows target (cross-compiled
+  from Linux/macOS, or built natively on Windows) uses the Win32 API
+  (`CreateThread`/`WaitForSingleObject`) directly instead — see "Threading
+  and thread-local storage" below — so there is no pthread dependency
+  there at all.
