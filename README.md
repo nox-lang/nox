@@ -63,3 +63,5 @@ programs under `examples/` (see "What's been tested"), but it's a
 from-scratch implementation and has **not** had long-term, adversarial
 testing — a solid, working first version, not a hardened toolchain.
 
+## 2026 redesign
+
