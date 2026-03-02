@@ -215,3 +215,6 @@ multi-threaded GC *registration* segfaults on a tcc-compiled Windows binary
 it's the actual fix. This was verified end-to-end in this environment: a
 program exercising slices, arrays, `map`, classes with `static` members,
 `Thread`/`Task`, and `async`/`await`/`parallel` together was cross-compiled
+with the bundled toolchain and produced byte-identical output running
+under Wine to the same program built natively for Linux.
+
