@@ -44,3 +44,7 @@ Hello, World!
 >   `static` class members; `Thread`/`Task` (alongside the still-present
 >   `async`/`await`/`parallel`); nox-tcc fully bundled into `nox` itself;
 >   and `nox get` deferring its `git clone` to the next `nox build`.
+>
+> `nox-spec.md` is kept unmodified as the historical starting point; this
+> README describes the language and compiler as actually implemented.
+
