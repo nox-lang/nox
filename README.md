@@ -190,3 +190,6 @@ file — by default it leaves nothing behind but the executable itself.
 project root (the directory with `nox.toml`, or the entry file's directory
 for `nox build <file.nox>`), as either `some/path.nox` or a directory
 `some/path/` of `.nox` files. Per the spec, the unaliased path becomes the
+`::`-namespace (`import("libs/math")` → `libs::math::add(...)`); an alias
+shortens it (`import("libs/math") as m` → `m::add(...)`).
+
