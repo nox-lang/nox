@@ -28,3 +28,7 @@ $ ./hello
 Hello, World!
 ```
 
+> **Note on this README vs. `nox-spec.md`:** this repository also contains
+> `nox-spec.md`, the original Nox specification as first given to build
+> this compiler. Development continued past that document in two rounds of
+> direct amendments that supersede what `nox-spec.md` shows:
