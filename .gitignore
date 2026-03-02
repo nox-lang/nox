@@ -6,3 +6,7 @@
 /cmd/dumpast/
 nox.bin
 
+# `nox build <file.nox>` (single-file mode) writes the executable, and
+# optionally the .c source with --emit-c, right next to the source file
+# rather than into a build/ directory -- so example binaries land directly
+# in examples/ with no extension to glob on. Ignore each by name instead.
