@@ -179,3 +179,7 @@ nox get <source>                 Declare a dependency (e.g. github.com/user/repo
                                   EnsureDeps). 'nox get' alone only ever edits nox.toml.
 ```
 
+The distinction is deliberate: `nox build` alone only makes sense for a
+package that has a `nox.toml` (created by `nox init`), and always produces
+`build/<package-name>` (plus `build/<package-name>.c`), matching the spec's
+description of multiple files under `src/` becoming one executable.
