@@ -211,3 +211,7 @@ A Windows target — cross-compiled from Linux/macOS, or built natively on
 Windows — always uses the non-collecting allocator instead of Boehm GC (see
 `include/nox/nox.h`'s `NOX_USE_GC`), sidestepping a real, known crash:
 multi-threaded GC *registration* segfaults on a tcc-compiled Windows binary
+(see `tcc/GC_BUNDLE.md`), so this isn't a placeholder pending a real fix —
+it's the actual fix. This was verified end-to-end in this environment: a
+program exercising slices, arrays, `map`, classes with `static` members,
+`Thread`/`Task`, and `async`/`await`/`parallel` together was cross-compiled
