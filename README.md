@@ -164,3 +164,5 @@ bundled toolchain entirely and use a specific external tcc binary instead.
 `buildCompileCommand` in `cmd/nox/main.go`); a Windows target links against
 nothing beyond what tcc's win32 `.def`-based import stubs already provide.
 
+## Using the `nox` CLI
+
