@@ -100,3 +100,7 @@ of the language and toolchain at once:
 - **`Thread`/`Task`**, alongside the pre-existing `async`/`await`/
   `parallel` (both now share one underlying runtime, and freely
   interoperate): `Thread.new(() { ... })` / `.Start()` / `.Join()` for a
+  plain thread; `Task.Run(() { ... })` / `.Result` / `Task.WhenAll(tasks)`
+  for a C#-`Task`-flavored alternative to `async func`+`await`.
+- **nox-tcc is now bundled inside `nox` itself** — see "The bundled
+  toolchain" below — rather than being a separately installed `tcc`.
