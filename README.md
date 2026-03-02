@@ -166,3 +166,7 @@ nothing beyond what tcc's win32 `.def`-based import stubs already provide.
 
 ## Using the `nox` CLI
 
+```
+nox init <name>                  Scaffold a new package: ./<name>/nox.toml, ./<name>/src/main.nox
+nox build                        Build the package in the current directory (nox.toml + src/) -> build/<name>
+                                  Dependencies declared via 'nox get' are cloned here first, if missing.
