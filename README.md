@@ -207,3 +207,7 @@ and caches it alongside the native one, entirely automatically. `NOX_TCC`
 still works as a manual override if you'd rather supply your own tcc build
 for the target.
 
+A Windows target — cross-compiled from Linux/macOS, or built natively on
+Windows — always uses the non-collecting allocator instead of Boehm GC (see
+`include/nox/nox.h`'s `NOX_USE_GC`), sidestepping a real, known crash:
+multi-threaded GC *registration* segfaults on a tcc-compiled Windows binary
