@@ -10,3 +10,7 @@ nox.bin
 # optionally the .c source with --emit-c, right next to the source file
 # rather than into a build/ directory -- so example binaries land directly
 # in examples/ with no extension to glob on. Ignore each by name instead.
+/examples/01_hello
+/examples/01_hello.c
+/examples/02_arrays_and_functions
+/examples/02_arrays_and_functions.c
