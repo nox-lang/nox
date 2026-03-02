@@ -88,3 +88,7 @@ of the language and toolchain at once:
   length/capacity, `a.length` an array's (a compile-time constant).
 - **Associative arrays**: `map<K, V>`, with a literal form (`{k: v, ...}`
   or the explicit `map<K, V>{...}`), `make(map<K, V>)`, `m[k]` /
+  `m[k] = v`, `.length`, and `for (k, v in m)` (insertion-ordered).
+- **`for (v in range(lo, hi[, step]))`** (and `range(hi)`, `range(lo, hi)`)
+  — a direct counting loop, compiled without ever materializing a slice.
+- **The blank identifier `_`** discards a value — `let _ = f()`,
