@@ -132,3 +132,6 @@ actually needs it, `nox`:
    (`os.UserCacheDir()/nox/toolchain-v1/`);
 2. runs its `./configure` + `make` (for a native build) or
    `make cross-x86_64-win32` (the first time a Windows target is built —
+   tcc cross-builds itself, see `tcc/GC_BUNDLE.md`) there, once;
+3. every later build reuses that cached binary directly.
+
