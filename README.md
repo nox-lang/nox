@@ -111,3 +111,6 @@ of the language and toolchain at once:
 
 ## Building the compiler itself
 
+Requires Go 1.22+. No external Go modules are used (everything is standard
+library), so it builds offline:
+
