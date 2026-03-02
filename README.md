@@ -20,3 +20,7 @@ func Main() {
     io::Println("Hello, World!")
 }
 
+$ nox build hello.nox
+compiling -> hello (linux/amd64) via bundled nox-tcc
+built hello
+
