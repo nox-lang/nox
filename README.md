@@ -147,3 +147,7 @@ bootstrap in step 2; after that, the host compiler is never invoked again.
 `NOX_TCC=/path/to/tcc` remains available as an escape hatch to bypass the
 bundled toolchain entirely and use a specific external tcc binary instead.
 
+- **[Boehm GC](https://www.hboehm.info/gc/)** (`libgc`) — Nox's automatic
+  memory management, linked for a native (non-Windows-target) build only.
+  `apt install libgc-dev` on Debian/Ubuntu (needed on the *build* machine
+  only, to link against — not needed at all for a Windows-target build,
