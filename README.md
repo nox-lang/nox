@@ -84,3 +84,7 @@ of the language and toolchain at once:
   reference-like view — what "array" meant before); `[N]T` is a genuine
   fixed-size array, copied by value like a small struct. `make([]T, len[,
   cap])` allocates a slice with spare capacity up front; `s[lo:hi]` slices
+  either one (and a `string`); `s.length`/`s.capacity` read a slice's
+  length/capacity, `a.length` an array's (a compile-time constant).
+- **Associative arrays**: `map<K, V>`, with a literal form (`{k: v, ...}`
+  or the explicit `map<K, V>{...}`), `make(map<K, V>)`, `m[k]` /
