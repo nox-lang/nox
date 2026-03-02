@@ -203,3 +203,7 @@ That's it — no separate tcc build to go find and point at. The first time a
 Windows target is requested on a given machine, `nox` bootstraps tcc's own
 `x86_64-win32` cross target from the same bundled source (`make
 cross-x86_64-win32`; tcc can cross-build itself, per `tcc/GC_BUNDLE.md`)
+and caches it alongside the native one, entirely automatically. `NOX_TCC`
+still works as a manual override if you'd rather supply your own tcc build
+for the target.
+
