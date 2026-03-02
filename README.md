@@ -145,3 +145,5 @@ The only thing this still asks of the *host* machine is **some C compiler**
 (`cc`, `gcc`, or `clang` — tried in that order) to perform that one-time
 bootstrap in step 2; after that, the host compiler is never invoked again.
 `NOX_TCC=/path/to/tcc` remains available as an escape hatch to bypass the
+bundled toolchain entirely and use a specific external tcc binary instead.
+
