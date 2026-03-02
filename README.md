@@ -96,3 +96,7 @@ of the language and toolchain at once:
 - **`static`** on a class field or method makes it a class-level member —
   one `Counter.Total` shared by every instance, not per-object — reached
   as `ClassName.member` from anywhere (subject to the same
+  capitalization-is-visibility rule).
+- **`Thread`/`Task`**, alongside the pre-existing `async`/`await`/
+  `parallel` (both now share one underlying runtime, and freely
+  interoperate): `Thread.new(() { ... })` / `.Start()` / `.Join()` for a
