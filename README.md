@@ -24,3 +24,7 @@ $ nox build hello.nox
 compiling -> hello (linux/amd64) via bundled nox-tcc
 built hello
 
+$ ./hello
+Hello, World!
+```
+
