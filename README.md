@@ -48,3 +48,5 @@ Hello, World!
 > `nox-spec.md` is kept unmodified as the historical starting point; this
 > README describes the language and compiler as actually implemented.
 
+## Status
+
