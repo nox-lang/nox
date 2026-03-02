@@ -126,3 +126,5 @@ Put the resulting `nox` binary on your `PATH`.
 at the repository root is a **from-source-only** copy of nox-tcc
 (github.com/nox-lang/nox) — no prebuilt binaries — embedded straight into
 the `nox` binary (`embed.go`, `internal/toolchain`). The first time a build
+actually needs it, `nox`:
+
