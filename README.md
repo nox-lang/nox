@@ -218,3 +218,5 @@ program exercising slices, arrays, `map`, classes with `static` members,
 with the bundled toolchain and produced byte-identical output running
 under Wine to the same program built natively for Linux.
 
+## Threading and thread-local storage
+
