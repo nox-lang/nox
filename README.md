@@ -186,3 +186,7 @@ description of multiple files under `src/` becoming one executable.
 `nox build <file.nox>` is the lightweight, no-ceremony path for a single
 file — by default it leaves nothing behind but the executable itself.
 
+`import("some/path")` pulls in *another* package: resolved relative to the
+project root (the directory with `nox.toml`, or the entry file's directory
+for `nox build <file.nox>`), as either `some/path.nox` or a directory
+`some/path/` of `.nox` files. Per the spec, the unaliased path becomes the
