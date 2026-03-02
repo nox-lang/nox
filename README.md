@@ -32,3 +32,7 @@ Hello, World!
 > `nox-spec.md`, the original Nox specification as first given to build
 > this compiler. Development continued past that document in two rounds of
 > direct amendments that supersede what `nox-spec.md` shows:
+>
+> - The original round: **`return`/`next`/`yield` split apart** (see
+>   below) and, at the time, lowercase standard-library names — since
+>   superseded again by the round below.
