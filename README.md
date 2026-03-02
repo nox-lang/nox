@@ -199,3 +199,7 @@ shortens it (`import("libs/math") as m` → `m::add(...)`).
 NOX_OS=windows NOX_ARCH=amd64 nox build
 ```
 
+That's it — no separate tcc build to go find and point at. The first time a
+Windows target is requested on a given machine, `nox` bootstraps tcc's own
+`x86_64-win32` cross target from the same bundled source (`make
+cross-x86_64-win32`; tcc can cross-build itself, per `tcc/GC_BUNDLE.md`)
