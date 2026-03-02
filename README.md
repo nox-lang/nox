@@ -68,3 +68,7 @@ testing — a solid, working first version, not a hardened toolchain.
 A later pass through the whole compiler changed several load-bearing pieces
 of the language and toolchain at once:
 
+- **`private` is gone.** Visibility is now Go-style and automatic:
+  anything — a top-level `func`/`let`/`class`, or a class field/method —
+  whose name starts with an uppercase letter is public; a lowercase-initial
+  name is private to its file (top level) or its class (members). The
