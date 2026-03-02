@@ -193,3 +193,5 @@ for `nox build <file.nox>`), as either `some/path.nox` or a directory
 `::`-namespace (`import("libs/math")` → `libs::math::add(...)`); an alias
 shortens it (`import("libs/math") as m` → `m::add(...)`).
 
+### Cross-compilation
+
