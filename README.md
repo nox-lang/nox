@@ -220,3 +220,7 @@ under Wine to the same program built natively for Linux.
 
 ## Threading and thread-local storage
 
+`async`/`await`/`parallel` and the per-thread error-propagation state (see
+"Error handling" below) both need threads and thread-local storage.
+`runtime.c` abstracts both behind small macros
+(`NOX_THREAD_CREATE`/`NOX_THREAD_JOIN`/`NOX_TLS_*`) with two implementations
