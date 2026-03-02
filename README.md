@@ -122,3 +122,7 @@ Put the resulting `nox` binary on your `PATH`.
 
 ### The bundled toolchain
 
+`nox` no longer depends on a separately installed tcc. The `tcc/` directory
+at the repository root is a **from-source-only** copy of nox-tcc
+(github.com/nox-lang/nox) — no prebuilt binaries — embedded straight into
+the `nox` binary (`embed.go`, `internal/toolchain`). The first time a build
