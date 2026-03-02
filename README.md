@@ -16,3 +16,7 @@ import(
     "io"
 )
 
+func Main() {
+    io::Println("Hello, World!")
+}
+
