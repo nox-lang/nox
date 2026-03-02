@@ -226,3 +226,7 @@ under Wine to the same program built natively for Linux.
 (`NOX_THREAD_CREATE`/`NOX_THREAD_JOIN`/`NOX_TLS_*`) with two implementations
 selected by `#if defined(_WIN32)`:
 
+- **Windows**: native Win32 — `CreateThread`/`WaitForSingleObject` for
+  threads, `TlsAlloc`/`TlsGetValue`/`TlsSetValue` for thread-local storage.
+  `<pthread.h>` is never included on this path, and no pthreads
+  implementation (bundled, static, or DLL) is a dependency of a Windows
