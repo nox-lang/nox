@@ -26,3 +26,5 @@ nox.bin
 /examples/07_recursion_and_globals.c
 /examples/08_stdlib_and_nested_loops
 /examples/08_stdlib_and_nested_loops.c
+/examples/09_classes_in_arrays
+/examples/09_classes_in_arrays.c
