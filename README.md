@@ -472,3 +472,7 @@ natively on Linux with `tcc`:
   inferred vs. an annotated return type, compound assignment, int vs.
   float division.
 - `08_stdlib_and_nested_loops.nox` — a class instantiated at two different
+  field types (`Box.new(42)` and `Box.new("hello")`), string
+  (in)equality/ordering, `random`/`path`/`time`/`math`, nested loops with
+  independent `next`/`break` targets.
+- `09_classes_in_arrays.nox` — arrays of class instances, `.find()`
