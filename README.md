@@ -302,3 +302,7 @@ for the other two roles to get their own keywords. As implemented:
   separate function — see below — so a `return` inside one really does exit
   the whole enclosing Nox function, not just that callback).
 - **`next`** / **`next <value>`** — `for`/`while` loop control, like C's
+  `continue`. Bare `next` just moves on to the next iteration. `next value`
+  *also* collects `value` into an array that becomes the loop's own value
+  when the loop is used as an expression (`let xs = for (...) { ... next
+  y }`) — this is what `return value` used to do inside a loop, per the
