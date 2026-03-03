@@ -367,3 +367,7 @@ oversights:
   `find()` result over a class-typed array at all.
 - **Untyped `let value` with no initializer**: requires an explicit type
   (`let value: int`) — deferred inference from a *later* assignment
+  elsewhere in the function was judged too failure-prone to implement
+  reliably in the time available, so it's a clear compile error pointing at
+  the fix instead.
+- **Untyped variadic parameters** (`values...`): element type inferred from
