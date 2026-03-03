@@ -261,3 +261,7 @@ The spec asks for "strong type inference" and shows both annotated and
 *unannotated* function parameters (`func add(a, b)` and class fields typed
 only by how a constructor happens to be called, e.g. `Dog.new("Pochi", 3)`
 with no type anywhere in the class body). A conventional
+Hindley-Milner-style inference pass doesn't fall out of that naturally when
+combined with C as a backend — there's no polymorphism in C. Instead, this
+compiler treats any function/class whose parameters aren't fully annotated
+as an implicit generic, and **monomorphizes on demand**: the first time
