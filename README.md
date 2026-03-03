@@ -438,3 +438,7 @@ oversights:
 - Class field types can't be forward-declared for another not-yet-used
   class — see the monomorphization section above.
 - `nox get` shells out to `git clone --depth 1`; only git-reachable sources
+  work, no registry, no version pinning/locking beyond `git`'s default ref.
+- No nested `func` declarations inside a function body — only top-level
+  functions and anonymous function *expressions* (`(x) { ... }`), matching
+  every example in the spec.
