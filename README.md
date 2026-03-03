@@ -329,3 +329,7 @@ compile error pointing at the ambiguity. `yield` outside a callback, or
 required, ordinary statements inside. It can *also* be used as an
 expression (`let x = if (c) { a } else { b }`), which is a separate, and
 stricter, form: **every branch must be present** (an `else`, or an `else
+if` chain ending in `else`, is required — there's no "value" for a path
+that falls through nothing) and **each branch's last statement must be a
+bare value expression**, which becomes that branch's contribution to the
+result (Rust/Kotlin-style trailing-expression value, not a `break`/`yield`
