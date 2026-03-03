@@ -274,3 +274,7 @@ from `main`:
   emitted — dead-code elimination is a side effect of the architecture.
 - **A genuinely recursive function whose return type isn't established
   before its first self-call needs an explicit return-type annotation**
+  (`func fib(n): int { ... }`). If the base case's `return` is textually
+  first, this isn't needed. If the recursive call comes first, the
+  compiler asks for the annotation rather than silently producing
+  something wrong.
