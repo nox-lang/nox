@@ -282,3 +282,6 @@ from `main`:
   `this.field = ...` assignments — the type of the first assignment wins. A
   field never assigned in `init` needs an explicit type or a default value.
   An explicit type annotation on a *class* type (`let x: Dog`) only
+  resolves if some `Dog.new(...)` call has already been monomorphized
+  elsewhere in the program.
+
