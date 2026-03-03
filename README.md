@@ -325,3 +325,7 @@ compile error pointing at the ambiguity. `yield` outside a callback, or
 
 ## `if` as an expression
 
+`if` can be used as a statement exactly as it always was — no `else`
+required, ordinary statements inside. It can *also* be used as an
+expression (`let x = if (c) { a } else { b }`), which is a separate, and
+stricter, form: **every branch must be present** (an `else`, or an `else
