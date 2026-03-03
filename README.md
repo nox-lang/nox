@@ -355,3 +355,7 @@ build it's Boehm GC's `GC_FREE`.
 
 ## Filled-in gaps
 
+Some corners the spec leaves unspecified (intentionally, per its own text
+in a few places), plus the amendments above. Deliberate choices, not
+oversights:
+
