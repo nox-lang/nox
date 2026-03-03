@@ -251,3 +251,7 @@ internal/ast/            AST node definitions
 internal/parser/         Recursive-descent parser
 internal/codegen/        The compiler proper (AST -> C); see below
 internal/runtime/c/      The C runtime prelude, embedded into every build
+internal/pkgmgr/         nox.toml + `nox init`/`nox get`
+examples/                Sample programs (see "What's been tested")
+```
+
