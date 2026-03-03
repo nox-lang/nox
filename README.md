@@ -294,3 +294,7 @@ keep looping" inside `for`/`while`; implicitly, a callback's result inside
 to mean the same single thing everywhere, like in most other languages, and
 for the other two roles to get their own keywords. As implemented:
 
+- **`return`** — always, unconditionally, exits the nearest enclosing
+  *function* (or closure/async body) with a value, full stop — even from
+  inside a `for`/`while` loop, even from inside an
+  `each`/`map`/`filter`/`find` callback (callbacks passed as a literal
