@@ -432,3 +432,5 @@ oversights:
   dereference operators, since the spec names the type but shows no syntax
   for producing or using a pointer value.
 
+## Known limitations
+
