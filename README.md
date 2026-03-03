@@ -383,3 +383,7 @@ oversights:
   string (`Scan` — one whitespace-delimited token; `Scanln`/`Scanf` — one
   line); convert with `.toInt()`/`.toFloat()` etc. `Scanf` does not do real
   `scanf`-style format parsing.
+- **`time::Now()`/`Unix()`**: a plain `int` Unix timestamp, no separate
+  opaque time type (none is in the spec's basic-types list, §5).
+- **`math::Sqrt(16)` etc. with a bare int literal**: Nox performs zero
+  implicit conversion between typed *values* (§5), but an integer *literal*
