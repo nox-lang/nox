@@ -298,3 +298,7 @@ for the other two roles to get their own keywords. As implemented:
   *function* (or closure/async body) with a value, full stop — even from
   inside a `for`/`while` loop, even from inside an
   `each`/`map`/`filter`/`find` callback (callbacks passed as a literal
+  lambda are inlined directly into the caller rather than compiled as a
+  separate function — see below — so a `return` inside one really does exit
+  the whole enclosing Nox function, not just that callback).
+- **`next`** / **`next <value>`** — `for`/`while` loop control, like C's
