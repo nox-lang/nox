@@ -460,3 +460,7 @@ natively on Linux with `tcc`:
   methods, `switch` as both a statement and an expression, loop
   `break <value>`, loop-collecting `next <value>`, `defer` ordering (LIFO).
 - `04_errors_closures_pointers.nox` — `fs::Write`/`fs::Read`, `?`
+  propagation, `try`/`catch` (happy path and a real I/O error), closures
+  with and without captured variables, `pointer<T>`/`&`/`*`, default and
+  variadic arguments.
+- `05_async_await_parallel.nox` — `async func`, `await`, `parallel { }`.
