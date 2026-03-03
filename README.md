@@ -318,3 +318,7 @@ for the other two roles to get their own keywords. As implemented:
   or `switch`, optionally carrying a final value out as that construct's
   value when used as an expression.
 
+A loop can't mix `next <value>` and `break <value>` (which "shape" would the
+loop's value be, a collected array or a single break value?); that's a
+compile error pointing at the ambiguity. `yield` outside a callback, or
+`next` outside a loop, are compile errors too, not silent no-ops.
