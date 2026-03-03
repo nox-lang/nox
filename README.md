@@ -415,3 +415,7 @@ oversights:
   type (`let t: Task<int> = ...`), and the explicit `Thread`/`Task` API
   (`Thread.new`/`.Start`/`.Join`, `Task.Run`/`.Result`/`Task.WhenAll`) is
   a second, freely-interoperating way to reach the same underlying
+  runtime — see "2026 redesign" above.
+- **Error/`Result` model**: rather than an explicit `Result<T, E>` type, a
+  fallible call (the `fs::*` functions, plus any Nox function using `?` or
+  calling another fallible function) sets an internal per-thread error flag
