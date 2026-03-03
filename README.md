@@ -468,3 +468,7 @@ natively on Linux with `tcc`:
   without a custom comparator, multi-dimensional arrays, a class with a
   lowercase-initial (private) field, calling an `include`d C function
   directly, `find()` (`yield`).
+- `07_recursion_and_globals.nox` — global variables, recursion with an
+  inferred vs. an annotated return type, compound assignment, int vs.
+  float division.
+- `08_stdlib_and_nested_loops.nox` — a class instantiated at two different
