@@ -337,3 +337,5 @@ keyword) — deliberately so that `break`/`next` written inside a plain
 statement-form `if` (overwhelmingly the more common case — `if (x) { break
 }` inside a loop, to exit early) keep meaning exactly what they've always
 meant, targeting the enclosing loop, completely unaffected by whether that
+`if` happens to also be usable as an expression elsewhere.
+
