@@ -411,3 +411,7 @@ oversights:
   and, per every spec example, is itself wrapped in `await` — so
   `parallel { ... }` evaluates to an array of not-yet-joined task handles,
   and `await` on that array specifically joins all of them in order and
+  collects the results. Since the 2026 redesign, `Task<T>` *is* a nameable
+  type (`let t: Task<int> = ...`), and the explicit `Thread`/`Task` API
+  (`Thread.new`/`.Start`/`.Join`, `Task.Run`/`.Result`/`Task.WhenAll`) is
+  a second, freely-interoperating way to reach the same underlying
