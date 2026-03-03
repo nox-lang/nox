@@ -353,3 +353,5 @@ it is undefined behavior, exactly like a manual `free()` in C. On a
 `NOX_NO_GC` (cross-compiled) build this is a real `free()`; on a native
 build it's Boehm GC's `GC_FREE`.
 
+## Filled-in gaps
+
