@@ -427,3 +427,7 @@ oversights:
 - **Bitwise operators** (`& | ^`) and compound assignment (`+= -= *= /=`):
   not in the spec's grammar, added at ordinary precedence as a small,
   additive convenience.
+- **Pointers**: `pointer<T>` maps to a real `T*`. `&expr` (on a variable,
+  array element, or class field) and `*expr` are the address-of and
+  dereference operators, since the spec names the type but shows no syntax
+  for producing or using a pointer value.
