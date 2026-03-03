@@ -247,3 +247,7 @@ the same generated `.c` file is what's compiled for every target.
 cmd/nox/                 CLI entry point (init/build/get, the tcc invocation)
 internal/token/          Lexer token kinds
 internal/lexer/          Hand-written lexer
+internal/ast/            AST node definitions
+internal/parser/         Recursive-descent parser
+internal/codegen/        The compiler proper (AST -> C); see below
+internal/runtime/c/      The C runtime prelude, embedded into every build
