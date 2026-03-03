@@ -482,3 +482,7 @@ Beyond the example files, also exercised directly: `if` as an expression
 (including an `else if` chain), bare `next` as pure loop control with no
 collection, `return` from inside a `for` loop now genuinely exiting the
 enclosing function (not collecting), `.delete()` on a string, `NOX_TCC`
+pointing at a non-default tcc binary, `nox build <file.nox>` leaving no
+`build/` directory behind, `--emit-c` producing the `.c` file alongside the
+binary, `nox build` package mode continuing to produce `build/<name>` (with
+its `.c`) for a `nox init`-created project with multiple files under
