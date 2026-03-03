@@ -287,3 +287,7 @@ from `main`:
 
 ## `return` / `next` / `yield` / `break`: four distinct, non-overlapping jumps
 
+The original spec overloads `return` with three different meanings
+depending on where it's written (a plain return; "collect this value and
+keep looping" inside `for`/`while`; implicitly, a callback's result inside
+`each`/`map`/`filter`/`find`). Later direction explicitly asked for `return`
