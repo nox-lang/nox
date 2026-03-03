@@ -476,3 +476,5 @@ natively on Linux with `tcc`:
   (in)equality/ordering, `random`/`path`/`time`/`math`, nested loops with
   independent `next`/`break` targets.
 - `09_classes_in_arrays.nox` — arrays of class instances, `.find()`
+  returning `null` and comparing against it.
+
