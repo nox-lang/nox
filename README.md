@@ -345,3 +345,7 @@ Available on strings, arrays, class instances, and pointers: explicitly
 frees the underlying GC-managed memory *right now* rather than waiting for
 the collector, and clears the receiver (only meaningful, i.e. only has a
 lasting effect, when the receiver is a real variable/array-element/class-field
+— see `genReceiverLvalue` in the codegen). This is a deliberate escape hatch
+from automatic memory management for a specific reason to want one (freeing
+something known-large and known-dead early); it is **not** something normal
+Nox code needs to reach for, and using a value again after `.delete()`-ing
