@@ -456,3 +456,7 @@ natively on Linux with `tcc`:
 - `02_arrays_and_functions.nox` — arithmetic, generically-typed functions,
   `if`/`while`, arrays (`length`, `push`, `pop`, indexed `for`),
   `each`/`map`/`filter` (using `yield`).
+- `03_classes_and_control_flow.nox` — a class with a constructor and
+  methods, `switch` as both a statement and an expression, loop
+  `break <value>`, loop-collecting `next <value>`, `defer` ordering (LIFO).
+- `04_errors_closures_pointers.nox` — `fs::Write`/`fs::Read`, `?`
