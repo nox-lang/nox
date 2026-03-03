@@ -403,3 +403,7 @@ oversights:
   *enclosing function*, not just the callback (see above).
 - **`defer` inside a loop or `if`**: a per-`defer` "armed" flag checked once
   at the function's single exit point, not a dynamic stack — a `defer` that
+  executes 3 times across 3 loop iterations still only runs **once**, at
+  the very end (last-registration-wins), not three times.
+- **`async`/`parallel`/`Task`**: calling an `async func` starts it running
+  immediately (spawns a thread) and returns a `Task` handle; `await` blocks
