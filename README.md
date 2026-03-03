@@ -270,3 +270,7 @@ as an implicit generic, and **monomorphizes on demand**: the first time
 C++ templates or Zig's comptime generics, driven by the call graph starting
 from `main`:
 
+- A function that's never called (with any concrete types) is never
+  emitted — dead-code elimination is a side effect of the architecture.
+- **A genuinely recursive function whose return type isn't established
+  before its first self-call needs an explicit return-type annotation**
