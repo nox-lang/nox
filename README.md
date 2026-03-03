@@ -243,3 +243,7 @@ the same generated `.c` file is what's compiled for every target.
 
 ## Repository layout
 
+```
+cmd/nox/                 CLI entry point (init/build/get, the tcc invocation)
+internal/token/          Lexer token kinds
+internal/lexer/          Hand-written lexer
