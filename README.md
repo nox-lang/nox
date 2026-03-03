@@ -349,3 +349,7 @@ lasting effect, when the receiver is a real variable/array-element/class-field
 from automatic memory management for a specific reason to want one (freeing
 something known-large and known-dead early); it is **not** something normal
 Nox code needs to reach for, and using a value again after `.delete()`-ing
+it is undefined behavior, exactly like a manual `free()` in C. On a
+`NOX_NO_GC` (cross-compiled) build this is a real `free()`; on a native
+build it's Boehm GC's `GC_FREE`.
+
