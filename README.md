@@ -371,3 +371,7 @@ oversights:
   reliably in the time available, so it's a clear compile error pointing at
   the fix instead.
 - **Untyped variadic parameters** (`values...`): element type inferred from
+  the first call site's arguments; zero variadic arguments with no
+  annotation defaults to `int`.
+- **Default-argument expressions**: evaluated in the callee's own scope
+  (can see earlier parameters and globals, not the caller's locals).
