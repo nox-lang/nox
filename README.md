@@ -375,3 +375,7 @@ oversights:
   annotation defaults to `int`.
 - **Default-argument expressions**: evaluated in the callee's own scope
   (can see earlier parameters and globals, not the caller's locals).
+- **`io::Print`/`Println`**: any number of arguments of any printable type,
+  printed in sequence with no separator. **`io::Printf`/`Printfn`**: the
+  `{}`-placeholder format string must be a string literal, resolved
+  entirely at compile time.
