@@ -379,3 +379,7 @@ oversights:
   printed in sequence with no separator. **`io::Printf`/`Printfn`**: the
   `{}`-placeholder format string must be a string literal, resolved
   entirely at compile time.
+- **`io::Scan`/`Scanln`/`Scanf`**: take **zero** arguments and *return* a
+  string (`Scan` — one whitespace-delimited token; `Scanln`/`Scanf` — one
+  line); convert with `.toInt()`/`.toFloat()` etc. `Scanf` does not do real
+  `scanf`-style format parsing.
