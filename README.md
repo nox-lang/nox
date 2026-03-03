@@ -464,3 +464,7 @@ natively on Linux with `tcc`:
   with and without captured variables, `pointer<T>`/`&`/`*`, default and
   variadic arguments.
 - `05_async_await_parallel.nox` — `async func`, `await`, `parallel { }`.
+- `06_strings_and_sorting.nox` — every string method, `sort()` with and
+  without a custom comparator, multi-dimensional arrays, a class with a
+  lowercase-initial (private) field, calling an `include`d C function
+  directly, `find()` (`yield`).
