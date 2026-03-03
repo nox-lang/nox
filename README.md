@@ -241,3 +241,5 @@ Generated code (in `internal/codegen/async.go` and `closures.go`) only ever
 emits the portable macro names, never a platform-specific call directly, so
 the same generated `.c` file is what's compiled for every target.
 
+## Repository layout
+
