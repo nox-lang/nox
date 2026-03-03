@@ -323,3 +323,5 @@ loop's value be, a collected array or a single break value?); that's a
 compile error pointing at the ambiguity. `yield` outside a callback, or
 `next` outside a loop, are compile errors too, not silent no-ops.
 
+## `if` as an expression
+
