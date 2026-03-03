@@ -341,3 +341,7 @@ meant, targeting the enclosing loop, completely unaffected by whether that
 
 ## `.delete()`
 
+Available on strings, arrays, class instances, and pointers: explicitly
+frees the underlying GC-managed memory *right now* rather than waiting for
+the collector, and clears the receiver (only meaningful, i.e. only has a
+lasting effect, when the receiver is a real variable/array-element/class-field
