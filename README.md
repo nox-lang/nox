@@ -339,3 +339,5 @@ statement-form `if` (overwhelmingly the more common case — `if (x) { break
 meant, targeting the enclosing loop, completely unaffected by whether that
 `if` happens to also be usable as an expression elsewhere.
 
+## `.delete()`
+
