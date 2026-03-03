@@ -387,3 +387,7 @@ oversights:
   opaque time type (none is in the spec's basic-types list, §5).
 - **`math::Sqrt(16)` etc. with a bare int literal**: Nox performs zero
   implicit conversion between typed *values* (§5), but an integer *literal*
+  (not a variable) argument to these specific stdlib functions auto-widens
+  to float, since the spec's own example does exactly this.
+- **`include`d C functions**: called by bare name (`stdio::printf(...)`).
+  String arguments become raw `char*`. The call's Nox-level type is
