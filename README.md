@@ -419,3 +419,7 @@ oversights:
 - **Error/`Result` model**: rather than an explicit `Result<T, E>` type, a
   fallible call (the `fs::*` functions, plus any Nox function using `?` or
   calling another fallible function) sets an internal per-thread error flag
+  and returns the type's zero value on failure. `?` checks the flag and
+  propagates (early-returns, running `defer`s) if set; unhandled, the flag
+  auto-propagates up the call stack after every statement — like an
+  exception — until a `try { ... } catch (e) { ... }` catches it (`e` is
