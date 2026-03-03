@@ -237,3 +237,7 @@ selected by `#if defined(_WIN32)`:
   key/slot API on this path too, rather than a compiler-level thread-local
   variable.
 
+Generated code (in `internal/codegen/async.go` and `closures.go`) only ever
+emits the portable macro names, never a platform-specific call directly, so
+the same generated `.c` file is what's compiled for every target.
+
