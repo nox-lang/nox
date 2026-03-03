@@ -255,3 +255,5 @@ internal/pkgmgr/         nox.toml + `nox init`/`nox get`
 examples/                Sample programs (see "What's been tested")
 ```
 
+### How codegen works: monomorphization, not a type checker
+
