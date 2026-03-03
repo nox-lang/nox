@@ -278,3 +278,7 @@ from `main`:
   first, this isn't needed. If the recursive call comes first, the
   compiler asks for the annotation rather than silently producing
   something wrong.
+- A class's field types are discovered by compiling `init` and watching for
+  `this.field = ...` assignments — the type of the first assignment wins. A
+  field never assigned in `init` needs an explicit type or a default value.
+  An explicit type annotation on a *class* type (`let x: Dog`) only
