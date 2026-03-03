@@ -452,3 +452,7 @@ Everything under `examples/` was written to exercise a broad cross-section
 of the language and has been built and run (output verified by hand),
 natively on Linux with `tcc`:
 
+- `01_hello.nox` — the spec's own Hello World.
+- `02_arrays_and_functions.nox` — arithmetic, generically-typed functions,
+  `if`/`while`, arrays (`length`, `push`, `pop`, indexed `for`),
+  `each`/`map`/`filter` (using `yield`).
