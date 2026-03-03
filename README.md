@@ -306,3 +306,7 @@ for the other two roles to get their own keywords. As implemented:
   *also* collects `value` into an array that becomes the loop's own value
   when the loop is used as an expression (`let xs = for (...) { ... next
   y }`) — this is what `return value` used to do inside a loop, per the
+  original spec's §11.1. `next` always targets the nearest enclosing real
+  loop, skipping over (but not affected by) an intervening `switch`
+  (switches never intercept it, matching how `break` does affect `switch`
+  but `next`/`continue` conceptually shouldn't).
