@@ -442,3 +442,7 @@ oversights:
 - No nested `func` declarations inside a function body — only top-level
   functions and anonymous function *expressions* (`(x) { ... }`), matching
   every example in the spec.
+- Cross-compilation's exact `NOX_TCC`-pointed-at-a-cross-build workflow is
+  implemented but not verified end-to-end in this environment (see
+  "Cross-compilation" above for exactly what *was* verified).
+
