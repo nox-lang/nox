@@ -399,3 +399,7 @@ oversights:
   e.g. `arr.each((x) { ... })` — a closure already stored in a variable
   isn't accepted there, with a clear error rather than a miscompile.
   Literal callbacks are inlined directly (not compiled as a separate
+  closure/function) — which is also why `return` inside one exits the
+  *enclosing function*, not just the callback (see above).
+- **`defer` inside a loop or `if`**: a per-`defer` "armed" flag checked once
+  at the function's single exit point, not a dynamic stack — a `defer` that
