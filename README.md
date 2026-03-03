@@ -363,3 +363,7 @@ oversights:
   value (`0`, `""`, `false`, or `null` for a class/pointer). `null` can't
   normally appear in Nox source (the spec forbids assigning it), but
   comparing a result against it — `result == null` — is allowed as a
+  narrow, specific exception, since otherwise there'd be no way to check a
+  `find()` result over a class-typed array at all.
+- **Untyped `let value` with no initializer**: requires an explicit type
+  (`let value: int`) — deferred inference from a *later* assignment
