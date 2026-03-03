@@ -333,3 +333,7 @@ if` chain ending in `else`, is required — there's no "value" for a path
 that falls through nothing) and **each branch's last statement must be a
 bare value expression**, which becomes that branch's contribution to the
 result (Rust/Kotlin-style trailing-expression value, not a `break`/`yield`
+keyword) — deliberately so that `break`/`next` written inside a plain
+statement-form `if` (overwhelmingly the more common case — `if (x) { break
+}` inside a loop, to exit early) keep meaning exactly what they've always
+meant, targeting the enclosing loop, completely unaffected by whether that
