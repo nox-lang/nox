@@ -310,3 +310,7 @@ for the other two roles to get their own keywords. As implemented:
   loop, skipping over (but not affected by) an intervening `switch`
   (switches never intercept it, matching how `break` does affect `switch`
   but `next`/`continue` conceptually shouldn't).
+- **`yield <value>`** — used inside an `each`/`eachIndex`/`map`/`filter`/
+  `find` callback (or a `.sort(...)` comparator) to supply that
+  invocation's result, without exiting the enclosing function. This is what
+  bare `return value` used to mean inside those callbacks.
