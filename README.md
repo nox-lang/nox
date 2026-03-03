@@ -265,3 +265,7 @@ Hindley-Milner-style inference pass doesn't fall out of that naturally when
 combined with C as a backend — there's no polymorphism in C. Instead, this
 compiler treats any function/class whose parameters aren't fully annotated
 as an implicit generic, and **monomorphizes on demand**: the first time
+`add(1, 2)` is seen, a concrete `add__i_i` is generated for `(int, int)`;
+`add(1.5, 2.5)` elsewhere gets its own `add__f_f`. This is the same idea as
+C++ templates or Zig's comptime generics, driven by the call graph starting
+from `main`:
