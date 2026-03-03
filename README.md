@@ -434,3 +434,7 @@ oversights:
 
 ## Known limitations
 
+- No self-hosting — this is the "implement in a real language first" phase.
+- Class field types can't be forward-declared for another not-yet-used
+  class — see the monomorphization section above.
+- `nox get` shells out to `git clone --depth 1`; only git-reachable sources
