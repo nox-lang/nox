@@ -359,3 +359,7 @@ Some corners the spec leaves unspecified (intentionally, per its own text
 in a few places), plus the amendments above. Deliberate choices, not
 oversights:
 
+- **`array.find()` when nothing matches**: returns the element type's zero
+  value (`0`, `""`, `false`, or `null` for a class/pointer). `null` can't
+  normally appear in Nox source (the spec forbids assigning it), but
+  comparing a result against it — `result == null` — is allowed as a
