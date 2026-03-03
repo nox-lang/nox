@@ -423,3 +423,7 @@ oversights:
   propagates (early-returns, running `defer`s) if set; unhandled, the flag
   auto-propagates up the call stack after every statement — like an
   exception — until a `try { ... } catch (e) { ... }` catches it (`e` is
+  the message, as a `string`) or it reaches `main` uncaught.
+- **Bitwise operators** (`& | ^`) and compound assignment (`+= -= *= /=`):
+  not in the spec's grammar, added at ordinary precedence as a small,
+  additive convenience.
