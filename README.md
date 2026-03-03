@@ -234,3 +234,6 @@ selected by `#if defined(_WIN32)`:
 - **Everywhere else**: plain POSIX pthreads (`pthread_create`/`pthread_join`,
   `pthread_key_t`). tcc does not support the `__thread` storage-class
   keyword, which is why thread-local storage goes through an explicit
+  key/slot API on this path too, rather than a compiler-level thread-local
+  variable.
+
