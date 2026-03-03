@@ -285,3 +285,5 @@ from `main`:
   resolves if some `Dog.new(...)` call has already been monomorphized
   elsewhere in the program.
 
+## `return` / `next` / `yield` / `break`: four distinct, non-overlapping jumps
+
