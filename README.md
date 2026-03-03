@@ -257,3 +257,7 @@ examples/                Sample programs (see "What's been tested")
 
 ### How codegen works: monomorphization, not a type checker
 
+The spec asks for "strong type inference" and shows both annotated and
+*unannotated* function parameters (`func add(a, b)` and class fields typed
+only by how a constructor happens to be called, e.g. `Dog.new("Pochi", 3)`
+with no type anywhere in the class body). A conventional
