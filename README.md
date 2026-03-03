@@ -291,3 +291,6 @@ The original spec overloads `return` with three different meanings
 depending on where it's written (a plain return; "collect this value and
 keep looping" inside `for`/`while`; implicitly, a callback's result inside
 `each`/`map`/`filter`/`find`). Later direction explicitly asked for `return`
+to mean the same single thing everywhere, like in most other languages, and
+for the other two roles to get their own keywords. As implemented:
+
