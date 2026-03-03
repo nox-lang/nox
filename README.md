@@ -391,3 +391,7 @@ oversights:
   to float, since the spec's own example does exactly this.
 - **`include`d C functions**: called by bare name (`stdio::printf(...)`).
   String arguments become raw `char*`. The call's Nox-level type is
+  approximated as `int` (there's no way to know an included header's real
+  prototype) — fine for calls used as statements, a known limitation
+  otherwise.
+- **Closures passed to `each`/`map`/`filter`/`find`/`sort`**: must be a
