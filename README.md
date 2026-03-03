@@ -314,3 +314,7 @@ for the other two roles to get their own keywords. As implemented:
   `find` callback (or a `.sort(...)` comparator) to supply that
   invocation's result, without exiting the enclosing function. This is what
   bare `return value` used to mean inside those callbacks.
+- **`break`** / **`break <value>`** — unchanged from the spec: exits a loop
+  or `switch`, optionally carrying a final value out as that construct's
+  value when used as an expression.
+
