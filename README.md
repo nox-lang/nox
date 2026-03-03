@@ -395,3 +395,7 @@ oversights:
   prototype) — fine for calls used as statements, a known limitation
   otherwise.
 - **Closures passed to `each`/`map`/`filter`/`find`/`sort`**: must be a
+  literal anonymous function at the call site (as in every spec example),
+  e.g. `arr.each((x) { ... })` — a closure already stored in a variable
+  isn't accepted there, with a clear error rather than a miscompile.
+  Literal callbacks are inlined directly (not compiled as a separate
