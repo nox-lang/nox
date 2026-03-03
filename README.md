@@ -478,3 +478,7 @@ natively on Linux with `tcc`:
 - `09_classes_in_arrays.nox` — arrays of class instances, `.find()`
   returning `null` and comparing against it.
 
+Beyond the example files, also exercised directly: `if` as an expression
+(including an `else if` chain), bare `next` as pure loop control with no
+collection, `return` from inside a `for` loop now genuinely exiting the
+enclosing function (not collecting), `.delete()` on a string, `NOX_TCC`
