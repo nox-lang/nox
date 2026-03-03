@@ -448,3 +448,7 @@ oversights:
 
 ## What's been tested
 
+Everything under `examples/` was written to exercise a broad cross-section
+of the language and has been built and run (output verified by hand),
+natively on Linux with `tcc`:
+
