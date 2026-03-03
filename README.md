@@ -407,3 +407,7 @@ oversights:
   the very end (last-registration-wins), not three times.
 - **`async`/`parallel`/`Task`**: calling an `async func` starts it running
   immediately (spawns a thread) and returns a `Task` handle; `await` blocks
+  for the result. `parallel { a(); b(); c() }` starts all three immediately
+  and, per every spec example, is itself wrapped in `await` — so
+  `parallel { ... }` evaluates to an array of not-yet-joined task handles,
+  and `await` on that array specifically joins all of them in order and
