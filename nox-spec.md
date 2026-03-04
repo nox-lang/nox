@@ -78,3 +78,7 @@ include(
 
 読み込んだC APIは名前空間からアクセスします。
 
+```text
+stdio::printf("Hello\n")
+```
+
