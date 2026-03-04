@@ -122,3 +122,5 @@ let name = "Tomoya"
 let age = 14
 ```
 
+型を明示することもできます。
+
