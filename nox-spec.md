@@ -94,3 +94,7 @@ include(
 cstdio::printf("Hello\n")
 ```
 
+`import` はNoxパッケージ、`include` はCヘッダという明確な役割分担になっています。
+
+# 3. 名前空間とメンバーアクセス
+
