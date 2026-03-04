@@ -490,3 +490,7 @@ its `.c`) for a `nox init`-created project with multiple files under
 The Windows-specific runtime path (Win32 threads/TLS, no pthread
 dependency) was compiled with a Windows-target C compiler and run under
 Wine, producing output identical to the native Linux build for both a
+plain program and one using `async`/`await`/`parallel`, and was confirmed
+via its DLL import table to depend on nothing but `KERNEL32.dll` and
+`msvcrt.dll` — no pthreads DLL, direct or indirect.
+
