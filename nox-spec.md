@@ -33,3 +33,7 @@ import(
     "io"
 )
 
+func main() {
+    io::Println("Hello, World!")
+}
+```
