@@ -189,3 +189,5 @@ let numbers = [1, 2, 3, 4, 5]
 let numbers: array<int> = []
 ```
 
+多次元配列にも対応します。
+
