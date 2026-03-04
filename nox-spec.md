@@ -10,3 +10,7 @@
 > given, for the historical record; see `README.md` for the language and
 > compiler as actually implemented.
 
+Noxは、静的型付けと強力な型推論を持つネイティブ向けプログラミング言語です。
+
+基本的なコードはシンプルに記述でき、必要に応じてC言語との直接的な連携も可能です。
+
