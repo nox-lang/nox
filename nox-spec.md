@@ -117,3 +117,7 @@ text.substring(0, 5)
 
 変数の宣言には `let` を使用します。
 
+```text
+let name = "Tomoya"
+let age = 14
+```
