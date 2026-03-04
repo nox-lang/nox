@@ -107,3 +107,7 @@ math::sqrt(16)
 
 `.` はオブジェクトや値のメンバーアクセスに使用します。
 
+```text
+dog.bark()
+numbers.length
+text.substring(0, 5)
