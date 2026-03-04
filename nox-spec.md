@@ -65,3 +65,7 @@ import("libs/math")
 libs::math::add(1, 2)
 ```
 
+## 2.3 include
+
+`include` はCヘッダを直接読み込みます。
+
