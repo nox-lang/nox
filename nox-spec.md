@@ -84,3 +84,7 @@ stdio::printf("Hello\n")
 
 エイリアスも指定できます。
 
+```text
+include(
+    "stdio.h" as cstdio
+)
