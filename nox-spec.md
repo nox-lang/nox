@@ -100,3 +100,7 @@ cstdio::printf("Hello\n")
 
 `::` は名前空間・パッケージ・ライブラリへのアクセスに使用します。
 
+```text
+io::Println("Hello")
+math::sqrt(16)
+```
