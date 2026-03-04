@@ -69,3 +69,7 @@ libs::math::add(1, 2)
 
 `include` はCヘッダを直接読み込みます。
 
+```text
+include(
+    "stdio.h",
+    "stdlib.h"
