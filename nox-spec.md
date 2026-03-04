@@ -38,3 +38,7 @@ func main() {
 }
 ```
 
+## 2.2 import
+
+`import` はNoxのパッケージを読み込みます。
+
