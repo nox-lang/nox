@@ -172,3 +172,6 @@ Noxでは暗黙の型変換を行いません。
 value.toInt()
 value.toFloat()
 value.toString()
+value.toBool()
+```
+
