@@ -175,3 +175,7 @@ value.toString()
 value.toBool()
 ```
 
+# 6. 配列
+
+配列は `[]` で記述します。
+
