@@ -8,3 +8,5 @@
 > distinct keywords instead of `return` being overloaded to mean three
 > different things by context. This file is kept exactly as originally
 > given, for the historical record; see `README.md` for the language and
+> compiler as actually implemented.
+
