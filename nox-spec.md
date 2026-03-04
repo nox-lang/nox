@@ -144,3 +144,7 @@ let value
 value = null
 ```
 
+これは禁止されます。
+
+# 5. 型
+
