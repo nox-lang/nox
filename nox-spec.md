@@ -61,3 +61,7 @@ math::add(1, 2)
 import("libs/math")
 ```
 
+```text
+libs::math::add(1, 2)
+```
+
