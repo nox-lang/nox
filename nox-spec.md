@@ -132,3 +132,7 @@ let age: int = 14
 
 ## 4.1 未初期化変数
 
+```text
+let value
+```
+
