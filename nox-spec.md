@@ -29,3 +29,7 @@ Noxでは、基本的にNox自身の機能やNoxパッケージを使用し、�
 ```text
 package main
 
+import(
+    "io"
+)
+
