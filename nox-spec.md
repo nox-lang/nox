@@ -159,3 +159,7 @@ string
 
 配列型にはジェネリック形式を使用します。
 
+```text
+array<int>
+array<string>
+```
