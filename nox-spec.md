@@ -191,3 +191,7 @@ let numbers: array<int> = []
 
 多次元配列にも対応します。
 
+```text
+let matrix = [
+    [1, 2],
+    [3, 4]
