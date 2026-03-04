@@ -185,3 +185,7 @@ let numbers = [1, 2, 3, 4, 5]
 
 明示的な型指定も可能です。
 
+```text
+let numbers: array<int> = []
+```
+
