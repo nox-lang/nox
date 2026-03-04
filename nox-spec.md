@@ -113,3 +113,7 @@ numbers.length
 text.substring(0, 5)
 ```
 
+# 4. 変数
+
+変数の宣言には `let` を使用します。
+
