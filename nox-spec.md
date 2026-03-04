@@ -46,3 +46,6 @@ func main() {
 import(
     "io",
     "libs/math" as math
+)
+```
+
