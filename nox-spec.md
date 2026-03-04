@@ -150,3 +150,7 @@ value = null
 
 基本型として以下を持ちます。
 
+```text
+int
+float
+bool
