@@ -168,3 +168,7 @@ Noxでは暗黙の型変換を行いません。
 
 必要な場合は明示的な変換を行います。
 
+```text
+value.toInt()
+value.toFloat()
+value.toString()
