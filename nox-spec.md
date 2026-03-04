@@ -154,3 +154,6 @@ value = null
 int
 float
 bool
+string
+```
+
