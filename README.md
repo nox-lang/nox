@@ -494,3 +494,7 @@ plain program and one using `async`/`await`/`parallel`, and was confirmed
 via its DLL import table to depend on nothing but `KERNEL32.dll` and
 `msvcrt.dll` — no pthreads DLL, direct or indirect.
 
+What this *doesn't* cover: long-running programs (GC behavior under real
+memory pressure), deeply adversarial/malformed input to the parser, `arm64`
+in any form, the actual `NOX_TCC`-points-at-a-cross-tcc invocation path
+(no such binary was available to test with), and programs beyond a few
