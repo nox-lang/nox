@@ -179,3 +179,7 @@ value.toBool()
 
 配列は `[]` で記述します。
 
+```text
+let numbers = [1, 2, 3, 4, 5]
+```
+
