@@ -82,3 +82,5 @@ include(
 stdio::printf("Hello\n")
 ```
 
+エイリアスも指定できます。
+
