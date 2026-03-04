@@ -42,3 +42,7 @@ func main() {
 
 `import` はNoxのパッケージを読み込みます。
 
+```text
+import(
+    "io",
+    "libs/math" as math
