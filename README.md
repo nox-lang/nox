@@ -486,3 +486,7 @@ pointing at a non-default tcc binary, `nox build <file.nox>` leaving no
 `build/` directory behind, `--emit-c` producing the `.c` file alongside the
 binary, `nox build` package mode continuing to produce `build/<name>` (with
 its `.c`) for a `nox init`-created project with multiple files under
+`src/`, `nox init`, and `nox get` against a real public GitHub repository.
+The Windows-specific runtime path (Win32 threads/TLS, no pthread
+dependency) was compiled with a Windows-target C compiler and run under
+Wine, producing output identical to the native Linux build for both a
