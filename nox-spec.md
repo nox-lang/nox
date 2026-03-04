@@ -90,3 +90,7 @@ include(
 )
 ```
 
+```text
+cstdio::printf("Hello\n")
+```
+
