@@ -377,3 +377,5 @@ if (condition) {
 func check(x) {
     if (x > 10) {
         return x
+    }
+
