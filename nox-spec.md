@@ -240,3 +240,5 @@ numbers.eachIndex((index, value) {
 text.eachLine((line) {
     io::Println(line)
 })
+```
+
