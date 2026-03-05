@@ -296,3 +296,7 @@ numbers.sort((a, b) {
 let reversed = numbers.reverse()
 ```
 
+# 7. 文字列
+
+文字列では以下の操作を使用できます。
+
