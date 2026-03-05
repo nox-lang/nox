@@ -276,3 +276,7 @@ let result = numbers.find((x) {
 
 ## 6.8 sort
 
+```text
+numbers.sort()
+```
+
