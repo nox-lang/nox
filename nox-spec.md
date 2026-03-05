@@ -220,3 +220,5 @@ numbers.clear()
 numbers.each((x) {
     io::Println(x)
 })
+```
+
