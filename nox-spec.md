@@ -327,3 +327,7 @@ func add(a, b) {
 
 型を明示することもできます。
 
+```text
+func add(a: int, b: int): int {
+    return a + b
+}
