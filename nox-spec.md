@@ -300,3 +300,7 @@ let reversed = numbers.reverse()
 
 文字列では以下の操作を使用できます。
 
+```text
+text.length
+text.empty()
+text.contains("abc")
