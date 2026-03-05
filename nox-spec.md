@@ -393,3 +393,5 @@ for (condition) {
 }
 ```
 
+## 10.2 配列for
+
