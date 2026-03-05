@@ -387,3 +387,7 @@ func check(x) {
 
 ## 10.1 条件式for
 
+```text
+for (condition) {
+    ...
+}
