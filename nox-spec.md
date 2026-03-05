@@ -246,3 +246,7 @@ text.eachLine((line) {
 
 `map` は新しい配列を返します。
 
+```text
+let doubled = numbers.map((x) {
+    return x * 2
+})
