@@ -200,3 +200,7 @@ let matrix = [
 
 ## 6.1 基本操作
 
+```text
+numbers.length
+numbers[0]
+numbers[0] = 100
