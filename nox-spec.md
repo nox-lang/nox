@@ -373,3 +373,7 @@ if (condition) {
 
 値を返す場合は `return` を使用します。
 
+```text
+func check(x) {
+    if (x > 10) {
+        return x
