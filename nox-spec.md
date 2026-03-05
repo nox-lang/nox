@@ -280,3 +280,5 @@ let result = numbers.find((x) {
 numbers.sort()
 ```
 
+比較処理を指定する形式も用意できます。
+
