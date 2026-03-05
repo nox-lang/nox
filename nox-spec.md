@@ -266,3 +266,7 @@ let result = numbers.filter((x) {
 
 条件に一致する最初の要素を取得します。
 
+```text
+let result = numbers.find((x) {
+    return x > 10
+})
