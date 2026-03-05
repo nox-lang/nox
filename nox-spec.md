@@ -395,3 +395,7 @@ for (condition) {
 
 ## 10.2 配列for
 
+```text
+for (value in array) {
+    ...
+}
