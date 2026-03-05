@@ -230,3 +230,5 @@ numbers.each((x) {
 numbers.eachIndex((index, value) {
     io::Printfn("{}: {}", index, value)
 })
+```
+
