@@ -209,3 +209,6 @@ numbers.push(6)
 numbers.pop()
 numbers.insert(1, 50)
 numbers.remove(1)
+numbers.clear()
+```
+
