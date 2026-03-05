@@ -226,3 +226,7 @@ numbers.each((x) {
 
 `eachIndex` はインデックスと値を受け取ります。
 
+```text
+numbers.eachIndex((index, value) {
+    io::Printfn("{}: {}", index, value)
+})
