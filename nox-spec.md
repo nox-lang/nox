@@ -222,3 +222,7 @@ numbers.each((x) {
 })
 ```
 
+## 6.3 eachIndex
+
+`eachIndex` はインデックスと値を受け取ります。
+
