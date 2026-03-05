@@ -236,3 +236,7 @@ numbers.eachIndex((index, value) {
 
 文字列を1行ずつ処理できます。
 
+```text
+text.eachLine((line) {
+    io::Println(line)
+})
