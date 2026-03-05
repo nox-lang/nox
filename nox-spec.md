@@ -262,3 +262,7 @@ let result = numbers.filter((x) {
 })
 ```
 
+## 6.7 find
+
+条件に一致する最初の要素を取得します。
+
