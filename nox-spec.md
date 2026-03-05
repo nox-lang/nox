@@ -311,3 +311,7 @@ text.substring(0, 5)
 
 文字列の連結には `+` を使用します。
 
+```text
+let message = "Hello, " + name
+```
+
