@@ -252,3 +252,7 @@ let doubled = numbers.map((x) {
 })
 ```
 
+## 6.6 filter
+
+条件に一致する要素から新しい配列を作ります。
+
