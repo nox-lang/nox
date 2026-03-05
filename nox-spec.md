@@ -359,3 +359,7 @@ let double = (x) {
 
 # 9. if
 
+```text
+if (condition) {
+    ...
+} else if (condition) {
