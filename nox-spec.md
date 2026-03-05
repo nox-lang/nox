@@ -403,3 +403,7 @@ for (value in array) {
 
 インデックスと値を同時に取得することもできます。
 
+```text
+for (index, value in numbers) {
+    ...
+}
