@@ -216,3 +216,7 @@ numbers.clear()
 
 `each` は要素だけを受け取ります。
 
+```text
+numbers.each((x) {
+    io::Println(x)
+})
