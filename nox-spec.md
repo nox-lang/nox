@@ -315,3 +315,7 @@ text.substring(0, 5)
 let message = "Hello, " + name
 ```
 
+# 8. 関数
+
+関数は `func` で定義します。
+
