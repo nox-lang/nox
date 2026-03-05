@@ -304,3 +304,7 @@ let reversed = numbers.reverse()
 text.length
 text.empty()
 text.contains("abc")
+text.startsWith("abc")
+text.endsWith("abc")
+text.substring(0, 5)
+```
