@@ -205,3 +205,7 @@ numbers.length
 numbers[0]
 numbers[0] = 100
 
+numbers.push(6)
+numbers.pop()
+numbers.insert(1, 50)
+numbers.remove(1)
