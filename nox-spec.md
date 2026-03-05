@@ -256,3 +256,7 @@ let doubled = numbers.map((x) {
 
 条件に一致する要素から新しい配列を作ります。
 
+```text
+let result = numbers.filter((x) {
+    return x > 10
+})
