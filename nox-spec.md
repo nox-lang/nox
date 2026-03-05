@@ -292,3 +292,7 @@ numbers.sort((a, b) {
 
 `reverse` は新しい配列を返します。
 
+```text
+let reversed = numbers.reverse()
+```
+
