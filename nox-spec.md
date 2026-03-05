@@ -379,3 +379,7 @@ func check(x) {
         return x
     }
 
+    return 0
+}
+```
+
