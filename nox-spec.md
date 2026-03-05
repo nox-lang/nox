@@ -260,3 +260,5 @@ let doubled = numbers.map((x) {
 let result = numbers.filter((x) {
     return x > 10
 })
+```
+
