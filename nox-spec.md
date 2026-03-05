@@ -343,3 +343,7 @@ func greet(name = "World") {
 
 ## 8.2 可変長引数
 
+```text
+func sum(values...) {
+    ...
+}
