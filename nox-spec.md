@@ -335,3 +335,7 @@ func add(a: int, b: int): int {
 
 ## 8.1 デフォルト引数
 
+```text
+func greet(name = "World") {
+    io::Println(name)
+}
