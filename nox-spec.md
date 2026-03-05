@@ -319,3 +319,7 @@ let message = "Hello, " + name
 
 関数は `func` で定義します。
 
+```text
+func add(a, b) {
+    return a + b
+}
