@@ -242,3 +242,7 @@ text.eachLine((line) {
 })
 ```
 
+## 6.5 map
+
+`map` は新しい配列を返します。
+
