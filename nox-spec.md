@@ -479,3 +479,5 @@ return value
 
 という違いがあります。
 
+# 12. switch
+
