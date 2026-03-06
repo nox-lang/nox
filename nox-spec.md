@@ -563,3 +563,7 @@ dog.bark()
 dog.name
 ```
 
+`this` が現在のインスタンスを表します。
+
+## 13.1 private
+
