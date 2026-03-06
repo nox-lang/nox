@@ -485,3 +485,7 @@ return value
 switch (value) {
     case 1 {
         io::Println("one")
+    }
+    case 2 {
+        io::Println("two")
+    }
