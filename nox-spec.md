@@ -542,3 +542,7 @@ class Dog {
         this.age = age
     }
 
+    func bark() {
+        io::Println("Woof!")
+    }
+}
