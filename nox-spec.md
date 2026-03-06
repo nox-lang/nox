@@ -591,3 +591,5 @@ func main(args) {
 }
 ```
 
+`args` の型は、
+
