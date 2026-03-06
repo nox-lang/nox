@@ -609,3 +609,7 @@ app hello world
 
 の場合、
 
+```text
+args[0] == "hello"
+args[1] == "world"
+```
