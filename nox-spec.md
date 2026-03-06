@@ -532,3 +532,7 @@ let result = switch (value) {
 
 クラスは `class` で定義します。
 
+```text
+class Dog {
+    let name
+    let age
