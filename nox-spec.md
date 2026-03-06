@@ -445,3 +445,7 @@ let result = for (x in numbers) {
 let results = for (x in numbers) {
     if (x > 10) {
         return x
+    }
+}
+```
+
