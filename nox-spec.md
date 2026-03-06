@@ -655,3 +655,5 @@ random::choice(array)
 random::shuffle(array)
 ```
 
+## 15.3 fs
+
