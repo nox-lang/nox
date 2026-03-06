@@ -574,3 +574,7 @@ dog.name
 ```text
 private let id = 123
 
+private func secret() {
+    ...
+}
+```
