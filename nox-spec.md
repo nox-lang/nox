@@ -425,3 +425,5 @@ while (condition) {
 break
 ```
 
+`break value` はループを終了し、値をループの結果として返します。
+
