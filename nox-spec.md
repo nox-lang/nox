@@ -562,3 +562,4 @@ let dog = Dog.new("Pochi", 3)
 dog.bark()
 dog.name
 ```
+
