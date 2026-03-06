@@ -461,3 +461,7 @@ let results = for (x in numbers) {
 [12, 20, 30]
 ```
 
+になります。
+
+つまり、
+
