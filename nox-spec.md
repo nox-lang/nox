@@ -449,3 +449,5 @@ let results = for (x in numbers) {
 }
 ```
 
+例えば、
+
