@@ -471,3 +471,7 @@ break value
 
 は「ループを終了して1つの値を返す」、
 
+```text
+return value
+```
+
