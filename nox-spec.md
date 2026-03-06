@@ -550,3 +550,7 @@ class Dog {
 
 インスタンス生成には `.new()` を使用します。
 
+```text
+let dog = Dog.new("Pochi", 3)
+```
+
