@@ -489,3 +489,7 @@ switch (value) {
     case 2 {
         io::Println("two")
     }
+    default {
+        io::Println("other")
+    }
+}
