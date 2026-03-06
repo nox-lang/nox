@@ -481,3 +481,7 @@ return value
 
 # 12. switch
 
+```text
+switch (value) {
+    case 1 {
+        io::Println("one")
