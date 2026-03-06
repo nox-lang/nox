@@ -537,3 +537,7 @@ class Dog {
     let name
     let age
 
+    func init(name, age) {
+        this.name = name
+        this.age = age
+    }
