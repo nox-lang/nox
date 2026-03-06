@@ -465,3 +465,7 @@ let results = for (x in numbers) {
 
 つまり、
 
+```text
+break value
+```
+
