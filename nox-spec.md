@@ -536,3 +536,4 @@ let result = switch (value) {
 class Dog {
     let name
     let age
+
