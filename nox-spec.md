@@ -431,3 +431,7 @@ break
 let result = for (x in numbers) {
     if (x > 10) {
         break x
+    }
+}
+```
+
