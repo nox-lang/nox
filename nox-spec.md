@@ -571,3 +571,6 @@ dog.name
 
 必要な場合は `private` を使用します。
 
+```text
+private let id = 123
+
