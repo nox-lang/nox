@@ -435,3 +435,7 @@ let result = for (x in numbers) {
 }
 ```
 
+## 11.1 ループ内のreturn
+
+ループ内の `return value` はループを終了しません。
+
