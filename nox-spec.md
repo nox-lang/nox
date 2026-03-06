@@ -439,3 +439,5 @@ let result = for (x in numbers) {
 
 ループ内の `return value` はループを終了しません。
 
+値を集め、ループ終了時に配列として結果を返します。
+
