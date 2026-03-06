@@ -637,3 +637,7 @@ io::Println(...)
 io::Printf(...)
 io::Printfn(...)
 
+io::Scan(...)
+io::Scanln(...)
+io::Scanf(...)
+```
