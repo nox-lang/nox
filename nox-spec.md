@@ -518,3 +518,7 @@ caseは自動的に終了します。
 let result = switch (value) {
     case 1 {
         break "one"
+    }
+    case 2 {
+        break "two"
+    }
