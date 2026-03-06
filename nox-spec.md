@@ -558,3 +558,7 @@ let dog = Dog.new("Pochi", 3)
 
 メンバーアクセスには `.` を使用します。
 
+```text
+dog.bark()
+dog.name
+```
