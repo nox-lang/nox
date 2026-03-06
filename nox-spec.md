@@ -597,3 +597,7 @@ func main(args) {
 array<string>
 ```
 
+です。
+
+実行ファイル名は含まれません。
+
