@@ -635,3 +635,5 @@ time
 io::Print(...)
 io::Println(...)
 io::Printf(...)
+io::Printfn(...)
+
