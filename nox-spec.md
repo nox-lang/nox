@@ -648,3 +648,6 @@ io::Scanf(...)
 random::rand()
 random::rand(min, max)
 
+random::randf()
+random::randf(min, max)
+
