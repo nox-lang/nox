@@ -497,3 +497,7 @@ switch (value) {
 
 複数の値を1つのcaseで扱うこともできます。
 
+```text
+switch (value) {
+    case 1, 2, 3 {
+        ...
