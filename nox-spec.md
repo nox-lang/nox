@@ -514,3 +514,7 @@ caseは自動的に終了します。
 
 `break value` を使用して値を返します。
 
+```text
+let result = switch (value) {
+    case 1 {
+        break "one"
