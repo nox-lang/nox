@@ -585,3 +585,7 @@ private func secret() {
 
 `main` に `args` を指定するとコマンドライン引数を取得できます。
 
+```text
+func main(args) {
+    ...
+}
