@@ -522,3 +522,7 @@ let result = switch (value) {
     case 2 {
         break "two"
     }
+    default {
+        break "other"
+    }
+}
