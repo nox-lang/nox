@@ -528,3 +528,7 @@ let result = switch (value) {
 }
 ```
 
+# 13. クラス
+
+クラスは `class` で定義します。
+
