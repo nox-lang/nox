@@ -593,3 +593,7 @@ func main(args) {
 
 `args` の型は、
 
+```text
+array<string>
+```
+
