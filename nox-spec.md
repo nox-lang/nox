@@ -651,3 +651,7 @@ random::rand(min, max)
 random::randf()
 random::randf(min, max)
 
+random::choice(array)
+random::shuffle(array)
+```
+
