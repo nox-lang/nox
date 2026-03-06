@@ -427,3 +427,7 @@ break
 
 `break value` はループを終了し、値をループの結果として返します。
 
+```text
+let result = for (x in numbers) {
+    if (x > 10) {
+        break x
