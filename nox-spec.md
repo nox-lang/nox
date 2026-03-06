@@ -455,3 +455,5 @@ let results = for (x in numbers) {
 [5, 12, 20, 30]
 ```
 
+から実行すると、
+
