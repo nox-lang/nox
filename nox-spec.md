@@ -642,3 +642,5 @@ io::Scanln(...)
 io::Scanf(...)
 ```
 
+## 15.2 random
+
