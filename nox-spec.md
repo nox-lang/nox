@@ -409,3 +409,5 @@ for (index, value in numbers) {
 }
 ```
 
+## 10.3 while
+
