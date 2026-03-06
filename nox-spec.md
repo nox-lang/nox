@@ -441,3 +441,7 @@ let result = for (x in numbers) {
 
 値を集め、ループ終了時に配列として結果を返します。
 
+```text
+let results = for (x in numbers) {
+    if (x > 10) {
+        return x
