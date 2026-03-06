@@ -421,3 +421,7 @@ while (condition) {
 
 通常の `break` はループを終了します。
 
+```text
+break
+```
+
