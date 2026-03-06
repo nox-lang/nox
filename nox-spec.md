@@ -567,3 +567,7 @@ dog.name
 
 ## 13.1 private
 
+通常の宣言はpublicです。
+
+必要な場合は `private` を使用します。
+
