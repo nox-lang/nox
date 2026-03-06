@@ -451,3 +451,7 @@ let results = for (x in numbers) {
 
 例えば、
 
+```text
+[5, 12, 20, 30]
+```
+
