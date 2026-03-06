@@ -644,3 +644,7 @@ io::Scanf(...)
 
 ## 15.2 random
 
+```text
+random::rand()
+random::rand(min, max)
+
