@@ -624,3 +624,7 @@ Noxの標準ライブラリは必要以上に巨大化させず、以下の6つ�
 io
 random
 fs
+path
+math
+time
+```
