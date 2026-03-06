@@ -501,3 +501,7 @@ switch (value) {
 switch (value) {
     case 1, 2, 3 {
         ...
+    }
+    default {
+        ...
+    }
