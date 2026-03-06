@@ -457,3 +457,7 @@ let results = for (x in numbers) {
 
 から実行すると、
 
+```text
+[12, 20, 30]
+```
+
