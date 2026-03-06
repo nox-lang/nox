@@ -657,3 +657,7 @@ random::shuffle(array)
 
 ## 15.3 fs
 
+```text
+fs::read(path)
+fs::write(path, data)
+fs::append(path, data)
