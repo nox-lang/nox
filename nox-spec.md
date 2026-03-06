@@ -469,3 +469,5 @@ let results = for (x in numbers) {
 break value
 ```
 
+は「ループを終了して1つの値を返す」、
+
