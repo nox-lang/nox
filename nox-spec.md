@@ -631,3 +631,7 @@ time
 
 ## 15.1 io
 
+```text
+io::Print(...)
+io::Println(...)
+io::Printf(...)
