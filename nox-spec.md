@@ -667,3 +667,7 @@ fs::remove(path)
 fs::rename(old, new)
 fs::copy(src, dest)
 
+fs::mkdir(path)
+fs::rmdir(path)
+fs::list(path)
+```
