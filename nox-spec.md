@@ -802,3 +802,6 @@ Nox内部には `Result` の仕組みがあります。
 func load(): string {
     let text = fs::read("hello.txt")?
     return text
+}
+```
+
