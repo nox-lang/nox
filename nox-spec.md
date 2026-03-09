@@ -720,3 +720,5 @@ math::E
 time::now()
 time::unix()
 time::sleep(seconds)
+time::clock()
+
