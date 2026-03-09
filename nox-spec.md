@@ -798,3 +798,7 @@ Nox内部には `Result` の仕組みがあります。
 
 `?` はエラーを呼び出し元へ伝播させます。
 
+```text
+func load(): string {
+    let text = fs::read("hello.txt")?
+    return text
