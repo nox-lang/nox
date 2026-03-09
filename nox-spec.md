@@ -738,3 +738,4 @@ time::second(t)
 async func fetchData() {
     return "Hello"
 }
+
