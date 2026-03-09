@@ -685,3 +685,5 @@ path::stem(path)
 path::absolute(path)
 ```
 
+## 15.5 math
+
