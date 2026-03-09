@@ -754,3 +754,7 @@ let data = await task
 
 複数の処理を先に開始できます。
 
+```text
+let a = fetchA()
+let b = fetchB()
+
