@@ -743,3 +743,5 @@ func main() {
     let data = await fetchData()
     io::Println(data)
 }
+```
+
