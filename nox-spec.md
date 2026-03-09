@@ -752,3 +752,5 @@ let task = fetchData()
 let data = await task
 ```
 
+複数の処理を先に開始できます。
+
