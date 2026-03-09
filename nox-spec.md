@@ -826,3 +826,5 @@ try {
 func test() {
     defer {
         io::Println("cleanup")
+    }
+
