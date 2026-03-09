@@ -680,3 +680,7 @@ fs::list(path)
 path::join(...)
 path::basename(path)
 path::dirname(path)
+path::ext(path)
+path::stem(path)
+path::absolute(path)
+```
