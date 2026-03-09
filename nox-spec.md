@@ -849,3 +849,7 @@ cleanup
 
 Noxは**基本的にGC（ガベージコレクション）による自動メモリ管理**を採用します。
 
+```text
+let numbers = [1, 2, 3]
+let text = "Hello"
+```
