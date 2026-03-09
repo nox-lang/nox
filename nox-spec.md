@@ -702,3 +702,7 @@ math::sin(x)
 math::cos(x)
 math::tan(x)
 
+math::asin(x)
+math::acos(x)
+math::atan(x)
+
