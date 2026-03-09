@@ -772,3 +772,7 @@ let resultB = await b
 let results = await Parallel {
     fetchA()
     fetchB()
+    fetchC()
+}
+```
+
