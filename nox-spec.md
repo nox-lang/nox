@@ -716,3 +716,7 @@ math::E
 
 ## 15.6 time
 
+```text
+time::now()
+time::unix()
+time::sleep(seconds)
