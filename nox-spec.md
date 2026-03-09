@@ -739,3 +739,7 @@ async func fetchData() {
     return "Hello"
 }
 
+func main() {
+    let data = await fetchData()
+    io::Println(data)
+}
