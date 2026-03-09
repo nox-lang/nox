@@ -809,3 +809,7 @@ func load(): string {
 
 エラーを処理する場合は `try / catch` を使用します。
 
+```text
+try {
+    let text = load()
+    io::Println(text)
