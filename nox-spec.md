@@ -691,3 +691,6 @@ path::absolute(path)
 math::abs(x)
 math::min(a, b)
 math::max(a, b)
+math::pow(x, y)
+math::sqrt(x)
+
