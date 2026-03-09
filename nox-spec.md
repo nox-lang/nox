@@ -662,3 +662,7 @@ fs::read(path)
 fs::write(path, data)
 fs::append(path, data)
 
+fs::exists(path)
+fs::remove(path)
+fs::rename(old, new)
+fs::copy(src, dest)
