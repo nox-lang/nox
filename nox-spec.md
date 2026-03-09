@@ -805,3 +805,7 @@ func load(): string {
 }
 ```
 
+## 18.2 try / catch
+
+エラーを処理する場合は `try / catch` を使用します。
+
