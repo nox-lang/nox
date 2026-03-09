@@ -834,3 +834,7 @@ func test() {
 
 実行順は、
 
+```text
+work
+cleanup
+```
