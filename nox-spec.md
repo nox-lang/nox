@@ -706,3 +706,7 @@ math::asin(x)
 math::acos(x)
 math::atan(x)
 
+math::log(x)
+math::log10(x)
+math::exp(x)
+
