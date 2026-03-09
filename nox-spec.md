@@ -828,3 +828,7 @@ func test() {
         io::Println("cleanup")
     }
 
+    io::Println("work")
+}
+```
+
