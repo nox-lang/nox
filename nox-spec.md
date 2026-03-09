@@ -672,3 +672,7 @@ fs::rmdir(path)
 fs::list(path)
 ```
 
+`fs::read()` の戻り値は `string` です。
+
+## 15.4 path
+
