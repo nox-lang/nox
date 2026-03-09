@@ -822,3 +822,7 @@ try {
 
 `defer` は現在の関数を終了する直前に処理を実行します。
 
+```text
+func test() {
+    defer {
+        io::Println("cleanup")
