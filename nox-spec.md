@@ -722,3 +722,7 @@ time::unix()
 time::sleep(seconds)
 time::clock()
 
+time::year(t)
+time::month(t)
+time::day(t)
+time::hour(t)
