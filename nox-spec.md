@@ -714,3 +714,5 @@ math::PI
 math::E
 ```
 
+## 15.6 time
+
