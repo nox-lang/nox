@@ -813,3 +813,7 @@ func load(): string {
 try {
     let text = load()
     io::Println(text)
+} catch (error) {
+    io::Println(error)
+}
+```
