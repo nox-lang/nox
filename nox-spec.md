@@ -726,3 +726,7 @@ time::year(t)
 time::month(t)
 time::day(t)
 time::hour(t)
+time::minute(t)
+time::second(t)
+```
+
