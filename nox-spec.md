@@ -694,3 +694,7 @@ math::max(a, b)
 math::pow(x, y)
 math::sqrt(x)
 
+math::floor(x)
+math::ceil(x)
+math::round(x)
+
