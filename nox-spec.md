@@ -762,3 +762,7 @@ let resultA = await a
 let resultB = await b
 ```
 
+# 17. Parallel
+
+複数の非同期処理を並列に実行するための組み込み機能として `Parallel` を持ちます。
+
