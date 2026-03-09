@@ -768,3 +768,7 @@ let resultB = await b
 
 基本形は、
 
+```text
+let results = await Parallel {
+    fetchA()
+    fetchB()
