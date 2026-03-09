@@ -730,3 +730,7 @@ time::minute(t)
 time::second(t)
 ```
 
+# 16. async / await
+
+`async` と `await` は言語組み込み機能です。
+
