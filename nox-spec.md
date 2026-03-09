@@ -776,3 +776,7 @@ let results = await Parallel {
 }
 ```
 
+です。
+
+結果は処理順を維持した配列として取得します。
+
