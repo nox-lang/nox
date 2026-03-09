@@ -710,3 +710,7 @@ math::log(x)
 math::log10(x)
 math::exp(x)
 
+math::PI
+math::E
+```
+
