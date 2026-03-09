@@ -676,3 +676,7 @@ fs::list(path)
 
 ## 15.4 path
 
+```text
+path::join(...)
+path::basename(path)
+path::dirname(path)
