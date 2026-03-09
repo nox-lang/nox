@@ -734,3 +734,7 @@ time::second(t)
 
 `async` と `await` は言語組み込み機能です。
 
+```text
+async func fetchData() {
+    return "Hello"
+}
