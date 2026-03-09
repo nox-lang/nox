@@ -698,3 +698,7 @@ math::floor(x)
 math::ceil(x)
 math::round(x)
 
+math::sin(x)
+math::cos(x)
+math::tan(x)
+
