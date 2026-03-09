@@ -780,3 +780,7 @@ let results = await Parallel {
 
 結果は処理順を維持した配列として取得します。
 
+```text
+let a = results[0]
+let b = results[1]
+let c = results[2]
