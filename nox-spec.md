@@ -747,3 +747,7 @@ func main() {
 
 非同期処理を変数に保存してからawaitすることもできます。
 
+```text
+let task = fetchData()
+let data = await task
+```
