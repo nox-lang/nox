@@ -758,3 +758,7 @@ let data = await task
 let a = fetchA()
 let b = fetchB()
 
+let resultA = await a
+let resultB = await b
+```
+
