@@ -687,3 +687,7 @@ path::absolute(path)
 
 ## 15.5 math
 
+```text
+math::abs(x)
+math::min(a, b)
+math::max(a, b)
