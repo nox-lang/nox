@@ -892,3 +892,7 @@ stdio::printf("Hello\n")
 
 つまり、
 
+```text
+Nox
+├── 標準ライブラリ
+├── Noxパッケージ → import
