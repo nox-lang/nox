@@ -934,3 +934,7 @@ nox get github.com/rimsky-yamatov/noxlib
 
 例えば、
 
+```toml
+[package]
+name = "hello"
+version = "0.1.0"
