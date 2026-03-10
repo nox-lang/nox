@@ -5,3 +5,5 @@
 // then caches) into the tcc binaries `nox build` actually invokes.
 package noxassets
 
+import "embed"
+
