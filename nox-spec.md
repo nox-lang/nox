@@ -919,3 +919,6 @@ nox init hello
 hello/
 ├── nox.toml
 └── src/
+    └── main.nox
+```
+
