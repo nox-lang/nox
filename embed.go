@@ -11,3 +11,6 @@ import "embed"
 // program #includes) plus lib/*.c (compiled alongside it). See both
 // directories at the repository root for the human-readable source.
 //
+//go:embed all:include all:lib
+var Runtime embed.FS
+
