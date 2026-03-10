@@ -939,3 +939,7 @@ nox get github.com/rimsky-yamatov/noxlib
 name = "hello"
 version = "0.1.0"
 
+[dependencies]
+noxlib = "github.com/rimsky-yamatov/noxlib"
+```
+
