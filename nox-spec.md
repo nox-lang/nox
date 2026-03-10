@@ -995,3 +995,7 @@ build/
 
 ## 25.2 ファイル単体
 
+```text
+nox build hello.nox
+```
+
