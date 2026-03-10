@@ -988,3 +988,7 @@ hello/
 
 ↓
 
+```text
+build/
+└── hello.exe
+```
