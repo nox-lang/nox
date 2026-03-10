@@ -999,3 +999,7 @@ build/
 nox build hello.nox
 ```
 
+とした場合は `hello.nox` 単体をビルドします。
+
+## 25.3 クロスビルド
+
