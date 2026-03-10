@@ -1015,3 +1015,7 @@ NOX_OS=linux nox build
 
 CPUアーキテクチャも指定できます。
 
+```text
+NOX_OS=linux NOX_ARCH=amd64 nox build
+```
+
