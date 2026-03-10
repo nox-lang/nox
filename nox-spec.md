@@ -896,3 +896,6 @@ stdio::printf("Hello\n")
 Nox
 ├── 標準ライブラリ
 ├── Noxパッケージ → import
+└── Cを直接利用 → include
+```
+
