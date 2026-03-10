@@ -926,3 +926,7 @@ hello/
 
 ## 23.2 パッケージ取得
 
+```text
+nox get github.com/rimsky-yamatov/noxlib
+```
+
