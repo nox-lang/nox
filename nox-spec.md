@@ -915,3 +915,7 @@ nox init hello
 
 基本的な構成は、
 
+```text
+hello/
+├── nox.toml
+└── src/
