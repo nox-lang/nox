@@ -981,3 +981,7 @@ nox build
 hello/
 ├── nox.toml
 └── src/
+    ├── main.nox
+    ├── math.nox
+    └── util.nox
+```
