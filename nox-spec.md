@@ -930,3 +930,7 @@ hello/
 nox get github.com/rimsky-yamatov/noxlib
 ```
 
+取得したパッケージは `nox.toml` に依存関係として記録されます。
+
+例えば、
+
