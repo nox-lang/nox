@@ -14,3 +14,7 @@ import "embed"
 //go:embed all:include all:lib
 var Runtime embed.FS
 
+// TCCSource is the vendored nox-tcc (github.com/nox-lang/nox, tcc/)
+// source tree: a from-source-only copy (see tcc/GC_BUNDLE.md), no prebuilt
+// binaries, so the same tree bootstraps both a native tcc and, from that,
+// tcc's own x86_64-win32 cross-target — see internal/toolchain.
