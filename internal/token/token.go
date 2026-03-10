@@ -3,3 +3,7 @@ package token
 
 type Kind int
 
+const (
+	EOF Kind = iota
+	ILLEGAL
+
