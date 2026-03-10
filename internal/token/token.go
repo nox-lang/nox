@@ -24,3 +24,7 @@ const (
 	ELSE
 	FOR
 	WHILE
+	IN
+	BREAK
+	NEXT
+	YIELD
