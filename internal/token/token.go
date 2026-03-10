@@ -44,3 +44,5 @@ const (
 	PARALLEL
 	TRY
 	CATCH
+	DEFER
+
