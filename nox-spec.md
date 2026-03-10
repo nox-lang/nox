@@ -1023,3 +1023,7 @@ NOX_OS=linux NOX_ARCH=amd64 nox build
 NOX_OS=linux NOX_ARCH=arm64 nox build
 ```
 
+環境変数を指定しなかった場合は、現在の環境を対象とします。
+
+# 26. 現在のNoxの全体像
+
