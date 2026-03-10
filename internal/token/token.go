@@ -12,3 +12,7 @@ const (
 	FLOAT
 	STRING
 
+	// Keywords
+	PACKAGE
+	IMPORT
+	INCLUDE
