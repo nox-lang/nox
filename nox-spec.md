@@ -1029,3 +1029,7 @@ NOX_OS=linux NOX_ARCH=arm64 nox build
 
 Noxの基本的な設計は以下のようになります。
 
+```text
+                    Nox
+                     │
+        ┌────────────┼────────────┐
