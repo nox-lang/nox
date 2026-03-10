@@ -20,3 +20,7 @@ const (
 	LET
 	FUNC
 	RETURN
+	IF
+	ELSE
+	FOR
+	WHILE
