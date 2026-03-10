@@ -32,3 +32,7 @@ const (
 	CASE
 	DEFAULT
 	CLASS
+	PRIVATE // removed from the language; still lexed so that a clear error can be reported
+	STATIC
+	TYPE
+	THIS
