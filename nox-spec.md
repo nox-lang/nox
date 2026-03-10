@@ -1037,3 +1037,7 @@ Noxの基本的な設計は以下のようになります。
      Nox標準       Noxパッケージ    C
         │            │            │
   io/random/fs     import       include
+  path/math/time
+        │            │            │
+        └────────────┼────────────┘
+                     │
