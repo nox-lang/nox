@@ -16,3 +16,7 @@ const (
 	PACKAGE
 	IMPORT
 	INCLUDE
+	AS
+	LET
+	FUNC
+	RETURN
