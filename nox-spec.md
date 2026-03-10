@@ -886,3 +886,7 @@ include(
 
 C APIはNoxから直接利用できます。
 
+```text
+stdio::printf("Hello\n")
+```
+
