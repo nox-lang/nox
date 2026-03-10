@@ -46,3 +46,7 @@ const (
 	CATCH
 	DEFER
 
+	// Punctuation
+	LPAREN   // (
+	RPAREN   // )
+	LBRACE   // {
