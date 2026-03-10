@@ -890,3 +890,5 @@ C APIはNoxから直接利用できます。
 stdio::printf("Hello\n")
 ```
 
+つまり、
+
