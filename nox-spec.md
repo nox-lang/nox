@@ -943,3 +943,7 @@ version = "0.1.0"
 noxlib = "github.com/rimsky-yamatov/noxlib"
 ```
 
+のようになります。
+
+取得したNoxパッケージは、Noxコードから `import` して利用します。
+
