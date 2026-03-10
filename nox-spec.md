@@ -1013,3 +1013,5 @@ NOX_OS=windows nox build
 NOX_OS=linux nox build
 ```
 
+CPUアーキテクチャも指定できます。
+
