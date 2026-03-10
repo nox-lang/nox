@@ -7,3 +7,7 @@ package noxassets
 
 import "embed"
 
+// Runtime is the Nox C runtime: include/nox/nox.h (what every generated
+// program #includes) plus lib/*.c (compiled alongside it). See both
+// directories at the repository root for the human-readable source.
+//
