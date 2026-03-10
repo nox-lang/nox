@@ -40,3 +40,7 @@ const (
 	FALSE
 	NULL
 	ASYNC
+	AWAIT
+	PARALLEL
+	TRY
+	CATCH
