@@ -951,3 +951,7 @@ noxlib = "github.com/rimsky-yamatov/noxlib"
 
 最小構成は、
 
+```toml
+[package]
+name = "hello"
+version = "0.1.0"
