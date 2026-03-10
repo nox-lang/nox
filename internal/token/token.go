@@ -36,3 +36,7 @@ const (
 	STATIC
 	TYPE
 	THIS
+	TRUE
+	FALSE
+	NULL
+	ASYNC
