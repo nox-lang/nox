@@ -1005,3 +1005,7 @@ nox build hello.nox
 
 環境変数によって対象OSを指定できます。
 
+```text
+NOX_OS=windows nox build
+```
+
