@@ -18,3 +18,6 @@ var Runtime embed.FS
 // source tree: a from-source-only copy (see tcc/GC_BUNDLE.md), no prebuilt
 // binaries, so the same tree bootstraps both a native tcc and, from that,
 // tcc's own x86_64-win32 cross-target — see internal/toolchain.
+//
+//go:embed all:tcc
+var TCCSource embed.FS
