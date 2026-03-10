@@ -1009,3 +1009,7 @@ nox build hello.nox
 NOX_OS=windows nox build
 ```
 
+```text
+NOX_OS=linux nox build
+```
+
