@@ -947,3 +947,7 @@ noxlib = "github.com/rimsky-yamatov/noxlib"
 
 取得したNoxパッケージは、Noxコードから `import` して利用します。
 
+# 24. nox.toml
+
+最小構成は、
+
