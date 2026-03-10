@@ -1027,3 +1027,5 @@ NOX_OS=linux NOX_ARCH=arm64 nox build
 
 # 26. 現在のNoxの全体像
 
+Noxの基本的な設計は以下のようになります。
+
