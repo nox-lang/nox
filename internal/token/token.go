@@ -108,3 +108,7 @@ var keywords = map[string]Kind{
 	"case":     CASE,
 	"default":  DEFAULT,
 	"class":    CLASS,
+	"private":  PRIVATE,
+	"static":   STATIC,
+	"type":     TYPE,
+	"this":     THIS,
