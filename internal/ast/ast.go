@@ -33,3 +33,6 @@ type TypeExpr struct {
 	Key    *TypeExpr   // key type for map<K, V>
 	Len    int64       // length for a fixed-size array
 	Params []*TypeExpr // parameter types for func(...)
+	Ret    *TypeExpr   // result type for func(...): R (nil = no result)
+}
+
