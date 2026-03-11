@@ -61,3 +61,7 @@ type File struct {
 	Base
 	Package  string
 	Imports  []*ImportSpec
+	Includes []*IncludeSpec
+	Funcs    []*FuncDecl
+	Classes  []*ClassDecl
+	Globals  []*LetStmt
