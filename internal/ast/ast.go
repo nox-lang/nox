@@ -29,3 +29,7 @@ type TypeExpr struct {
 	// Name is one of: "int", "float", "bool", "string", "slice", "array",
 	// "map", "pointer", "Task", "Thread", "func", or a class / type-alias name.
 	Name   string
+	Elem   *TypeExpr   // element type: slice / array / map value / pointer / Task
+	Key    *TypeExpr   // key type for map<K, V>
+	Len    int64       // length for a fixed-size array
+	Params []*TypeExpr // parameter types for func(...)
