@@ -71,3 +71,7 @@ type File struct {
 
 // ---------- Declarations ----------
 
+type Param struct {
+	Base
+	Name     string
+	Type     *TypeExpr // nil if inferred
