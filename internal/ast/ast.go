@@ -93,3 +93,7 @@ type FieldDecl struct {
 	Base
 	Name      string
 	Type      *TypeExpr // nil if inferred from constructor usage
+	Default   Expr      // nil if none
+	IsStatic  bool      // `static let` inside a class (a class variable)
+}
+
