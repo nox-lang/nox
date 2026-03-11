@@ -135,3 +135,6 @@ type Token struct {
 	Kind    Kind
 	Literal string
 	Line    int
+	Col     int
+}
+
