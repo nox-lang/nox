@@ -89,3 +89,7 @@ type FuncDecl struct {
 	IsAsync    bool
 }
 
+type FieldDecl struct {
+	Base
+	Name      string
+	Type      *TypeExpr // nil if inferred from constructor usage
