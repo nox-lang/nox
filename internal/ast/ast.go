@@ -101,3 +101,6 @@ type ClassDecl struct {
 	Base
 	Name    string
 	Fields  []*FieldDecl
+	Methods []*FuncDecl
+}
+
