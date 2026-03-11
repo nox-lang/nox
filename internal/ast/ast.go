@@ -87,3 +87,5 @@ type FuncDecl struct {
 	Body       *BlockStmt
 	IsStatic   bool // `static func` inside a class
 	IsAsync    bool
+}
+
