@@ -88,3 +88,7 @@ const (
 	MINUSMINUS
 )
 
+var keywords = map[string]Kind{
+	"package":  PACKAGE,
+	"import":   IMPORT,
+	"include":  INCLUDE,
