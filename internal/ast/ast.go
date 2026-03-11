@@ -106,3 +106,7 @@ type ClassDecl struct {
 
 // ---------- Statements ----------
 
+type BlockStmt struct {
+	Base
+	Stmts []Stmt
+}
