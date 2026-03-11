@@ -133,3 +133,6 @@ type AssignStmt struct {
 	Base
 	Target Expr
 	Op     token.Kind // ASSIGN, PLUSEQ, MINUSEQ, STAREQ, SLASHEQ
+	Value  Expr
+}
+
