@@ -112,3 +112,7 @@ var keywords = map[string]Kind{
 	"static":   STATIC,
 	"type":     TYPE,
 	"this":     THIS,
+	"true":     TRUE,
+	"false":    FALSE,
+	"null":     NULL,
+	"async":    ASYNC,
