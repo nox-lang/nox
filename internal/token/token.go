@@ -154,3 +154,7 @@ func (k Kind) String() string {
 		PLUSEQ: "+=", MINUSEQ: "-=", STAREQ: "*=", SLASHEQ: "/=", PLUSPLUS: "++", MINUSMINUS: "--",
 	}
 	if n, ok := names[k]; ok {
+		return n
+	}
+	return "?"
+}
