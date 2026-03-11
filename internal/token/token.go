@@ -138,3 +138,7 @@ type Token struct {
 	Col     int
 }
 
+func (k Kind) String() string {
+	names := map[Kind]string{
+		EOF: "EOF", ILLEGAL: "ILLEGAL", IDENT: "IDENT", INT: "INT", FLOAT: "FLOAT", STRING: "STRING",
+		PACKAGE: "package", IMPORT: "import", INCLUDE: "include", AS: "as", LET: "let", FUNC: "func",
