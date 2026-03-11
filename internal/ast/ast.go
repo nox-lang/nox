@@ -54,3 +54,6 @@ type IncludeSpec struct {
 type TypeDecl struct {
 	Base
 	Name string
+	Type *TypeExpr
+}
+
