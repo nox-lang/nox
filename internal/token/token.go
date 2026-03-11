@@ -150,3 +150,7 @@ func (k Kind) String() string {
 		COMMA: ",", COLON: ":", SEMI: ";", DOT: ".", DCOLON: "::", ELLIPSIS: "...", QUESTION: "?",
 		ASSIGN: "=", PLUS: "+", MINUS: "-", STAR: "*", SLASH: "/", PERCENT: "%",
 		AMP: "&", PIPE: "|", CARET: "^", NOT: "!",
+		LT: "<", GT: ">", LE: "<=", GE: ">=", EQ: "==", NE: "!=", AND: "&&", OR: "||",
+		PLUSEQ: "+=", MINUSEQ: "-=", STAREQ: "*=", SLASHEQ: "/=", PLUSPLUS: "++", MINUSMINUS: "--",
+	}
+	if n, ok := names[k]; ok {
