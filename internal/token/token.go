@@ -85,3 +85,6 @@ const (
 	STAREQ   // *=
 	SLASHEQ  // /=
 	PLUSPLUS // ++
+	MINUSMINUS
+)
+
