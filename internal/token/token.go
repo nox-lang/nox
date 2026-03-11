@@ -128,3 +128,6 @@ func Lookup(ident string) Kind {
 	if k, ok := keywords[ident]; ok {
 		return k
 	}
+	return IDENT
+}
+
