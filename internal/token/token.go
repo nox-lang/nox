@@ -65,3 +65,7 @@ const (
 	ASSIGN   // =
 	PLUS     // +
 	MINUS    // -
+	STAR     // *
+	SLASH    // /
+	PERCENT  // %
+	AMP      // &
