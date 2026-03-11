@@ -25,3 +25,7 @@ func (b Base) Pos() (int, int) { return b.Line, b.Col }
 // (slice), `[3]int` (array), `map<string, int>`, `pointer<int>`,
 // `Task<int>`, `func(int): int`, or a class / alias name.
 type TypeExpr struct {
+	Base
+	// Name is one of: "int", "float", "bool", "string", "slice", "array",
+	// "map", "pointer", "Task", "Thread", "func", or a class / type-alias name.
+	Name   string
