@@ -61,3 +61,7 @@ const (
 	ELLIPSIS // ...
 	QUESTION // ?
 
+	// Operators
+	ASSIGN   // =
+	PLUS     // +
+	MINUS    // -
