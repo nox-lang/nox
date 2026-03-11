@@ -58,3 +58,6 @@ const (
 	SEMI     // ; (implicit, not usually written)
 	DOT      // .
 	DCOLON   // ::
+	ELLIPSIS // ...
+	QUESTION // ?
+
