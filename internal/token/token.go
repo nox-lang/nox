@@ -77,3 +77,7 @@ const (
 	LE       // <=
 	GE       // >=
 	EQ       // ==
+	NE       // !=
+	AND      // &&
+	OR       // ||
+	PLUSEQ   // +=
