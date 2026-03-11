@@ -44,3 +44,7 @@ type ImportSpec struct {
 	Alias string // "" if none given (defaults to path)
 }
 
+type IncludeSpec struct {
+	Base
+	Header string
+	Alias  string // "" if none given (defaults to header stem)
