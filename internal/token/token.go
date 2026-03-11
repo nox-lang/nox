@@ -81,3 +81,7 @@ const (
 	AND      // &&
 	OR       // ||
 	PLUSEQ   // +=
+	MINUSEQ  // -=
+	STAREQ   // *=
+	SLASHEQ  // /=
+	PLUSPLUS // ++
