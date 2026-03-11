@@ -83,3 +83,7 @@ type FuncDecl struct {
 	Base
 	Name       string
 	Params     []*Param
+	ReturnType *TypeExpr // nil if inferred
+	Body       *BlockStmt
+	IsStatic   bool // `static func` inside a class
+	IsAsync    bool
