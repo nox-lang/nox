@@ -92,3 +92,7 @@ var keywords = map[string]Kind{
 	"package":  PACKAGE,
 	"import":   IMPORT,
 	"include":  INCLUDE,
+	"as":       AS,
+	"let":      LET,
+	"func":     FUNC,
+	"return":   RETURN,
