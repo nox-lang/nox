@@ -57,3 +57,7 @@ type TypeDecl struct {
 	Type *TypeExpr
 }
 
+type File struct {
+	Base
+	Package  string
+	Imports  []*ImportSpec
