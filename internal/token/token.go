@@ -116,3 +116,7 @@ var keywords = map[string]Kind{
 	"false":    FALSE,
 	"null":     NULL,
 	"async":    ASYNC,
+	"await":    AWAIT,
+	"parallel": PARALLEL,
+	"Parallel": PARALLEL,
+	"try":      TRY,
