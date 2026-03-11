@@ -42,3 +42,5 @@ type ImportSpec struct {
 	Base
 	Path  string
 	Alias string // "" if none given (defaults to path)
+}
+
