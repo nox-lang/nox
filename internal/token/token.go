@@ -73,3 +73,7 @@ const (
 	CARET    // ^
 	NOT      // !
 	LT       // <
+	GT       // >
+	LE       // <=
+	GE       // >=
+	EQ       // ==
