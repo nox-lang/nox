@@ -104,3 +104,7 @@ var keywords = map[string]Kind{
 	"break":    BREAK,
 	"next":     NEXT,
 	"yield":    YIELD,
+	"switch":   SWITCH,
+	"case":     CASE,
+	"default":  DEFAULT,
+	"class":    CLASS,
