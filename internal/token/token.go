@@ -69,3 +69,7 @@ const (
 	SLASH    // /
 	PERCENT  // %
 	AMP      // &
+	PIPE     // |
+	CARET    // ^
+	NOT      // !
+	LT       // <
