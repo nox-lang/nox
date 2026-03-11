@@ -97,3 +97,7 @@ type FieldDecl struct {
 	IsStatic  bool      // `static let` inside a class (a class variable)
 }
 
+type ClassDecl struct {
+	Base
+	Name    string
+	Fields  []*FieldDecl
