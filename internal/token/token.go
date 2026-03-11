@@ -96,3 +96,7 @@ var keywords = map[string]Kind{
 	"let":      LET,
 	"func":     FUNC,
 	"return":   RETURN,
+	"if":       IF,
+	"else":     ELSE,
+	"for":      FOR,
+	"while":    WHILE,
