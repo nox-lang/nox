@@ -54,3 +54,7 @@ const (
 	LBRACKET // [
 	RBRACKET // ]
 	COMMA    // ,
+	COLON    // :
+	SEMI     // ; (implicit, not usually written)
+	DOT      // .
+	DCOLON   // ::
