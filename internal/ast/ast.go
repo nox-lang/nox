@@ -65,3 +65,7 @@ type File struct {
 	Funcs    []*FuncDecl
 	Classes  []*ClassDecl
 	Globals  []*LetStmt
+	Types    []*TypeDecl
+	Filename string
+}
+
