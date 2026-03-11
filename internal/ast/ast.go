@@ -36,3 +36,5 @@ type TypeExpr struct {
 	Ret    *TypeExpr   // result type for func(...): R (nil = no result)
 }
 
+// ---------- File ----------
+
