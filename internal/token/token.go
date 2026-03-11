@@ -146,3 +146,7 @@ func (k Kind) String() string {
 		SWITCH: "switch", CASE: "case", DEFAULT: "default", CLASS: "class", PRIVATE: "private", STATIC: "static", TYPE: "type", THIS: "this",
 		TRUE: "true", FALSE: "false", NULL: "null", ASYNC: "async", AWAIT: "await", PARALLEL: "parallel",
 		TRY: "try", CATCH: "catch", DEFER: "defer", NEXT: "next", YIELD: "yield",
+		LPAREN: "(", RPAREN: ")", LBRACE: "{", RBRACE: "}", LBRACKET: "[", RBRACKET: "]",
+		COMMA: ",", COLON: ":", SEMI: ";", DOT: ".", DCOLON: "::", ELLIPSIS: "...", QUESTION: "?",
+		ASSIGN: "=", PLUS: "+", MINUS: "-", STAR: "*", SLASH: "/", PERCENT: "%",
+		AMP: "&", PIPE: "|", CARET: "^", NOT: "!",
