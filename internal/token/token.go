@@ -100,3 +100,7 @@ var keywords = map[string]Kind{
 	"else":     ELSE,
 	"for":      FOR,
 	"while":    WHILE,
+	"in":       IN,
+	"break":    BREAK,
+	"next":     NEXT,
+	"yield":    YIELD,
