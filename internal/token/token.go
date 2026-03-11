@@ -142,3 +142,7 @@ func (k Kind) String() string {
 	names := map[Kind]string{
 		EOF: "EOF", ILLEGAL: "ILLEGAL", IDENT: "IDENT", INT: "INT", FLOAT: "FLOAT", STRING: "STRING",
 		PACKAGE: "package", IMPORT: "import", INCLUDE: "include", AS: "as", LET: "let", FUNC: "func",
+		RETURN: "return", IF: "if", ELSE: "else", FOR: "for", WHILE: "while", IN: "in", BREAK: "break",
+		SWITCH: "switch", CASE: "case", DEFAULT: "default", CLASS: "class", PRIVATE: "private", STATIC: "static", TYPE: "type", THIS: "this",
+		TRUE: "true", FALSE: "false", NULL: "null", ASYNC: "async", AWAIT: "await", PARALLEL: "parallel",
+		TRY: "try", CATCH: "catch", DEFER: "defer", NEXT: "next", YIELD: "yield",
