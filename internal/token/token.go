@@ -120,3 +120,7 @@ var keywords = map[string]Kind{
 	"parallel": PARALLEL,
 	"Parallel": PARALLEL,
 	"try":      TRY,
+	"catch":    CATCH,
+	"defer":    DEFER,
+}
+
