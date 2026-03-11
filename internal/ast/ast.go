@@ -117,3 +117,6 @@ type LetStmt struct {
 	Base
 	Name      string
 	Type      *TypeExpr // nil if inferred
+	Value     Expr      // nil if uninitialized (`let value`)
+}
+
