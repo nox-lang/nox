@@ -104,3 +104,5 @@ type ClassDecl struct {
 	Methods []*FuncDecl
 }
 
+// ---------- Statements ----------
+
