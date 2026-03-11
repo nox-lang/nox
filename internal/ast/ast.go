@@ -79,3 +79,7 @@ type Param struct {
 	Variadic bool
 }
 
+type FuncDecl struct {
+	Base
+	Name       string
+	Params     []*Param
