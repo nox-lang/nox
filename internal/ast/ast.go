@@ -120,3 +120,5 @@ type LetStmt struct {
 	Value     Expr      // nil if uninitialized (`let value`)
 }
 
+func (*LetStmt) stmtNode() {}
+
