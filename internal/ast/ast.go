@@ -50,3 +50,7 @@ type IncludeSpec struct {
 	Alias  string // "" if none given (defaults to header stem)
 }
 
+// TypeDecl is `type Name = T` / `type Name T` (a transparent type alias).
+type TypeDecl struct {
+	Base
+	Name string
