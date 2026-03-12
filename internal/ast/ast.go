@@ -306,3 +306,5 @@ type ArrayLit struct {
 	Type  *TypeExpr // nil for the plain `[a, b]` form
 }
 
+func (*ArrayLit) exprNode() {}
+
