@@ -162,3 +162,7 @@ func (*ForCondStmt) exprNode() {}
 type ForInStmt struct {
 	Base
 	IndexName string // "" if not requested
+	ValueName string
+	Array     Expr
+	Body      *BlockStmt
+}
