@@ -223,3 +223,6 @@ type SwitchStmt struct {
 	Base
 	Subject Expr
 	Cases   []*SwitchCase
+	Default *BlockStmt // nil if no default
+}
+
