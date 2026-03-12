@@ -190,3 +190,7 @@ func (*BreakStmt) stmtNode() {}
 // to carry a value into the loop's collected result — see its use in
 // codegen). Value is nil for a bare `next`.
 type NextStmt struct {
+	Base
+	Value Expr
+}
+
