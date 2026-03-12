@@ -285,3 +285,5 @@ type StringLit struct {
 	Value string
 }
 
+func (*StringLit) exprNode() {}
+
