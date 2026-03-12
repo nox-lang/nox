@@ -287,3 +287,7 @@ type StringLit struct {
 
 func (*StringLit) exprNode() {}
 
+type BoolLit struct {
+	Base
+	Value bool
+}
