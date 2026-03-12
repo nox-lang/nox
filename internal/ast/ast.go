@@ -296,3 +296,5 @@ func (*BoolLit) exprNode() {}
 
 type NullLit struct{ Base }
 
+func (*NullLit) exprNode() {}
+
