@@ -229,3 +229,7 @@ type SwitchStmt struct {
 func (*SwitchStmt) stmtNode() {}
 func (*SwitchStmt) exprNode() {}
 
+type DeferStmt struct {
+	Base
+	Body *BlockStmt
+}
