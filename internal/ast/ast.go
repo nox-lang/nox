@@ -291,3 +291,4 @@ type BoolLit struct {
 	Base
 	Value bool
 }
+
