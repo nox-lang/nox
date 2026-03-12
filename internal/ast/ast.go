@@ -184,3 +184,5 @@ type BreakStmt struct {
 	Value Expr // nil if bare `break`
 }
 
+func (*BreakStmt) stmtNode() {}
+
