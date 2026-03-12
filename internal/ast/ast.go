@@ -138,3 +138,7 @@ type AssignStmt struct {
 
 func (*AssignStmt) stmtNode() {}
 
+type IfStmt struct {
+	Base
+	Cond Expr
+	Then *BlockStmt
