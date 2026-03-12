@@ -217,3 +217,5 @@ type SwitchCase struct {
 	Base
 	Values []Expr // empty for default
 	Body   *BlockStmt
+}
+
