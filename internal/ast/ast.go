@@ -148,3 +148,7 @@ type IfStmt struct {
 func (*IfStmt) stmtNode() {}
 func (*IfStmt) exprNode() {}
 
+// ForCondStmt is `for (condition) { ... }`. Cond may be nil for an infinite loop.
+type ForCondStmt struct {
+	Base
+	Cond Expr
