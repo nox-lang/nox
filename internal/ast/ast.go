@@ -179,3 +179,7 @@ type WhileStmt struct {
 func (*WhileStmt) stmtNode() {}
 func (*WhileStmt) exprNode() {}
 
+type BreakStmt struct {
+	Base
+	Value Expr // nil if bare `break`
+}
