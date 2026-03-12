@@ -258,3 +258,5 @@ func (*Ident) exprNode() {}
 type QualIdent struct {
 	Base
 	Parts []string
+}
+
