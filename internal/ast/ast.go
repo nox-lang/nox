@@ -194,3 +194,5 @@ type NextStmt struct {
 	Value Expr
 }
 
+func (*NextStmt) stmtNode() {}
+
