@@ -200,3 +200,7 @@ func (*NextStmt) stmtNode() {}
 // callback (or a `.sort` comparator) for the current element; unlike
 // `return`, it does not exit the enclosing function. Value is required.
 type YieldStmt struct {
+	Base
+	Value Expr
+}
+
