@@ -277,3 +277,4 @@ type FloatLit struct {
 	Base
 	Value float64
 }
+
