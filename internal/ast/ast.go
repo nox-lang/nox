@@ -298,3 +298,7 @@ type NullLit struct{ Base }
 
 func (*NullLit) exprNode() {}
 
+// ArrayLit is `[a, b, c]` (an untyped slice literal) or, when Type is set, a
+// typed literal: `[]T{a, b}` (slice) or `[N]T{a, b}` (fixed-size array).
+type ArrayLit struct {
+	Base
