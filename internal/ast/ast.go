@@ -260,3 +260,7 @@ type QualIdent struct {
 	Parts []string
 }
 
+func (*QualIdent) exprNode() {}
+
+type ThisExpr struct{ Base }
+
