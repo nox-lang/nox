@@ -142,3 +142,6 @@ type IfStmt struct {
 	Base
 	Cond Expr
 	Then *BlockStmt
+	Else Stmt // *IfStmt, *BlockStmt, or nil
+}
+
