@@ -270,3 +270,4 @@ type IntLit struct {
 	Base
 	Value int64
 }
+
