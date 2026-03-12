@@ -158,3 +158,7 @@ type ForCondStmt struct {
 func (*ForCondStmt) stmtNode() {}
 func (*ForCondStmt) exprNode() {}
 
+// ForInStmt is `for (value in array) {}` or `for (index, value in array) {}`.
+type ForInStmt struct {
+	Base
+	IndexName string // "" if not requested
