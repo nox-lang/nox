@@ -247,3 +247,7 @@ func (*TryStmt) stmtNode() {}
 
 // ---------- Expressions ----------
 
+type Ident struct {
+	Base
+	Name string
+}
