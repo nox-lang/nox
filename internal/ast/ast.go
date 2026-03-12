@@ -152,3 +152,6 @@ func (*IfStmt) exprNode() {}
 type ForCondStmt struct {
 	Base
 	Cond Expr
+	Body *BlockStmt
+}
+
