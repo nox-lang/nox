@@ -284,3 +284,4 @@ type StringLit struct {
 	Base
 	Value string
 }
+
