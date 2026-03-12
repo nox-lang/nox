@@ -302,3 +302,7 @@ func (*NullLit) exprNode() {}
 // typed literal: `[]T{a, b}` (slice) or `[N]T{a, b}` (fixed-size array).
 type ArrayLit struct {
 	Base
+	Elems []Expr
+	Type  *TypeExpr // nil for the plain `[a, b]` form
+}
+
