@@ -240,3 +240,6 @@ type TryStmt struct {
 	Base
 	Body      *BlockStmt
 	CatchVar  string
+	CatchBody *BlockStmt
+}
+
