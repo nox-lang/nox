@@ -243,3 +243,7 @@ type TryStmt struct {
 	CatchBody *BlockStmt
 }
 
+func (*TryStmt) stmtNode() {}
+
+// ---------- Expressions ----------
+
