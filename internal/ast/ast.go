@@ -167,3 +167,6 @@ type ForInStmt struct {
 	Body      *BlockStmt
 }
 
+func (*ForInStmt) stmtNode() {}
+func (*ForInStmt) exprNode() {}
+
