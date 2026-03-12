@@ -266,3 +266,7 @@ type ThisExpr struct{ Base }
 
 func (*ThisExpr) exprNode() {}
 
+type IntLit struct {
+	Base
+	Value int64
+}
