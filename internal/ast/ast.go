@@ -174,3 +174,5 @@ type WhileStmt struct {
 	Base
 	Cond Expr
 	Body *BlockStmt
+}
+
