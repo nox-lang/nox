@@ -326,3 +326,5 @@ type MakeExpr struct {
 	Args []Expr
 }
 
+func (*MakeExpr) exprNode() {}
+
