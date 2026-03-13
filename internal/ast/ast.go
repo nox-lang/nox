@@ -316,3 +316,5 @@ type MapLit struct {
 	Type *TypeExpr // nil for the untyped `{...}` form
 }
 
+func (*MapLit) exprNode() {}
+
