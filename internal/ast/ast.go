@@ -365,3 +365,5 @@ type IndexExpr struct {
 	Base
 	X     Expr
 	Index Expr
+}
+
