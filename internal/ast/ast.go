@@ -322,3 +322,7 @@ func (*MapLit) exprNode() {}
 // optional capacity) or an empty map.
 type MakeExpr struct {
 	Base
+	Type *TypeExpr
+	Args []Expr
+}
+
