@@ -398,3 +398,5 @@ type AwaitExpr struct {
 	X Expr
 }
 
+func (*AwaitExpr) exprNode() {}
+
