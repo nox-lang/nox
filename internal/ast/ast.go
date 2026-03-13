@@ -341,3 +341,5 @@ type BinaryExpr struct {
 	Base
 	Op   token.Kind
 	X, Y Expr
+}
+
