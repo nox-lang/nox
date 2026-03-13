@@ -58,3 +58,7 @@ func (l *Lexer) errorf(format string, args ...interface{}) {
 func Tokenize(src, filename string) []token.Token {
 	l := New(src, filename)
 	var toks []token.Token
+	for {
+		t := l.Next()
+		toks = append(toks, t)
+		if t.Kind == token.EOF {
