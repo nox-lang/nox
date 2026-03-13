@@ -308,3 +308,7 @@ type ArrayLit struct {
 
 func (*ArrayLit) exprNode() {}
 
+// MapLit is `{k: v, ...}` or the typed form `map<K, V>{k: v, ...}`.
+type MapLit struct {
+	Base
+	Keys []Expr
