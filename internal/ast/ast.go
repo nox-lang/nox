@@ -349,3 +349,5 @@ type UnaryExpr struct {
 	Base
 	Op token.Kind // MINUS, NOT, AMP, STAR
 	X  Expr
+}
+
