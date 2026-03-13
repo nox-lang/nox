@@ -375,3 +375,5 @@ type MemberExpr struct {
 	Name string
 }
 
+func (*MemberExpr) exprNode() {}
+
