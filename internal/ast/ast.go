@@ -312,3 +312,7 @@ func (*ArrayLit) exprNode() {}
 type MapLit struct {
 	Base
 	Keys []Expr
+	Vals []Expr
+	Type *TypeExpr // nil for the untyped `{...}` form
+}
+
