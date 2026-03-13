@@ -381,3 +381,6 @@ type FuncLit struct {
 	Base
 	Params     []*Param
 	ReturnType *TypeExpr
+	Body       *BlockStmt
+}
+
