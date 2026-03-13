@@ -46,3 +46,6 @@ func (l *Lexer) advance() rune {
 	} else {
 		l.col++
 	}
+	return c
+}
+
