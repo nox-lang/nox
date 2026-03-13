@@ -62,3 +62,7 @@ func Tokenize(src, filename string) []token.Token {
 		t := l.Next()
 		toks = append(toks, t)
 		if t.Kind == token.EOF {
+			break
+		}
+	}
+	return toks
