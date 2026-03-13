@@ -384,3 +384,5 @@ type FuncLit struct {
 	Body       *BlockStmt
 }
 
+func (*FuncLit) exprNode() {}
+
