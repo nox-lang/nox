@@ -351,3 +351,5 @@ type UnaryExpr struct {
 	X  Expr
 }
 
+func (*UnaryExpr) exprNode() {}
+
