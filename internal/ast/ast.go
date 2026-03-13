@@ -318,3 +318,7 @@ type MapLit struct {
 
 func (*MapLit) exprNode() {}
 
+// MakeExpr is `make(T, args...)`: allocate a slice with a given length (and
+// optional capacity) or an empty map.
+type MakeExpr struct {
+	Base
