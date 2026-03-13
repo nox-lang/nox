@@ -54,3 +54,7 @@ func (l *Lexer) errorf(format string, args ...interface{}) {
 	panic(fmt.Sprintf("%s:%d:%d: lex error: %s", l.filename, l.line, l.col, msg))
 }
 
+// Tokenize returns all tokens in the source, terminated by an EOF token.
+func Tokenize(src, filename string) []token.Token {
+	l := New(src, filename)
+	var toks []token.Token
