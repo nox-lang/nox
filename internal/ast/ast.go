@@ -386,3 +386,7 @@ type FuncLit struct {
 
 func (*FuncLit) exprNode() {}
 
+type PropagateExpr struct {
+	Base
+	X Expr
+}
