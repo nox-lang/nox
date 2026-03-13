@@ -12,3 +12,7 @@ type Lexer struct {
 	src      []rune
 	pos      int
 	line     int
+	col      int
+	filename string
+}
+
