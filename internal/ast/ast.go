@@ -373,3 +373,5 @@ type MemberExpr struct {
 	Base
 	X    Expr
 	Name string
+}
+
