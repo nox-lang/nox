@@ -367,3 +367,5 @@ type IndexExpr struct {
 	Index Expr
 }
 
+func (*IndexExpr) exprNode() {}
+
