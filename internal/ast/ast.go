@@ -335,3 +335,5 @@ type SliceExpr struct {
 	Lo, Hi Expr
 }
 
+func (*SliceExpr) exprNode() {}
+
