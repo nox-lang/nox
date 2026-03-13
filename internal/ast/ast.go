@@ -337,3 +337,7 @@ type SliceExpr struct {
 
 func (*SliceExpr) exprNode() {}
 
+type BinaryExpr struct {
+	Base
+	Op   token.Kind
+	X, Y Expr
