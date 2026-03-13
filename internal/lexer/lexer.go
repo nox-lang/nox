@@ -66,3 +66,5 @@ func Tokenize(src, filename string) []token.Token {
 		}
 	}
 	return toks
+}
+
