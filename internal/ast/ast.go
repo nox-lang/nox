@@ -332,3 +332,6 @@ func (*MakeExpr) exprNode() {}
 type SliceExpr struct {
 	Base
 	X      Expr
+	Lo, Hi Expr
+}
+
