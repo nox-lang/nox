@@ -42,3 +42,7 @@ func (l *Lexer) advance() rune {
 	l.pos++
 	if c == '\n' {
 		l.line++
+		l.col = 1
+	} else {
+		l.col++
+	}
