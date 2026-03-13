@@ -393,3 +393,7 @@ type PropagateExpr struct {
 
 func (*PropagateExpr) exprNode() {}
 
+type AwaitExpr struct {
+	Base
+	X Expr
+}
