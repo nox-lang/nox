@@ -377,3 +377,7 @@ type MemberExpr struct {
 
 func (*MemberExpr) exprNode() {}
 
+type FuncLit struct {
+	Base
+	Params     []*Param
+	ReturnType *TypeExpr
