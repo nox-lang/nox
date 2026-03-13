@@ -328,3 +328,7 @@ type MakeExpr struct {
 
 func (*MakeExpr) exprNode() {}
 
+// SliceExpr is `x[lo:hi]` (either bound may be omitted).
+type SliceExpr struct {
+	Base
+	X      Expr
