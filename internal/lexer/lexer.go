@@ -34,3 +34,7 @@ func (l *Lexer) peekAt(off int) rune {
 	return l.src[l.pos+off]
 }
 
+func (l *Lexer) advance() rune {
+	if l.pos >= len(l.src) {
+		return 0
+	}
