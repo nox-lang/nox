@@ -353,3 +353,7 @@ type UnaryExpr struct {
 
 func (*UnaryExpr) exprNode() {}
 
+type CallExpr struct {
+	Base
+	Callee Expr
+	Args   []Expr
