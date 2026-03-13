@@ -24,3 +24,6 @@ func (l *Lexer) peekCh() rune {
 	if l.pos >= len(l.src) {
 		return 0
 	}
+	return l.src[l.pos]
+}
+
