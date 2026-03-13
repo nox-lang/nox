@@ -16,3 +16,7 @@ type Lexer struct {
 	filename string
 }
 
+func New(src, filename string) *Lexer {
+	return &Lexer{src: []rune(src), pos: 0, line: 1, col: 1, filename: filename}
+}
+
