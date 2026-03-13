@@ -38,3 +38,7 @@ func (l *Lexer) advance() rune {
 	if l.pos >= len(l.src) {
 		return 0
 	}
+	c := l.src[l.pos]
+	l.pos++
+	if c == '\n' {
+		l.line++
