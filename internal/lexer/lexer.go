@@ -53,3 +53,4 @@ func (l *Lexer) errorf(format string, args ...interface{}) {
 	msg := fmt.Sprintf(format, args...)
 	panic(fmt.Sprintf("%s:%d:%d: lex error: %s", l.filename, l.line, l.col, msg))
 }
+
