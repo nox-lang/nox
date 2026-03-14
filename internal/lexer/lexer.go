@@ -189,3 +189,7 @@ func (l *Lexer) Next() token.Token {
 			return token.Token{Kind: token.MINUSMINUS, Literal: "--", Line: line, Col: col}
 		}
 		return token.Token{Kind: token.MINUS, Literal: "-", Line: line, Col: col}
+	case '*':
+		l.advance()
+		if l.peekCh() == '=' {
+			l.advance()
