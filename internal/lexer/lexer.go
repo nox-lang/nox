@@ -293,3 +293,7 @@ func (l *Lexer) lexNumber(line, col int) token.Token {
 	kind := token.INT
 	if isFloat {
 		kind = token.FLOAT
+	}
+	return token.Token{Kind: kind, Literal: sb.String(), Line: line, Col: col}
+}
+
