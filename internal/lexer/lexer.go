@@ -221,3 +221,7 @@ func (l *Lexer) Next() token.Token {
 		}
 		return token.Token{Kind: token.PIPE, Literal: "|", Line: line, Col: col}
 	case '^':
+		l.advance()
+		return token.Token{Kind: token.CARET, Literal: "^", Line: line, Col: col}
+	case '!':
+		l.advance()
