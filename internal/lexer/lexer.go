@@ -125,3 +125,7 @@ func (l *Lexer) Next() token.Token {
 		return l.lexString(line, col)
 	}
 
+	// operators / punctuation
+	switch c {
+	case '(':
+		l.advance()
