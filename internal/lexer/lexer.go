@@ -197,3 +197,7 @@ func (l *Lexer) Next() token.Token {
 		}
 		return token.Token{Kind: token.STAR, Literal: "*", Line: line, Col: col}
 	case '/':
+		l.advance()
+		if l.peekCh() == '=' {
+			l.advance()
+			return token.Token{Kind: token.SLASHEQ, Literal: "/=", Line: line, Col: col}
