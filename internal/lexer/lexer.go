@@ -129,3 +129,7 @@ func (l *Lexer) Next() token.Token {
 	switch c {
 	case '(':
 		l.advance()
+		return token.Token{Kind: token.LPAREN, Literal: "(", Line: line, Col: col}
+	case ')':
+		l.advance()
+		return token.Token{Kind: token.RPAREN, Literal: ")", Line: line, Col: col}
