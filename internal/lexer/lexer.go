@@ -265,3 +265,7 @@ func (l *Lexer) lexNumber(line, col int) token.Token {
 	}
 	if l.peekCh() == '.' && isDigit(l.peekAt(1)) {
 		isFloat = true
+		sb.WriteRune(l.advance())
+		for isDigit(l.peekCh()) {
+			sb.WriteRune(l.advance())
+		}
