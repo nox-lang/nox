@@ -285,3 +285,7 @@ func (l *Lexer) lexNumber(line, col int) token.Token {
 			}
 			sb.Reset()
 			sb.WriteString(sb2)
+			sb.WriteString(tmp.String())
+		} else {
+			l.pos = save
+		}
