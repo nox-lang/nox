@@ -82,3 +82,7 @@ func (l *Lexer) skipWhitespaceAndComments() {
 			continue
 		}
 		if c == '/' && l.peekAt(1) == '/' {
+			for l.peekCh() != '\n' && l.peekCh() != 0 {
+				l.advance()
+			}
+			continue
