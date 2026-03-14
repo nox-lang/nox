@@ -249,3 +249,7 @@ func (l *Lexer) Next() token.Token {
 		if l.peekCh() == '=' {
 			l.advance()
 			return token.Token{Kind: token.EQ, Literal: "==", Line: line, Col: col}
+		}
+		return token.Token{Kind: token.ASSIGN, Literal: "=", Line: line, Col: col}
+	}
+
