@@ -119,3 +119,7 @@ func (l *Lexer) Next() token.Token {
 		return l.lexNumber(line, col)
 	}
 	if isAlpha(c) {
+		return l.lexIdent(line, col)
+	}
+	if c == '"' {
+		return l.lexString(line, col)
