@@ -209,3 +209,7 @@ func (l *Lexer) Next() token.Token {
 	case '&':
 		l.advance()
 		if l.peekCh() == '&' {
+			l.advance()
+			return token.Token{Kind: token.AND, Literal: "&&", Line: line, Col: col}
+		}
+		return token.Token{Kind: token.AMP, Literal: "&", Line: line, Col: col}
