@@ -74,3 +74,7 @@ func isAlpha(c rune) bool {
 }
 func isAlnum(c rune) bool { return isAlpha(c) || isDigit(c) }
 
+func (l *Lexer) skipWhitespaceAndComments() {
+	for {
+		c := l.peekCh()
+		if c == ' ' || c == '\t' || c == '\r' || c == '\n' {
