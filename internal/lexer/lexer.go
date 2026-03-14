@@ -123,3 +123,5 @@ func (l *Lexer) Next() token.Token {
 	}
 	if c == '"' {
 		return l.lexString(line, col)
+	}
+
