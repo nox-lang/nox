@@ -98,3 +98,7 @@ func (l *Lexer) skipWhitespaceAndComments() {
 					l.advance()
 					l.advance()
 					break
+				}
+				l.advance()
+			}
+			continue
