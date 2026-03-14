@@ -237,3 +237,7 @@ func (l *Lexer) Next() token.Token {
 			return token.Token{Kind: token.LE, Literal: "<=", Line: line, Col: col}
 		}
 		return token.Token{Kind: token.LT, Literal: "<", Line: line, Col: col}
+	case '>':
+		l.advance()
+		if l.peekCh() == '=' {
+			l.advance()
