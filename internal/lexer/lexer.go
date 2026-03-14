@@ -201,3 +201,7 @@ func (l *Lexer) Next() token.Token {
 		if l.peekCh() == '=' {
 			l.advance()
 			return token.Token{Kind: token.SLASHEQ, Literal: "/=", Line: line, Col: col}
+		}
+		return token.Token{Kind: token.SLASH, Literal: "/", Line: line, Col: col}
+	case '%':
+		l.advance()
