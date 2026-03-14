@@ -185,3 +185,7 @@ func (l *Lexer) Next() token.Token {
 			return token.Token{Kind: token.MINUSEQ, Literal: "-=", Line: line, Col: col}
 		}
 		if l.peekCh() == '-' {
+			l.advance()
+			return token.Token{Kind: token.MINUSMINUS, Literal: "--", Line: line, Col: col}
+		}
+		return token.Token{Kind: token.MINUS, Literal: "-", Line: line, Col: col}
