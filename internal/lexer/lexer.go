@@ -253,3 +253,7 @@ func (l *Lexer) Next() token.Token {
 		return token.Token{Kind: token.ASSIGN, Literal: "=", Line: line, Col: col}
 	}
 
+	l.errorf("unexpected character %q", c)
+	return token.Token{}
+}
+
