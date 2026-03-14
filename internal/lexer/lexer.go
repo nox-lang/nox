@@ -165,3 +165,7 @@ func (l *Lexer) Next() token.Token {
 			l.advance()
 			return token.Token{Kind: token.ELLIPSIS, Literal: "...", Line: line, Col: col}
 		}
+		l.advance()
+		return token.Token{Kind: token.DOT, Literal: ".", Line: line, Col: col}
+	case '+':
+		l.advance()
