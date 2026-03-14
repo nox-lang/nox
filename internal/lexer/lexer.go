@@ -205,3 +205,7 @@ func (l *Lexer) Next() token.Token {
 		return token.Token{Kind: token.SLASH, Literal: "/", Line: line, Col: col}
 	case '%':
 		l.advance()
+		return token.Token{Kind: token.PERCENT, Literal: "%", Line: line, Col: col}
+	case '&':
+		l.advance()
+		if l.peekCh() == '&' {
