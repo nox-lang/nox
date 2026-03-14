@@ -161,3 +161,7 @@ func (l *Lexer) Next() token.Token {
 	case '.':
 		if l.peekAt(1) == '.' && l.peekAt(2) == '.' {
 			l.advance()
+			l.advance()
+			l.advance()
+			return token.Token{Kind: token.ELLIPSIS, Literal: "...", Line: line, Col: col}
+		}
