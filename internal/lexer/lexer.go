@@ -94,3 +94,7 @@ func (l *Lexer) skipWhitespaceAndComments() {
 				if l.peekCh() == 0 {
 					l.errorf("unterminated block comment")
 				}
+				if l.peekCh() == '*' && l.peekAt(1) == '/' {
+					l.advance()
+					l.advance()
+					break
