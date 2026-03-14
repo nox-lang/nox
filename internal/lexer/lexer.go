@@ -102,3 +102,7 @@ func (l *Lexer) skipWhitespaceAndComments() {
 				l.advance()
 			}
 			continue
+		}
+		break
+	}
+}
