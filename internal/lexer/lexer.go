@@ -177,3 +177,7 @@ func (l *Lexer) Next() token.Token {
 			l.advance()
 			return token.Token{Kind: token.PLUSPLUS, Literal: "++", Line: line, Col: col}
 		}
+		return token.Token{Kind: token.PLUS, Literal: "+", Line: line, Col: col}
+	case '-':
+		l.advance()
+		if l.peekCh() == '=' {
