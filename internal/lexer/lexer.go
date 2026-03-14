@@ -217,3 +217,7 @@ func (l *Lexer) Next() token.Token {
 		l.advance()
 		if l.peekCh() == '|' {
 			l.advance()
+			return token.Token{Kind: token.OR, Literal: "||", Line: line, Col: col}
+		}
+		return token.Token{Kind: token.PIPE, Literal: "|", Line: line, Col: col}
+	case '^':
