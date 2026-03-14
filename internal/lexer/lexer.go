@@ -145,3 +145,7 @@ func (l *Lexer) Next() token.Token {
 	case ']':
 		l.advance()
 		return token.Token{Kind: token.RBRACKET, Literal: "]", Line: line, Col: col}
+	case ',':
+		l.advance()
+		return token.Token{Kind: token.COMMA, Literal: ",", Line: line, Col: col}
+	case '?':
