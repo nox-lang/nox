@@ -153,3 +153,7 @@ func (l *Lexer) Next() token.Token {
 		return token.Token{Kind: token.QUESTION, Literal: "?", Line: line, Col: col}
 	case ':':
 		l.advance()
+		if l.peekCh() == ':' {
+			l.advance()
+			return token.Token{Kind: token.DCOLON, Literal: "::", Line: line, Col: col}
+		}
