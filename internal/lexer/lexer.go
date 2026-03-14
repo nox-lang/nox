@@ -111,3 +111,7 @@ func (l *Lexer) Next() token.Token {
 	l.skipWhitespaceAndComments()
 	line, col := l.line, l.col
 	c := l.peekCh()
+	if c == 0 {
+		return token.Token{Kind: token.EOF, Line: line, Col: col}
+	}
+
