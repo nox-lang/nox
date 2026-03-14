@@ -225,3 +225,7 @@ func (l *Lexer) Next() token.Token {
 		return token.Token{Kind: token.CARET, Literal: "^", Line: line, Col: col}
 	case '!':
 		l.advance()
+		if l.peekCh() == '=' {
+			l.advance()
+			return token.Token{Kind: token.NE, Literal: "!=", Line: line, Col: col}
+		}
