@@ -107,3 +107,7 @@ func (l *Lexer) skipWhitespaceAndComments() {
 	}
 }
 
+func (l *Lexer) Next() token.Token {
+	l.skipWhitespaceAndComments()
+	line, col := l.line, l.col
+	c := l.peekCh()
