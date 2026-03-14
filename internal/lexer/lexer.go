@@ -157,3 +157,7 @@ func (l *Lexer) Next() token.Token {
 			l.advance()
 			return token.Token{Kind: token.DCOLON, Literal: "::", Line: line, Col: col}
 		}
+		return token.Token{Kind: token.COLON, Literal: ":", Line: line, Col: col}
+	case '.':
+		if l.peekAt(1) == '.' && l.peekAt(2) == '.' {
+			l.advance()
