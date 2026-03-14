@@ -257,3 +257,7 @@ func (l *Lexer) Next() token.Token {
 	return token.Token{}
 }
 
+func (l *Lexer) lexNumber(line, col int) token.Token {
+	var sb strings.Builder
+	isFloat := false
+	for isDigit(l.peekCh()) {
