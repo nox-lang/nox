@@ -273,3 +273,7 @@ func (l *Lexer) lexNumber(line, col int) token.Token {
 	if l.peekCh() == 'e' || l.peekCh() == 'E' {
 		save := l.pos
 		sb2 := sb.String()
+		var tmp strings.Builder
+		tmp.WriteRune(l.advance())
+		if l.peekCh() == '+' || l.peekCh() == '-' {
+			tmp.WriteRune(l.advance())
