@@ -133,3 +133,7 @@ func (l *Lexer) Next() token.Token {
 	case ')':
 		l.advance()
 		return token.Token{Kind: token.RPAREN, Literal: ")", Line: line, Col: col}
+	case '{':
+		l.advance()
+		return token.Token{Kind: token.LBRACE, Literal: "{", Line: line, Col: col}
+	case '}':
