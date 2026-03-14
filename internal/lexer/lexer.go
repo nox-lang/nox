@@ -115,3 +115,7 @@ func (l *Lexer) Next() token.Token {
 		return token.Token{Kind: token.EOF, Line: line, Col: col}
 	}
 
+	if isDigit(c) {
+		return l.lexNumber(line, col)
+	}
+	if isAlpha(c) {
