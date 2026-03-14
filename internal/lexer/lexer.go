@@ -245,3 +245,7 @@ func (l *Lexer) Next() token.Token {
 		}
 		return token.Token{Kind: token.GT, Literal: ">", Line: line, Col: col}
 	case '=':
+		l.advance()
+		if l.peekCh() == '=' {
+			l.advance()
+			return token.Token{Kind: token.EQ, Literal: "==", Line: line, Col: col}
