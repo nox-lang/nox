@@ -322,3 +322,7 @@ func (l *Lexer) lexString(line, col int) token.Token {
 			l.advance()
 			e := l.advance()
 			switch e {
+			case 'n':
+				sb.WriteRune('\n')
+			case 't':
+				sb.WriteRune('\t')
