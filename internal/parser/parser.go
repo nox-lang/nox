@@ -105,3 +105,7 @@ func (p *Parser) parseFile() *ast.File {
 decls:
 	for !p.at(token.EOF) {
 		switch {
+		case p.at(token.PRIVATE):
+			p.errorf("'private' has been removed from Nox: a name starting with a lowercase letter is package-private, one starting with an uppercase letter is public")
+		case p.at(token.STATIC):
+			p.errorf("'static' is only valid on a class variable or method inside a class body")
