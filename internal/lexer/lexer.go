@@ -314,3 +314,7 @@ func (l *Lexer) lexString(line, col int) token.Token {
 		if c == 0 {
 			l.errorf("unterminated string literal")
 		}
+		if c == '"' {
+			l.advance()
+			break
+		}
