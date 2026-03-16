@@ -310,3 +310,7 @@ func (l *Lexer) lexString(line, col int) token.Token {
 	l.advance() // opening quote
 	var sb strings.Builder
 	for {
+		c := l.peekCh()
+		if c == 0 {
+			l.errorf("unterminated string literal")
+		}
