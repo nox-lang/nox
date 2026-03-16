@@ -78,3 +78,5 @@ func (p *Parser) accept(k token.Kind) bool {
 		return true
 	}
 	return false
+}
+
