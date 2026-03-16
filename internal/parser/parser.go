@@ -47,3 +47,6 @@ func tokDesc(t token.Token) string {
 	if t.Literal != "" {
 		return t.Literal
 	}
+	return t.Kind.String()
+}
+
