@@ -144,3 +144,5 @@ func (p *Parser) parseTypeDecl() []*ast.TypeDecl {
 		return out
 	}
 	return []*ast.TypeDecl{one()}
+}
+
