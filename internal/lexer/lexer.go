@@ -318,3 +318,7 @@ func (l *Lexer) lexString(line, col int) token.Token {
 			l.advance()
 			break
 		}
+		if c == '\\' {
+			l.advance()
+			e := l.advance()
+			switch e {
