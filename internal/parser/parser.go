@@ -128,3 +128,7 @@ decls:
 // `type ( A = T  B T ... )`. Every form declares a transparent alias.
 func (p *Parser) parseTypeDecl() []*ast.TypeDecl {
 	p.expect(token.TYPE)
+	one := func() *ast.TypeDecl {
+		name := p.expect(token.IDENT)
+		p.accept(token.ASSIGN)
+		te := p.parseType()
