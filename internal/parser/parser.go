@@ -31,3 +31,7 @@ func Parse(src, filename string) (file *ast.File, err error) {
 		}
 	}()
 	toks := lexer.Tokenize(src, filename)
+	p := &Parser{toks: toks, pos: 0, filename: filename}
+	return p.parseFile(), nil
+}
+
