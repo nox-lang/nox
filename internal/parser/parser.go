@@ -124,3 +124,7 @@ decls:
 	return f
 }
 
+// parseTypeDecl parses `type Name = T`, `type Name T`, or the grouped form
+// `type ( A = T  B T ... )`. Every form declares a transparent alias.
+func (p *Parser) parseTypeDecl() []*ast.TypeDecl {
+	p.expect(token.TYPE)
