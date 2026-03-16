@@ -140,3 +140,7 @@ func (p *Parser) parseTypeDecl() []*ast.TypeDecl {
 			out = append(out, one())
 			p.accept(token.COMMA)
 		}
+		p.expect(token.RPAREN)
+		return out
+	}
+	return []*ast.TypeDecl{one()}
