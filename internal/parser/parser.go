@@ -101,3 +101,7 @@ func (p *Parser) parseFile() *ast.File {
 		default:
 			goto decls
 		}
+	}
+decls:
+	for !p.at(token.EOF) {
+		switch {
