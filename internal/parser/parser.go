@@ -41,3 +41,5 @@ func (p *Parser) errorf(format string, args ...interface{}) {
 	t := p.cur()
 	msg := fmt.Sprintf(format, args...)
 	panic(parseError(fmt.Sprintf("%s:%d:%d: parse error: %s (got %q)", p.filename, t.Line, t.Col, msg, tokDesc(t))))
+}
+
