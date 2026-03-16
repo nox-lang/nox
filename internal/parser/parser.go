@@ -70,3 +70,7 @@ func (p *Parser) expect(k token.Kind) token.Token {
 	if !p.at(k) {
 		p.errorf("expected %s", k.String())
 	}
+	return p.advance()
+}
+func (p *Parser) accept(k token.Kind) bool {
+	if p.at(k) {
