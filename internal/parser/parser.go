@@ -9,3 +9,7 @@ import (
 	"nox/internal/token"
 )
 
+type Parser struct {
+	toks     []token.Token
+	pos      int
+	filename string
