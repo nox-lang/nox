@@ -334,3 +334,7 @@ func (l *Lexer) lexString(line, col int) token.Token {
 				sb.WriteRune('\\')
 			case '0':
 				sb.WriteRune(0)
+			default:
+				sb.WriteRune(e)
+			}
+			continue
