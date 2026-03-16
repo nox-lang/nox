@@ -109,3 +109,7 @@ decls:
 			p.errorf("'private' has been removed from Nox: a name starting with a lowercase letter is package-private, one starting with an uppercase letter is public")
 		case p.at(token.STATIC):
 			p.errorf("'static' is only valid on a class variable or method inside a class body")
+		case p.at(token.CLASS):
+			f.Classes = append(f.Classes, p.parseClassDecl())
+		case p.at(token.TYPE):
+			f.Types = append(f.Types, p.parseTypeDecl()...)
