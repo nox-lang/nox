@@ -326,3 +326,7 @@ func (l *Lexer) lexString(line, col int) token.Token {
 				sb.WriteRune('\n')
 			case 't':
 				sb.WriteRune('\t')
+			case 'r':
+				sb.WriteRune('\r')
+			case '"':
+				sb.WriteRune('"')
