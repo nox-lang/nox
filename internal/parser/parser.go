@@ -80,3 +80,6 @@ func (p *Parser) accept(k token.Kind) bool {
 	return false
 }
 
+func (p *Parser) mark() int   { return p.pos }
+func (p *Parser) reset(m int) { p.pos = m }
+
