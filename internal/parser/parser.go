@@ -113,3 +113,7 @@ decls:
 			f.Classes = append(f.Classes, p.parseClassDecl())
 		case p.at(token.TYPE):
 			f.Types = append(f.Types, p.parseTypeDecl()...)
+		case p.at(token.ASYNC), p.at(token.FUNC):
+			f.Funcs = append(f.Funcs, p.parseFuncDecl())
+		case p.at(token.LET):
+			f.Globals = append(f.Globals, p.parseLetStmt())
