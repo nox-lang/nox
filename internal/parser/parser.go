@@ -154,3 +154,7 @@ func (p *Parser) parseImport() []*ast.ImportSpec {
 		st := p.expect(token.STRING)
 		spec := &ast.ImportSpec{Base: ast.NewBase(st.Line, st.Col), Path: st.Literal}
 		if p.accept(token.AS) {
+			alias := p.expect(token.IDENT)
+			spec.Alias = alias.Literal
+		}
+		specs = append(specs, spec)
