@@ -136,3 +136,7 @@ func (p *Parser) parseTypeDecl() []*ast.TypeDecl {
 	}
 	if p.accept(token.LPAREN) {
 		var out []*ast.TypeDecl
+		for !p.at(token.RPAREN) {
+			out = append(out, one())
+			p.accept(token.COMMA)
+		}
