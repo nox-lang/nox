@@ -50,3 +50,7 @@ func tokDesc(t token.Token) string {
 	return t.Kind.String()
 }
 
+func (p *Parser) cur() token.Token { return p.toks[p.pos] }
+func (p *Parser) peek(n int) token.Token {
+	i := p.pos + n
+	if i >= len(p.toks) {
