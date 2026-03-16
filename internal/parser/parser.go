@@ -66,3 +66,7 @@ func (p *Parser) advance() token.Token {
 	}
 	return t
 }
+func (p *Parser) expect(k token.Kind) token.Token {
+	if !p.at(k) {
+		p.errorf("expected %s", k.String())
+	}
