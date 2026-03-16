@@ -158,3 +158,7 @@ func (p *Parser) parseImport() []*ast.ImportSpec {
 			spec.Alias = alias.Literal
 		}
 		specs = append(specs, spec)
+		if !p.accept(token.COMMA) {
+			break
+		}
+	}
