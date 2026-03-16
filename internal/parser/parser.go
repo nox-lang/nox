@@ -27,3 +27,7 @@ func Parse(src, filename string) (file *ast.File, err error) {
 				err = v
 			default:
 				panic(r)
+			}
+		}
+	}()
+	toks := lexer.Tokenize(src, filename)
