@@ -85,3 +85,7 @@ func (p *Parser) reset(m int) { p.pos = m }
 
 // ---------------- File level ----------------
 
+func (p *Parser) parseFile() *ast.File {
+	f := &ast.File{Filename: p.filename}
+	if p.at(token.PACKAGE) {
+		p.advance()
