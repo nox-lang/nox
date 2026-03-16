@@ -15,3 +15,7 @@ type Parser struct {
 	filename string
 }
 
+func Parse(src, filename string) (file *ast.File, err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			switch v := r.(type) {
