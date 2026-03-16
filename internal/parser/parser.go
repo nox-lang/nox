@@ -93,3 +93,7 @@ func (p *Parser) parseFile() *ast.File {
 		f.Package = name.Literal
 	}
 	for {
+		switch {
+		case p.at(token.IMPORT):
+			f.Imports = append(f.Imports, p.parseImport()...)
+		case p.at(token.INCLUDE):
