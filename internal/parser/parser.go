@@ -121,3 +121,6 @@ decls:
 			p.errorf("expected a top-level declaration (func, class, type, let, import, include)")
 		}
 	}
+	return f
+}
+
