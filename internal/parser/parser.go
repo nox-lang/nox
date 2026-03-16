@@ -89,3 +89,7 @@ func (p *Parser) parseFile() *ast.File {
 	f := &ast.File{Filename: p.filename}
 	if p.at(token.PACKAGE) {
 		p.advance()
+		name := p.expect(token.IDENT)
+		f.Package = name.Literal
+	}
+	for {
