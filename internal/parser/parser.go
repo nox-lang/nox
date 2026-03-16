@@ -162,3 +162,7 @@ func (p *Parser) parseImport() []*ast.ImportSpec {
 			break
 		}
 	}
+	p.expect(token.RPAREN)
+	_ = t
+	return specs
+}
