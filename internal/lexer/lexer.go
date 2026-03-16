@@ -338,3 +338,7 @@ func (l *Lexer) lexString(line, col int) token.Token {
 				sb.WriteRune(e)
 			}
 			continue
+		}
+		sb.WriteRune(l.advance())
+	}
+	return token.Token{Kind: token.STRING, Literal: sb.String(), Line: line, Col: col}
