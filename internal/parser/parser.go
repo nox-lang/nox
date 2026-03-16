@@ -117,3 +117,7 @@ decls:
 			f.Funcs = append(f.Funcs, p.parseFuncDecl())
 		case p.at(token.LET):
 			f.Globals = append(f.Globals, p.parseLetStmt())
+		default:
+			p.errorf("expected a top-level declaration (func, class, type, let, import, include)")
+		}
+	}
