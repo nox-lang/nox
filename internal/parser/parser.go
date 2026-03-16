@@ -62,3 +62,7 @@ func (p *Parser) at(k token.Kind) bool { return p.cur().Kind == k }
 func (p *Parser) advance() token.Token {
 	t := p.cur()
 	if p.pos < len(p.toks)-1 {
+		p.pos++
+	}
+	return t
+}
