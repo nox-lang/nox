@@ -306,3 +306,7 @@ func (l *Lexer) lexIdent(line, col int) token.Token {
 	return token.Token{Kind: token.Lookup(s), Literal: s, Line: line, Col: col}
 }
 
+func (l *Lexer) lexString(line, col int) token.Token {
+	l.advance() // opening quote
+	var sb strings.Builder
+	for {
