@@ -54,3 +54,7 @@ func (p *Parser) cur() token.Token { return p.toks[p.pos] }
 func (p *Parser) peek(n int) token.Token {
 	i := p.pos + n
 	if i >= len(p.toks) {
+		return p.toks[len(p.toks)-1]
+	}
+	return p.toks[i]
+}
