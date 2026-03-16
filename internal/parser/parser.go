@@ -132,3 +132,7 @@ func (p *Parser) parseTypeDecl() []*ast.TypeDecl {
 		name := p.expect(token.IDENT)
 		p.accept(token.ASSIGN)
 		te := p.parseType()
+		return &ast.TypeDecl{Base: ast.NewBase(name.Line, name.Col), Name: name.Literal, Type: te}
+	}
+	if p.accept(token.LPAREN) {
+		var out []*ast.TypeDecl
