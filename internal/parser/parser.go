@@ -150,3 +150,7 @@ func (p *Parser) parseImport() []*ast.ImportSpec {
 	t := p.expect(token.IMPORT)
 	var specs []*ast.ImportSpec
 	p.expect(token.LPAREN)
+	for !p.at(token.RPAREN) {
+		st := p.expect(token.STRING)
+		spec := &ast.ImportSpec{Base: ast.NewBase(st.Line, st.Col), Path: st.Literal}
+		if p.accept(token.AS) {
