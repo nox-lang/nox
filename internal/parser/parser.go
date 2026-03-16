@@ -74,3 +74,7 @@ func (p *Parser) expect(k token.Kind) token.Token {
 }
 func (p *Parser) accept(k token.Kind) bool {
 	if p.at(k) {
+		p.advance()
+		return true
+	}
+	return false
