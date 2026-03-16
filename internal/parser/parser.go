@@ -83,3 +83,5 @@ func (p *Parser) accept(k token.Kind) bool {
 func (p *Parser) mark() int   { return p.pos }
 func (p *Parser) reset(m int) { p.pos = m }
 
+// ---------------- File level ----------------
+
