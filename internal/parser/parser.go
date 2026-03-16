@@ -23,3 +23,7 @@ func Parse(src, filename string) (file *ast.File, err error) {
 				err = fmt.Errorf("%s", string(v))
 			case string:
 				err = fmt.Errorf("%s", v)
+			case error:
+				err = v
+			default:
+				panic(r)
