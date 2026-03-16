@@ -305,3 +305,4 @@ func (l *Lexer) lexIdent(line, col int) token.Token {
 	s := sb.String()
 	return token.Token{Kind: token.Lookup(s), Literal: s, Line: line, Col: col}
 }
+
