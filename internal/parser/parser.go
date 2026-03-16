@@ -35,3 +35,5 @@ func Parse(src, filename string) (file *ast.File, err error) {
 	return p.parseFile(), nil
 }
 
+type parseError string
+
