@@ -43,3 +43,7 @@ func (p *Parser) errorf(format string, args ...interface{}) {
 	panic(parseError(fmt.Sprintf("%s:%d:%d: parse error: %s (got %q)", p.filename, t.Line, t.Col, msg, tokDesc(t))))
 }
 
+func tokDesc(t token.Token) string {
+	if t.Literal != "" {
+		return t.Literal
+	}
