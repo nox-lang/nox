@@ -146,3 +146,7 @@ func (p *Parser) parseTypeDecl() []*ast.TypeDecl {
 	return []*ast.TypeDecl{one()}
 }
 
+func (p *Parser) parseImport() []*ast.ImportSpec {
+	t := p.expect(token.IMPORT)
+	var specs []*ast.ImportSpec
+	p.expect(token.LPAREN)
