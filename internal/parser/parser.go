@@ -270,3 +270,4 @@ func (p *Parser) parseFuncDecl() *ast.FuncDecl {
 	fd.Body = p.parseBlock()
 	return fd
 }
+
