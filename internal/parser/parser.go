@@ -238,3 +238,7 @@ func (p *Parser) parseParamList() []*ast.Param {
 	var params []*ast.Param
 	p.expect(token.LPAREN)
 	for !p.at(token.RPAREN) {
+		nt := p.expect(token.IDENT)
+		param := &ast.Param{Base: ast.NewBase(nt.Line, nt.Col), Name: nt.Literal}
+		if p.accept(token.COLON) {
+			param.Type = p.parseType()
