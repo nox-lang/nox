@@ -303,3 +303,7 @@ func (p *Parser) parseClassDecl() *ast.ClassDecl {
 			}
 			m.Body = p.parseBlock()
 			cd.Methods = append(cd.Methods, m)
+		} else {
+			p.errorf("expected field ('let'), method ('func'), or 'static' member in class body")
+		}
+	}
