@@ -295,3 +295,7 @@ func (p *Parser) parseClassDecl() *ast.ClassDecl {
 		} else if p.at(token.ASYNC) || p.at(token.FUNC) {
 			isAsync := p.accept(token.ASYNC)
 			ft := p.expect(token.FUNC)
+			mname := p.expect(token.IDENT)
+			m := &ast.FuncDecl{Base: ast.NewBase(ft.Line, ft.Col), Name: mname.Literal, IsStatic: isStatic, IsAsync: isAsync}
+			m.Params = p.parseParamList()
+			if p.accept(token.COLON) {
