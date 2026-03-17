@@ -44,3 +44,7 @@ func (p *Parser) parseStmt() ast.Stmt {
 	case token.BREAK:
 		bt := p.advance()
 		bs := &ast.BreakStmt{Base: ast.NewBase(bt.Line, bt.Col)}
+		if p.canStartExpr() {
+			bs.Value = p.parseExpr()
+		}
+		return bs
