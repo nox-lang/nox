@@ -230,3 +230,5 @@ func (p *Parser) parseType() *ast.TypeExpr {
 		p.expect(token.GT)
 	}
 	return te
+}
+
