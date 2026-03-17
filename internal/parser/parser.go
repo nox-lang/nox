@@ -214,3 +214,7 @@ func (p *Parser) parseType() *ast.TypeExpr {
 		if p.accept(token.COLON) {
 			te.Ret = p.parseType()
 		}
+		return te
+	}
+	t := p.expect(token.IDENT)
+	te := &ast.TypeExpr{Base: ast.NewBase(t.Line, t.Col), Name: t.Literal}
