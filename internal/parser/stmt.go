@@ -19,3 +19,7 @@ func (p *Parser) parseLetStmt() *ast.LetStmt {
 	lt := p.expect(token.LET)
 	name := p.expect(token.IDENT)
 	ls := &ast.LetStmt{Base: ast.NewBase(lt.Line, lt.Col), Name: name.Literal}
+	if p.accept(token.COLON) {
+		ls.Type = p.parseType()
+	}
+	if p.accept(token.ASSIGN) {
