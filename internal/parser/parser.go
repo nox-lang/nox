@@ -246,3 +246,7 @@ func (p *Parser) parseParamList() []*ast.Param {
 		if p.accept(token.ELLIPSIS) {
 			param.Variadic = true
 		}
+		if p.accept(token.ASSIGN) {
+			param.Default = p.parseExpr()
+		}
+		params = append(params, param)
