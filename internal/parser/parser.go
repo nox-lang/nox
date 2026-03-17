@@ -258,3 +258,7 @@ func (p *Parser) parseParamList() []*ast.Param {
 	return params
 }
 
+func (p *Parser) parseFuncDecl() *ast.FuncDecl {
+	isAsync := p.accept(token.ASYNC)
+	ft := p.expect(token.FUNC)
+	name := p.expect(token.IDENT)
