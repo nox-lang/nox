@@ -32,3 +32,7 @@ func (p *Parser) parseStmt() ast.Stmt {
 	switch p.cur().Kind {
 	case token.LET:
 		return p.parseLetStmt()
+	case token.PRIVATE:
+		p.errorf("'private' has been removed from Nox: use a lowercase-initial name for package-private declarations")
+		return nil
+	case token.IF:
