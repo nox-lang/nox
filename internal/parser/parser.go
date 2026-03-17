@@ -206,3 +206,7 @@ func (p *Parser) parseType() *ast.TypeExpr {
 		p.expect(token.LPAREN)
 		for !p.at(token.RPAREN) {
 			te.Params = append(te.Params, p.parseType())
+			if !p.accept(token.COMMA) {
+				break
+			}
+		}
