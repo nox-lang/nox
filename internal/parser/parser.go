@@ -262,3 +262,7 @@ func (p *Parser) parseFuncDecl() *ast.FuncDecl {
 	isAsync := p.accept(token.ASYNC)
 	ft := p.expect(token.FUNC)
 	name := p.expect(token.IDENT)
+	fd := &ast.FuncDecl{Base: ast.NewBase(ft.Line, ft.Col), Name: name.Literal, IsAsync: isAsync}
+	fd.Params = p.parseParamList()
+	if p.accept(token.COLON) {
+		fd.ReturnType = p.parseType()
