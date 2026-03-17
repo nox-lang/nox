@@ -254,3 +254,7 @@ func (p *Parser) parseParamList() []*ast.Param {
 			break
 		}
 	}
+	p.expect(token.RPAREN)
+	return params
+}
+
