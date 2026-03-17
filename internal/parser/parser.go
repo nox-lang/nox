@@ -190,3 +190,7 @@ func (p *Parser) parseInclude() []*ast.IncludeSpec {
 
 // ---------------- Types ----------------
 
+func (p *Parser) parseType() *ast.TypeExpr {
+	switch {
+	case p.at(token.LBRACKET):
+		lb := p.advance()
