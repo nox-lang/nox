@@ -202,3 +202,7 @@ func (p *Parser) parseType() *ast.TypeExpr {
 		return &ast.TypeExpr{Base: ast.NewBase(lb.Line, lb.Col), Name: "array", Len: parseIntLiteral(n.Literal), Elem: p.parseType()}
 	case p.at(token.FUNC):
 		ft := p.advance()
+		te := &ast.TypeExpr{Base: ast.NewBase(ft.Line, ft.Col), Name: "func"}
+		p.expect(token.LPAREN)
+		for !p.at(token.RPAREN) {
+			te.Params = append(te.Params, p.parseType())
