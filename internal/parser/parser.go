@@ -218,3 +218,7 @@ func (p *Parser) parseType() *ast.TypeExpr {
 	}
 	t := p.expect(token.IDENT)
 	te := &ast.TypeExpr{Base: ast.NewBase(t.Line, t.Col), Name: t.Literal}
+	if p.accept(token.LT) {
+		first := p.parseType()
+		if te.Name == "map" {
+			p.expect(token.COMMA)
