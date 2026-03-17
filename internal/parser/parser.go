@@ -242,3 +242,7 @@ func (p *Parser) parseParamList() []*ast.Param {
 		param := &ast.Param{Base: ast.NewBase(nt.Line, nt.Col), Name: nt.Literal}
 		if p.accept(token.COLON) {
 			param.Type = p.parseType()
+		}
+		if p.accept(token.ELLIPSIS) {
+			param.Variadic = true
+		}
