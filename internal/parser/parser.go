@@ -210,3 +210,7 @@ func (p *Parser) parseType() *ast.TypeExpr {
 				break
 			}
 		}
+		p.expect(token.RPAREN)
+		if p.accept(token.COLON) {
+			te.Ret = p.parseType()
+		}
