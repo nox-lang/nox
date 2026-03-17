@@ -23,3 +23,7 @@ func (p *Parser) parseLetStmt() *ast.LetStmt {
 		ls.Type = p.parseType()
 	}
 	if p.accept(token.ASSIGN) {
+		ls.Value = p.parseExpr()
+	}
+	return ls
+}
