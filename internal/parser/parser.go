@@ -283,3 +283,7 @@ func (p *Parser) parseClassDecl() *ast.ClassDecl {
 		isStatic := p.accept(token.STATIC)
 		if p.at(token.LET) {
 			lt := p.advance()
+			fname := p.expect(token.IDENT)
+			field := &ast.FieldDecl{Base: ast.NewBase(lt.Line, lt.Col), Name: fname.Literal, IsStatic: isStatic}
+			if p.accept(token.COLON) {
+				field.Type = p.parseType()
