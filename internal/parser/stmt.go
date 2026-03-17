@@ -28,3 +28,7 @@ func (p *Parser) parseLetStmt() *ast.LetStmt {
 	return ls
 }
 
+func (p *Parser) parseStmt() ast.Stmt {
+	switch p.cur().Kind {
+	case token.LET:
+		return p.parseLetStmt()
