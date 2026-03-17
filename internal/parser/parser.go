@@ -271,3 +271,7 @@ func (p *Parser) parseFuncDecl() *ast.FuncDecl {
 	return fd
 }
 
+func (p *Parser) parseClassDecl() *ast.ClassDecl {
+	ct := p.expect(token.CLASS)
+	name := p.expect(token.IDENT)
+	cd := &ast.ClassDecl{Base: ast.NewBase(ct.Line, ct.Col), Name: name.Literal}
