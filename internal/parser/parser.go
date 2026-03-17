@@ -299,3 +299,7 @@ func (p *Parser) parseClassDecl() *ast.ClassDecl {
 			m := &ast.FuncDecl{Base: ast.NewBase(ft.Line, ft.Col), Name: mname.Literal, IsStatic: isStatic, IsAsync: isAsync}
 			m.Params = p.parseParamList()
 			if p.accept(token.COLON) {
+				m.ReturnType = p.parseType()
+			}
+			m.Body = p.parseBlock()
+			cd.Methods = append(cd.Methods, m)
