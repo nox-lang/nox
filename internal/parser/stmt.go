@@ -36,3 +36,7 @@ func (p *Parser) parseStmt() ast.Stmt {
 		p.errorf("'private' has been removed from Nox: use a lowercase-initial name for package-private declarations")
 		return nil
 	case token.IF:
+		return p.parseIfStmt()
+	case token.FOR:
+		return p.parseForStmt()
+	case token.WHILE:
