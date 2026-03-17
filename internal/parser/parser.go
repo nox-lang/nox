@@ -167,3 +167,7 @@ func (p *Parser) parseImport() []*ast.ImportSpec {
 	return specs
 }
 
+func (p *Parser) parseInclude() []*ast.IncludeSpec {
+	t := p.expect(token.INCLUDE)
+	var specs []*ast.IncludeSpec
+	p.expect(token.LPAREN)
