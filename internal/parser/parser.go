@@ -226,3 +226,7 @@ func (p *Parser) parseType() *ast.TypeExpr {
 			te.Elem = p.parseType()
 		} else {
 			te.Elem = first
+		}
+		p.expect(token.GT)
+	}
+	return te
