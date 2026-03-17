@@ -198,3 +198,7 @@ func (p *Parser) parseType() *ast.TypeExpr {
 			return &ast.TypeExpr{Base: ast.NewBase(lb.Line, lb.Col), Name: "slice", Elem: p.parseType()}
 		}
 		n := p.expect(token.INT)
+		p.expect(token.RBRACKET)
+		return &ast.TypeExpr{Base: ast.NewBase(lb.Line, lb.Col), Name: "array", Len: parseIntLiteral(n.Literal), Elem: p.parseType()}
+	case p.at(token.FUNC):
+		ft := p.advance()
