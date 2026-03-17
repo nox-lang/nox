@@ -250,3 +250,7 @@ func (p *Parser) parseParamList() []*ast.Param {
 			param.Default = p.parseExpr()
 		}
 		params = append(params, param)
+		if !p.accept(token.COMMA) {
+			break
+		}
+	}
