@@ -175,3 +175,7 @@ func (p *Parser) parseInclude() []*ast.IncludeSpec {
 		st := p.expect(token.STRING)
 		spec := &ast.IncludeSpec{Base: ast.NewBase(st.Line, st.Col), Header: st.Literal}
 		if p.accept(token.AS) {
+			alias := p.expect(token.IDENT)
+			spec.Alias = alias.Literal
+		}
+		specs = append(specs, spec)
