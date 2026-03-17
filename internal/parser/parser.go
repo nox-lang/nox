@@ -234,3 +234,7 @@ func (p *Parser) parseType() *ast.TypeExpr {
 
 // ---------------- Declarations ----------------
 
+func (p *Parser) parseParamList() []*ast.Param {
+	var params []*ast.Param
+	p.expect(token.LPAREN)
+	for !p.at(token.RPAREN) {
