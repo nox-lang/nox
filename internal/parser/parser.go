@@ -179,3 +179,7 @@ func (p *Parser) parseInclude() []*ast.IncludeSpec {
 			spec.Alias = alias.Literal
 		}
 		specs = append(specs, spec)
+		if !p.accept(token.COMMA) {
+			break
+		}
+	}
