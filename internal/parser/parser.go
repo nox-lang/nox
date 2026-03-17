@@ -171,3 +171,7 @@ func (p *Parser) parseInclude() []*ast.IncludeSpec {
 	t := p.expect(token.INCLUDE)
 	var specs []*ast.IncludeSpec
 	p.expect(token.LPAREN)
+	for !p.at(token.RPAREN) {
+		st := p.expect(token.STRING)
+		spec := &ast.IncludeSpec{Base: ast.NewBase(st.Line, st.Col), Header: st.Literal}
+		if p.accept(token.AS) {
