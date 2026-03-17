@@ -15,3 +15,7 @@ func (p *Parser) parseBlock() *ast.BlockStmt {
 	return b
 }
 
+func (p *Parser) parseLetStmt() *ast.LetStmt {
+	lt := p.expect(token.LET)
+	name := p.expect(token.IDENT)
+	ls := &ast.LetStmt{Base: ast.NewBase(lt.Line, lt.Col), Name: name.Literal}
