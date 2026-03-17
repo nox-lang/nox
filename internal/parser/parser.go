@@ -307,3 +307,6 @@ func (p *Parser) parseClassDecl() *ast.ClassDecl {
 			p.errorf("expected field ('let'), method ('func'), or 'static' member in class body")
 		}
 	}
+	p.expect(token.RBRACE)
+	return cd
+}
