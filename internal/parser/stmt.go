@@ -52,3 +52,7 @@ func (p *Parser) parseStmt() ast.Stmt {
 		nt := p.advance()
 		ns := &ast.NextStmt{Base: ast.NewBase(nt.Line, nt.Col)}
 		if p.canStartExpr() {
+			ns.Value = p.parseExpr()
+		}
+		return ns
+	case token.YIELD:
