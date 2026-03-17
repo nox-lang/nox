@@ -291,3 +291,7 @@ func (p *Parser) parseClassDecl() *ast.ClassDecl {
 			if p.accept(token.ASSIGN) {
 				field.Default = p.parseExpr()
 			}
+			cd.Fields = append(cd.Fields, field)
+		} else if p.at(token.ASYNC) || p.at(token.FUNC) {
+			isAsync := p.accept(token.ASYNC)
+			ft := p.expect(token.FUNC)
