@@ -279,3 +279,7 @@ func (p *Parser) parseClassDecl() *ast.ClassDecl {
 	for !p.at(token.RBRACE) {
 		if p.at(token.PRIVATE) {
 			p.errorf("'private' has been removed from Nox: a member whose name starts with a lowercase letter is only visible inside its class, an uppercase one is public")
+		}
+		isStatic := p.accept(token.STATIC)
+		if p.at(token.LET) {
+			lt := p.advance()
