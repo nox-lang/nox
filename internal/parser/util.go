@@ -10,3 +10,7 @@ func parseIntLiteral(s string) int64 {
 		if uerr == nil {
 			return int64(u)
 		}
+		return 0
+	}
+	return v
+}
