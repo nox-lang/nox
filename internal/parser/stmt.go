@@ -40,3 +40,7 @@ func (p *Parser) parseStmt() ast.Stmt {
 	case token.FOR:
 		return p.parseForStmt()
 	case token.WHILE:
+		return p.parseWhileStmt()
+	case token.BREAK:
+		bt := p.advance()
+		bs := &ast.BreakStmt{Base: ast.NewBase(bt.Line, bt.Col)}
