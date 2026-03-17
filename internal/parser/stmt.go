@@ -56,3 +56,7 @@ func (p *Parser) parseStmt() ast.Stmt {
 		}
 		return ns
 	case token.YIELD:
+		yt := p.advance()
+		return &ast.YieldStmt{Base: ast.NewBase(yt.Line, yt.Col), Value: p.parseExpr()}
+	case token.RETURN:
+		rt := p.advance()
