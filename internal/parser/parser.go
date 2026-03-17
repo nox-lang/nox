@@ -266,3 +266,7 @@ func (p *Parser) parseFuncDecl() *ast.FuncDecl {
 	fd.Params = p.parseParamList()
 	if p.accept(token.COLON) {
 		fd.ReturnType = p.parseType()
+	}
+	fd.Body = p.parseBlock()
+	return fd
+}
