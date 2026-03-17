@@ -222,3 +222,7 @@ func (p *Parser) parseType() *ast.TypeExpr {
 		first := p.parseType()
 		if te.Name == "map" {
 			p.expect(token.COMMA)
+			te.Key = first
+			te.Elem = p.parseType()
+		} else {
+			te.Elem = first
