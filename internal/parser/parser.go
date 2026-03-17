@@ -183,3 +183,7 @@ func (p *Parser) parseInclude() []*ast.IncludeSpec {
 			break
 		}
 	}
+	p.expect(token.RPAREN)
+	_ = t
+	return specs
+}
