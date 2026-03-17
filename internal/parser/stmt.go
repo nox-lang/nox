@@ -13,3 +13,5 @@ func (p *Parser) parseBlock() *ast.BlockStmt {
 	}
 	p.expect(token.RBRACE)
 	return b
+}
+
