@@ -194,3 +194,7 @@ func (p *Parser) parseType() *ast.TypeExpr {
 	switch {
 	case p.at(token.LBRACKET):
 		lb := p.advance()
+		if p.accept(token.RBRACKET) {
+			return &ast.TypeExpr{Base: ast.NewBase(lb.Line, lb.Col), Name: "slice", Elem: p.parseType()}
+		}
+		n := p.expect(token.INT)
