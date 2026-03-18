@@ -61,3 +61,7 @@ func (p *Parser) parseBitXor() ast.Expr {
 	return x
 }
 
+func (p *Parser) parseBitAnd() ast.Expr {
+	x := p.parseEquality()
+	for p.at(token.AMP) {
+		t := p.advance()
