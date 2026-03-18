@@ -196,3 +196,7 @@ func (p *Parser) parseExprOrAssignStmt() ast.Stmt {
 	start := p.cur()
 	x := p.parseExpr()
 	if assignOps[p.cur().Kind] {
+		op := p.advance()
+		val := p.parseExpr()
+		return &ast.AssignStmt{Base: ast.NewBase(start.Line, start.Col), Target: x, Op: op.Kind, Value: val}
+	}
