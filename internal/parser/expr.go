@@ -59,3 +59,5 @@ func (p *Parser) parseBitXor() ast.Expr {
 		x = &ast.BinaryExpr{Base: ast.NewBase(t.Line, t.Col), Op: token.CARET, X: x, Y: y}
 	}
 	return x
+}
+
