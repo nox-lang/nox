@@ -39,3 +39,5 @@ func (p *Parser) parseAnd() ast.Expr {
 		x = &ast.BinaryExpr{Base: ast.NewBase(t.Line, t.Col), Op: token.AND, X: x, Y: y}
 	}
 	return x
+}
+
