@@ -17,3 +17,5 @@ import (
 //   * / %
 //   unary - ! & *
 //   postfix . () [] ?
+//   primary
+
