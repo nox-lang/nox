@@ -101,3 +101,7 @@ func (p *Parser) parseAdditive() ast.Expr {
 	return x
 }
 
+func (p *Parser) parseMultiplicative() ast.Expr {
+	x := p.parseUnary()
+	for p.at(token.STAR) || p.at(token.SLASH) || p.at(token.PERCENT) {
+		t := p.advance()
