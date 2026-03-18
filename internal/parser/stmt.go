@@ -163,3 +163,7 @@ func (p *Parser) parseSwitchStmt() ast.Stmt {
 			sc := &ast.SwitchCase{Base: ast.NewBase(p.cur().Line, p.cur().Col)}
 			sc.Values = append(sc.Values, p.parseExpr())
 			for p.accept(token.COMMA) {
+				sc.Values = append(sc.Values, p.parseExpr())
+			}
+			sc.Body = p.parseBlock()
+			ss.Cases = append(ss.Cases, sc)
