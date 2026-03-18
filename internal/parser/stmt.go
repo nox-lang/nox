@@ -60,3 +60,7 @@ func (p *Parser) parseStmt() ast.Stmt {
 		return &ast.YieldStmt{Base: ast.NewBase(yt.Line, yt.Col), Value: p.parseExpr()}
 	case token.RETURN:
 		rt := p.advance()
+		rs := &ast.ReturnStmt{Base: ast.NewBase(rt.Line, rt.Col)}
+		if p.canStartExpr() {
+			rs.Value = p.parseExpr()
+		}
