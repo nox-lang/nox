@@ -71,3 +71,7 @@ func (p *Parser) parseBitAnd() ast.Expr {
 	return x
 }
 
+func (p *Parser) parseEquality() ast.Expr {
+	x := p.parseRelational()
+	for p.at(token.EQ) || p.at(token.NE) {
+		t := p.advance()
