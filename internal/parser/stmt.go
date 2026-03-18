@@ -185,3 +185,6 @@ func (p *Parser) parseTryStmt() ast.Stmt {
 	name := p.expect(token.IDENT)
 	p.expect(token.RPAREN)
 	catchBody := p.parseBlock()
+	return &ast.TryStmt{Base: ast.NewBase(tt.Line, tt.Col), Body: body, CatchVar: name.Literal, CatchBody: catchBody}
+}
+
