@@ -150,3 +150,4 @@ func (p *Parser) parseWhileStmt() ast.Stmt {
 	body := p.parseBlock()
 	return &ast.WhileStmt{Base: ast.NewBase(wt.Line, wt.Col), Cond: cond, Body: body}
 }
+
