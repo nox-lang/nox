@@ -68,3 +68,7 @@ func (p *Parser) parseStmt() ast.Stmt {
 	case token.SWITCH:
 		return p.parseSwitchStmt()
 	case token.DEFER:
+		dt := p.advance()
+		return &ast.DeferStmt{Base: ast.NewBase(dt.Line, dt.Col), Body: p.parseBlock()}
+	case token.TRY:
+		return p.parseTryStmt()
