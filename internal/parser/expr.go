@@ -95,3 +95,7 @@ func (p *Parser) parseAdditive() ast.Expr {
 	x := p.parseMultiplicative()
 	for p.at(token.PLUS) || p.at(token.MINUS) {
 		t := p.advance()
+		y := p.parseMultiplicative()
+		x = &ast.BinaryExpr{Base: ast.NewBase(t.Line, t.Col), Op: t.Kind, X: x, Y: y}
+	}
+	return x
