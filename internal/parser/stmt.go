@@ -200,3 +200,5 @@ func (p *Parser) parseExprOrAssignStmt() ast.Stmt {
 		val := p.parseExpr()
 		return &ast.AssignStmt{Base: ast.NewBase(start.Line, start.Col), Target: x, Op: op.Kind, Value: val}
 	}
+	return &ast.ExprStmt{Base: ast.NewBase(start.Line, start.Col), X: x}
+}
