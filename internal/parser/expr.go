@@ -51,3 +51,7 @@ func (p *Parser) parseBitOr() ast.Expr {
 	return x
 }
 
+func (p *Parser) parseBitXor() ast.Expr {
+	x := p.parseBitAnd()
+	for p.at(token.CARET) {
+		t := p.advance()
