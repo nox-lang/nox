@@ -188,3 +188,7 @@ func (p *Parser) parseTryStmt() ast.Stmt {
 	return &ast.TryStmt{Base: ast.NewBase(tt.Line, tt.Col), Body: body, CatchVar: name.Literal, CatchBody: catchBody}
 }
 
+var assignOps = map[token.Kind]bool{
+	token.ASSIGN: true, token.PLUSEQ: true, token.MINUSEQ: true, token.STAREQ: true, token.SLASHEQ: true,
+}
+
