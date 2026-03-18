@@ -175,3 +175,5 @@ func (p *Parser) parseSwitchStmt() ast.Stmt {
 	}
 	p.expect(token.RBRACE)
 	return ss
+}
+
