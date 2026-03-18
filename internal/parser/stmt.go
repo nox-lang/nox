@@ -192,3 +192,7 @@ var assignOps = map[token.Kind]bool{
 	token.ASSIGN: true, token.PLUSEQ: true, token.MINUSEQ: true, token.STAREQ: true, token.SLASHEQ: true,
 }
 
+func (p *Parser) parseExprOrAssignStmt() ast.Stmt {
+	start := p.cur()
+	x := p.parseExpr()
+	if assignOps[p.cur().Kind] {
