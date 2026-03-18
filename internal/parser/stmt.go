@@ -113,3 +113,7 @@ func (p *Parser) parseForStmt() ast.Stmt {
 	if p.at(token.IDENT) {
 		first := p.advance()
 		if p.accept(token.COMMA) {
+			if p.at(token.IDENT) {
+				second := p.advance()
+				if p.accept(token.IN) {
+					arr := p.parseExpr()
