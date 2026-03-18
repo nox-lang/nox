@@ -29,3 +29,5 @@ func (p *Parser) parseOr() ast.Expr {
 		x = &ast.BinaryExpr{Base: ast.NewBase(t.Line, t.Col), Op: token.OR, X: x, Y: y}
 	}
 	return x
+}
+
