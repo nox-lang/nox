@@ -72,3 +72,7 @@ func (p *Parser) parseStmt() ast.Stmt {
 		return &ast.DeferStmt{Base: ast.NewBase(dt.Line, dt.Col), Body: p.parseBlock()}
 	case token.TRY:
 		return p.parseTryStmt()
+	default:
+		return p.parseExprOrAssignStmt()
+	}
+}
