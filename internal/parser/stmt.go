@@ -137,3 +137,7 @@ func (p *Parser) parseForStmt() ast.Stmt {
 	if !p.at(token.RPAREN) {
 		cond = p.parseExpr()
 	}
+	p.expect(token.RPAREN)
+	body := p.parseBlock()
+	return &ast.ForCondStmt{Base: ast.NewBase(ft.Line, ft.Col), Cond: cond, Body: body}
+}
