@@ -111,3 +111,7 @@ func (p *Parser) parseMultiplicative() ast.Expr {
 	return x
 }
 
+func (p *Parser) parseUnary() ast.Expr {
+	switch p.cur().Kind {
+	case token.MINUS, token.NOT, token.AMP, token.STAR:
+		t := p.advance()
