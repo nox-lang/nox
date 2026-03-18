@@ -159,3 +159,7 @@ func (p *Parser) parseSwitchStmt() ast.Stmt {
 	p.expect(token.LBRACE)
 	ss := &ast.SwitchStmt{Base: ast.NewBase(st.Line, st.Col), Subject: subj}
 	for !p.at(token.RBRACE) {
+		if p.accept(token.CASE) {
+			sc := &ast.SwitchCase{Base: ast.NewBase(p.cur().Line, p.cur().Col)}
+			sc.Values = append(sc.Values, p.parseExpr())
+			for p.accept(token.COMMA) {
