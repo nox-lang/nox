@@ -105,3 +105,7 @@ func (p *Parser) parseIfStmt() ast.Stmt {
 	return is
 }
 
+func (p *Parser) parseForStmt() ast.Stmt {
+	ft := p.expect(token.FOR)
+	p.expect(token.LPAREN)
+	// Try to detect array form: (IDENT ("," IDENT)? "in" Expr)
