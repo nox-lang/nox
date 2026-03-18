@@ -91,3 +91,7 @@ func (p *Parser) parseRelational() ast.Expr {
 	return x
 }
 
+func (p *Parser) parseAdditive() ast.Expr {
+	x := p.parseMultiplicative()
+	for p.at(token.PLUS) || p.at(token.MINUS) {
+		t := p.advance()
