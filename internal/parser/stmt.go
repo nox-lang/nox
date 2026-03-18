@@ -76,3 +76,4 @@ func (p *Parser) parseStmt() ast.Stmt {
 		return p.parseExprOrAssignStmt()
 	}
 }
+
