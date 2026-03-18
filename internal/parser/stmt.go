@@ -85,3 +85,6 @@ func (p *Parser) canStartExpr() bool {
 		return false
 	default:
 		return true
+	}
+}
+
