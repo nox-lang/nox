@@ -21,3 +21,7 @@ import (
 
 func (p *Parser) parseExpr() ast.Expr { return p.parseOr() }
 
+func (p *Parser) parseOr() ast.Expr {
+	x := p.parseAnd()
+	for p.at(token.OR) {
+		t := p.advance()
