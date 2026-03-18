@@ -151,3 +151,7 @@ func (p *Parser) parseWhileStmt() ast.Stmt {
 	return &ast.WhileStmt{Base: ast.NewBase(wt.Line, wt.Col), Cond: cond, Body: body}
 }
 
+func (p *Parser) parseSwitchStmt() ast.Stmt {
+	st := p.expect(token.SWITCH)
+	p.expect(token.LPAREN)
+	subj := p.parseExpr()
