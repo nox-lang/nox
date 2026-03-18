@@ -171,3 +171,7 @@ func (p *Parser) parseSwitchStmt() ast.Stmt {
 			ss.Default = p.parseBlock()
 		} else {
 			p.errorf("expected 'case' or 'default' in switch body")
+		}
+	}
+	p.expect(token.RBRACE)
+	return ss
