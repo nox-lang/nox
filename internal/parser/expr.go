@@ -79,3 +79,5 @@ func (p *Parser) parseEquality() ast.Expr {
 		x = &ast.BinaryExpr{Base: ast.NewBase(t.Line, t.Col), Op: t.Kind, X: x, Y: y}
 	}
 	return x
+}
+
