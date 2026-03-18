@@ -104,3 +104,4 @@ func (p *Parser) parseIfStmt() ast.Stmt {
 	}
 	return is
 }
+
