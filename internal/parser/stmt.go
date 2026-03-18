@@ -141,3 +141,4 @@ func (p *Parser) parseForStmt() ast.Stmt {
 	body := p.parseBlock()
 	return &ast.ForCondStmt{Base: ast.NewBase(ft.Line, ft.Col), Cond: cond, Body: body}
 }
+
