@@ -96,3 +96,7 @@ func (p *Parser) parseIfStmt() ast.Stmt {
 	then := p.parseBlock()
 	is := &ast.IfStmt{Base: ast.NewBase(it.Line, it.Col), Cond: cond, Then: then}
 	if p.accept(token.ELSE) {
+		if p.at(token.IF) {
+			is.Else = p.parseIfStmt()
+		} else {
+			is.Else = p.parseBlock()
