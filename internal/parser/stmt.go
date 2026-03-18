@@ -100,3 +100,7 @@ func (p *Parser) parseIfStmt() ast.Stmt {
 			is.Else = p.parseIfStmt()
 		} else {
 			is.Else = p.parseBlock()
+		}
+	}
+	return is
+}
