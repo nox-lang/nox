@@ -31,3 +31,7 @@ func (p *Parser) parseOr() ast.Expr {
 	return x
 }
 
+func (p *Parser) parseAnd() ast.Expr {
+	x := p.parseBitOr()
+	for p.at(token.AND) {
+		t := p.advance()
