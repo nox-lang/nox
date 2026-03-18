@@ -69,3 +69,5 @@ func (p *Parser) parseBitAnd() ast.Expr {
 		x = &ast.BinaryExpr{Base: ast.NewBase(t.Line, t.Col), Op: token.AMP, X: x, Y: y}
 	}
 	return x
+}
+
