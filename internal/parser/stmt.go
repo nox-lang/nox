@@ -117,3 +117,7 @@ func (p *Parser) parseForStmt() ast.Stmt {
 				second := p.advance()
 				if p.accept(token.IN) {
 					arr := p.parseExpr()
+					p.expect(token.RPAREN)
+					body := p.parseBlock()
+					return &ast.ForInStmt{Base: ast.NewBase(ft.Line, ft.Col), IndexName: first.Literal, ValueName: second.Literal, Array: arr, Body: body}
+				}
