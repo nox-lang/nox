@@ -45,3 +45,7 @@ func (p *Parser) parseBitOr() ast.Expr {
 	x := p.parseBitXor()
 	for p.at(token.PIPE) {
 		t := p.advance()
+		y := p.parseBitXor()
+		x = &ast.BinaryExpr{Base: ast.NewBase(t.Line, t.Col), Op: token.PIPE, X: x, Y: y}
+	}
+	return x
