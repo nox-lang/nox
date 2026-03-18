@@ -5,3 +5,7 @@ import (
 	"nox/internal/token"
 )
 
+// Precedence (low -> high):
+//   ||
+//   &&
+//   |
