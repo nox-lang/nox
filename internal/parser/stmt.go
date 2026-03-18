@@ -109,3 +109,7 @@ func (p *Parser) parseForStmt() ast.Stmt {
 	ft := p.expect(token.FOR)
 	p.expect(token.LPAREN)
 	// Try to detect array form: (IDENT ("," IDENT)? "in" Expr)
+	save := p.mark()
+	if p.at(token.IDENT) {
+		first := p.advance()
+		if p.accept(token.COMMA) {
