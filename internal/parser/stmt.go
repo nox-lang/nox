@@ -88,3 +88,7 @@ func (p *Parser) canStartExpr() bool {
 	}
 }
 
+func (p *Parser) parseIfStmt() ast.Stmt {
+	it := p.expect(token.IF)
+	p.expect(token.LPAREN)
+	cond := p.parseExpr()
