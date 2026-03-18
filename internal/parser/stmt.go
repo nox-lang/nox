@@ -133,3 +133,7 @@ func (p *Parser) parseForStmt() ast.Stmt {
 		}
 	}
 	// condition form
+	var cond ast.Expr
+	if !p.at(token.RPAREN) {
+		cond = p.parseExpr()
+	}
