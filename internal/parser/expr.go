@@ -35,3 +35,7 @@ func (p *Parser) parseAnd() ast.Expr {
 	x := p.parseBitOr()
 	for p.at(token.AND) {
 		t := p.advance()
+		y := p.parseBitOr()
+		x = &ast.BinaryExpr{Base: ast.NewBase(t.Line, t.Col), Op: token.AND, X: x, Y: y}
+	}
+	return x
