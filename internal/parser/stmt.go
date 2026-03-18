@@ -129,3 +129,7 @@ func (p *Parser) parseForStmt() ast.Stmt {
 			body := p.parseBlock()
 			return &ast.ForInStmt{Base: ast.NewBase(ft.Line, ft.Col), ValueName: first.Literal, Array: arr, Body: body}
 		} else {
+			p.reset(save)
+		}
+	}
+	// condition form
