@@ -64,3 +64,7 @@ func (p *Parser) parseStmt() ast.Stmt {
 		if p.canStartExpr() {
 			rs.Value = p.parseExpr()
 		}
+		return rs
+	case token.SWITCH:
+		return p.parseSwitchStmt()
+	case token.DEFER:
