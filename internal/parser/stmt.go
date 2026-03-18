@@ -146,3 +146,7 @@ func (p *Parser) parseWhileStmt() ast.Stmt {
 	wt := p.expect(token.WHILE)
 	p.expect(token.LPAREN)
 	cond := p.parseExpr()
+	p.expect(token.RPAREN)
+	body := p.parseBlock()
+	return &ast.WhileStmt{Base: ast.NewBase(wt.Line, wt.Col), Cond: cond, Body: body}
+}
