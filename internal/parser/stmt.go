@@ -142,3 +142,7 @@ func (p *Parser) parseForStmt() ast.Stmt {
 	return &ast.ForCondStmt{Base: ast.NewBase(ft.Line, ft.Col), Cond: cond, Body: body}
 }
 
+func (p *Parser) parseWhileStmt() ast.Stmt {
+	wt := p.expect(token.WHILE)
+	p.expect(token.LPAREN)
+	cond := p.parseExpr()
