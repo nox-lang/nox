@@ -155,3 +155,7 @@ func (p *Parser) parseSwitchStmt() ast.Stmt {
 	st := p.expect(token.SWITCH)
 	p.expect(token.LPAREN)
 	subj := p.parseExpr()
+	p.expect(token.RPAREN)
+	p.expect(token.LBRACE)
+	ss := &ast.SwitchStmt{Base: ast.NewBase(st.Line, st.Col), Subject: subj}
+	for !p.at(token.RBRACE) {
