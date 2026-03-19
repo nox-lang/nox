@@ -380,3 +380,7 @@ func (p *Parser) tryTypedMapLit() (ast.Expr, bool) {
 	start := p.cur()
 	te, ok := p.tryParseTypeThenBrace()
 	if !ok {
+		return nil, false
+	}
+	return p.parseMapLitBody(te, start), true
+}
