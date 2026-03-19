@@ -248,3 +248,7 @@ func (p *Parser) parseIdentOrQualOrFuncLit() ast.Expr {
 // position (which is a LPAREN). On failure it rewinds and returns false.
 func (p *Parser) tryParseFuncLit() (ast.Expr, bool) {
 	save := p.mark()
+	lp := p.cur()
+	ok := func() bool {
+		defer func() { recover() }() // treat any parse error as "not a func lit"
+		p.advance()                  // (
