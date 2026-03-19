@@ -367,3 +367,7 @@ func (p *Parser) tryTypedArrayLit() (ast.Expr, bool) {
 	p.expect(token.LBRACE)
 	al := &ast.ArrayLit{Base: ast.NewBase(start.Line, start.Col), Type: te}
 	for !p.at(token.RBRACE) {
+		al.Elems = append(al.Elems, p.parseExpr())
+		if !p.accept(token.COMMA) {
+			break
+		}
