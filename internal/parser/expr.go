@@ -329,3 +329,7 @@ func (p *Parser) parseArrayLit() ast.Expr {
 		al.Elems = append(al.Elems, p.parseExpr())
 		if !p.accept(token.COMMA) {
 			break
+		}
+	}
+	p.expect(token.RBRACKET)
+	return al
