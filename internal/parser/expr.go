@@ -288,3 +288,7 @@ func (p *Parser) tryParseFuncLit() (ast.Expr, bool) {
 		return nil, false
 	}
 	p.reset(save)
+	// Re-parse for real (constructing AST nodes this time).
+	p.advance() // (
+	var params []*ast.Param
+	for !p.at(token.RPAREN) {
