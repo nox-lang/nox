@@ -125,3 +125,7 @@ func (p *Parser) parseUnary() ast.Expr {
 	return p.parsePostfix()
 }
 
+func (p *Parser) parsePostfix() ast.Expr {
+	x := p.parsePrimary()
+	for {
+		switch p.cur().Kind {
