@@ -161,3 +161,7 @@ func (p *Parser) parsePostfix() ast.Expr {
 			}
 			p.expect(token.RBRACKET)
 			x = &ast.IndexExpr{Base: ast.NewBase(lb.Line, lb.Col), X: x, Index: lo}
+		case token.QUESTION:
+			q := p.advance()
+			x = &ast.PropagateExpr{Base: ast.NewBase(q.Line, q.Col), X: x}
+		default:
