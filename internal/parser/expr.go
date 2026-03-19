@@ -243,3 +243,4 @@ func (p *Parser) parseIdentOrQualOrFuncLit() ast.Expr {
 	}
 	return &ast.Ident{Base: ast.NewBase(first.Line, first.Col), Name: first.Literal}
 }
+
