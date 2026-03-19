@@ -376,3 +376,7 @@ func (p *Parser) tryTypedArrayLit() (ast.Expr, bool) {
 	return al, true
 }
 
+func (p *Parser) tryTypedMapLit() (ast.Expr, bool) {
+	start := p.cur()
+	te, ok := p.tryParseTypeThenBrace()
+	if !ok {
