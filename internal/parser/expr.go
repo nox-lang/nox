@@ -194,3 +194,7 @@ func (p *Parser) parsePrimary() ast.Expr {
 	case token.THIS:
 		p.advance()
 		return &ast.ThisExpr{Base: ast.NewBase(t.Line, t.Col)}
+	case token.PARALLEL:
+		return p.parseParallelExpr()
+	case token.IF:
+		return p.parseIfStmt().(ast.Expr)
