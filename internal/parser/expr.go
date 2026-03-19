@@ -325,3 +325,7 @@ func (p *Parser) parseArrayLit() ast.Expr {
 	}
 	lb := p.expect(token.LBRACKET)
 	al := &ast.ArrayLit{Base: ast.NewBase(lb.Line, lb.Col)}
+	for !p.at(token.RBRACKET) {
+		al.Elems = append(al.Elems, p.parseExpr())
+		if !p.accept(token.COMMA) {
+			break
