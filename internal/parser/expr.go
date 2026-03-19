@@ -339,3 +339,7 @@ func (p *Parser) parseArrayLit() ast.Expr {
 // `{`; on failure the parser is rewound and ok is false.
 func (p *Parser) tryParseTypeThenBrace() (te *ast.TypeExpr, ok bool) {
 	save := p.mark()
+	ok = func() (good bool) {
+		defer func() {
+			if r := recover(); r != nil {
+				good = false
