@@ -351,3 +351,7 @@ func (p *Parser) tryParseTypeThenBrace() (te *ast.TypeExpr, ok bool) {
 	if !ok {
 		p.reset(save)
 		return nil, false
+	}
+	return te, true
+}
+
