@@ -252,3 +252,7 @@ func (p *Parser) tryParseFuncLit() (ast.Expr, bool) {
 	ok := func() bool {
 		defer func() { recover() }() // treat any parse error as "not a func lit"
 		p.advance()                  // (
+		for !p.at(token.RPAREN) {
+			if !p.at(token.IDENT) {
+				return false
+			}
