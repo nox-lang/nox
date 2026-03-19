@@ -230,3 +230,4 @@ func (p *Parser) parsePrimary() ast.Expr {
 	p.errorf("expected an expression")
 	return nil
 }
+
