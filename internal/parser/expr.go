@@ -123,3 +123,5 @@ func (p *Parser) parseUnary() ast.Expr {
 		return &ast.AwaitExpr{Base: ast.NewBase(t.Line, t.Col), X: x}
 	}
 	return p.parsePostfix()
+}
+
