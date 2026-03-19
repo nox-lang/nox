@@ -335,3 +335,7 @@ func (p *Parser) parseArrayLit() ast.Expr {
 	return al
 }
 
+// tryParseTypeThenBrace speculatively parses a type that must be followed by
+// `{`; on failure the parser is rewound and ok is false.
+func (p *Parser) tryParseTypeThenBrace() (te *ast.TypeExpr, ok bool) {
+	save := p.mark()
