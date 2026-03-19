@@ -170,3 +170,7 @@ func (p *Parser) parsePostfix() ast.Expr {
 	}
 }
 
+func (p *Parser) parsePrimary() ast.Expr {
+	t := p.cur()
+	switch t.Kind {
+	case token.INT:
