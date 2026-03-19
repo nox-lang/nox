@@ -141,3 +141,7 @@ func (p *Parser) parsePostfix() ast.Expr {
 				if !p.accept(token.COMMA) {
 					break
 				}
+			}
+			p.expect(token.RPAREN)
+			x = &ast.CallExpr{Base: ast.NewBase(lp.Line, lp.Col), Callee: x, Args: args}
+		case token.LBRACKET:
