@@ -231,3 +231,7 @@ func (p *Parser) parsePrimary() ast.Expr {
 	return nil
 }
 
+func (p *Parser) parseIdentOrQualOrFuncLit() ast.Expr {
+	first := p.expect(token.IDENT)
+	if p.at(token.DCOLON) {
+		parts := []string{first.Literal}
