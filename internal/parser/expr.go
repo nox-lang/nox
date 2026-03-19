@@ -174,3 +174,7 @@ func (p *Parser) parsePrimary() ast.Expr {
 	t := p.cur()
 	switch t.Kind {
 	case token.INT:
+		p.advance()
+		return &ast.IntLit{Base: ast.NewBase(t.Line, t.Col), Value: parseIntLiteral(t.Literal)}
+	case token.FLOAT:
+		p.advance()
