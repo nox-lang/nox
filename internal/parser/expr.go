@@ -153,3 +153,7 @@ func (p *Parser) parsePostfix() ast.Expr {
 			if p.accept(token.COLON) {
 				var hi ast.Expr
 				if !p.at(token.RBRACKET) {
+					hi = p.parseExpr()
+				}
+				p.expect(token.RBRACKET)
+				x = &ast.SliceExpr{Base: ast.NewBase(lb.Line, lb.Col), X: x, Lo: lo, Hi: hi}
