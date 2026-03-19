@@ -359,3 +359,7 @@ func (p *Parser) tryTypedArrayLit() (ast.Expr, bool) {
 	start := p.cur()
 	te, ok := p.tryParseTypeThenBrace()
 	if !ok {
+		return nil, false
+	}
+	if te.Name != "slice" && te.Name != "array" {
+		p.errorf("only slice and array types can be written before '{'")
