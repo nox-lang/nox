@@ -182,3 +182,7 @@ func (p *Parser) parsePrimary() ast.Expr {
 	case token.STRING:
 		p.advance()
 		return &ast.StringLit{Base: ast.NewBase(t.Line, t.Col), Value: t.Literal}
+	case token.TRUE:
+		p.advance()
+		return &ast.BoolLit{Base: ast.NewBase(t.Line, t.Col), Value: true}
+	case token.FALSE:
