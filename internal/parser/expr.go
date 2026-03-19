@@ -280,3 +280,7 @@ func (p *Parser) tryParseFuncLit() (ast.Expr, bool) {
 		if p.at(token.COLON) {
 			p.advance()
 			p.parseType()
+		}
+		return p.at(token.LBRACE)
+	}()
+	if !ok {
