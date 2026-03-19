@@ -308,3 +308,7 @@ func (p *Parser) tryParseFuncLit() (ast.Expr, bool) {
 			break
 		}
 	}
+	p.expect(token.RPAREN)
+	fl := &ast.FuncLit{Base: ast.NewBase(lp.Line, lp.Col), Params: params}
+	if p.accept(token.COLON) {
+		fl.ReturnType = p.parseType()
