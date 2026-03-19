@@ -333,3 +333,5 @@ func (p *Parser) parseArrayLit() ast.Expr {
 	}
 	p.expect(token.RBRACKET)
 	return al
+}
+
