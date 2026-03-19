@@ -256,3 +256,7 @@ func (p *Parser) tryParseFuncLit() (ast.Expr, bool) {
 			if !p.at(token.IDENT) {
 				return false
 			}
+			p.advance()
+			if p.at(token.COLON) {
+				p.advance()
+				p.parseType()
