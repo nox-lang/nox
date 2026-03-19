@@ -133,3 +133,7 @@ func (p *Parser) parsePostfix() ast.Expr {
 			p.advance()
 			name := p.expect(token.IDENT)
 			x = &ast.MemberExpr{Base: ast.NewBase(name.Line, name.Col), X: x, Name: name.Literal}
+		case token.LPAREN:
+			lp := p.advance()
+			var args []ast.Expr
+			for !p.at(token.RPAREN) {
