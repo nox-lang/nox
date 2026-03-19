@@ -198,3 +198,7 @@ func (p *Parser) parsePrimary() ast.Expr {
 		return p.parseParallelExpr()
 	case token.IF:
 		return p.parseIfStmt().(ast.Expr)
+	case token.FOR:
+		return p.parseForStmt().(ast.Expr)
+	case token.WHILE:
+		return p.parseWhileStmt().(ast.Expr)
