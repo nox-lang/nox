@@ -316,3 +316,4 @@ func (p *Parser) tryParseFuncLit() (ast.Expr, bool) {
 	fl.Body = p.parseBlock()
 	return fl, true
 }
+
