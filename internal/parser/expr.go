@@ -355,3 +355,7 @@ func (p *Parser) tryParseTypeThenBrace() (te *ast.TypeExpr, ok bool) {
 	return te, true
 }
 
+func (p *Parser) tryTypedArrayLit() (ast.Expr, bool) {
+	start := p.cur()
+	te, ok := p.tryParseTypeThenBrace()
+	if !ok {
