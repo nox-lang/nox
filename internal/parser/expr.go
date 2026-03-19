@@ -222,3 +222,7 @@ func (p *Parser) parsePrimary() ast.Expr {
 		if fl, ok := p.tryParseFuncLit(); ok {
 			return fl
 		}
+		p.advance()
+		x := p.parseExpr()
+		p.expect(token.RPAREN)
+		return x
