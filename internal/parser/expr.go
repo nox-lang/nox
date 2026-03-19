@@ -317,3 +317,7 @@ func (p *Parser) tryParseFuncLit() (ast.Expr, bool) {
 	return fl, true
 }
 
+// parseArrayLit parses `[a, b, c]` (an untyped slice literal) or a typed
+// literal `[]T{...}` / `[N]T{...}`.
+func (p *Parser) parseArrayLit() ast.Expr {
+	if e, ok := p.tryTypedArrayLit(); ok {
