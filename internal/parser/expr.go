@@ -268,3 +268,7 @@ func (p *Parser) tryParseFuncLit() (ast.Expr, bool) {
 				p.advance()
 				p.parseExpr()
 			}
+			if !p.at(token.COMMA) {
+				break
+			}
+			p.advance()
