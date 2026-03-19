@@ -129,3 +129,7 @@ func (p *Parser) parsePostfix() ast.Expr {
 	x := p.parsePrimary()
 	for {
 		switch p.cur().Kind {
+		case token.DOT:
+			p.advance()
+			name := p.expect(token.IDENT)
+			x = &ast.MemberExpr{Base: ast.NewBase(name.Line, name.Col), X: x, Name: name.Literal}
