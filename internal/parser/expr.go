@@ -272,3 +272,7 @@ func (p *Parser) tryParseFuncLit() (ast.Expr, bool) {
 				break
 			}
 			p.advance()
+		}
+		if !p.at(token.RPAREN) {
+			return false
+		}
