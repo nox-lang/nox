@@ -206,3 +206,7 @@ func (p *Parser) parsePrimary() ast.Expr {
 		return p.parseSwitchStmt().(ast.Expr)
 	case token.LBRACKET:
 		return p.parseArrayLit()
+	case token.LBRACE:
+		return p.parseMapLitBody(nil, p.cur())
+	case token.IDENT:
+		if t.Literal == "map" && p.peek(1).Kind == token.LT {
