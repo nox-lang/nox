@@ -218,3 +218,7 @@ func (p *Parser) parsePrimary() ast.Expr {
 			return p.parseMake()
 		}
 		return p.parseIdentOrQualOrFuncLit()
+	case token.LPAREN:
+		if fl, ok := p.tryParseFuncLit(); ok {
+			return fl
+		}
