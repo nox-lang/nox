@@ -137,3 +137,7 @@ func (p *Parser) parsePostfix() ast.Expr {
 			lp := p.advance()
 			var args []ast.Expr
 			for !p.at(token.RPAREN) {
+				args = append(args, p.parseExpr())
+				if !p.accept(token.COMMA) {
+					break
+				}
