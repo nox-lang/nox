@@ -304,3 +304,7 @@ func (p *Parser) tryParseFuncLit() (ast.Expr, bool) {
 			param.Default = p.parseExpr()
 		}
 		params = append(params, param)
+		if !p.accept(token.COMMA) {
+			break
+		}
+	}
