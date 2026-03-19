@@ -371,3 +371,7 @@ func (p *Parser) tryTypedArrayLit() (ast.Expr, bool) {
 		if !p.accept(token.COMMA) {
 			break
 		}
+	}
+	p.expect(token.RBRACE)
+	return al, true
+}
