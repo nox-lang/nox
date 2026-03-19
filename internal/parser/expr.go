@@ -284,3 +284,7 @@ func (p *Parser) tryParseFuncLit() (ast.Expr, bool) {
 		return p.at(token.LBRACE)
 	}()
 	if !ok {
+		p.reset(save)
+		return nil, false
+	}
+	p.reset(save)
