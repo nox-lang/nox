@@ -214,3 +214,7 @@ func (p *Parser) parsePrimary() ast.Expr {
 				return e
 			}
 		}
+		if t.Literal == "make" && p.peek(1).Kind == token.LPAREN {
+			return p.parseMake()
+		}
+		return p.parseIdentOrQualOrFuncLit()
