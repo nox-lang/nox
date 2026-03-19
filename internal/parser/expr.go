@@ -145,3 +145,7 @@ func (p *Parser) parsePostfix() ast.Expr {
 			p.expect(token.RPAREN)
 			x = &ast.CallExpr{Base: ast.NewBase(lp.Line, lp.Col), Callee: x, Args: args}
 		case token.LBRACKET:
+			lb := p.advance()
+			var lo ast.Expr
+			if !p.at(token.COLON) {
+				lo = p.parseExpr()
