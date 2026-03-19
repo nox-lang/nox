@@ -157,3 +157,7 @@ func (p *Parser) parsePostfix() ast.Expr {
 				}
 				p.expect(token.RBRACKET)
 				x = &ast.SliceExpr{Base: ast.NewBase(lb.Line, lb.Col), X: x, Lo: lo, Hi: hi}
+				break
+			}
+			p.expect(token.RBRACKET)
+			x = &ast.IndexExpr{Base: ast.NewBase(lb.Line, lb.Col), X: x, Index: lo}
