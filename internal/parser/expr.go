@@ -300,3 +300,7 @@ func (p *Parser) tryParseFuncLit() (ast.Expr, bool) {
 		if p.accept(token.ELLIPSIS) {
 			param.Variadic = true
 		}
+		if p.accept(token.ASSIGN) {
+			param.Default = p.parseExpr()
+		}
+		params = append(params, param)
