@@ -260,3 +260,7 @@ func (p *Parser) tryParseFuncLit() (ast.Expr, bool) {
 			if p.at(token.COLON) {
 				p.advance()
 				p.parseType()
+			}
+			if p.at(token.ELLIPSIS) {
+				p.advance()
+			}
