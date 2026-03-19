@@ -190,3 +190,7 @@ func (p *Parser) parsePrimary() ast.Expr {
 		return &ast.BoolLit{Base: ast.NewBase(t.Line, t.Col), Value: false}
 	case token.NULL:
 		p.advance()
+		return &ast.NullLit{Base: ast.NewBase(t.Line, t.Col)}
+	case token.THIS:
+		p.advance()
+		return &ast.ThisExpr{Base: ast.NewBase(t.Line, t.Col)}
