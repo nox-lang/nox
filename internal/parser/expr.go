@@ -226,3 +226,7 @@ func (p *Parser) parsePrimary() ast.Expr {
 		x := p.parseExpr()
 		p.expect(token.RPAREN)
 		return x
+	}
+	p.errorf("expected an expression")
+	return nil
+}
