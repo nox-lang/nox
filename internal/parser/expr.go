@@ -165,3 +165,7 @@ func (p *Parser) parsePostfix() ast.Expr {
 			q := p.advance()
 			x = &ast.PropagateExpr{Base: ast.NewBase(q.Line, q.Col), X: x}
 		default:
+			return x
+		}
+	}
+}
