@@ -119,3 +119,7 @@ func (p *Parser) parseUnary() ast.Expr {
 		return &ast.UnaryExpr{Base: ast.NewBase(t.Line, t.Col), Op: t.Kind, X: x}
 	case token.AWAIT:
 		t := p.advance()
+		x := p.parseUnary()
+		return &ast.AwaitExpr{Base: ast.NewBase(t.Line, t.Col), X: x}
+	}
+	return p.parsePostfix()
