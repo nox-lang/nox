@@ -375,3 +375,4 @@ func (p *Parser) tryTypedArrayLit() (ast.Expr, bool) {
 	p.expect(token.RBRACE)
 	return al, true
 }
+
