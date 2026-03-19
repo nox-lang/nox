@@ -210,3 +210,7 @@ func (p *Parser) parsePrimary() ast.Expr {
 		return p.parseMapLitBody(nil, p.cur())
 	case token.IDENT:
 		if t.Literal == "map" && p.peek(1).Kind == token.LT {
+			if e, ok := p.tryTypedMapLit(); ok {
+				return e
+			}
+		}
