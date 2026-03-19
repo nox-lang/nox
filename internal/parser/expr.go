@@ -202,3 +202,7 @@ func (p *Parser) parsePrimary() ast.Expr {
 		return p.parseForStmt().(ast.Expr)
 	case token.WHILE:
 		return p.parseWhileStmt().(ast.Expr)
+	case token.SWITCH:
+		return p.parseSwitchStmt().(ast.Expr)
+	case token.LBRACKET:
+		return p.parseArrayLit()
