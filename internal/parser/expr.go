@@ -244,3 +244,7 @@ func (p *Parser) parseIdentOrQualOrFuncLit() ast.Expr {
 	return &ast.Ident{Base: ast.NewBase(first.Line, first.Col), Name: first.Literal}
 }
 
+// tryParseFuncLit attempts to parse `(params) { body }` at the current
+// position (which is a LPAREN). On failure it rewinds and returns false.
+func (p *Parser) tryParseFuncLit() (ast.Expr, bool) {
+	save := p.mark()
