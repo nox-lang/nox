@@ -235,3 +235,7 @@ func (p *Parser) parseIdentOrQualOrFuncLit() ast.Expr {
 	first := p.expect(token.IDENT)
 	if p.at(token.DCOLON) {
 		parts := []string{first.Literal}
+		for p.accept(token.DCOLON) {
+			id := p.expect(token.IDENT)
+			parts = append(parts, id.Literal)
+		}
