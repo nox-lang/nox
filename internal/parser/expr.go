@@ -115,3 +115,7 @@ func (p *Parser) parseUnary() ast.Expr {
 	switch p.cur().Kind {
 	case token.MINUS, token.NOT, token.AMP, token.STAR:
 		t := p.advance()
+		x := p.parseUnary()
+		return &ast.UnaryExpr{Base: ast.NewBase(t.Line, t.Col), Op: t.Kind, X: x}
+	case token.AWAIT:
+		t := p.advance()
