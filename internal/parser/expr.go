@@ -343,3 +343,7 @@ func (p *Parser) tryParseTypeThenBrace() (te *ast.TypeExpr, ok bool) {
 		defer func() {
 			if r := recover(); r != nil {
 				good = false
+			}
+		}()
+		te = p.parseType()
+		return p.at(token.LBRACE)
