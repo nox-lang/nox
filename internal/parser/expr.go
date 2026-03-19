@@ -149,3 +149,7 @@ func (p *Parser) parsePostfix() ast.Expr {
 			var lo ast.Expr
 			if !p.at(token.COLON) {
 				lo = p.parseExpr()
+			}
+			if p.accept(token.COLON) {
+				var hi ast.Expr
+				if !p.at(token.RBRACKET) {
