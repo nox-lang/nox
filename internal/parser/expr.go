@@ -321,3 +321,7 @@ func (p *Parser) tryParseFuncLit() (ast.Expr, bool) {
 // literal `[]T{...}` / `[N]T{...}`.
 func (p *Parser) parseArrayLit() ast.Expr {
 	if e, ok := p.tryTypedArrayLit(); ok {
+		return e
+	}
+	lb := p.expect(token.LBRACKET)
+	al := &ast.ArrayLit{Base: ast.NewBase(lb.Line, lb.Col)}
