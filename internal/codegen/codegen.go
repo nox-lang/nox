@@ -38,3 +38,7 @@ type Scope struct {
 	parent *Scope
 }
 
+func newScope(parent *Scope) *Scope {
+	return &Scope{vars: map[string]Type{}, parent: parent}
+}
+
