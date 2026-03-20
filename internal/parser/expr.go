@@ -411,3 +411,7 @@ func (p *Parser) parseMake() ast.Expr {
 	for p.accept(token.COMMA) {
 		me.Args = append(me.Args, p.parseExpr())
 	}
+	p.expect(token.RPAREN)
+	return me
+}
+
