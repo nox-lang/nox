@@ -86,3 +86,7 @@ type ClassInstance struct {
 	Methods       map[string]*FuncInstance // key: methodName + "#" + arg-type mangle
 }
 
+// FuncSig identifies a requested instantiation.
+type funcKey struct {
+	name    string
+	argsKey string
