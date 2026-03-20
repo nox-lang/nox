@@ -113,3 +113,5 @@ type Codegen struct {
 	staticFieldOrder []string        // "ClassName.field", in declaration order
 	staticFieldOwner map[string]*ast.ClassDecl
 
+	zeroArgTrampolines map[string]string // return-type mangle -> trampoline func name, for Thread.new/Task.Run
+
