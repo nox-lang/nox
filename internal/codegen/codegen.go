@@ -17,3 +17,7 @@ type Namespace struct {
 	Globals map[string]*ast.LetStmt
 	CPrefix string // for KindInclude: how to call into C, e.g. "" (call bare name)
 
+	// namespaceKeyPrefix is set transiently by resolveNamespace to the
+	// joined "::" path that matched, for building instantiation cache keys
+	// that don't collide between same-named functions in different
+	// namespaces.
