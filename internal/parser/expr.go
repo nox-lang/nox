@@ -385,3 +385,7 @@ func (p *Parser) tryTypedMapLit() (ast.Expr, bool) {
 	return p.parseMapLitBody(te, start), true
 }
 
+// parseMapLitBody parses `{ k: v, ... }` (the current token is the `{`).
+func (p *Parser) parseMapLitBody(te *ast.TypeExpr, start token.Token) ast.Expr {
+	p.expect(token.LBRACE)
+	ml := &ast.MapLit{Base: ast.NewBase(start.Line, start.Col), Type: te}
