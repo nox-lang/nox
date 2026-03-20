@@ -77,3 +77,7 @@ type FuncInstance struct {
 type ClassInstance struct {
 	ClassKey      string
 	ClassName     string
+	Decl          *ast.ClassDecl
+	FieldTypes    map[string]Type
+	FieldOrder    []string
+	StructEmitted bool
