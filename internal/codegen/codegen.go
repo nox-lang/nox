@@ -142,3 +142,7 @@ func NewCodegen(file *ast.File) *Codegen {
 	cg := &Codegen{
 		file:           file,
 		funcsByName:    map[string]*ast.FuncDecl{},
+		classesByName:  map[string]*ast.ClassDecl{},
+		globalDecls:    map[string]*ast.LetStmt{},
+		namespaces:     map[string]*Namespace{},
+		funcInstances:  map[string]*FuncInstance{},
