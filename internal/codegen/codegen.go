@@ -16,3 +16,4 @@ type Namespace struct {
 	Classes map[string]*ast.ClassDecl
 	Globals map[string]*ast.LetStmt
 	CPrefix string // for KindInclude: how to call into C, e.g. "" (call bare name)
+
