@@ -85,3 +85,4 @@ type ClassInstance struct {
 	NewFuncName   string
 	Methods       map[string]*FuncInstance // key: methodName + "#" + arg-type mangle
 }
+
