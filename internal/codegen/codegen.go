@@ -101,3 +101,6 @@ type Codegen struct {
 
 	namespaces map[string]*Namespace // key: joined "::" path, e.g. "io", "libs::math"
 
+	globalScope *Scope
+	globalInitC []string // statements to run in nox_init_globals()
+
