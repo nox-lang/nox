@@ -70,3 +70,6 @@ type FuncInstance struct {
 	// pthread trampoline generated alongside the public task-returning entry
 	// point (see emitAsyncFunc).
 	AsyncBodyName   string
+	AsyncThreadName string
+}
+
