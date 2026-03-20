@@ -110,3 +110,6 @@ type Codegen struct {
 	// (declared once, shared by every monomorphized instantiation of that
 	// class), unlike instance fields/methods which live per ClassInstance.
 	staticFieldType  map[string]Type // key: "ClassName.field"
+	staticFieldOrder []string        // "ClassName.field", in declaration order
+	staticFieldOwner map[string]*ast.ClassDecl
+
