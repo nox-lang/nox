@@ -119,3 +119,7 @@ type Codegen struct {
 	funcOrder     []string
 	instCache     map[funcKey]*FuncInstance
 
+	classInstances map[string]*ClassInstance // key: ClassKey
+	classOrder     []string
+	classCache     map[string]*ClassInstance // key: className + argsKey
+
