@@ -52,3 +52,4 @@ func (s *Scope) lookup(name string) (Type, bool) {
 	}
 	return Type{}, false
 }
+
