@@ -170,3 +170,7 @@ func NewCodegen(file *ast.File) *Codegen {
 	}
 	cg.registerStdlibNamespaces()
 	for _, td := range file.Types {
+		cg.typeAliases[td.Name] = td.Type
+	}
+	for _, inc := range file.Includes {
+		alias := inc.Alias
