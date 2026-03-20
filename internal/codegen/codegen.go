@@ -174,3 +174,7 @@ func NewCodegen(file *ast.File) *Codegen {
 	}
 	for _, inc := range file.Includes {
 		alias := inc.Alias
+		if alias == "" {
+			alias = headerStem(inc.Header)
+		}
+		cg.includeHeaderNamed(inc.Header)
