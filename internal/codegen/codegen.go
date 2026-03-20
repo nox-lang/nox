@@ -92,3 +92,6 @@ type funcKey struct {
 	argsKey string
 }
 
+type Codegen struct {
+	file *ast.File
+
