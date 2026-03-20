@@ -384,3 +384,4 @@ func (p *Parser) tryTypedMapLit() (ast.Expr, bool) {
 	}
 	return p.parseMapLitBody(te, start), true
 }
+
