@@ -57,3 +57,7 @@ func (s *Scope) lookup(name string) (Type, bool) {
 type FuncInstance struct {
 	MangledName  string
 	Decl         *ast.FuncDecl
+	ParamTypes   []Type
+	RetType      Type
+	RetTypeKnown bool
+	IsAsync      bool
