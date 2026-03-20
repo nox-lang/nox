@@ -81,3 +81,7 @@ type ClassInstance struct {
 	FieldTypes    map[string]Type
 	FieldOrder    []string
 	StructEmitted bool
+	StructC       string
+	NewFuncName   string
+	Methods       map[string]*FuncInstance // key: methodName + "#" + arg-type mangle
+}
