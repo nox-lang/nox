@@ -90,3 +90,5 @@ type ClassInstance struct {
 type funcKey struct {
 	name    string
 	argsKey string
+}
+
