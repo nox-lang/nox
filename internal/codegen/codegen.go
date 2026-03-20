@@ -123,3 +123,7 @@ type Codegen struct {
 	classOrder     []string
 	classCache     map[string]*ClassInstance // key: className + argsKey
 
+	closureTypes map[string]bool
+	arrayTypes   map[string]bool
+	typeDefs     []string
+
