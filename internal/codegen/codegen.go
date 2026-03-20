@@ -133,3 +133,5 @@ type Codegen struct {
 	tmpCounter  int
 	nameCounter int
 
+	errStack int // nesting depth counter for generating unique labels (not currently required, reserved)
+
