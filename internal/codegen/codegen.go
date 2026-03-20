@@ -21,3 +21,6 @@ type Namespace struct {
 	// joined "::" path that matched, for building instantiation cache keys
 	// that don't collide between same-named functions in different
 	// namespaces.
+	namespaceKeyPrefix string
+}
+
