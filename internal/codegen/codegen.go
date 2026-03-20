@@ -154,3 +154,7 @@ func NewCodegen(file *ast.File) *Codegen {
 		staticFieldOwner: map[string]*ast.ClassDecl{},
 		zeroArgTrampolines: map[string]string{},
 		closureTypes:   map[string]bool{},
+		arrayTypes:     map[string]bool{},
+		includeSeen:    map[string]bool{},
+	}
+	cg.globalScope = newScope(nil)
