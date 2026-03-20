@@ -53,3 +53,7 @@ func (s *Scope) lookup(name string) (Type, bool) {
 	return Type{}, false
 }
 
+// FuncInstance is one monomorphized specialization of a Nox function.
+type FuncInstance struct {
+	MangledName  string
+	Decl         *ast.FuncDecl
