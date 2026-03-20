@@ -42,3 +42,5 @@ func newScope(parent *Scope) *Scope {
 	return &Scope{vars: map[string]Type{}, parent: parent}
 }
 
+func (s *Scope) define(name string, t Type) { s.vars[name] = t }
+
