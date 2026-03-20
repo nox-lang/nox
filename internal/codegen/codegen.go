@@ -166,3 +166,7 @@ func NewCodegen(file *ast.File) *Codegen {
 		cg.registerStaticFields(c.Name, c)
 	}
 	for _, g := range file.Globals {
+		cg.globalDecls[g.Name] = g
+	}
+	cg.registerStdlibNamespaces()
+	for _, td := range file.Types {
