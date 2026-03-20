@@ -178,3 +178,7 @@ func NewCodegen(file *ast.File) *Codegen {
 			alias = headerStem(inc.Header)
 		}
 		cg.includeHeaderNamed(inc.Header)
+		cg.namespaces[alias] = &Namespace{Kind: NSInclude}
+	}
+	return cg
+}
