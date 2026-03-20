@@ -66,3 +66,7 @@ type FuncInstance struct {
 	Forward      string // forward declaration line
 	Body         string // full definition (emitted once ready)
 
+	// Async-only: names of the auxiliary synchronous body function and the
+	// pthread trampoline generated alongside the public task-returning entry
+	// point (see emitAsyncFunc).
+	AsyncBodyName   string
