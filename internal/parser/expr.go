@@ -403,3 +403,7 @@ func (p *Parser) parseMapLitBody(te *ast.TypeExpr, start token.Token) ast.Expr {
 	return ml
 }
 
+// parseMake parses `make(T)`, `make(T, len)` or `make(T, len, cap)`.
+func (p *Parser) parseMake() ast.Expr {
+	mt := p.expect(token.IDENT)
+	p.expect(token.LPAREN)
