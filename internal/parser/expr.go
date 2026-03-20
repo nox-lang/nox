@@ -401,3 +401,5 @@ func (p *Parser) parseMapLitBody(te *ast.TypeExpr, start token.Token) ast.Expr {
 	}
 	p.expect(token.RBRACE)
 	return ml
+}
+
