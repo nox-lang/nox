@@ -146,3 +146,7 @@ func NewCodegen(file *ast.File) *Codegen {
 		globalDecls:    map[string]*ast.LetStmt{},
 		namespaces:     map[string]*Namespace{},
 		funcInstances:  map[string]*FuncInstance{},
+		instCache:      map[funcKey]*FuncInstance{},
+		classInstances: map[string]*ClassInstance{},
+		classCache:     map[string]*ClassInstance{},
+		typeAliases:    map[string]*ast.TypeExpr{},
