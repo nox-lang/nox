@@ -30,3 +30,5 @@ const (
 	NSStdlib NamespaceKind = iota
 	NSInclude
 	NSUser
+)
+
