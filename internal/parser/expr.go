@@ -407,3 +407,7 @@ func (p *Parser) parseMapLitBody(te *ast.TypeExpr, start token.Token) ast.Expr {
 func (p *Parser) parseMake() ast.Expr {
 	mt := p.expect(token.IDENT)
 	p.expect(token.LPAREN)
+	me := &ast.MakeExpr{Base: ast.NewBase(mt.Line, mt.Col), Type: p.parseType()}
+	for p.accept(token.COMMA) {
+		me.Args = append(me.Args, p.parseExpr())
+	}
