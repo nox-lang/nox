@@ -419,3 +419,7 @@ func (p *Parser) parseMake() ast.Expr {
 func (p *Parser) parseParallelExpr() ast.Expr {
 	pt := p.expect(token.PARALLEL)
 	p.expect(token.LBRACE)
+	pe := &ast.ParallelExpr{Base: ast.NewBase(pt.Line, pt.Col)}
+	for !p.at(token.RBRACE) {
+		pe.Calls = append(pe.Calls, p.parseExpr())
+	}
