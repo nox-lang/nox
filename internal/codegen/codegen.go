@@ -182,3 +182,4 @@ func NewCodegen(file *ast.File) *Codegen {
 	}
 	return cg
 }
+
