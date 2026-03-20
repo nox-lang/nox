@@ -26,3 +26,7 @@ type Namespace struct {
 
 type NamespaceKind int
 
+const (
+	NSStdlib NamespaceKind = iota
+	NSInclude
+	NSUser
