@@ -61,3 +61,7 @@ type FuncInstance struct {
 	RetType      Type
 	RetTypeKnown bool
 	IsAsync      bool
+	Emitting     bool // guards against infinite recursion while generating
+	Emitted      bool
+	Forward      string // forward declaration line
+	Body         string // full definition (emitted once ready)
