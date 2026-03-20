@@ -99,3 +99,5 @@ type Codegen struct {
 	classesByName map[string]*ast.ClassDecl
 	globalDecls   map[string]*ast.LetStmt
 
+	namespaces map[string]*Namespace // key: joined "::" path, e.g. "io", "libs::math"
+
