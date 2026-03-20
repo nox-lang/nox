@@ -127,3 +127,6 @@ type Codegen struct {
 	arrayTypes   map[string]bool
 	typeDefs     []string
 
+	includeHeaders []string // "stdio.h" etc, deduped
+	includeSeen    map[string]bool
+
