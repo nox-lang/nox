@@ -150,3 +150,7 @@ func NewCodegen(file *ast.File) *Codegen {
 		classInstances: map[string]*ClassInstance{},
 		classCache:     map[string]*ClassInstance{},
 		typeAliases:    map[string]*ast.TypeExpr{},
+		staticFieldType:  map[string]Type{},
+		staticFieldOwner: map[string]*ast.ClassDecl{},
+		zeroArgTrampolines: map[string]string{},
+		closureTypes:   map[string]bool{},
