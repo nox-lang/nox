@@ -65,3 +65,4 @@ type FuncInstance struct {
 	Emitted      bool
 	Forward      string // forward declaration line
 	Body         string // full definition (emitted once ready)
+
