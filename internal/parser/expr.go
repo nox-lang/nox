@@ -389,3 +389,7 @@ func (p *Parser) tryTypedMapLit() (ast.Expr, bool) {
 func (p *Parser) parseMapLitBody(te *ast.TypeExpr, start token.Token) ast.Expr {
 	p.expect(token.LBRACE)
 	ml := &ast.MapLit{Base: ast.NewBase(start.Line, start.Col), Type: te}
+	for !p.at(token.RBRACE) {
+		k := p.parseExpr()
+		p.expect(token.COLON)
+		v := p.parseExpr()
