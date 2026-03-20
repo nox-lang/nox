@@ -95,3 +95,7 @@ type funcKey struct {
 type Codegen struct {
 	file *ast.File
 
+	funcsByName   map[string]*ast.FuncDecl
+	classesByName map[string]*ast.ClassDecl
+	globalDecls   map[string]*ast.LetStmt
+
