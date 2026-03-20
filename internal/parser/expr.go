@@ -423,3 +423,6 @@ func (p *Parser) parseParallelExpr() ast.Expr {
 	for !p.at(token.RBRACE) {
 		pe.Calls = append(pe.Calls, p.parseExpr())
 	}
+	p.expect(token.RBRACE)
+	return pe
+}
