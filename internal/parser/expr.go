@@ -393,3 +393,7 @@ func (p *Parser) parseMapLitBody(te *ast.TypeExpr, start token.Token) ast.Expr {
 		k := p.parseExpr()
 		p.expect(token.COLON)
 		v := p.parseExpr()
+		ml.Keys = append(ml.Keys, k)
+		ml.Vals = append(ml.Vals, v)
+		if !p.accept(token.COMMA) {
+			break
