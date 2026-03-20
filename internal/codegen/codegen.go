@@ -104,3 +104,5 @@ type Codegen struct {
 	globalScope *Scope
 	globalInitC []string // statements to run in nox_init_globals()
 
+	typeAliases map[string]*ast.TypeExpr // `type Name = T` declarations
+
