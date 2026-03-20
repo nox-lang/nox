@@ -162,3 +162,7 @@ func NewCodegen(file *ast.File) *Codegen {
 		cg.funcsByName[fn.Name] = fn
 	}
 	for _, c := range file.Classes {
+		cg.classesByName[c.Name] = c
+		cg.registerStaticFields(c.Name, c)
+	}
+	for _, g := range file.Globals {
