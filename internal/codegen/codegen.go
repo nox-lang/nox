@@ -158,3 +158,7 @@ func NewCodegen(file *ast.File) *Codegen {
 		includeSeen:    map[string]bool{},
 	}
 	cg.globalScope = newScope(nil)
+	for _, fn := range file.Funcs {
+		cg.funcsByName[fn.Name] = fn
+	}
+	for _, c := range file.Classes {
