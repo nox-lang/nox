@@ -415,3 +415,7 @@ func (p *Parser) parseMake() ast.Expr {
 	return me
 }
 
+// parseParallelExpr parses `Parallel { call() call() ... }`.
+func (p *Parser) parseParallelExpr() ast.Expr {
+	pt := p.expect(token.PARALLEL)
+	p.expect(token.LBRACE)
