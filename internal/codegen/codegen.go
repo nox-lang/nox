@@ -106,3 +106,7 @@ type Codegen struct {
 
 	typeAliases map[string]*ast.TypeExpr // `type Name = T` declarations
 
+	// static class members. A static field/method belongs to the class NAME
+	// (declared once, shared by every monomorphized instantiation of that
+	// class), unlike instance fields/methods which live per ClassInstance.
+	staticFieldType  map[string]Type // key: "ClassName.field"
