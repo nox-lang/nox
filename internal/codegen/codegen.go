@@ -36,3 +36,5 @@ const (
 type Scope struct {
 	vars   map[string]Type
 	parent *Scope
+}
+
