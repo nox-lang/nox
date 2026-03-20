@@ -135,3 +135,6 @@ type Codegen struct {
 
 	errStack int // nesting depth counter for generating unique labels (not currently required, reserved)
 
+	warnings []string
+}
+
