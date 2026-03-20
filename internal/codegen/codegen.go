@@ -130,3 +130,6 @@ type Codegen struct {
 	includeHeaders []string // "stdio.h" etc, deduped
 	includeSeen    map[string]bool
 
+	tmpCounter  int
+	nameCounter int
+
