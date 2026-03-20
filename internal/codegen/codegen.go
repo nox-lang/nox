@@ -115,3 +115,7 @@ type Codegen struct {
 
 	zeroArgTrampolines map[string]string // return-type mangle -> trampoline func name, for Thread.new/Task.Run
 
+	funcInstances map[string]*FuncInstance // key: mangled name
+	funcOrder     []string
+	instCache     map[funcKey]*FuncInstance
+
