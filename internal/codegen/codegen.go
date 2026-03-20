@@ -138,3 +138,7 @@ type Codegen struct {
 	warnings []string
 }
 
+func NewCodegen(file *ast.File) *Codegen {
+	cg := &Codegen{
+		file:           file,
+		funcsByName:    map[string]*ast.FuncDecl{},
