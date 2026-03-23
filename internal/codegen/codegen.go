@@ -318,3 +318,4 @@ func Generate(file *ast.File, projectRoot string) (out string, err error) {
 		}
 	}
 	sb.WriteString("\n")
+
