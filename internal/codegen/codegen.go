@@ -297,3 +297,5 @@ func Generate(file *ast.File, projectRoot string) (out string, err error) {
 	for _, td := range cg.typeDefs {
 		sb.WriteString(td + "\n")
 	}
+	sb.WriteString("\n")
+
