@@ -368,3 +368,7 @@ func indent(s, pre string) string {
 	lines := strings.Split(strings.TrimRight(s, "\n"), "\n")
 	var sb strings.Builder
 	for _, l := range lines {
+		if l == "" {
+			sb.WriteString("\n")
+			continue
+		}
