@@ -213,3 +213,7 @@ func (cg *Codegen) freshName(prefix string) string {
 func Generate(file *ast.File, projectRoot string) (out string, err error) {
 	defer func() {
 		if r := recover(); r != nil {
+			if s, ok := r.(string); ok {
+				err = fmt.Errorf("%s", s)
+				return
+			}
