@@ -283,3 +283,6 @@ func Generate(file *ast.File, projectRoot string) (out string, err error) {
 			continue // never referenced; skip (dead code)
 		}
 		sb.WriteString(fmt.Sprintf("static %s g_%s;\n", cg.ctype(t), g.Name))
+	}
+	sb.WriteString("\n")
+
