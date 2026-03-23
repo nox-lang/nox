@@ -272,3 +272,6 @@ func Generate(file *ast.File, projectRoot string) (out string, err error) {
 	// appended progressively into cg.funcInstances / cg.classInstances as
 	// codegen for main() (and everything it transitively calls) runs above.
 	// We now flush everything in dependency-safe order: typedefs first (they
+	// grow monotonically), then class structs, then function forward decls,
+	// then function bodies, then main().
+
