@@ -376,3 +376,6 @@ func indent(s, pre string) string {
 		sb.WriteString(l)
 		sb.WriteString("\n")
 	}
+	return sb.String()
+}
+
