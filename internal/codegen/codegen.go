@@ -243,3 +243,7 @@ func Generate(file *ast.File, projectRoot string) (out string, err error) {
 	var mainArgsParam string
 	if len(mainDecl.Params) > 1 {
 		return "", fmt.Errorf("Main: expected at most 1 parameter (args), got %d", len(mainDecl.Params))
+	}
+	if len(mainDecl.Params) == 1 {
+		mainArgsParam = mainDecl.Params[0].Name
+	}
