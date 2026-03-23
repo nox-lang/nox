@@ -331,3 +331,7 @@ func Generate(file *ast.File, projectRoot string) (out string, err error) {
 		}
 	}
 
+	sb.WriteString("static void nox_init_globals(void) {\n")
+	for _, line := range cg.globalInitC {
+		sb.WriteString("    " + line + "\n")
+	}
