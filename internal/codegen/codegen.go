@@ -237,3 +237,5 @@ func Generate(file *ast.File, projectRoot string) (out string, err error) {
 	// literal-ish initializers; more complex globals are resolved lazily on
 	// first reference from within a function body.
 	cg.prepassGlobals()
+	cg.prepassStaticFields()
+
