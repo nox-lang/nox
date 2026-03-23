@@ -379,3 +379,7 @@ func indent(s, pre string) string {
 	return sb.String()
 }
 
+// prepassGlobals resolves and generates initializers for top-level `let`
+// declarations, in file order (a global's initializer may only reference
+// globals declared earlier in the same file).
+func (cg *Codegen) prepassGlobals() {
