@@ -259,3 +259,7 @@ func Generate(file *ast.File, projectRoot string) (out string, err error) {
 		return "", fmt.Errorf("Main: must not return a value (got %s)", fb.retType.String())
 	}
 
+	var sb strings.Builder
+	sb.WriteString("#include <nox/nox.h>\n")
+	sb.WriteString("/* ---------------- generated program ---------------- */\n")
+
