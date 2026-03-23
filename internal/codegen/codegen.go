@@ -343,3 +343,6 @@ func Generate(file *ast.File, projectRoot string) (out string, err error) {
 	sb.WriteString(indent(bodyC, "    "))
 	sb.WriteString("}\n")
 
+	return sb.String(), nil
+}
+
