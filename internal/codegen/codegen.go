@@ -232,3 +232,4 @@ func Generate(file *ast.File, projectRoot string) (out string, err error) {
 	if !ok {
 		return "", fmt.Errorf("no 'Main' function found (the program's entry point is 'func Main()', capitalized — see nox-spec.md)")
 	}
+
