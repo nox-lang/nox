@@ -335,3 +335,5 @@ func Generate(file *ast.File, projectRoot string) (out string, err error) {
 	for _, line := range cg.globalInitC {
 		sb.WriteString("    " + line + "\n")
 	}
+	sb.WriteString("}\n\n")
+
