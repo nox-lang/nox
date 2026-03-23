@@ -248,3 +248,7 @@ func Generate(file *ast.File, projectRoot string) (out string, err error) {
 		mainArgsParam = mainDecl.Params[0].Name
 	}
 
+	mainScope := newScope(nil)
+	if mainArgsParam != "" {
+		mainScope.define(mainArgsParam, TSlice(TString()))
+	}
