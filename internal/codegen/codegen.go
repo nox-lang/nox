@@ -217,3 +217,7 @@ func Generate(file *ast.File, projectRoot string) (out string, err error) {
 				err = fmt.Errorf("%s", s)
 				return
 			}
+			if e, ok := r.(error); ok {
+				err = e
+				return
+			}
