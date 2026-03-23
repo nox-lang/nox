@@ -225,3 +225,6 @@ func Generate(file *ast.File, projectRoot string) (out string, err error) {
 		}
 	}()
 
+	cg := NewCodegen(file)
+	cg.resolveImports(projectRoot)
+
