@@ -268,3 +268,7 @@ func Generate(file *ast.File, projectRoot string) (out string, err error) {
 	}
 	sb.WriteString("\n")
 
+	// Struct/closure/task typedefs and forward declarations, then bodies, are
+	// appended progressively into cg.funcInstances / cg.classInstances as
+	// codegen for main() (and everything it transitively calls) runs above.
+	// We now flush everything in dependency-safe order: typedefs first (they
