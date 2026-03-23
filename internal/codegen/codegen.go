@@ -299,3 +299,7 @@ func Generate(file *ast.File, projectRoot string) (out string, err error) {
 	}
 	sb.WriteString("\n")
 
+	sb.WriteString("/* classes */\n")
+	for _, key := range cg.classOrder {
+		ci := cg.classInstances[key]
+		sb.WriteString(ci.StructC + "\n")
