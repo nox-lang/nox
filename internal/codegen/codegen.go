@@ -228,3 +228,7 @@ func Generate(file *ast.File, projectRoot string) (out string, err error) {
 	cg := NewCodegen(file)
 	cg.resolveImports(projectRoot)
 
+	mainDecl, ok := cg.funcsByName["Main"]
+	if !ok {
+		return "", fmt.Errorf("no 'Main' function found (the program's entry point is 'func Main()', capitalized — see nox-spec.md)")
+	}
