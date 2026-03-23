@@ -293,3 +293,7 @@ func Generate(file *ast.File, projectRoot string) (out string, err error) {
 	}
 	sb.WriteString("\n")
 
+	sb.WriteString("/* closures & tasks */\n")
+	for _, td := range cg.typeDefs {
+		sb.WriteString(td + "\n")
+	}
