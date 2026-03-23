@@ -187,3 +187,7 @@ func headerStem(h string) string {
 	h = strings.TrimSuffix(h, ".h")
 	if i := strings.LastIndexByte(h, '/'); i >= 0 {
 		h = h[i+1:]
+	}
+	return h
+}
+
