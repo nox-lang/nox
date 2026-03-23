@@ -350,3 +350,7 @@ func sortedKeys(m map[string]*ast.LetStmt) []string {
 	var ks []string
 	for k := range m {
 		ks = append(ks, k)
+	}
+	sort.Strings(ks)
+	return ks
+}
