@@ -341,3 +341,5 @@ func Generate(file *ast.File, projectRoot string) (out string, err error) {
 	sb.WriteString("    nox_runtime_init(argc, argv);\n")
 	sb.WriteString("    nox_init_globals();\n")
 	sb.WriteString(indent(bodyC, "    "))
+	sb.WriteString("}\n")
+
