@@ -275,3 +275,7 @@ func Generate(file *ast.File, projectRoot string) (out string, err error) {
 	// grow monotonically), then class structs, then function forward decls,
 	// then function bodies, then main().
 
+	sb.WriteString("/* global variables */\n")
+	for _, name := range sortedKeys(cg.globalDecls) {
+		g := cg.globalDecls[name]
+		t, ok := cg.globalScope.lookup(g.Name)
