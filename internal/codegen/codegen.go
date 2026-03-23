@@ -239,3 +239,7 @@ func Generate(file *ast.File, projectRoot string) (out string, err error) {
 	cg.prepassGlobals()
 	cg.prepassStaticFields()
 
+	// Determine main's parameter convention: func main() or func main(args).
+	var mainArgsParam string
+	if len(mainDecl.Params) > 1 {
+		return "", fmt.Errorf("Main: expected at most 1 parameter (args), got %d", len(mainDecl.Params))
