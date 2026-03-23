@@ -310,3 +310,7 @@ func Generate(file *ast.File, projectRoot string) (out string, err error) {
 	for _, key := range cg.funcOrder {
 		fi := cg.funcInstances[key]
 		sb.WriteString(fi.Forward + "\n")
+	}
+	for _, key := range cg.classOrder {
+		ci := cg.classInstances[key]
+		for _, mname := range sortedMethodKeys(ci.Methods) {
