@@ -191,3 +191,7 @@ func headerStem(h string) string {
 	return h
 }
 
+func (cg *Codegen) includeHeaderNamed(h string) {
+	if cg.includeSeen[h] {
+		return
+	}
