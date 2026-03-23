@@ -363,3 +363,4 @@ func sortedMethodKeys(m map[string]*FuncInstance) []string {
 	sort.Strings(ks)
 	return ks
 }
+
