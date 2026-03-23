@@ -233,3 +233,7 @@ func Generate(file *ast.File, projectRoot string) (out string, err error) {
 		return "", fmt.Errorf("no 'Main' function found (the program's entry point is 'func Main()', capitalized — see nox-spec.md)")
 	}
 
+	// Resolve global (top-level) let declarations' types eagerly using only
+	// literal-ish initializers; more complex globals are resolved lazily on
+	// first reference from within a function body.
+	cg.prepassGlobals()
