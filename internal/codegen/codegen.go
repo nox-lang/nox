@@ -319,3 +319,7 @@ func Generate(file *ast.File, projectRoot string) (out string, err error) {
 	}
 	sb.WriteString("\n")
 
+	sb.WriteString("/* function bodies */\n")
+	for _, key := range cg.funcOrder {
+		fi := cg.funcInstances[key]
+		sb.WriteString(fi.Body + "\n\n")
