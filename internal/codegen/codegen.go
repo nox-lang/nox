@@ -252,3 +252,4 @@ func Generate(file *ast.File, projectRoot string) (out string, err error) {
 	if mainArgsParam != "" {
 		mainScope.define(mainArgsParam, TSlice(TString()))
 	}
+
