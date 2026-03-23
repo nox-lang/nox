@@ -247,3 +247,4 @@ func Generate(file *ast.File, projectRoot string) (out string, err error) {
 	if len(mainDecl.Params) == 1 {
 		mainArgsParam = mainDecl.Params[0].Name
 	}
+
