@@ -279,3 +279,7 @@ func Generate(file *ast.File, projectRoot string) (out string, err error) {
 	for _, name := range sortedKeys(cg.globalDecls) {
 		g := cg.globalDecls[name]
 		t, ok := cg.globalScope.lookup(g.Name)
+		if !ok {
+			continue // never referenced; skip (dead code)
+		}
+		sb.WriteString(fmt.Sprintf("static %s g_%s;\n", cg.ctype(t), g.Name))
