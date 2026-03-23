@@ -221,3 +221,7 @@ func Generate(file *ast.File, projectRoot string) (out string, err error) {
 				err = e
 				return
 			}
+			panic(r)
+		}
+	}()
+
