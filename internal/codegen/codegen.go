@@ -327,3 +327,7 @@ func Generate(file *ast.File, projectRoot string) (out string, err error) {
 	for _, key := range cg.classOrder {
 		ci := cg.classInstances[key]
 		for _, mname := range sortedMethodKeys(ci.Methods) {
+			sb.WriteString(ci.Methods[mname].Body + "\n\n")
+		}
+	}
+
