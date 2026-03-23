@@ -286,3 +286,7 @@ func Generate(file *ast.File, projectRoot string) (out string, err error) {
 	}
 	sb.WriteString("\n")
 
+	sb.WriteString("/* static class members */\n")
+	for _, key := range cg.staticFieldOrder {
+		parts := strings.SplitN(key, ".", 2)
+		sb.WriteString(fmt.Sprintf("static %s %s;\n", cg.ctype(cg.staticFieldType[key]), staticFieldCName(parts[0], parts[1])))
