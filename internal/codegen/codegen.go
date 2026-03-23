@@ -253,3 +253,7 @@ func Generate(file *ast.File, projectRoot string) (out string, err error) {
 		mainScope.define(mainArgsParam, TSlice(TString()))
 	}
 
+	fb := &funcBuilder{cg: cg, fname: "Main"}
+	bodyC := fb.buildFunctionBody(mainScope, mainDecl.Body, "return 0;")
+	if fb.retType.Kind != KVoid {
+		return "", fmt.Errorf("Main: must not return a value (got %s)", fb.retType.String())
