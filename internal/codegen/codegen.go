@@ -263,3 +263,7 @@ func Generate(file *ast.File, projectRoot string) (out string, err error) {
 	sb.WriteString("#include <nox/nox.h>\n")
 	sb.WriteString("/* ---------------- generated program ---------------- */\n")
 
+	for _, h := range cg.includeHeaders {
+		sb.WriteString(fmt.Sprintf("#include <%s>\n", h))
+	}
+	sb.WriteString("\n")
