@@ -267,3 +267,4 @@ func Generate(file *ast.File, projectRoot string) (out string, err error) {
 		sb.WriteString(fmt.Sprintf("#include <%s>\n", h))
 	}
 	sb.WriteString("\n")
+
