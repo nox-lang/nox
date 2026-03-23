@@ -209,3 +209,7 @@ func (cg *Codegen) freshName(prefix string) string {
 	return fmt.Sprintf("%s_%d", prefix, cg.nameCounter)
 }
 
+// Generate compiles the parsed file into a single C source string.
+func Generate(file *ast.File, projectRoot string) (out string, err error) {
+	defer func() {
+		if r := recover(); r != nil {
