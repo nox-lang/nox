@@ -110,3 +110,7 @@ func (t Type) Equals(o Type) bool {
 			return false
 		}
 		for i := range t.Params {
+			if !t.Params[i].Equals(o.Params[i]) {
+				return false
+			}
+		}
