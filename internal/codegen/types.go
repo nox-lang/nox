@@ -82,3 +82,7 @@ func (t Type) ContainsUnknown() bool {
 			return true
 		}
 		return t.Elem != nil && t.Elem.ContainsUnknown()
+	}
+	return false
+}
+
