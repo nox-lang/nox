@@ -86,3 +86,7 @@ func (t Type) ContainsUnknown() bool {
 	return false
 }
 
+func (t Type) Equals(o Type) bool {
+	if t.Kind == KUnknown || o.Kind == KUnknown {
+		return true
+	}
