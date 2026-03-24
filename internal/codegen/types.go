@@ -190,3 +190,7 @@ func mangle(t Type) string {
 		return "P" + mangle(*t.Elem)
 	case KTask:
 		return "T" + mangle(*t.Elem)
+	case KThread:
+		return "H"
+	case KClass:
+		return "C" + t.ClassKey
