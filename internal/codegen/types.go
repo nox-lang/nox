@@ -9,3 +9,7 @@ import (
 
 type Kind int
 
+const (
+	KInt Kind = iota
+	KFloat
+	KBool
