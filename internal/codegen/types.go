@@ -114,3 +114,7 @@ func (t Type) Equals(o Type) bool {
 				return false
 			}
 		}
+		if (t.Ret == nil) != (o.Ret == nil) {
+			return false
+		}
+		if t.Ret != nil && !t.Ret.Equals(*o.Ret) {
