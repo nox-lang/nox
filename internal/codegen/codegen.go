@@ -387,3 +387,7 @@ func (cg *Codegen) prepassGlobals() {
 	for _, g := range cg.file.Globals {
 		if g.Value == nil {
 			if g.Type == nil {
+				panic(fmt.Sprintf("nox: global 'let %s' needs an initializer or an explicit type", g.Name))
+			}
+			t := cg.resolveTypeExpr(g.Type)
+			cg.globalScope.define(g.Name, t)
