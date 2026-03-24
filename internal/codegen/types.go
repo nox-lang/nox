@@ -41,3 +41,7 @@ type Type struct {
 	Ret    *Type  // return type for KFunc (nil means void)
 }
 
+func TInt() Type    { return Type{Kind: KInt} }
+func TFloat() Type  { return Type{Kind: KFloat} }
+func TBool() Type   { return Type{Kind: KBool} }
+func TString() Type { return Type{Kind: KString} }
