@@ -106,3 +106,7 @@ func (t Type) Equals(o Type) bool {
 	case KClass:
 		return t.ClassKey == o.ClassKey
 	case KFunc:
+		if len(t.Params) != len(o.Params) {
+			return false
+		}
+		for i := range t.Params {
