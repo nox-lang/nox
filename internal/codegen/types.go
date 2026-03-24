@@ -78,3 +78,7 @@ func (t Type) ContainsUnknown() bool {
 	case KUnknown:
 		return true
 	case KSlice, KArray, KPointer, KTask, KMap:
+		if t.Key != nil && t.Key.ContainsUnknown() {
+			return true
+		}
+		return t.Elem != nil && t.Elem.ContainsUnknown()
