@@ -403,3 +403,7 @@ func (cg *Codegen) prepassGlobals() {
 			t = want
 		}
 		if t.ContainsUnknown() {
+			panic(fmt.Sprintf("nox: global 'let %s': cannot infer the type from an empty array literal '[]'; add an explicit type (let %s: []TYPE = [])", g.Name, g.Name))
+		}
+		cg.globalScope.define(g.Name, t)
+		for _, p := range *pre {
