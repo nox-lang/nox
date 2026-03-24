@@ -53,3 +53,7 @@ func TSlice(elem Type) Type {
 func TArrayN(elem Type, n int64) Type {
 	e := elem
 	return Type{Kind: KArray, Elem: &e, Len: n}
+}
+func TMap(key, val Type) Type {
+	k, v := key, val
+	return Type{Kind: KMap, Key: &k, Elem: &v}
