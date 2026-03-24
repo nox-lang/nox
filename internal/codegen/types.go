@@ -166,3 +166,7 @@ func (t Type) String() string {
 	return "?"
 }
 
+// mangle produces a short, unique, C-identifier-safe fragment identifying a
+// type, used to build monomorphized function/class/closure names.
+func mangle(t Type) string {
+	switch t.Kind {
