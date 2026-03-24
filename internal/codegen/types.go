@@ -138,3 +138,7 @@ func (t Type) String() string {
 		return "string"
 	case KVoid:
 		return "void"
+	case KSlice:
+		return "[]" + t.Elem.String()
+	case KArray:
+		return fmt.Sprintf("[%d]%s", t.Len, t.Elem.String())
