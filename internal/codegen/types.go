@@ -134,3 +134,7 @@ func (t Type) String() string {
 		return "float"
 	case KBool:
 		return "bool"
+	case KString:
+		return "string"
+	case KVoid:
+		return "void"
