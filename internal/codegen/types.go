@@ -49,3 +49,7 @@ func TVoid() Type   { return Type{Kind: KVoid} }
 func TSlice(elem Type) Type {
 	e := elem
 	return Type{Kind: KSlice, Elem: &e}
+}
+func TArrayN(elem Type, n int64) Type {
+	e := elem
+	return Type{Kind: KArray, Elem: &e, Len: n}
