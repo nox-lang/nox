@@ -142,3 +142,7 @@ func (t Type) String() string {
 		return "[]" + t.Elem.String()
 	case KArray:
 		return fmt.Sprintf("[%d]%s", t.Len, t.Elem.String())
+	case KMap:
+		return "map<" + t.Key.String() + ", " + t.Elem.String() + ">"
+	case KPointer:
+		return "pointer<" + t.Elem.String() + ">"
