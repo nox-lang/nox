@@ -399,3 +399,7 @@ func (cg *Codegen) prepassGlobals() {
 			want := cg.resolveTypeExpr(g.Type)
 			if !want.Equals(t) {
 				panic(fmt.Sprintf("nox: global '%s': cannot assign %s to declared type %s", g.Name, t.String(), want.String()))
+			}
+			t = want
+		}
+		if t.ContainsUnknown() {
