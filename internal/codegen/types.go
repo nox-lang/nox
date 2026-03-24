@@ -178,3 +178,7 @@ func mangle(t Type) string {
 		return "b"
 	case KString:
 		return "s"
+	case KVoid:
+		return "v"
+	case KSlice:
+		return "A" + mangle(*t.Elem)
