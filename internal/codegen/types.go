@@ -202,3 +202,7 @@ func mangle(t Type) string {
 		}
 		sb.WriteString("_")
 		if t.Ret != nil {
+			sb.WriteString(mangle(*t.Ret))
+		} else {
+			sb.WriteString("v")
+		}
