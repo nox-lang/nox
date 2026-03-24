@@ -13,3 +13,7 @@ const (
 	KInt Kind = iota
 	KFloat
 	KBool
+	KString
+	KSlice  // []T   — growable, reference-like view (nox_slice)
+	KArray  // [N]T  — fixed size, copied by value
+	KMap    // map<K, V>
