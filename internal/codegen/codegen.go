@@ -411,3 +411,4 @@ func (cg *Codegen) prepassGlobals() {
 		}
 		cg.globalInitC = append(cg.globalInitC, fmt.Sprintf("g_%s = %s;", g.Name, code))
 	}
+}
