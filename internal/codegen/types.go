@@ -194,3 +194,7 @@ func mangle(t Type) string {
 		return "H"
 	case KClass:
 		return "C" + t.ClassKey
+	case KFunc:
+		var sb strings.Builder
+		sb.WriteString("F")
+		for _, p := range t.Params {
