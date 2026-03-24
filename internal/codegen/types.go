@@ -57,3 +57,7 @@ func TArrayN(elem Type, n int64) Type {
 func TMap(key, val Type) Type {
 	k, v := key, val
 	return Type{Kind: KMap, Key: &k, Elem: &v}
+}
+func TPointer(elem Type) Type {
+	e := elem
+	return Type{Kind: KPointer, Elem: &e}
