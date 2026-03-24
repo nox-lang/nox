@@ -383,3 +383,7 @@ func indent(s, pre string) string {
 // declarations, in file order (a global's initializer may only reference
 // globals declared earlier in the same file).
 func (cg *Codegen) prepassGlobals() {
+	fb := &funcBuilder{cg: cg, fname: "__globals__"}
+	for _, g := range cg.file.Globals {
+		if g.Value == nil {
+			if g.Type == nil {
