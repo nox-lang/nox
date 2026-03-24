@@ -118,3 +118,7 @@ func (t Type) Equals(o Type) bool {
 			return false
 		}
 		if t.Ret != nil && !t.Ret.Equals(*o.Ret) {
+			return false
+		}
+		return true
+	default:
