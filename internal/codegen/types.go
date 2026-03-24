@@ -206,3 +206,7 @@ func mangle(t Type) string {
 		} else {
 			sb.WriteString("v")
 		}
+		return sb.String()
+	}
+	return "x"
+}
