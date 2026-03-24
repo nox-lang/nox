@@ -122,3 +122,7 @@ func (t Type) Equals(o Type) bool {
 		}
 		return true
 	default:
+		return true
+	}
+}
+
