@@ -126,3 +126,7 @@ func (t Type) Equals(o Type) bool {
 	}
 }
 
+func (t Type) String() string {
+	switch t.Kind {
+	case KInt:
+		return "int"
