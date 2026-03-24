@@ -70,3 +70,7 @@ func TThread() Type { return Type{Kind: KThread} }
 
 func (t Type) IsVoid() bool { return t.Kind == KVoid }
 
+// ContainsUnknown reports whether t (or an element/key/pointee/task type
+// nested within it) is the placeholder type produced by an empty literal
+// whose element type could not be inferred from context.
+func (t Type) ContainsUnknown() bool {
