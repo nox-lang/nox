@@ -391,3 +391,7 @@ func (cg *Codegen) prepassGlobals() {
 			}
 			t := cg.resolveTypeExpr(g.Type)
 			cg.globalScope.define(g.Name, t)
+			continue
+		}
+		c, pre := newCtx(cg.globalScope)
+		code, t := fb.genExpr(c, g.Value)
