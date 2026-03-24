@@ -90,3 +90,7 @@ func (t Type) Equals(o Type) bool {
 	if t.Kind == KUnknown || o.Kind == KUnknown {
 		return true
 	}
+	if t.Kind != o.Kind {
+		return false
+	}
+	switch t.Kind {
