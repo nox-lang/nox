@@ -182,3 +182,7 @@ func mangle(t Type) string {
 		return "v"
 	case KSlice:
 		return "A" + mangle(*t.Elem)
+	case KArray:
+		return fmt.Sprintf("R%d_%s", t.Len, mangle(*t.Elem))
+	case KMap:
+		return "M" + mangle(*t.Key) + mangle(*t.Elem)
