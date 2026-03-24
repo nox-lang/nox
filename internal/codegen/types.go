@@ -68,3 +68,5 @@ func TTask(elem Type) Type {
 }
 func TThread() Type { return Type{Kind: KThread} }
 
+func (t Type) IsVoid() bool { return t.Kind == KVoid }
+
