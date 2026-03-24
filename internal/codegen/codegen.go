@@ -407,3 +407,7 @@ func (cg *Codegen) prepassGlobals() {
 		}
 		cg.globalScope.define(g.Name, t)
 		for _, p := range *pre {
+			cg.globalInitC = append(cg.globalInitC, strings.TrimRight(p, "\n"))
+		}
+		cg.globalInitC = append(cg.globalInitC, fmt.Sprintf("g_%s = %s;", g.Name, code))
+	}
