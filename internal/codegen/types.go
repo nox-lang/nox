@@ -17,3 +17,7 @@ const (
 	KSlice  // []T   — growable, reference-like view (nox_slice)
 	KArray  // [N]T  — fixed size, copied by value
 	KMap    // map<K, V>
+	KPointer
+	KVoid
+	KClass
+	KFunc
