@@ -162,3 +162,7 @@ func (t Type) String() string {
 			ret = ": " + t.Ret.String()
 		}
 		return "func(" + strings.Join(ps, ", ") + ")" + ret
+	}
+	return "?"
+}
+
