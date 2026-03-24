@@ -65,3 +65,6 @@ func TPointer(elem Type) Type {
 func TTask(elem Type) Type {
 	e := elem
 	return Type{Kind: KTask, Elem: &e}
+}
+func TThread() Type { return Type{Kind: KThread} }
+
