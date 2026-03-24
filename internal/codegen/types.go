@@ -154,3 +154,7 @@ func (t Type) String() string {
 		return "Thread"
 	case KFunc:
 		var ps []string
+		for _, p := range t.Params {
+			ps = append(ps, p.String())
+		}
+		ret := ""
