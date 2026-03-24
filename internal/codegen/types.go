@@ -34,3 +34,6 @@ type Type struct {
 	Key  *Type // key type for KMap
 	Len  int64 // length for KArray
 
+	ClassName string // original Nox class name, for KClass
+	ClassKey  string // mangled/instantiated struct tag, for KClass
+
