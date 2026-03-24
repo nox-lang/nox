@@ -130,3 +130,7 @@ func (t Type) String() string {
 	switch t.Kind {
 	case KInt:
 		return "int"
+	case KFloat:
+		return "float"
+	case KBool:
+		return "bool"
