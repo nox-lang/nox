@@ -98,3 +98,7 @@ func (t Type) Equals(o Type) bool {
 		if t.Elem == nil || o.Elem == nil {
 			return t.Elem == o.Elem
 		}
+		return t.Elem.Equals(*o.Elem)
+	case KArray:
+		return t.Len == o.Len && t.Elem.Equals(*o.Elem)
+	case KMap:
