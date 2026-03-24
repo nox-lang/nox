@@ -174,3 +174,7 @@ func mangle(t Type) string {
 		return "i"
 	case KFloat:
 		return "f"
+	case KBool:
+		return "b"
+	case KString:
+		return "s"
