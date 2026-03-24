@@ -30,3 +30,7 @@ const (
 type Type struct {
 	Kind Kind
 
+	Elem *Type // element type for KSlice / KArray / KMap (value) / KPointer / KTask
+	Key  *Type // key type for KMap
+	Len  int64 // length for KArray
+
