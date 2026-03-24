@@ -94,3 +94,7 @@ func (t Type) Equals(o Type) bool {
 		return false
 	}
 	switch t.Kind {
+	case KSlice, KPointer, KTask:
+		if t.Elem == nil || o.Elem == nil {
+			return t.Elem == o.Elem
+		}
