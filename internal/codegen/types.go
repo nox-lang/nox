@@ -170,3 +170,7 @@ func (t Type) String() string {
 // type, used to build monomorphized function/class/closure names.
 func mangle(t Type) string {
 	switch t.Kind {
+	case KInt:
+		return "i"
+	case KFloat:
+		return "f"
