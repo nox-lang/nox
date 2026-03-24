@@ -146,3 +146,7 @@ func (t Type) String() string {
 		return "map<" + t.Key.String() + ", " + t.Elem.String() + ">"
 	case KPointer:
 		return "pointer<" + t.Elem.String() + ">"
+	case KClass:
+		return t.ClassName
+	case KTask:
+		return "Task<" + t.Elem.String() + ">"
