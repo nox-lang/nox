@@ -102,3 +102,7 @@ func (t Type) Equals(o Type) bool {
 	case KArray:
 		return t.Len == o.Len && t.Elem.Equals(*o.Elem)
 	case KMap:
+		return t.Key.Equals(*o.Key) && t.Elem.Equals(*o.Elem)
+	case KClass:
+		return t.ClassKey == o.ClassKey
+	case KFunc:
