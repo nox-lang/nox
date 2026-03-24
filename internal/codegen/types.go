@@ -26,3 +26,7 @@ const (
 	KUnknown // element type of an empty slice literal, resolved from context
 )
 
+// Type is the codegen-level resolved type of a Nox value.
+type Type struct {
+	Kind Kind
+
