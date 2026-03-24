@@ -158,3 +158,7 @@ func (t Type) String() string {
 			ps = append(ps, p.String())
 		}
 		ret := ""
+		if t.Ret != nil {
+			ret = ": " + t.Ret.String()
+		}
+		return "func(" + strings.Join(ps, ", ") + ")" + ret
