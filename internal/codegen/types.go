@@ -37,3 +37,7 @@ type Type struct {
 	ClassName string // original Nox class name, for KClass
 	ClassKey  string // mangled/instantiated struct tag, for KClass
 
+	Params []Type // parameter types for KFunc
+	Ret    *Type  // return type for KFunc (nil means void)
+}
+
