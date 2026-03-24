@@ -198,3 +198,7 @@ func mangle(t Type) string {
 		var sb strings.Builder
 		sb.WriteString("F")
 		for _, p := range t.Params {
+			sb.WriteString(mangle(p))
+		}
+		sb.WriteString("_")
+		if t.Ret != nil {
