@@ -150,3 +150,7 @@ func (t Type) String() string {
 		return t.ClassName
 	case KTask:
 		return "Task<" + t.Elem.String() + ">"
+	case KThread:
+		return "Thread"
+	case KFunc:
+		var ps []string
