@@ -61,3 +61,7 @@ func TMap(key, val Type) Type {
 func TPointer(elem Type) Type {
 	e := elem
 	return Type{Kind: KPointer, Elem: &e}
+}
+func TTask(elem Type) Type {
+	e := elem
+	return Type{Kind: KTask, Elem: &e}
