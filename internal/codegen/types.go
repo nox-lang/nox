@@ -272,3 +272,7 @@ func (cg *Codegen) ctype(t Type) string {
 	panic(fmt.Sprintf("ctype: unhandled kind %v", t.Kind))
 }
 
+// zeroValueC returns a C expression producing the zero/default value of t.
+func (cg *Codegen) zeroValueC(t Type) string {
+	switch t.Kind {
+	case KInt:
