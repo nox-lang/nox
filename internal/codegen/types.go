@@ -296,3 +296,6 @@ func (cg *Codegen) zeroValueC(t Type) string {
 	case KFunc:
 		return "(" + cg.ctype(t) + "){0}"
 	}
+	return "0"
+}
+
