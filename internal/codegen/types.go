@@ -327,3 +327,7 @@ func (t Type) Ret2() Type {
 	return *t.Ret
 }
 
+// ensureArrayType registers (once) the by-value struct that carries a
+// fixed-size array, so that C struct assignment / argument passing gives
+// arrays Go-style value semantics.
+func (cg *Codegen) ensureArrayType(t Type) string {
