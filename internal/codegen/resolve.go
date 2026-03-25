@@ -42,3 +42,7 @@ func (cg *Codegen) resolveTypeExpr(te *ast.TypeExpr) Type {
 	return cg.resolveTypeExprDepth(te, 0)
 }
 
+func (cg *Codegen) resolveTypeExprDepth(te *ast.TypeExpr, depth int) Type {
+	if depth > maxAliasDepth {
+		panic(fmt.Sprintf("nox: type '%s' is defined in terms of itself", te.Name))
+	}
