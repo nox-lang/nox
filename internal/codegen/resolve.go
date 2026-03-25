@@ -50,3 +50,7 @@ func (cg *Codegen) resolveTypeExprDepth(te *ast.TypeExpr, depth int) Type {
 	switch te.Name {
 	case "int":
 		return TInt()
+	case "float":
+		return TFloat()
+	case "bool":
+		return TBool()
