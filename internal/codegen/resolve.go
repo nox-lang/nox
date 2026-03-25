@@ -102,3 +102,7 @@ func (cg *Codegen) resolveTypeExprDepth(te *ast.TypeExpr, depth int) Type {
 	}
 	if alias, ok := cg.typeAliases[te.Name]; ok {
 		return cg.resolveTypeExprDepth(alias, depth+1)
+	}
+	if _, ok := cg.classesByName[te.Name]; ok {
+		for _, key := range cg.classOrder {
+			ci := cg.classInstances[key]
