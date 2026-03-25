@@ -254,3 +254,7 @@ func (cg *Codegen) ctype(t Type) string {
 		return "void"
 	case KSlice:
 		return "nox_slice"
+	case KArray:
+		return cg.ensureArrayType(t)
+	case KMap:
+		return "nox_map*"
