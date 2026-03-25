@@ -339,3 +339,7 @@ func (cg *Codegen) ensureArrayType(t Type) string {
 	elemC := cg.ctype(*t.Elem)
 	n := t.Len
 	if n < 1 {
+		n = 1
+	}
+	cg.typeDefs = append(cg.typeDefs, fmt.Sprintf("typedef struct { %s d[%d]; } %s;", elemC, n, name))
+	return name
