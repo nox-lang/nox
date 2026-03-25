@@ -58,3 +58,7 @@ func (cg *Codegen) resolveTypeExprDepth(te *ast.TypeExpr, depth int) Type {
 		return TString()
 	case "slice":
 		return TSlice(rec(te.Elem))
+	case "array":
+		if te.Len < 0 {
+			panic("nox: array length must not be negative")
+		}
