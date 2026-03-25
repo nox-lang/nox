@@ -20,3 +20,7 @@ func isExported(name string) bool {
 // that the built-in members of string / slice / array / map values (which are
 // part of the language rather than a package) can be written either way:
 // `xs.push(1)` and `xs.Push(1)` are the same method.
+func lowerFirst(s string) string {
+	if s == "" {
+		return s
+	}
