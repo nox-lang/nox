@@ -220,3 +220,7 @@ func mangleList(ts []Type) string {
 	return sb.String()
 }
 
+// isValidMapKey reports whether t may be used as a map key: types compared
+// bytewise (int, bool, pointers, class references) or as strings.
+func isValidMapKey(t Type) bool {
+	switch t.Kind {
