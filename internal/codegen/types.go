@@ -335,3 +335,7 @@ func (cg *Codegen) ensureArrayType(t Type) string {
 	if cg.arrayTypes[name] {
 		return name
 	}
+	cg.arrayTypes[name] = true
+	elemC := cg.ctype(*t.Elem)
+	n := t.Len
+	if n < 1 {
