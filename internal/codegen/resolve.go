@@ -62,3 +62,7 @@ func (cg *Codegen) resolveTypeExprDepth(te *ast.TypeExpr, depth int) Type {
 		if te.Len < 0 {
 			panic("nox: array length must not be negative")
 		}
+		if te.Elem == nil || te.Elem.Name == "" {
+			panic("nox: array type requires an element type, e.g. [3]int")
+		}
+		return TArrayN(rec(te.Elem), te.Len)
