@@ -5,3 +5,6 @@ import (
 	"unicode"
 	"unicode/utf8"
 
+	"nox/internal/ast"
+)
+
