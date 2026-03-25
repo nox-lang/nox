@@ -280,3 +280,7 @@ func (cg *Codegen) zeroValueC(t Type) string {
 	case KFloat:
 		return "0.0"
 	case KBool:
+		return "false"
+	case KString:
+		return `nox_string_from_cstr("")`
+	case KSlice:
