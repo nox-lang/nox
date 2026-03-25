@@ -30,3 +30,7 @@ func lowerFirst(s string) string {
 
 const maxAliasDepth = 32
 
+// resolveTypeExpr turns a parsed type annotation into a concrete codegen
+// Type. Built-in kinds (int/float/bool/string/[]T/[N]T/map<K,V>/pointer<T>/
+// Task<T>/Thread/func(...)) always resolve, and so does any `type` alias. A
+// bare class name resolves only if that class has already been instantiated
