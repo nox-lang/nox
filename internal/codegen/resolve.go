@@ -82,3 +82,7 @@ func (cg *Codegen) resolveTypeExprDepth(te *ast.TypeExpr, depth int) Type {
 		return TPointer(rec(te.Elem))
 	case "Task":
 		if te.Elem == nil {
+			panic("nox: 'Task' type requires a result type, e.g. Task<int>")
+		}
+		return TTask(rec(te.Elem))
+	case "Thread":
