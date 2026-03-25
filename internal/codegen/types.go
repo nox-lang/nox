@@ -228,3 +228,5 @@ func isValidMapKey(t Type) bool {
 		return true
 	}
 	return false
+}
+
