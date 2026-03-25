@@ -292,3 +292,7 @@ func (cg *Codegen) zeroValueC(t Type) string {
 	case KPointer, KClass, KTask, KThread:
 		return "NULL"
 	case KVoid:
+		return ""
+	case KFunc:
+		return "(" + cg.ctype(t) + "){0}"
+	}
