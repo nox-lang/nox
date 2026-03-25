@@ -74,3 +74,7 @@ func (cg *Codegen) resolveTypeExprDepth(te *ast.TypeExpr, depth int) Type {
 		if !isValidMapKey(k) {
 			panic(fmt.Sprintf("nox: %s cannot be used as a map key (use int, string, bool, or a class/pointer)", k.String()))
 		}
+		return TMap(k, v)
+	case "pointer":
+		if te.Elem == nil {
+			panic("nox: 'pointer' type requires a pointee type, e.g. pointer<int>")
