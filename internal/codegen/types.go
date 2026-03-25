@@ -331,3 +331,7 @@ func (t Type) Ret2() Type {
 // fixed-size array, so that C struct assignment / argument passing gives
 // arrays Go-style value semantics.
 func (cg *Codegen) ensureArrayType(t Type) string {
+	name := "NoxArr_" + mangle(t)
+	if cg.arrayTypes[name] {
+		return name
+	}
