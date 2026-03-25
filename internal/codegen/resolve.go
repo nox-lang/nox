@@ -115,3 +115,7 @@ func (cg *Codegen) resolveTypeExprDepth(te *ast.TypeExpr, depth int) Type {
 	panic(fmt.Sprintf("nox: unknown type '%s'", te.Name))
 }
 
+// ---------------- namespace registration ----------------
+
+var stdlibPackages = []string{"io", "random", "fs", "path", "math", "time"}
+
