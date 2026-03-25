@@ -258,3 +258,7 @@ func (cg *Codegen) ctype(t Type) string {
 		return cg.ensureArrayType(t)
 	case KMap:
 		return "nox_map*"
+	case KPointer:
+		return cg.ctype(*t.Elem) + "*"
+	case KClass:
+		return "struct " + t.ClassKey + "*"
