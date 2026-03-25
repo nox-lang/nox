@@ -28,3 +28,5 @@ func lowerFirst(s string) string {
 	return string(unicode.ToLower(r)) + s[n:]
 }
 
+const maxAliasDepth = 32
+
