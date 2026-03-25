@@ -114,3 +114,4 @@ func (cg *Codegen) resolveTypeExprDepth(te *ast.TypeExpr, depth int) Type {
 	}
 	panic(fmt.Sprintf("nox: unknown type '%s'", te.Name))
 }
+
