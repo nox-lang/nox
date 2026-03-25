@@ -276,3 +276,7 @@ func (cg *Codegen) ctype(t Type) string {
 func (cg *Codegen) zeroValueC(t Type) string {
 	switch t.Kind {
 	case KInt:
+		return "0"
+	case KFloat:
+		return "0.0"
+	case KBool:
