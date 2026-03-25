@@ -299,3 +299,7 @@ func (cg *Codegen) zeroValueC(t Type) string {
 	return "0"
 }
 
+func (cg *Codegen) ensureClosureType(t Type) string {
+	name := "NoxFn_" + mangle(t.Ret2()) + mangleList(t.Params)
+	if _, ok := cg.closureTypes[name]; ok {
+		return name
