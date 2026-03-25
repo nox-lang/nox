@@ -34,3 +34,7 @@ const maxAliasDepth = 32
 // Type. Built-in kinds (int/float/bool/string/[]T/[N]T/map<K,V>/pointer<T>/
 // Task<T>/Thread/func(...)) always resolve, and so does any `type` alias. A
 // bare class name resolves only if that class has already been instantiated
+// somewhere in the program (Nox classes are monomorphized like functions; see
+// class.go), which covers the common case of explicit class-typed
+// parameters/locals following at least one `ClassName.new(...)` call earlier
+// in the program.
