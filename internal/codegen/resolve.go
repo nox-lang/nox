@@ -106,3 +106,7 @@ func (cg *Codegen) resolveTypeExprDepth(te *ast.TypeExpr, depth int) Type {
 	if _, ok := cg.classesByName[te.Name]; ok {
 		for _, key := range cg.classOrder {
 			ci := cg.classInstances[key]
+			if ci.ClassName == te.Name {
+				return Type{Kind: KClass, ClassName: ci.ClassName, ClassKey: ci.ClassKey}
+			}
+		}
