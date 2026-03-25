@@ -250,3 +250,7 @@ func (cg *Codegen) ctype(t Type) string {
 		return "bool"
 	case KString:
 		return "nox_string"
+	case KVoid:
+		return "void"
+	case KSlice:
+		return "nox_slice"
