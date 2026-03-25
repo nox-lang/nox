@@ -284,3 +284,7 @@ func (cg *Codegen) zeroValueC(t Type) string {
 	case KString:
 		return `nox_string_from_cstr("")`
 	case KSlice:
+		return "nox_slice_new()"
+	case KArray:
+		return "(" + cg.ctype(t) + "){0}"
+	case KMap:
