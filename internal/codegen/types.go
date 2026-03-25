@@ -234,3 +234,7 @@ func isValidMapKey(t Type) bool {
 func mapKeyKindC(t Type) string {
 	if t.Kind == KString {
 		return "NOX_KEY_STRING"
+	}
+	return "NOX_KEY_BYTES"
+}
+
