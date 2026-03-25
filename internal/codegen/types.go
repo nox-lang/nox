@@ -242,3 +242,7 @@ func mapKeyKindC(t Type) string {
 // typedefs (closures, fixed arrays) it needs along the way.
 func (cg *Codegen) ctype(t Type) string {
 	switch t.Kind {
+	case KInt:
+		return "int64_t"
+	case KFloat:
+		return "double"
