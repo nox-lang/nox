@@ -78,3 +78,7 @@ func (cg *Codegen) resolveTypeExprDepth(te *ast.TypeExpr, depth int) Type {
 	case "pointer":
 		if te.Elem == nil {
 			panic("nox: 'pointer' type requires a pointee type, e.g. pointer<int>")
+		}
+		return TPointer(rec(te.Elem))
+	case "Task":
+		if te.Elem == nil {
