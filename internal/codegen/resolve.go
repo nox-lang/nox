@@ -94,3 +94,7 @@ func (cg *Codegen) resolveTypeExprDepth(te *ast.TypeExpr, depth int) Type {
 		}
 		if te.Ret != nil {
 			r := rec(te.Ret)
+			if r.Kind != KVoid {
+				ft.Ret = &r
+			}
+		}
