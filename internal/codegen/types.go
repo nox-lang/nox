@@ -262,3 +262,7 @@ func (cg *Codegen) ctype(t Type) string {
 		return cg.ctype(*t.Elem) + "*"
 	case KClass:
 		return "struct " + t.ClassKey + "*"
+	case KFunc:
+		return cg.ensureClosureType(t)
+	case KTask:
+		return "nox_task*"
