@@ -266,3 +266,7 @@ func (cg *Codegen) ctype(t Type) string {
 		return cg.ensureClosureType(t)
 	case KTask:
 		return "nox_task*"
+	case KThread:
+		return "nox_thread_obj*"
+	}
+	panic(fmt.Sprintf("ctype: unhandled kind %v", t.Kind))
