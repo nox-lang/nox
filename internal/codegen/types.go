@@ -307,3 +307,7 @@ func (cg *Codegen) ensureClosureType(t Type) string {
 	cg.closureTypes[name] = true
 	retC := "void"
 	if t.Ret != nil {
+		retC = cg.ctype(*t.Ret)
+	}
+	var params []string
+	params = append(params, "void*")
