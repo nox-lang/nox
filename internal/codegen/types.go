@@ -288,3 +288,7 @@ func (cg *Codegen) zeroValueC(t Type) string {
 	case KArray:
 		return "(" + cg.ctype(t) + "){0}"
 	case KMap:
+		return fmt.Sprintf("nox_map_new(%s, sizeof(%s), sizeof(%s))", mapKeyKindC(*t.Key), cg.ctype(*t.Key), cg.ctype(*t.Elem))
+	case KPointer, KClass, KTask, KThread:
+		return "NULL"
+	case KVoid:
