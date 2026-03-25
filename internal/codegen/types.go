@@ -315,3 +315,7 @@ func (cg *Codegen) ensureClosureType(t Type) string {
 		params = append(params, cg.ctype(p))
 	}
 	cg.typeDefs = append(cg.typeDefs, fmt.Sprintf("typedef struct { %s (*fn)(%s); void* env; } %s;",
+		retC, strings.Join(params, ", "), name))
+	return name
+}
+
