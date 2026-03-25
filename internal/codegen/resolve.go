@@ -90,3 +90,7 @@ func (cg *Codegen) resolveTypeExprDepth(te *ast.TypeExpr, depth int) Type {
 	case "func":
 		ft := Type{Kind: KFunc}
 		for _, p := range te.Params {
+			ft.Params = append(ft.Params, rec(p))
+		}
+		if te.Ret != nil {
+			r := rec(te.Ret)
