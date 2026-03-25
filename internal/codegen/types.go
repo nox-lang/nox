@@ -238,3 +238,7 @@ func mapKeyKindC(t Type) string {
 	return "NOX_KEY_BYTES"
 }
 
+// ctype returns the C spelling for a Nox type, registering any auxiliary
+// typedefs (closures, fixed arrays) it needs along the way.
+func (cg *Codegen) ctype(t Type) string {
+	switch t.Kind {
