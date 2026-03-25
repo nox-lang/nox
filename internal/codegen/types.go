@@ -224,3 +224,7 @@ func mangleList(ts []Type) string {
 // bytewise (int, bool, pointers, class references) or as strings.
 func isValidMapKey(t Type) bool {
 	switch t.Kind {
+	case KInt, KBool, KString, KPointer, KClass:
+		return true
+	}
+	return false
