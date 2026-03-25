@@ -323,3 +323,7 @@ func (cg *Codegen) ensureClosureType(t Type) string {
 func (t Type) Ret2() Type {
 	if t.Ret == nil {
 		return TVoid()
+	}
+	return *t.Ret
+}
+
