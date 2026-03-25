@@ -246,3 +246,7 @@ func (cg *Codegen) ctype(t Type) string {
 		return "int64_t"
 	case KFloat:
 		return "double"
+	case KBool:
+		return "bool"
+	case KString:
+		return "nox_string"
