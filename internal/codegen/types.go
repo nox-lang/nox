@@ -303,3 +303,7 @@ func (cg *Codegen) ensureClosureType(t Type) string {
 	name := "NoxFn_" + mangle(t.Ret2()) + mangleList(t.Params)
 	if _, ok := cg.closureTypes[name]; ok {
 		return name
+	}
+	cg.closureTypes[name] = true
+	retC := "void"
+	if t.Ret != nil {
