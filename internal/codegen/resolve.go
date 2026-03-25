@@ -98,3 +98,7 @@ func (cg *Codegen) resolveTypeExprDepth(te *ast.TypeExpr, depth int) Type {
 				ft.Ret = &r
 			}
 		}
+		return ft
+	}
+	if alias, ok := cg.typeAliases[te.Name]; ok {
+		return cg.resolveTypeExprDepth(alias, depth+1)
