@@ -270,3 +270,5 @@ func (cg *Codegen) ctype(t Type) string {
 		return "nox_thread_obj*"
 	}
 	panic(fmt.Sprintf("ctype: unhandled kind %v", t.Kind))
+}
+
