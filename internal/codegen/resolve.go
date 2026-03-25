@@ -38,3 +38,7 @@ const maxAliasDepth = 32
 // class.go), which covers the common case of explicit class-typed
 // parameters/locals following at least one `ClassName.new(...)` call earlier
 // in the program.
+func (cg *Codegen) resolveTypeExpr(te *ast.TypeExpr) Type {
+	return cg.resolveTypeExprDepth(te, 0)
+}
+
