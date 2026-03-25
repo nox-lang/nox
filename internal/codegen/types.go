@@ -230,3 +230,7 @@ func isValidMapKey(t Type) bool {
 	return false
 }
 
+// mapKeyKindC returns the runtime key-kind constant for a key type.
+func mapKeyKindC(t Type) string {
+	if t.Kind == KString {
+		return "NOX_KEY_STRING"
