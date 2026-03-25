@@ -110,3 +110,7 @@ func (cg *Codegen) resolveTypeExprDepth(te *ast.TypeExpr, depth int) Type {
 				return Type{Kind: KClass, ClassName: ci.ClassName, ClassKey: ci.ClassKey}
 			}
 		}
+		panic(fmt.Sprintf("nox: type annotation '%s' refers to a class with no instantiation yet; call %s.new(...) at least once before using '%s' as an explicit type", te.Name, te.Name, te.Name))
+	}
+	panic(fmt.Sprintf("nox: unknown type '%s'", te.Name))
+}
