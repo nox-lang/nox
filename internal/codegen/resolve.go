@@ -54,3 +54,7 @@ func (cg *Codegen) resolveTypeExprDepth(te *ast.TypeExpr, depth int) Type {
 		return TFloat()
 	case "bool":
 		return TBool()
+	case "string":
+		return TString()
+	case "slice":
+		return TSlice(rec(te.Elem))
