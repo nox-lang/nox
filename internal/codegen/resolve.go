@@ -70,3 +70,7 @@ func (cg *Codegen) resolveTypeExprDepth(te *ast.TypeExpr, depth int) Type {
 		if te.Key == nil || te.Elem == nil {
 			panic("nox: 'map' type requires key and value types, e.g. map<string, int>")
 		}
+		k, v := rec(te.Key), rec(te.Elem)
+		if !isValidMapKey(k) {
+			panic(fmt.Sprintf("nox: %s cannot be used as a map key (use int, string, bool, or a class/pointer)", k.String()))
+		}
