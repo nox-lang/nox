@@ -66,3 +66,7 @@ func (cg *Codegen) resolveTypeExprDepth(te *ast.TypeExpr, depth int) Type {
 			panic("nox: array type requires an element type, e.g. [3]int")
 		}
 		return TArrayN(rec(te.Elem), te.Len)
+	case "map":
+		if te.Key == nil || te.Elem == nil {
+			panic("nox: 'map' type requires key and value types, e.g. map<string, int>")
+		}
