@@ -86,3 +86,7 @@ func (cg *Codegen) resolveTypeExprDepth(te *ast.TypeExpr, depth int) Type {
 		}
 		return TTask(rec(te.Elem))
 	case "Thread":
+		return TThread()
+	case "func":
+		ft := Type{Kind: KFunc}
+		for _, p := range te.Params {
