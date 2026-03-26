@@ -24,3 +24,4 @@ func findStaticMethod(decl *ast.ClassDecl, name string) *ast.FuncDecl {
 	}
 	return nil
 }
+
