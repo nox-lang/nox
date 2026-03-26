@@ -67,3 +67,7 @@ func classCacheKey(className, argsKey string) string { return className + "#" + 
 // A static field must carry an explicit type (unlike an instance field, it
 // has no constructor call to infer one from).
 func (cg *Codegen) registerStaticFields(className string, decl *ast.ClassDecl) {
+	for _, f := range decl.Fields {
+		if !f.IsStatic {
+			continue
+		}
