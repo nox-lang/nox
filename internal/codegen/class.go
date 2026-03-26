@@ -54,3 +54,7 @@ func fieldIsPrivate(decl *ast.ClassDecl, name string) bool {
 
 func classCacheKey(className, argsKey string) string { return className + "#" + argsKey }
 
+// ---------------- static class members ----------------
+// A static field/method belongs to the class's NAME, not to any one
+// monomorphized ClassInstance: `Counter.total` is one shared int no matter
+// how many different field-type shapes Counter.new(...) has produced
