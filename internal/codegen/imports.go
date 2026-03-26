@@ -74,3 +74,6 @@ func (cg *Codegen) resolveImports(projectRoot string) {
 			}
 		}
 		cg.namespaces[nsKey] = ns
+	}
+}
+
