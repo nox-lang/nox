@@ -93,3 +93,7 @@ func findImportFiles(root, importPath string) ([]string, error) {
 				files = append(files, filepath.Join(base, e.Name()))
 			}
 		}
+		if len(files) == 0 {
+			return nil, fmt.Errorf("directory '%s' contains no .nox files", base)
+		}
+		return files, nil
