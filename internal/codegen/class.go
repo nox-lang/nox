@@ -43,3 +43,7 @@ func staticFieldDecl(decl *ast.ClassDecl, name string) *ast.FieldDecl {
 	return nil
 }
 
+// A member (field or method) whose name does not start with an uppercase
+// letter is only visible from inside its own class's own methods — the
+// replacement for the removed `private` keyword (see resolve.go's
+// isExported, which applies the same rule to package-level declarations).
