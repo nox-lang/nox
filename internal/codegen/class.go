@@ -88,3 +88,7 @@ func staticFieldCName(className, field string) string {
 	return "cls_" + sanitizeIdent(className) + "_" + sanitizeIdent(field)
 }
 
+// prepassStaticFields resolves every static field's initializer (run once,
+// after imports are resolved, alongside prepassGlobals) and emits its
+// storage + nox_init_globals() assignment.
+func (cg *Codegen) prepassStaticFields() {
