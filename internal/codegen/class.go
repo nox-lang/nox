@@ -42,3 +42,4 @@ func staticFieldDecl(decl *ast.ClassDecl, name string) *ast.FieldDecl {
 	}
 	return nil
 }
+
