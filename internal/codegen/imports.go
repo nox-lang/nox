@@ -97,3 +97,6 @@ func findImportFiles(root, importPath string) ([]string, error) {
 			return nil, fmt.Errorf("directory '%s' contains no .nox files", base)
 		}
 		return files, nil
+	}
+	return nil, fmt.Errorf("cannot find '%s.nox' or a directory '%s' (looked under %s)", importPath, importPath, root)
+}
