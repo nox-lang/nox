@@ -38,3 +38,7 @@ func (cg *Codegen) resolveImports(projectRoot string) {
 		if err != nil {
 			panic(fmt.Sprintf("nox: import(\"%s\"): %s", imp.Path, err))
 		}
+		ns := &Namespace{Kind: NSUser, Funcs: map[string]*ast.FuncDecl{}, Classes: map[string]*ast.ClassDecl{}, Globals: map[string]*ast.LetStmt{}}
+		for _, f := range files {
+			data, err := os.ReadFile(f)
+			if err != nil {
