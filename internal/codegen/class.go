@@ -79,3 +79,7 @@ func (cg *Codegen) registerStaticFields(className string, decl *ast.ClassDecl) {
 			panic(fmt.Sprintf("nox: class '%s': static field '%s' needs an explicit type (a static field has no constructor call to infer one from)", className, f.Name))
 		}
 		cg.staticFieldType[key] = cg.resolveTypeExpr(f.Type)
+		cg.staticFieldOrder = append(cg.staticFieldOrder, key)
+		cg.staticFieldOwner[key] = decl
+	}
+}
