@@ -66,3 +66,7 @@ func (cg *Codegen) resolveImports(projectRoot string) {
 					cg.funcsByName[name] = fn
 				}
 			}
+			for name, cl := range ns.Classes {
+				if _, already := cg.classesByName[name]; !already {
+					cg.classesByName[name] = cl
+					cg.registerStaticFields(name, cl)
