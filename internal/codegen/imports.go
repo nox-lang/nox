@@ -54,3 +54,7 @@ func (cg *Codegen) resolveImports(projectRoot string) {
 			for _, cl := range pf.Classes {
 				ns.Classes[cl.Name] = cl
 			}
+			for _, g := range pf.Globals {
+				ns.Globals[g.Name] = g
+			}
+			// Classes/functions from imported files participate in the same
