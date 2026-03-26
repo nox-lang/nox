@@ -58,3 +58,7 @@ func classCacheKey(className, argsKey string) string { return className + "#" + 
 // A static field/method belongs to the class's NAME, not to any one
 // monomorphized ClassInstance: `Counter.total` is one shared int no matter
 // how many different field-type shapes Counter.new(...) has produced
+// elsewhere in the program. Static fields are therefore registered once,
+// eagerly, from every class declaration the compiler knows about (see
+// registerStaticFields, called from NewCodegen and resolveImports) rather
+// than lazily on first `.new()` the way instance fields are.
