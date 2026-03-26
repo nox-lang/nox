@@ -18,3 +18,7 @@ import (
 // An import path may name either a single file (`libs/math` ->
 // `libs/math.nox`) or a directory of Nox files that are merged together as
 // one namespace (`libs/math/` -> every `*.nox` file directly inside it,
+// non-recursively). If no alias is given, the namespace is the import path
+// itself with `/` replaced by `::` (matching the language spec).
+func (cg *Codegen) resolveImports(projectRoot string) {
+	for _, imp := range cg.file.Imports {
