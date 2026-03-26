@@ -51,3 +51,4 @@ func fieldIsPrivate(decl *ast.ClassDecl, name string) bool {
 	f := fieldDecl(decl, name)
 	return f != nil && !isExported(name)
 }
+
