@@ -63,3 +63,7 @@ func classCacheKey(className, argsKey string) string { return className + "#" + 
 // registerStaticFields, called from NewCodegen and resolveImports) rather
 // than lazily on first `.new()` the way instance fields are.
 
+// registerStaticFields records the static fields of one class declaration.
+// A static field must carry an explicit type (unlike an instance field, it
+// has no constructor call to infer one from).
+func (cg *Codegen) registerStaticFields(className string, decl *ast.ClassDecl) {
