@@ -71,3 +71,7 @@ func (cg *Codegen) registerStaticFields(className string, decl *ast.ClassDecl) {
 		if !f.IsStatic {
 			continue
 		}
+		key := className + "." + f.Name
+		if _, already := cg.staticFieldType[key]; already {
+			continue
+		}
