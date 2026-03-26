@@ -75,3 +75,7 @@ func (cg *Codegen) registerStaticFields(className string, decl *ast.ClassDecl) {
 		if _, already := cg.staticFieldType[key]; already {
 			continue
 		}
+		if f.Type == nil {
+			panic(fmt.Sprintf("nox: class '%s': static field '%s' needs an explicit type (a static field has no constructor call to infer one from)", className, f.Name))
+		}
+		cg.staticFieldType[key] = cg.resolveTypeExpr(f.Type)
