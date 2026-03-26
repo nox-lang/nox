@@ -52,3 +52,5 @@ func fieldIsPrivate(decl *ast.ClassDecl, name string) bool {
 	return f != nil && !isExported(name)
 }
 
+func classCacheKey(className, argsKey string) string { return className + "#" + argsKey }
+
