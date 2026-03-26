@@ -123,3 +123,7 @@ func isStdlibPackage(name string) bool {
 	for _, n := range stdlibPackages {
 		if n == name {
 			return true
+		}
+	}
+	return false
+}
