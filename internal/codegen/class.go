@@ -34,3 +34,7 @@ func fieldDecl(decl *ast.ClassDecl, name string) *ast.FieldDecl {
 	return nil
 }
 
+func staticFieldDecl(decl *ast.ClassDecl, name string) *ast.FieldDecl {
+	for _, f := range decl.Fields {
+		if f.Name == name && f.IsStatic {
+			return f
