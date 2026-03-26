@@ -62,3 +62,7 @@ func (cg *Codegen) resolveImports(projectRoot string) {
 			// e.g. a class defined in an imported file can be
 			// `.new()`-instantiated when referenced through the namespace.
 			for name, fn := range ns.Funcs {
+				if _, already := cg.funcsByName[name]; !already {
+					cg.funcsByName[name] = fn
+				}
+			}
