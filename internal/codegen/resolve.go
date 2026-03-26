@@ -119,3 +119,7 @@ func (cg *Codegen) resolveTypeExprDepth(te *ast.TypeExpr, depth int) Type {
 
 var stdlibPackages = []string{"io", "random", "fs", "path", "math", "time"}
 
+func isStdlibPackage(name string) bool {
+	for _, n := range stdlibPackages {
+		if n == name {
+			return true
