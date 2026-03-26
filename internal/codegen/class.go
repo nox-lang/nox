@@ -15,3 +15,4 @@ func findMethod(decl *ast.ClassDecl, name string) *ast.FuncDecl {
 	}
 	return nil
 }
+
