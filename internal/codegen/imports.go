@@ -26,3 +26,7 @@ func (cg *Codegen) resolveImports(projectRoot string) {
 		if nsKey == "" {
 			nsKey = strings.ReplaceAll(imp.Path, "/", "::")
 		}
+		if _, exists := cg.namespaces[nsKey]; exists {
+			// A stdlib package name (io, random, fs, path, math, time) can
+			// be legally re-imported; leave the built-in registration in
+			// place rather than overwriting it with a same-named user file.
