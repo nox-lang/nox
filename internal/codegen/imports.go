@@ -30,3 +30,7 @@ func (cg *Codegen) resolveImports(projectRoot string) {
 			// A stdlib package name (io, random, fs, path, math, time) can
 			// be legally re-imported; leave the built-in registration in
 			// place rather than overwriting it with a same-named user file.
+			if _, isStd := map[string]bool{"io": true, "random": true, "fs": true, "path": true, "math": true, "time": true}[nsKey]; isStd {
+				continue
+			}
+		}
