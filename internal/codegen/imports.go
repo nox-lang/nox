@@ -85,3 +85,7 @@ func findImportFiles(root, importPath string) ([]string, error) {
 	if st, err := os.Stat(base); err == nil && st.IsDir() {
 		entries, err := os.ReadDir(base)
 		if err != nil {
+			return nil, err
+		}
+		var files []string
+		for _, e := range entries {
