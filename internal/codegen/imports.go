@@ -46,3 +46,7 @@ func (cg *Codegen) resolveImports(projectRoot string) {
 			}
 			pf, err := parser.Parse(string(data), f)
 			if err != nil {
+				panic(fmt.Sprintf("nox: import(\"%s\"): %s", imp.Path, err))
+			}
+			for _, fn := range pf.Funcs {
+				ns.Funcs[fn.Name] = fn
