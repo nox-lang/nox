@@ -62,3 +62,4 @@ func classCacheKey(className, argsKey string) string { return className + "#" + 
 // eagerly, from every class declaration the compiler knows about (see
 // registerStaticFields, called from NewCodegen and resolveImports) rather
 // than lazily on first `.new()` the way instance fields are.
+
