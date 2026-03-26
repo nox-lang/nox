@@ -132,3 +132,4 @@ func (cg *Codegen) registerStdlibNamespaces() {
 	for _, name := range stdlibPackages {
 		cg.namespaces[name] = &Namespace{Kind: NSStdlib}
 	}
+}
