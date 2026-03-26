@@ -6,3 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"nox/internal/ast"
+	"nox/internal/parser"
+)
+
