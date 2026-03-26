@@ -70,3 +70,7 @@ func (cg *Codegen) resolveImports(projectRoot string) {
 				if _, already := cg.classesByName[name]; !already {
 					cg.classesByName[name] = cl
 					cg.registerStaticFields(name, cl)
+				}
+			}
+		}
+		cg.namespaces[nsKey] = ns
