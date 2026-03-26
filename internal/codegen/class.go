@@ -84,3 +84,7 @@ func (cg *Codegen) registerStaticFields(className string, decl *ast.ClassDecl) {
 	}
 }
 
+func staticFieldCName(className, field string) string {
+	return "cls_" + sanitizeIdent(className) + "_" + sanitizeIdent(field)
+}
+
