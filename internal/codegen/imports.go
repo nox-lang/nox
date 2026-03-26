@@ -58,3 +58,7 @@ func (cg *Codegen) resolveImports(projectRoot string) {
 				ns.Globals[g.Name] = g
 			}
 			// Classes/functions from imported files participate in the same
+			// monomorphization engine as the main file; register them so
+			// e.g. a class defined in an imported file can be
+			// `.new()`-instantiated when referenced through the namespace.
+			for name, fn := range ns.Funcs {
