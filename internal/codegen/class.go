@@ -92,3 +92,7 @@ func staticFieldCName(className, field string) string {
 // after imports are resolved, alongside prepassGlobals) and emits its
 // storage + nox_init_globals() assignment.
 func (cg *Codegen) prepassStaticFields() {
+	fb := &funcBuilder{cg: cg, fname: "__static_fields__"}
+	for _, key := range cg.staticFieldOrder {
+		parts := strings.SplitN(key, ".", 2)
+		className, fieldName := parts[0], parts[1]
