@@ -81,3 +81,7 @@ func findImportFiles(root, importPath string) ([]string, error) {
 	base := filepath.Join(root, filepath.FromSlash(importPath))
 	if st, err := os.Stat(base + ".nox"); err == nil && !st.IsDir() {
 		return []string{base + ".nox"}, nil
+	}
+	if st, err := os.Stat(base); err == nil && st.IsDir() {
+		entries, err := os.ReadDir(base)
+		if err != nil {
