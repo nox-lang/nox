@@ -22,3 +22,7 @@ import (
 // itself with `/` replaced by `::` (matching the language spec).
 func (cg *Codegen) resolveImports(projectRoot string) {
 	for _, imp := range cg.file.Imports {
+		nsKey := imp.Alias
+		if nsKey == "" {
+			nsKey = strings.ReplaceAll(imp.Path, "/", "::")
+		}
