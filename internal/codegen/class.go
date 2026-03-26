@@ -47,3 +47,7 @@ func staticFieldDecl(decl *ast.ClassDecl, name string) *ast.FieldDecl {
 // letter is only visible from inside its own class's own methods — the
 // replacement for the removed `private` keyword (see resolve.go's
 // isExported, which applies the same rule to package-level declarations).
+func fieldIsPrivate(decl *ast.ClassDecl, name string) bool {
+	f := fieldDecl(decl, name)
+	return f != nil && !isExported(name)
+}
