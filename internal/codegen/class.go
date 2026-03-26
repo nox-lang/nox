@@ -83,3 +83,4 @@ func (cg *Codegen) registerStaticFields(className string, decl *ast.ClassDecl) {
 		cg.staticFieldOwner[key] = decl
 	}
 }
+
