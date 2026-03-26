@@ -50,3 +50,7 @@ func (cg *Codegen) resolveImports(projectRoot string) {
 			}
 			for _, fn := range pf.Funcs {
 				ns.Funcs[fn.Name] = fn
+			}
+			for _, cl := range pf.Classes {
+				ns.Classes[cl.Name] = cl
+			}
