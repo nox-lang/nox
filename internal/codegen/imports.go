@@ -77,3 +77,7 @@ func (cg *Codegen) resolveImports(projectRoot string) {
 	}
 }
 
+func findImportFiles(root, importPath string) ([]string, error) {
+	base := filepath.Join(root, filepath.FromSlash(importPath))
+	if st, err := os.Stat(base + ".nox"); err == nil && !st.IsDir() {
+		return []string{base + ".nox"}, nil
