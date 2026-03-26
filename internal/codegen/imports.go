@@ -34,3 +34,7 @@ func (cg *Codegen) resolveImports(projectRoot string) {
 				continue
 			}
 		}
+		files, err := findImportFiles(projectRoot, imp.Path)
+		if err != nil {
+			panic(fmt.Sprintf("nox: import(\"%s\"): %s", imp.Path, err))
+		}
