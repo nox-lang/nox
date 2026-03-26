@@ -42,3 +42,7 @@ func (cg *Codegen) resolveImports(projectRoot string) {
 		for _, f := range files {
 			data, err := os.ReadFile(f)
 			if err != nil {
+				panic(fmt.Sprintf("nox: import(\"%s\"): %s", imp.Path, err))
+			}
+			pf, err := parser.Parse(string(data), f)
+			if err != nil {
