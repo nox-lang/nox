@@ -236,3 +236,5 @@ func (fb *funcBuilder) genClassNew(c *ctx, className string, args []ast.Expr) (s
 	}
 	call := fmt.Sprintf("%s(%s)", ci.NewFuncName, strings.Join(argCodes, ", "))
 	return call, Type{Kind: KClass, ClassName: ci.ClassName, ClassKey: ci.ClassKey}
+}
+
