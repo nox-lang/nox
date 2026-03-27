@@ -254,3 +254,7 @@ func (cg *Codegen) instantiateClass(className string, decl *ast.ClassDecl, initD
 
 	thisType := Type{Kind: KClass, ClassName: className, ClassKey: classKey}
 
+	// Pre-seed field types from explicit annotations so `init` can rely on
+	// them (and so classes with no `init` at all still work).
+	for _, f := range decl.Fields {
+		if f.IsStatic {
