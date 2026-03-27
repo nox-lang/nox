@@ -271,3 +271,7 @@ func (cg *Codegen) instantiateClass(className string, decl *ast.ClassDecl, initD
 	if initDecl != nil {
 		scope := newScope(nil)
 		scope.define("this", thisType)
+		for i, p := range initDecl.Params {
+			scope.define(p.Name, argTypes[i])
+		}
+		ifb := &funcBuilder{cg: cg, fname: classKey + "_init", currentClassKey: classKey, currentClassName: className}
