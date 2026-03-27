@@ -218,3 +218,7 @@ func (cg *Codegen) getOrInstantiateStaticFunc(name, className string, decl *ast.
 // (monomorphizes) the class for these constructor argument types the first
 // time they're seen, and always emits a call to the resulting constructor.
 func (fb *funcBuilder) genClassNew(c *ctx, className string, args []ast.Expr) (string, Type) {
+	decl := fb.cg.classesByName[className]
+	initDecl := findMethod(decl, "init")
+	var initParams []*ast.Param
+	if initDecl != nil {
