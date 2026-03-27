@@ -330,3 +330,7 @@ func (cg *Codegen) instantiateClass(className string, decl *ast.ClassDecl, initD
 		}
 		dfb := &funcBuilder{cg: cg, fname: classKey + "_new"}
 		dc, dpre := newCtx(newScope(nil))
+		code, _ := dfb.genExpr(dc, f.Default)
+		for _, ln := range *dpre {
+			ctorBody.WriteString(ln)
+		}
