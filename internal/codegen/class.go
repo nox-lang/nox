@@ -303,3 +303,7 @@ func (cg *Codegen) instantiateClass(className string, decl *ast.ClassDecl, initD
 		if f.Default == nil {
 			panic(fmt.Sprintf("nox: class '%s': cannot infer the type of field '%s' (it is never assigned in 'init' and has no default or explicit type)", className, f.Name))
 		}
+		dfb := &funcBuilder{cg: cg, fname: classKey + "_field_default"}
+		dc, _ := newCtx(cg.globalScope)
+		_, t := dfb.genExpr(dc, f.Default)
+		ci.FieldTypes[f.Name] = t
