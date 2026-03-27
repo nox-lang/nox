@@ -165,3 +165,7 @@ func (fb *funcBuilder) genStaticCall(c *ctx, className, methodName string, args 
 	return call, fi.RetType
 }
 
+func (cg *Codegen) getOrInstantiateStaticFunc(name, className string, decl *ast.FuncDecl, argTypes []Type) *FuncInstance {
+	key := funcKey{name: name, argsKey: mangleList(argTypes)}
+	if fi, ok := cg.instCache[key]; ok {
+		return fi
