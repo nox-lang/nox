@@ -214,3 +214,7 @@ func (cg *Codegen) getOrInstantiateStaticFunc(name, className string, decl *ast.
 	return fi
 }
 
+// genClassNew compiles `ClassName.new(args...)`: it instantiates
+// (monomorphizes) the class for these constructor argument types the first
+// time they're seen, and always emits a call to the resulting constructor.
+func (fb *funcBuilder) genClassNew(c *ctx, className string, args []ast.Expr) (string, Type) {
