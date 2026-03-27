@@ -250,3 +250,5 @@ func (cg *Codegen) instantiateClass(className string, decl *ast.ClassDecl, initD
 		Methods:    map[string]*FuncInstance{},
 	}
 	cg.classInstances[classKey] = ci
+	cg.classOrder = append(cg.classOrder, classKey)
+
