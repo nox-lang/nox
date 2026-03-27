@@ -232,3 +232,7 @@ func (fb *funcBuilder) genClassNew(c *ctx, className string, args []ast.Expr) (s
 	ci, ok := fb.cg.classCache[key]
 	if !ok {
 		ci = fb.cg.instantiateClass(className, decl, initDecl, argTypes)
+		fb.cg.classCache[key] = ci
+	}
+	call := fmt.Sprintf("%s(%s)", ci.NewFuncName, strings.Join(argCodes, ", "))
+	return call, Type{Kind: KClass, ClassName: ci.ClassName, ClassKey: ci.ClassKey}
