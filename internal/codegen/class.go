@@ -144,3 +144,7 @@ func (fb *funcBuilder) genStaticCall(c *ctx, className, methodName string, args 
 	decl, ok := fb.cg.classesByName[className]
 	if !ok {
 		panic(fmt.Sprintf("nox: %s: unknown class '%s'", fb.fname, className))
+	}
+	mdecl := findStaticMethod(decl, methodName)
+	if mdecl == nil {
+		if findMethod(decl, methodName) != nil {
