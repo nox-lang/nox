@@ -363,3 +363,7 @@ func (cg *Codegen) instantiateClass(className string, decl *ast.ClassDecl, initD
 	return ci
 }
 
+// genMethodCall compiles `recv.methodName(args...)` where recv is a class
+// value, monomorphizing the method for these argument types on first use.
+func (fb *funcBuilder) genMethodCall(c *ctx, recvCode string, recvType Type, methodName string, args []ast.Expr) (string, Type) {
+	ci := fb.cg.classInstances[recvType.ClassKey]
