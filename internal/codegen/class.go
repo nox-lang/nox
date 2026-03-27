@@ -108,3 +108,7 @@ func (cg *Codegen) prepassStaticFields() {
 		c, pre := newCtx(cg.globalScope)
 		code, dt := fb.genExpr(c, f.Default)
 		if !t.Equals(dt) {
+			panic(fmt.Sprintf("nox: class '%s': static field '%s': default value is %s, expected %s", className, fieldName, dt.String(), t.String()))
+		}
+		for _, ln := range *pre {
+			cg.globalInitC = append(cg.globalInitC, strings.TrimRight(ln, "\n"))
