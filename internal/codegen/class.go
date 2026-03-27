@@ -132,3 +132,7 @@ func (fb *funcBuilder) genStaticFieldRead(className, fieldName string) (string, 
 	return staticFieldCName(className, fieldName), t
 }
 
+// genStaticCall compiles `ClassName.Method(args...)` (a static method call)
+// or, if className is "Thread"/"Task", the corresponding built-in.
+func (fb *funcBuilder) genStaticCall(c *ctx, className, methodName string, args []ast.Expr) (string, Type) {
+	switch className {
