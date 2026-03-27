@@ -299,3 +299,7 @@ func (cg *Codegen) instantiateClass(className string, decl *ast.ClassDecl, initD
 		}
 		if _, ok := ci.FieldTypes[f.Name]; ok {
 			continue
+		}
+		if f.Default == nil {
+			panic(fmt.Sprintf("nox: class '%s': cannot infer the type of field '%s' (it is never assigned in 'init' and has no default or explicit type)", className, f.Name))
+		}
