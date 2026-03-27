@@ -121,3 +121,7 @@ func (cg *Codegen) prepassStaticFields() {
 func (fb *funcBuilder) genStaticFieldRead(className, fieldName string) (string, Type) {
 	key := className + "." + fieldName
 	t, ok := fb.cg.staticFieldType[key]
+	if !ok {
+		panic(fmt.Sprintf("nox: %s: class '%s' has no static field '%s'", fb.fname, className, fieldName))
+	}
+	decl := fb.cg.staticFieldOwner[key]
