@@ -360,3 +360,6 @@ func (cg *Codegen) instantiateClass(className string, decl *ast.ClassDecl, initD
 	cg.funcInstances[newFI.MangledName] = newFI
 	cg.funcOrder = append(cg.funcOrder, newFI.MangledName)
 
+	return ci
+}
+
