@@ -181,3 +181,7 @@ func (cg *Codegen) getOrInstantiateStaticFunc(name, className string, decl *ast.
 	cg.funcInstances[mangled] = fi
 	cg.funcOrder = append(cg.funcOrder, mangled)
 
+	scope := newScope(nil)
+	for i, p := range decl.Params {
+		scope.define(p.Name, argTypes[i])
+	}
