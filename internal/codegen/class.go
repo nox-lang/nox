@@ -346,3 +346,7 @@ func (cg *Codegen) instantiateClass(className string, decl *ast.ClassDecl, initD
 		}
 		ctorBody.WriteString(fmt.Sprintf("%s(%s);\n", initFuncName, strings.Join(callArgs, ", ")))
 	}
+	ctorBody.WriteString(fmt.Sprintf("return %s;\n", cIdent("this")))
+	if len(ctorParams) == 0 {
+		ctorParams = append(ctorParams, "void")
+	}
