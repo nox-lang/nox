@@ -185,3 +185,7 @@ func (cg *Codegen) getOrInstantiateStaticFunc(name, className string, decl *ast.
 	for i, p := range decl.Params {
 		scope.define(p.Name, argTypes[i])
 	}
+	if decl.IsAsync {
+		cg.emitAsyncFunc(fi, decl, argTypes, nil)
+	} else {
+		fb := &funcBuilder{cg: cg, fname: mangled, currentClassName: className, selfInstance: fi}
