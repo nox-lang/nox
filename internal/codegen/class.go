@@ -228,3 +228,7 @@ func (fb *funcBuilder) genClassNew(c *ctx, className string, args []ast.Expr) (s
 	}
 	argCodes, argTypes := fb.resolveCallArgs(c, className+".new", initParams, args, fb.cg.globalScope)
 
+	key := classCacheKey(className, mangleList(argTypes))
+	ci, ok := fb.cg.classCache[key]
+	if !ok {
+		ci = fb.cg.instantiateClass(className, decl, initDecl, argTypes)
