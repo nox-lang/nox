@@ -283,3 +283,7 @@ func (cg *Codegen) instantiateClass(className string, decl *ast.ClassDecl, initD
 			initParams = append(initParams, fmt.Sprintf("%s %s", cg.ctype(argTypes[i]), cIdent(p.Name)))
 		}
 		initFI := &FuncInstance{
+			MangledName: initFuncName,
+			Forward:     fmt.Sprintf("static void %s(%s);", initFuncName, strings.Join(initParams, ", ")),
+			Body:        fmt.Sprintf("static void %s(%s) {\n%s}", initFuncName, strings.Join(initParams, ", "), indent(initBodyC, "    ")),
+		}
