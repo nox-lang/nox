@@ -252,3 +252,5 @@ func (cg *Codegen) instantiateClass(className string, decl *ast.ClassDecl, initD
 	cg.classInstances[classKey] = ci
 	cg.classOrder = append(cg.classOrder, classKey)
 
+	thisType := Type{Kind: KClass, ClassName: className, ClassKey: classKey}
+
