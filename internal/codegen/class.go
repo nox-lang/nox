@@ -129,3 +129,6 @@ func (fb *funcBuilder) genStaticFieldRead(className, fieldName string) (string, 
 		panic(fmt.Sprintf("nox: %s: '%s' is a private static field of class '%s'", fb.fname, fieldName, className))
 	}
 	_ = decl
+	return staticFieldCName(className, fieldName), t
+}
+
