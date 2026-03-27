@@ -266,3 +266,4 @@ func (cg *Codegen) instantiateClass(className string, decl *ast.ClassDecl, initD
 			ci.FieldOrder = append(ci.FieldOrder, f.Name)
 		}
 	}
+
