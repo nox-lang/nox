@@ -209,3 +209,7 @@ func (cg *Codegen) getOrInstantiateStaticFunc(name, className string, decl *ast.
 		}
 		fi.Forward = fmt.Sprintf("static %s %s(%s);", retC, mangled, strings.Join(cparams, ", "))
 		fi.Body = fmt.Sprintf("static %s %s(%s) {\n%s}", retC, mangled, strings.Join(cparams, ", "), indent(bodyC, "    "))
+	}
+	fi.Emitting = false
+	return fi
+}
