@@ -275,3 +275,7 @@ func (cg *Codegen) instantiateClass(className string, decl *ast.ClassDecl, initD
 			scope.define(p.Name, argTypes[i])
 		}
 		ifb := &funcBuilder{cg: cg, fname: classKey + "_init", currentClassKey: classKey, currentClassName: className}
+		initBodyC := ifb.buildFunctionBody(scope, initDecl.Body, "")
+		initFuncName = classKey + "_init"
+		var initParams []string
+		initParams = append(initParams, fmt.Sprintf("struct %s* %s", classKey, cIdent("this")))
