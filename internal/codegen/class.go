@@ -258,3 +258,7 @@ func (cg *Codegen) instantiateClass(className string, decl *ast.ClassDecl, initD
 	// them (and so classes with no `init` at all still work).
 	for _, f := range decl.Fields {
 		if f.IsStatic {
+			continue
+		}
+		if f.Type != nil {
+			t := cg.resolveTypeExpr(f.Type)
