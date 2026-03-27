@@ -100,3 +100,7 @@ func (cg *Codegen) prepassStaticFields() {
 		f := staticFieldDecl(decl, fieldName)
 		t := cg.staticFieldType[key]
 		cname := staticFieldCName(className, fieldName)
+		if f.Default == nil {
+			cg.globalInitC = append(cg.globalInitC, fmt.Sprintf("%s = %s;", cname, cg.zeroValueC(t)))
+			continue
+		}
