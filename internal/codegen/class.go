@@ -116,3 +116,4 @@ func (cg *Codegen) prepassStaticFields() {
 		cg.globalInitC = append(cg.globalInitC, fmt.Sprintf("%s = %s;", cname, code))
 	}
 }
+
