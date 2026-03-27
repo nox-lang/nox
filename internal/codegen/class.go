@@ -318,3 +318,7 @@ func (cg *Codegen) instantiateClass(className string, decl *ast.ClassDecl, initD
 	ci.StructC = fmt.Sprintf("struct %s {\n%s};", classKey, fieldsText.String())
 	ci.StructEmitted = true
 
+	// Constructor: allocate, apply field defaults, call `init` (a genuinely
+	// separate function — see above; inlining its body directly here would
+	// make init's own implicit `return;` end the constructor early, before
+	// it has a chance to return the new instance), then return the instance.
