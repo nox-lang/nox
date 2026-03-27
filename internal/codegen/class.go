@@ -104,3 +104,7 @@ func (cg *Codegen) prepassStaticFields() {
 			cg.globalInitC = append(cg.globalInitC, fmt.Sprintf("%s = %s;", cname, cg.zeroValueC(t)))
 			continue
 		}
+		fb.currentClassName = className
+		c, pre := newCtx(cg.globalScope)
+		code, dt := fb.genExpr(c, f.Default)
+		if !t.Equals(dt) {
