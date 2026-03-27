@@ -112,3 +112,7 @@ func (cg *Codegen) prepassStaticFields() {
 		}
 		for _, ln := range *pre {
 			cg.globalInitC = append(cg.globalInitC, strings.TrimRight(ln, "\n"))
+		}
+		cg.globalInitC = append(cg.globalInitC, fmt.Sprintf("%s = %s;", cname, code))
+	}
+}
