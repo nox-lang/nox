@@ -326,3 +326,7 @@ func (cg *Codegen) instantiateClass(className string, decl *ast.ClassDecl, initD
 	ctorBody.WriteString(fmt.Sprintf("struct %s* %s = (struct %s*)NOX_ALLOC(sizeof(struct %s));\n", classKey, cIdent("this"), classKey, classKey))
 	for _, f := range decl.Fields {
 		if f.IsStatic || f.Default == nil {
+			continue
+		}
+		dfb := &funcBuilder{cg: cg, fname: classKey + "_new"}
+		dc, dpre := newCtx(newScope(nil))
