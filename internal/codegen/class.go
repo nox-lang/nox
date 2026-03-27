@@ -287,3 +287,7 @@ func (cg *Codegen) instantiateClass(className string, decl *ast.ClassDecl, initD
 			Forward:     fmt.Sprintf("static void %s(%s);", initFuncName, strings.Join(initParams, ", ")),
 			Body:        fmt.Sprintf("static void %s(%s) {\n%s}", initFuncName, strings.Join(initParams, ", "), indent(initBodyC, "    ")),
 		}
+		cg.funcInstances[initFuncName] = initFI
+		cg.funcOrder = append(cg.funcOrder, initFuncName)
+	}
+
