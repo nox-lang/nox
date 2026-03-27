@@ -279,3 +279,7 @@ func (cg *Codegen) instantiateClass(className string, decl *ast.ClassDecl, initD
 		initFuncName = classKey + "_init"
 		var initParams []string
 		initParams = append(initParams, fmt.Sprintf("struct %s* %s", classKey, cIdent("this")))
+		for i, p := range initDecl.Params {
+			initParams = append(initParams, fmt.Sprintf("%s %s", cg.ctype(argTypes[i]), cIdent(p.Name)))
+		}
+		initFI := &FuncInstance{
