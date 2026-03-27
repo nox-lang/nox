@@ -160,3 +160,7 @@ func (fb *funcBuilder) genStaticCall(c *ctx, className, methodName string, args 
 	fi := fb.cg.getOrInstantiateStaticFunc(name, className, mdecl, argTypes)
 	call := fmt.Sprintf("%s(%s)", fi.MangledName, strings.Join(argCodes, ", "))
 	if fi.IsAsync {
+		return call, TTask(fi.RetType)
+	}
+	return call, fi.RetType
+}
