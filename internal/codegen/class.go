@@ -342,3 +342,7 @@ func (cg *Codegen) instantiateClass(className string, decl *ast.ClassDecl, initD
 		callArgs = append(callArgs, cIdent("this"))
 		for i, p := range initDecl.Params {
 			ctorParams = append(ctorParams, fmt.Sprintf("%s %s", cg.ctype(argTypes[i]), cIdent(p.Name)))
+			callArgs = append(callArgs, cIdent(p.Name))
+		}
+		ctorBody.WriteString(fmt.Sprintf("%s(%s);\n", initFuncName, strings.Join(callArgs, ", ")))
+	}
