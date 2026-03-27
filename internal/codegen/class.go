@@ -262,3 +262,7 @@ func (cg *Codegen) instantiateClass(className string, decl *ast.ClassDecl, initD
 		}
 		if f.Type != nil {
 			t := cg.resolveTypeExpr(f.Type)
+			ci.FieldTypes[f.Name] = t
+			ci.FieldOrder = append(ci.FieldOrder, f.Name)
+		}
+	}
