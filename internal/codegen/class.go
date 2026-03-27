@@ -358,3 +358,5 @@ func (cg *Codegen) instantiateClass(className string, decl *ast.ClassDecl, initD
 		Body:        fmt.Sprintf("static %s %s(%s) {\n%s}", retC, ci.NewFuncName, strings.Join(ctorParams, ", "), indent(ctorBody.String(), "    ")),
 	}
 	cg.funcInstances[newFI.MangledName] = newFI
+	cg.funcOrder = append(cg.funcOrder, newFI.MangledName)
+
