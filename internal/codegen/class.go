@@ -193,3 +193,7 @@ func (cg *Codegen) getOrInstantiateStaticFunc(name, className string, decl *ast.
 			fb.retType = fi.RetType
 			fb.retTypeKnown = true
 		}
+		bodyC := fb.buildFunctionBody(scope, decl.Body, "")
+		fi.RetType = fb.retType
+		fi.RetTypeKnown = true
+		var cparams []string
