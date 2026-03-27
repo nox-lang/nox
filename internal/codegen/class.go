@@ -148,3 +148,7 @@ func (fb *funcBuilder) genStaticCall(c *ctx, className, methodName string, args 
 	mdecl := findStaticMethod(decl, methodName)
 	if mdecl == nil {
 		if findMethod(decl, methodName) != nil {
+			panic(fmt.Sprintf("nox: %s: '%s' is an instance method of class '%s'; call it on an instance, not on the class itself", fb.fname, methodName, className))
+		}
+		panic(fmt.Sprintf("nox: %s: class '%s' has no static method '%s'", fb.fname, className, methodName))
+	}
