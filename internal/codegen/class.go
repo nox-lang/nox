@@ -334,3 +334,7 @@ func (cg *Codegen) instantiateClass(className string, decl *ast.ClassDecl, initD
 		for _, ln := range *dpre {
 			ctorBody.WriteString(ln)
 		}
+		ctorBody.WriteString(fmt.Sprintf("%s->%s = %s;\n", cIdent("this"), f.Name, code))
+	}
+	var ctorParams []string
+	if initDecl != nil {
