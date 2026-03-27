@@ -152,3 +152,7 @@ func (fb *funcBuilder) genStaticCall(c *ctx, className, methodName string, args 
 		}
 		panic(fmt.Sprintf("nox: %s: class '%s' has no static method '%s'", fb.fname, className, methodName))
 	}
+	if !isExported(methodName) && fb.currentClassName != className {
+		panic(fmt.Sprintf("nox: %s: '%s' is a private static method of class '%s'", fb.fname, methodName, className))
+	}
+	argCodes, argTypes := fb.resolveCallArgs(c, className+"."+methodName, mdecl.Params, args, fb.cg.globalScope)
