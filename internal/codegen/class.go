@@ -156,3 +156,7 @@ func (fb *funcBuilder) genStaticCall(c *ctx, className, methodName string, args 
 		panic(fmt.Sprintf("nox: %s: '%s' is a private static method of class '%s'", fb.fname, methodName, className))
 	}
 	argCodes, argTypes := fb.resolveCallArgs(c, className+"."+methodName, mdecl.Params, args, fb.cg.globalScope)
+	name := "static:" + className + "::" + methodName
+	fi := fb.cg.getOrInstantiateStaticFunc(name, className, mdecl, argTypes)
+	call := fmt.Sprintf("%s(%s)", fi.MangledName, strings.Join(argCodes, ", "))
+	if fi.IsAsync {
