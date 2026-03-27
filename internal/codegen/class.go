@@ -201,3 +201,7 @@ func (cg *Codegen) getOrInstantiateStaticFunc(name, className string, decl *ast.
 			cparams = append(cparams, fmt.Sprintf("%s %s", cg.ctype(argTypes[i]), cIdent(p.Name)))
 		}
 		if len(cparams) == 0 {
+			cparams = append(cparams, "void")
+		}
+		retC := "void"
+		if fi.RetType.Kind != KVoid {
