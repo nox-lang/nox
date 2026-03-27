@@ -226,3 +226,5 @@ func (fb *funcBuilder) genClassNew(c *ctx, className string, args []ast.Expr) (s
 	} else if len(args) > 0 {
 		panic(fmt.Sprintf("nox: %s: class '%s' has no 'init' but %s.new(...) was called with arguments", fb.fname, className, className))
 	}
+	argCodes, argTypes := fb.resolveCallArgs(c, className+".new", initParams, args, fb.cg.globalScope)
+
