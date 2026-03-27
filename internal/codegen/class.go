@@ -314,3 +314,7 @@ func (cg *Codegen) instantiateClass(className string, decl *ast.ClassDecl, initD
 	var fieldsText strings.Builder
 	for _, name := range ci.FieldOrder {
 		fieldsText.WriteString(fmt.Sprintf("    %s %s;\n", cg.ctype(ci.FieldTypes[name]), name))
+	}
+	ci.StructC = fmt.Sprintf("struct %s {\n%s};", classKey, fieldsText.String())
+	ci.StructEmitted = true
+
