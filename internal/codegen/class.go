@@ -169,3 +169,7 @@ func (cg *Codegen) getOrInstantiateStaticFunc(name, className string, decl *ast.
 	key := funcKey{name: name, argsKey: mangleList(argTypes)}
 	if fi, ok := cg.instCache[key]; ok {
 		return fi
+	}
+	mangled := cg.freshName("nox_static_" + sanitizeIdent(className) + "_" + sanitizeIdent(decl.Name))
+	fi := &FuncInstance{MangledName: mangled, Decl: decl, ParamTypes: argTypes, IsAsync: decl.IsAsync}
+	if decl.ReturnType != nil {
