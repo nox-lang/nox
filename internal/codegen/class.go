@@ -267,3 +267,7 @@ func (cg *Codegen) instantiateClass(className string, decl *ast.ClassDecl, initD
 		}
 	}
 
+	var initFuncName string
+	if initDecl != nil {
+		scope := newScope(nil)
+		scope.define("this", thisType)
