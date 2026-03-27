@@ -338,3 +338,7 @@ func (cg *Codegen) instantiateClass(className string, decl *ast.ClassDecl, initD
 	}
 	var ctorParams []string
 	if initDecl != nil {
+		var callArgs []string
+		callArgs = append(callArgs, cIdent("this"))
+		for i, p := range initDecl.Params {
+			ctorParams = append(ctorParams, fmt.Sprintf("%s %s", cg.ctype(argTypes[i]), cIdent(p.Name)))
