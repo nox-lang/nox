@@ -140,3 +140,7 @@ func (fb *funcBuilder) genStaticCall(c *ctx, className, methodName string, args 
 		return fb.genThreadStatic(c, methodName, args)
 	case "Task":
 		return fb.genTaskStatic(c, methodName, args)
+	}
+	decl, ok := fb.cg.classesByName[className]
+	if !ok {
+		panic(fmt.Sprintf("nox: %s: unknown class '%s'", fb.fname, className))
