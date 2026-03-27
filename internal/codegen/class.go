@@ -189,3 +189,7 @@ func (cg *Codegen) getOrInstantiateStaticFunc(name, className string, decl *ast.
 		cg.emitAsyncFunc(fi, decl, argTypes, nil)
 	} else {
 		fb := &funcBuilder{cg: cg, fname: mangled, currentClassName: className, selfInstance: fi}
+		if fi.RetTypeKnown {
+			fb.retType = fi.RetType
+			fb.retTypeKnown = true
+		}
