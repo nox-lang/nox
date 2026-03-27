@@ -164,3 +164,4 @@ func (fb *funcBuilder) genStaticCall(c *ctx, className, methodName string, args 
 	}
 	return call, fi.RetType
 }
+
