@@ -96,3 +96,7 @@ func (cg *Codegen) prepassStaticFields() {
 	for _, key := range cg.staticFieldOrder {
 		parts := strings.SplitN(key, ".", 2)
 		className, fieldName := parts[0], parts[1]
+		decl := cg.staticFieldOwner[key]
+		f := staticFieldDecl(decl, fieldName)
+		t := cg.staticFieldType[key]
+		cname := staticFieldCName(className, fieldName)
