@@ -246,3 +246,7 @@ func (cg *Codegen) instantiateClass(className string, decl *ast.ClassDecl, initD
 		ClassKey:   classKey,
 		ClassName:  className,
 		Decl:       decl,
+		FieldTypes: map[string]Type{},
+		Methods:    map[string]*FuncInstance{},
+	}
+	cg.classInstances[classKey] = ci
