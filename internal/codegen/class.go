@@ -295,3 +295,7 @@ func (cg *Codegen) instantiateClass(className string, decl *ast.ClassDecl, initD
 	// falls back to its default expression's type, if it has one.
 	for _, f := range decl.Fields {
 		if f.IsStatic {
+			continue
+		}
+		if _, ok := ci.FieldTypes[f.Name]; ok {
+			continue
