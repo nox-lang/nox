@@ -136,3 +136,7 @@ func (fb *funcBuilder) genStaticFieldRead(className, fieldName string) (string, 
 // or, if className is "Thread"/"Task", the corresponding built-in.
 func (fb *funcBuilder) genStaticCall(c *ctx, className, methodName string, args []ast.Expr) (string, Type) {
 	switch className {
+	case "Thread":
+		return fb.genThreadStatic(c, methodName, args)
+	case "Task":
+		return fb.genTaskStatic(c, methodName, args)
