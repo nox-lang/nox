@@ -310,3 +310,7 @@ func (cg *Codegen) instantiateClass(className string, decl *ast.ClassDecl, initD
 		ci.FieldOrder = append(ci.FieldOrder, f.Name)
 	}
 
+	// Struct definition.
+	var fieldsText strings.Builder
+	for _, name := range ci.FieldOrder {
+		fieldsText.WriteString(fmt.Sprintf("    %s %s;\n", cg.ctype(ci.FieldTypes[name]), name))
