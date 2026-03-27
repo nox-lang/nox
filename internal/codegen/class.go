@@ -322,3 +322,7 @@ func (cg *Codegen) instantiateClass(className string, decl *ast.ClassDecl, initD
 	// separate function — see above; inlining its body directly here would
 	// make init's own implicit `return;` end the constructor early, before
 	// it has a chance to return the new instance), then return the instance.
+	var ctorBody strings.Builder
+	ctorBody.WriteString(fmt.Sprintf("struct %s* %s = (struct %s*)NOX_ALLOC(sizeof(struct %s));\n", classKey, cIdent("this"), classKey, classKey))
+	for _, f := range decl.Fields {
+		if f.IsStatic || f.Default == nil {
