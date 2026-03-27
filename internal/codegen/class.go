@@ -291,3 +291,7 @@ func (cg *Codegen) instantiateClass(className string, decl *ast.ClassDecl, initD
 		cg.funcOrder = append(cg.funcOrder, initFuncName)
 	}
 
+	// Any field not yet typed (not annotated, and not assigned in `init`)
+	// falls back to its default expression's type, if it has one.
+	for _, f := range decl.Fields {
+		if f.IsStatic {
