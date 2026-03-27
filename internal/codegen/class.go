@@ -238,3 +238,7 @@ func (fb *funcBuilder) genClassNew(c *ctx, className string, args []ast.Expr) (s
 	return call, Type{Kind: KClass, ClassName: ci.ClassName, ClassKey: ci.ClassKey}
 }
 
+// instantiateClass creates a new monomorphized struct + constructor for a
+// class given concrete constructor argument types.
+func (cg *Codegen) instantiateClass(className string, decl *ast.ClassDecl, initDecl *ast.FuncDecl, argTypes []Type) *ClassInstance {
+	classKey := cg.freshName("Nox_" + sanitizeIdent(className))
