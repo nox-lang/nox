@@ -307,3 +307,6 @@ func (cg *Codegen) instantiateClass(className string, decl *ast.ClassDecl, initD
 		dc, _ := newCtx(cg.globalScope)
 		_, t := dfb.genExpr(dc, f.Default)
 		ci.FieldTypes[f.Name] = t
+		ci.FieldOrder = append(ci.FieldOrder, f.Name)
+	}
+
