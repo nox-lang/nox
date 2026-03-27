@@ -197,3 +197,7 @@ func (cg *Codegen) getOrInstantiateStaticFunc(name, className string, decl *ast.
 		fi.RetType = fb.retType
 		fi.RetTypeKnown = true
 		var cparams []string
+		for i, p := range decl.Params {
+			cparams = append(cparams, fmt.Sprintf("%s %s", cg.ctype(argTypes[i]), cIdent(p.Name)))
+		}
+		if len(cparams) == 0 {
