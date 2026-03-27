@@ -350,3 +350,7 @@ func (cg *Codegen) instantiateClass(className string, decl *ast.ClassDecl, initD
 	if len(ctorParams) == 0 {
 		ctorParams = append(ctorParams, "void")
 	}
+	ci.NewFuncName = classKey + "_new"
+	retC := fmt.Sprintf("struct %s*", classKey)
+	newFI := &FuncInstance{
+		MangledName: ci.NewFuncName,
