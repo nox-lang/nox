@@ -213,3 +213,4 @@ func (cg *Codegen) getOrInstantiateStaticFunc(name, className string, decl *ast.
 	fi.Emitting = false
 	return fi
 }
+
