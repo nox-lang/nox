@@ -117,3 +117,7 @@ func (cg *Codegen) prepassStaticFields() {
 	}
 }
 
+// genStaticFieldRead / genStaticFieldWrite implement `ClassName.field`.
+func (fb *funcBuilder) genStaticFieldRead(className, fieldName string) (string, Type) {
+	key := className + "." + fieldName
+	t, ok := fb.cg.staticFieldType[key]
