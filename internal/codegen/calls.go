@@ -101,3 +101,7 @@ func (fb *funcBuilder) genClosureCall(c *ctx, closureCode string, t Type, args [
 	}
 	tmp := fb.cg.freshTmp("cloval")
 	c.emit(compilef("%s %s = %s;", fb.cg.ctype(t), tmp, closureCode))
+	var argCodes []string
+	for i, a := range args {
+		code, at := fb.genExpr(c, a)
+		if !at.Equals(t.Params[i]) {
