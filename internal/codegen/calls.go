@@ -36,3 +36,7 @@ func (fb *funcBuilder) genCallExpr(c *ctx, x *ast.CallExpr) (string, Type) {
 			// These need a genuine addressable receiver so the mutation is
 			// observable on the underlying storage, not a throwaway copy.
 			recvVar, recvType := fb.genReceiverLvalue(c, callee.X)
+			return fb.genBuiltinMethodCall(c, recvVar, recvType, callee.Name, x.Args)
+		}
+		if builtinMethodNames[callee.Name] {
+			xCode, xType := fb.genExpr(c, callee.X)
