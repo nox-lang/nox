@@ -397,3 +397,7 @@ func (fb *funcBuilder) genMethodCall(c *ctx, recvCode string, recvType Type, met
 		ci.Methods[mkey] = fi // register before generating, for recursive self-calls
 		thisType := Type{Kind: KClass, ClassName: ci.ClassName, ClassKey: ci.ClassKey}
 		if mdecl.IsAsync {
+			fb.cg.emitAsyncFunc(fi, mdecl, argTypes, &thisType)
+		} else {
+			fb.cg.emitSyncFuncWithClass(fi, mdecl, argTypes, thisType, ci.ClassKey, ci.ClassName)
+		}
