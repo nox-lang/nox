@@ -381,3 +381,7 @@ func (fb *funcBuilder) genMethodCall(c *ctx, recvCode string, recvType Type, met
 		panic(fmt.Sprintf("nox: %s: '%s' is a private method of class '%s'", fb.fname, methodName, ci.ClassName))
 	}
 
+	recvTmp := fb.cg.freshTmp("recv")
+	c.emit(compilef("%s %s = %s;", fb.cg.ctype(recvType), recvTmp, recvCode))
+	argCodes, argTypes := fb.resolveCallArgs(c, ci.ClassName+"."+methodName, mdecl.Params, args, fb.cg.globalScope)
+
