@@ -367,3 +367,7 @@ func (cg *Codegen) instantiateClass(className string, decl *ast.ClassDecl, initD
 // value, monomorphizing the method for these argument types on first use.
 func (fb *funcBuilder) genMethodCall(c *ctx, recvCode string, recvType Type, methodName string, args []ast.Expr) (string, Type) {
 	ci := fb.cg.classInstances[recvType.ClassKey]
+	if methodName == "init" {
+		panic(fmt.Sprintf("nox: %s: 'init' cannot be called directly; use %s.new(...)", fb.fname, ci.ClassName))
+	}
+	mdecl := findMethod(ci.Decl, methodName)
