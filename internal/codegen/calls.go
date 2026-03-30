@@ -59,3 +59,7 @@ func (fb *funcBuilder) genCallExpr(c *ctx, x *ast.CallExpr) (string, Type) {
 		}
 		if t, ok := c.scope.lookup(callee.Name); ok && t.Kind == KFunc {
 			return fb.genClosureCall(c, cIdent(callee.Name), t, x.Args)
+		}
+		panic(fmt.Sprintf("nox: %s: call to undefined function '%s'", fb.fname, callee.Name))
+	}
+	panic(fmt.Sprintf("nox: %s: expression is not callable", fb.fname))
