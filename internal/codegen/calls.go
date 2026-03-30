@@ -32,3 +32,7 @@ func (fb *funcBuilder) genCallExpr(c *ctx, x *ast.CallExpr) (string, Type) {
 			recvVar, recvType := fb.genReceiverLvalue(c, callee.X)
 			return fb.genDeleteMethod(c, recvVar, recvType, x.Args)
 		}
+		if mutatingBuiltinMethods[callee.Name] {
+			// These need a genuine addressable receiver so the mutation is
+			// observable on the underlying storage, not a throwaway copy.
+			recvVar, recvType := fb.genReceiverLvalue(c, callee.X)
