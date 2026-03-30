@@ -69,3 +69,7 @@ func (fb *funcBuilder) genCallExpr(c *ctx, x *ast.CallExpr) (string, Type) {
 // class instances, and pointers: it explicitly frees the underlying
 // GC-managed memory right now rather than waiting for the collector, and
 // clears the (necessarily addressable — see genReceiverLvalue) receiver so
+// it can't be read back accidentally. This is a deliberate escape hatch
+// from automatic memory management, not something normal Nox code needs;
+// using the value again afterwards is undefined behavior, exactly like a
+// manual free() in C.
