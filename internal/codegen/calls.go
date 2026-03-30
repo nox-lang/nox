@@ -16,3 +16,7 @@ func (fb *funcBuilder) genCallExpr(c *ctx, x *ast.CallExpr) (string, Type) {
 		if recvIdent, ok := callee.X.(*ast.Ident); ok {
 			if _, isLocal := c.scope.lookup(recvIdent.Name); !isLocal {
 				if recvIdent.Name == "Thread" || recvIdent.Name == "Task" {
+					return fb.genStaticCall(c, recvIdent.Name, callee.Name, x.Args)
+				}
+				if _, isClass := fb.cg.classesByName[recvIdent.Name]; isClass && callee.Name != "new" {
+					return fb.genStaticCall(c, recvIdent.Name, callee.Name, x.Args)
