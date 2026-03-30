@@ -85,3 +85,7 @@ func (fb *funcBuilder) genDeleteMethod(c *ctx, recv string, recvType Type, args 
 		c.emit(compilef("if ((%s).data) { NOX_FREE((%s).data); }", recv, recv))
 		c.emit(compilef("%s.data = NULL; %s.len = 0; %s.cap = 0;", recv, recv, recv))
 	case KClass, KPointer:
+		c.emit(compilef("if (%s) { NOX_FREE(%s); }", recv, recv))
+		c.emit(compilef("%s = NULL;", recv))
+	default:
+		panic(fmt.Sprintf("nox: %s: '.delete()' is not available on type %s", fb.fname, recvType.String()))
