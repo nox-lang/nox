@@ -422,3 +422,7 @@ func (cg *Codegen) emitSyncFuncWithClass(fi *FuncInstance, decl *ast.FuncDecl, a
 	fb := &funcBuilder{cg: cg, fname: fi.MangledName, currentClassKey: classKey, currentClassName: className, selfInstance: fi}
 	if fi.RetTypeKnown {
 		fb.retType = fi.RetType
+		fb.retTypeKnown = true
+	}
+	bodyC := fb.buildFunctionBody(scope, decl.Body, "")
+	fi.RetType = fb.retType
