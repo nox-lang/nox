@@ -77,3 +77,7 @@ func (fb *funcBuilder) genDeleteMethod(c *ctx, recv string, recvType Type, args 
 	if len(args) != 0 {
 		panic(fmt.Sprintf("nox: %s: '.delete()' takes no arguments", fb.fname))
 	}
+	switch recvType.Kind {
+	case KString:
+		c.emit(compilef("if ((%s).data) { NOX_FREE((%s).data); }", recv, recv))
+		c.emit(compilef("%s.data = NULL; %s.len = 0;", recv, recv))
