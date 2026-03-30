@@ -109,3 +109,7 @@ func (fb *funcBuilder) genClosureCall(c *ctx, closureCode string, t Type, args [
 		}
 		argCodes = append(argCodes, code)
 	}
+	callArgs := append([]string{tmp + ".env"}, argCodes...)
+	call := fmt.Sprintf("%s.fn(%s)", tmp, strings.Join(callArgs, ", "))
+	ret := TVoid()
+	if t.Ret != nil {
