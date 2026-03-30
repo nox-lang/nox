@@ -51,3 +51,7 @@ func (fb *funcBuilder) genCallExpr(c *ctx, x *ast.CallExpr) (string, Type) {
 		}
 		panic(fmt.Sprintf("nox: %s: cannot call '.%s(...)' on a value of type %s", fb.fname, callee.Name, xType.String()))
 
+	case *ast.Ident:
+		if _, ok := fb.cg.funcsByName[callee.Name]; ok {
+			if _, isLocal := c.scope.lookup(callee.Name); !isLocal {
+				return fb.callUserFunc(c, callee.Name, x.Args)
