@@ -389,3 +389,7 @@ func (fb *funcBuilder) genMethodCall(c *ctx, recvCode string, recvType Type, met
 	fi, ok := ci.Methods[mkey]
 	if !ok {
 		mangled := fb.cg.freshName(ci.ClassKey + "_" + sanitizeIdent(methodName))
+		fi = &FuncInstance{MangledName: mangled, Decl: mdecl, ParamTypes: argTypes, IsAsync: mdecl.IsAsync}
+		if mdecl.ReturnType != nil {
+			fi.RetType = fb.cg.resolveTypeExpr(mdecl.ReturnType)
+			fi.RetTypeKnown = true
