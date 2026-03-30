@@ -128,3 +128,5 @@ func (fb *funcBuilder) genQualIdentValue(c *ctx, x *ast.QualIdent) (string, Type
 		}
 	}
 	panic(fmt.Sprintf("nox: %s: '%s' cannot be used as a value", fb.fname, strings.Join(x.Parts, "::")))
+}
+
