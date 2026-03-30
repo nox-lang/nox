@@ -393,3 +393,7 @@ func (fb *funcBuilder) genMethodCall(c *ctx, recvCode string, recvType Type, met
 		if mdecl.ReturnType != nil {
 			fi.RetType = fb.cg.resolveTypeExpr(mdecl.ReturnType)
 			fi.RetTypeKnown = true
+		}
+		ci.Methods[mkey] = fi // register before generating, for recursive self-calls
+		thisType := Type{Kind: KClass, ClassName: ci.ClassName, ClassKey: ci.ClassKey}
+		if mdecl.IsAsync {
