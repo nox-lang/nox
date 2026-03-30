@@ -436,3 +436,6 @@ func (cg *Codegen) emitSyncFuncWithClass(fi *FuncInstance, decl *ast.FuncDecl, a
 	if fi.RetType.Kind != KVoid {
 		retC = cg.ctype(fi.RetType)
 	}
+	fi.Forward = fmt.Sprintf("static %s %s(%s);", retC, fi.MangledName, strings.Join(cparams, ", "))
+	fi.Body = fmt.Sprintf("static %s %s(%s) {\n%s}", retC, fi.MangledName, strings.Join(cparams, ", "), indent(bodyC, "    "))
+}
