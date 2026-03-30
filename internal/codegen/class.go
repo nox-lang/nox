@@ -410,3 +410,7 @@ func (fb *funcBuilder) genMethodCall(c *ctx, recvCode string, recvType Type, met
 	return call, fi.RetType
 }
 
+// emitSyncFuncWithClass is emitSyncFunc plus tagging the generated
+// funcBuilder with the owning class so private-member checks inside the
+// method body know they're "at home".
+func (cg *Codegen) emitSyncFuncWithClass(fi *FuncInstance, decl *ast.FuncDecl, argTypes []Type, thisType Type, classKey, className string) {
