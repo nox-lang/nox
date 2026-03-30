@@ -81,3 +81,7 @@ func (fb *funcBuilder) genDeleteMethod(c *ctx, recv string, recvType Type, args 
 	case KString:
 		c.emit(compilef("if ((%s).data) { NOX_FREE((%s).data); }", recv, recv))
 		c.emit(compilef("%s.data = NULL; %s.len = 0;", recv, recv))
+	case KSlice:
+		c.emit(compilef("if ((%s).data) { NOX_FREE((%s).data); }", recv, recv))
+		c.emit(compilef("%s.data = NULL; %s.len = 0; %s.cap = 0;", recv, recv, recv))
+	case KClass, KPointer:
