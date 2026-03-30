@@ -120,3 +120,7 @@ func (fb *funcBuilder) genClosureCall(c *ctx, closureCode string, t Type, args [
 
 // ---------------- QualIdent as a value / call ----------------
 
+func (fb *funcBuilder) genQualIdentValue(c *ctx, x *ast.QualIdent) (string, Type) {
+	ns, sym := fb.cg.resolveNamespace(x.Parts)
+	if ns.Kind == NSStdlib {
+		if code, t, ok := stdlibConstant(x.Parts[0], sym); ok {
