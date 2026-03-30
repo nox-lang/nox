@@ -105,3 +105,7 @@ func (fb *funcBuilder) genClosureCall(c *ctx, closureCode string, t Type, args [
 	for i, a := range args {
 		code, at := fb.genExpr(c, a)
 		if !at.Equals(t.Params[i]) {
+			panic(fmt.Sprintf("nox: %s: closure argument %d: expected %s, got %s", fb.fname, i+1, t.Params[i].String(), at.String()))
+		}
+		argCodes = append(argCodes, code)
+	}
