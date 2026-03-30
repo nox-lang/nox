@@ -379,3 +379,5 @@ func (fb *funcBuilder) genMethodCall(c *ctx, recvCode string, recvType Type, met
 	}
 	if !isExported(methodName) && fb.currentClassKey != recvType.ClassKey {
 		panic(fmt.Sprintf("nox: %s: '%s' is a private method of class '%s'", fb.fname, methodName, ci.ClassName))
+	}
+
