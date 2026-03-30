@@ -24,3 +24,7 @@ func (fb *funcBuilder) genCallExpr(c *ctx, x *ast.CallExpr) (string, Type) {
 			}
 		}
 		if recvIdent, ok := callee.X.(*ast.Ident); ok && callee.Name == "new" {
+			if _, isClass := fb.cg.classesByName[recvIdent.Name]; isClass {
+				return fb.genClassNew(c, recvIdent.Name, x.Args)
+			}
+		}
