@@ -28,3 +28,7 @@ func (fb *funcBuilder) genCallExpr(c *ctx, x *ast.CallExpr) (string, Type) {
 				return fb.genClassNew(c, recvIdent.Name, x.Args)
 			}
 		}
+		if callee.Name == "delete" {
+			recvVar, recvType := fb.genReceiverLvalue(c, callee.X)
+			return fb.genDeleteMethod(c, recvVar, recvType, x.Args)
+		}
