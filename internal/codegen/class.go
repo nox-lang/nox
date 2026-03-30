@@ -405,3 +405,7 @@ func (fb *funcBuilder) genMethodCall(c *ctx, recvCode string, recvType Type, met
 	callArgs := append([]string{recvTmp}, argCodes...)
 	call := fmt.Sprintf("%s(%s)", fi.MangledName, strings.Join(callArgs, ", "))
 	if fi.IsAsync {
+		return call, TTask(fi.RetType)
+	}
+	return call, fi.RetType
+}
