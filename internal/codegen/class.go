@@ -401,3 +401,7 @@ func (fb *funcBuilder) genMethodCall(c *ctx, recvCode string, recvType Type, met
 		} else {
 			fb.cg.emitSyncFuncWithClass(fi, mdecl, argTypes, thisType, ci.ClassKey, ci.ClassName)
 		}
+	}
+	callArgs := append([]string{recvTmp}, argCodes...)
+	call := fmt.Sprintf("%s(%s)", fi.MangledName, strings.Join(callArgs, ", "))
+	if fi.IsAsync {
