@@ -73,3 +73,7 @@ func (fb *funcBuilder) genCallExpr(c *ctx, x *ast.CallExpr) (string, Type) {
 // from automatic memory management, not something normal Nox code needs;
 // using the value again afterwards is undefined behavior, exactly like a
 // manual free() in C.
+func (fb *funcBuilder) genDeleteMethod(c *ctx, recv string, recvType Type, args []ast.Expr) (string, Type) {
+	if len(args) != 0 {
+		panic(fmt.Sprintf("nox: %s: '.delete()' takes no arguments", fb.fname))
+	}
