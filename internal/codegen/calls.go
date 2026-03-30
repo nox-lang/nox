@@ -48,3 +48,6 @@ func (fb *funcBuilder) genCallExpr(c *ctx, x *ast.CallExpr) (string, Type) {
 		}
 		if xType.Kind == KThread {
 			return fb.genThreadMethod(c, xCode, callee.Name, x.Args)
+		}
+		panic(fmt.Sprintf("nox: %s: cannot call '.%s(...)' on a value of type %s", fb.fname, callee.Name, xType.String()))
+
