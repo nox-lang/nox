@@ -385,3 +385,7 @@ func (fb *funcBuilder) genMethodCall(c *ctx, recvCode string, recvType Type, met
 	c.emit(compilef("%s %s = %s;", fb.cg.ctype(recvType), recvTmp, recvCode))
 	argCodes, argTypes := fb.resolveCallArgs(c, ci.ClassName+"."+methodName, mdecl.Params, args, fb.cg.globalScope)
 
+	mkey := methodName + "#" + mangleList(argTypes)
+	fi, ok := ci.Methods[mkey]
+	if !ok {
+		mangled := fb.cg.freshName(ci.ClassKey + "_" + sanitizeIdent(methodName))
