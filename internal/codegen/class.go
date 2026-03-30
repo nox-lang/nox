@@ -375,3 +375,7 @@ func (fb *funcBuilder) genMethodCall(c *ctx, recvCode string, recvType Type, met
 		if findStaticMethod(ci.Decl, methodName) != nil {
 			panic(fmt.Sprintf("nox: %s: '%s' is a static method of class '%s'; call it as %s.%s(...)", fb.fname, methodName, ci.ClassName, ci.ClassName, methodName))
 		}
+		panic(fmt.Sprintf("nox: %s: class '%s' has no method '%s'", fb.fname, ci.ClassName, methodName))
+	}
+	if !isExported(methodName) && fb.currentClassKey != recvType.ClassKey {
+		panic(fmt.Sprintf("nox: %s: '%s' is a private method of class '%s'", fb.fname, methodName, ci.ClassName))
