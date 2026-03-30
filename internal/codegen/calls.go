@@ -44,3 +44,7 @@ func (fb *funcBuilder) genCallExpr(c *ctx, x *ast.CallExpr) (string, Type) {
 		}
 		xCode, xType := fb.genExpr(c, callee.X)
 		if xType.Kind == KClass {
+			return fb.genMethodCall(c, xCode, xType, callee.Name, x.Args)
+		}
+		if xType.Kind == KThread {
+			return fb.genThreadMethod(c, xCode, callee.Name, x.Args)
