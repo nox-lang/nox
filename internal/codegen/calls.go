@@ -97,3 +97,7 @@ func (fb *funcBuilder) genDeleteMethod(c *ctx, recv string, recvType Type, args 
 // {fn, env} fat-pointer representation.
 func (fb *funcBuilder) genClosureCall(c *ctx, closureCode string, t Type, args []ast.Expr) (string, Type) {
 	if len(args) != len(t.Params) {
+		panic(fmt.Sprintf("nox: %s: closure call expects %d argument(s), got %d", fb.fname, len(t.Params), len(args)))
+	}
+	tmp := fb.cg.freshTmp("cloval")
+	c.emit(compilef("%s %s = %s;", fb.cg.ctype(t), tmp, closureCode))
