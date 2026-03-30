@@ -428,3 +428,7 @@ func (cg *Codegen) emitSyncFuncWithClass(fi *FuncInstance, decl *ast.FuncDecl, a
 	fi.RetType = fb.retType
 	fi.RetTypeKnown = true
 
+	cparams := []string{fmt.Sprintf("%s %s", cg.ctype(thisType), cIdent("this"))}
+	for i, p := range decl.Params {
+		cparams = append(cparams, fmt.Sprintf("%s %s", cg.ctype(argTypes[i]), cIdent(p.Name)))
+	}
