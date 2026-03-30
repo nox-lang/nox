@@ -432,3 +432,7 @@ func (cg *Codegen) emitSyncFuncWithClass(fi *FuncInstance, decl *ast.FuncDecl, a
 	for i, p := range decl.Params {
 		cparams = append(cparams, fmt.Sprintf("%s %s", cg.ctype(argTypes[i]), cIdent(p.Name)))
 	}
+	retC := "void"
+	if fi.RetType.Kind != KVoid {
+		retC = cg.ctype(fi.RetType)
+	}
