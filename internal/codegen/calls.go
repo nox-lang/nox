@@ -113,3 +113,7 @@ func (fb *funcBuilder) genClosureCall(c *ctx, closureCode string, t Type, args [
 	call := fmt.Sprintf("%s.fn(%s)", tmp, strings.Join(callArgs, ", "))
 	ret := TVoid()
 	if t.Ret != nil {
+		ret = *t.Ret
+	}
+	return call, ret
+}
