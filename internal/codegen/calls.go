@@ -130,3 +130,7 @@ func (fb *funcBuilder) genQualIdentValue(c *ctx, x *ast.QualIdent) (string, Type
 	panic(fmt.Sprintf("nox: %s: '%s' cannot be used as a value", fb.fname, strings.Join(x.Parts, "::")))
 }
 
+func (fb *funcBuilder) genQualIdentCall(c *ctx, x *ast.QualIdent, args []ast.Expr) (string, Type) {
+	ns, sym := fb.cg.resolveNamespace(x.Parts)
+	switch ns.Kind {
+	case NSStdlib:
