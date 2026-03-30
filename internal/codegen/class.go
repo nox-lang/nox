@@ -371,3 +371,7 @@ func (fb *funcBuilder) genMethodCall(c *ctx, recvCode string, recvType Type, met
 		panic(fmt.Sprintf("nox: %s: 'init' cannot be called directly; use %s.new(...)", fb.fname, ci.ClassName))
 	}
 	mdecl := findMethod(ci.Decl, methodName)
+	if mdecl == nil {
+		if findStaticMethod(ci.Decl, methodName) != nil {
+			panic(fmt.Sprintf("nox: %s: '%s' is a static method of class '%s'; call it as %s.%s(...)", fb.fname, methodName, ci.ClassName, ci.ClassName, methodName))
+		}
