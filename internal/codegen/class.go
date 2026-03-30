@@ -409,3 +409,4 @@ func (fb *funcBuilder) genMethodCall(c *ctx, recvCode string, recvType Type, met
 	}
 	return call, fi.RetType
 }
+
