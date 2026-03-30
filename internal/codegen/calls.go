@@ -63,3 +63,5 @@ func (fb *funcBuilder) genCallExpr(c *ctx, x *ast.CallExpr) (string, Type) {
 		panic(fmt.Sprintf("nox: %s: call to undefined function '%s'", fb.fname, callee.Name))
 	}
 	panic(fmt.Sprintf("nox: %s: expression is not callable", fb.fname))
+}
+
