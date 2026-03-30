@@ -55,3 +55,7 @@ func (fb *funcBuilder) genCallExpr(c *ctx, x *ast.CallExpr) (string, Type) {
 		if _, ok := fb.cg.funcsByName[callee.Name]; ok {
 			if _, isLocal := c.scope.lookup(callee.Name); !isLocal {
 				return fb.callUserFunc(c, callee.Name, x.Args)
+			}
+		}
+		if t, ok := c.scope.lookup(callee.Name); ok && t.Kind == KFunc {
+			return fb.genClosureCall(c, cIdent(callee.Name), t, x.Args)
