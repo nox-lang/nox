@@ -89,3 +89,7 @@ func (fb *funcBuilder) genDeleteMethod(c *ctx, recv string, recvType Type, args 
 		c.emit(compilef("%s = NULL;", recv))
 	default:
 		panic(fmt.Sprintf("nox: %s: '.delete()' is not available on type %s", fb.fname, recvType.String()))
+	}
+	return "", TVoid()
+}
+
