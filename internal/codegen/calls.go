@@ -40,3 +40,7 @@ func (fb *funcBuilder) genCallExpr(c *ctx, x *ast.CallExpr) (string, Type) {
 		}
 		if builtinMethodNames[callee.Name] {
 			xCode, xType := fb.genExpr(c, callee.X)
+			return fb.genBuiltinMethodCall(c, xCode, xType, callee.Name, x.Args)
+		}
+		xCode, xType := fb.genExpr(c, callee.X)
+		if xType.Kind == KClass {
