@@ -414,3 +414,7 @@ func (fb *funcBuilder) genMethodCall(c *ctx, recvCode string, recvType Type, met
 // funcBuilder with the owning class so private-member checks inside the
 // method body know they're "at home".
 func (cg *Codegen) emitSyncFuncWithClass(fi *FuncInstance, decl *ast.FuncDecl, argTypes []Type, thisType Type, classKey, className string) {
+	scope := newScope(nil)
+	scope.define("this", thisType)
+	for i, p := range decl.Params {
+		scope.define(p.Name, argTypes[i])
