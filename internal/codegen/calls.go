@@ -93,3 +93,7 @@ func (fb *funcBuilder) genDeleteMethod(c *ctx, recv string, recvType Type, args 
 	return "", TVoid()
 }
 
+// genClosureCall invokes a first-class function value through its
+// {fn, env} fat-pointer representation.
+func (fb *funcBuilder) genClosureCall(c *ctx, closureCode string, t Type, args []ast.Expr) (string, Type) {
+	if len(args) != len(t.Params) {
