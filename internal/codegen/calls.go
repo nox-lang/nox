@@ -134,3 +134,7 @@ func (fb *funcBuilder) genQualIdentCall(c *ctx, x *ast.QualIdent, args []ast.Exp
 	ns, sym := fb.cg.resolveNamespace(x.Parts)
 	switch ns.Kind {
 	case NSStdlib:
+		return fb.genStdlibCall(c, x.Parts[0], sym, args)
+	case NSInclude:
+		return fb.genIncludeCall(c, sym, args)
+	case NSUser:
