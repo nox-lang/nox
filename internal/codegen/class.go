@@ -418,3 +418,7 @@ func (cg *Codegen) emitSyncFuncWithClass(fi *FuncInstance, decl *ast.FuncDecl, a
 	scope.define("this", thisType)
 	for i, p := range decl.Params {
 		scope.define(p.Name, argTypes[i])
+	}
+	fb := &funcBuilder{cg: cg, fname: fi.MangledName, currentClassKey: classKey, currentClassName: className, selfInstance: fi}
+	if fi.RetTypeKnown {
+		fb.retType = fi.RetType
