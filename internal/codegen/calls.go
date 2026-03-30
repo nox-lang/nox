@@ -65,3 +65,7 @@ func (fb *funcBuilder) genCallExpr(c *ctx, x *ast.CallExpr) (string, Type) {
 	panic(fmt.Sprintf("nox: %s: expression is not callable", fb.fname))
 }
 
+// genDeleteMethod implements `.delete()`, available on strings, arrays,
+// class instances, and pointers: it explicitly frees the underlying
+// GC-managed memory right now rather than waiting for the collector, and
+// clears the (necessarily addressable — see genReceiverLvalue) receiver so
