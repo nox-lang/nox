@@ -426,3 +426,5 @@ func (cg *Codegen) emitSyncFuncWithClass(fi *FuncInstance, decl *ast.FuncDecl, a
 	}
 	bodyC := fb.buildFunctionBody(scope, decl.Body, "")
 	fi.RetType = fb.retType
+	fi.RetTypeKnown = true
+
