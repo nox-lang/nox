@@ -150,3 +150,6 @@ func (fb *funcBuilder) genQualIdentCall(c *ctx, x *ast.QualIdent, args []ast.Exp
 		}
 		return call, fi.RetType
 	}
+	panic(fmt.Sprintf("nox: %s: cannot call '%s'", fb.fname, strings.Join(x.Parts, "::")))
+}
+
