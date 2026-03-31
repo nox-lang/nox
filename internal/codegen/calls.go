@@ -146,3 +146,7 @@ func (fb *funcBuilder) genQualIdentCall(c *ctx, x *ast.QualIdent, args []ast.Exp
 		fi := fb.cg.getOrInstantiateFunc(ns.namespaceKeyPrefix+"::"+sym, decl, argTypes)
 		call := fmt.Sprintf("%s(%s)", fi.MangledName, strings.Join(argCodes, ", "))
 		if fi.IsAsync {
+			return call, TTask(fi.RetType)
+		}
+		return call, fi.RetType
+	}
