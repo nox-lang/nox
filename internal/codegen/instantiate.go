@@ -125,3 +125,7 @@ func (cg *Codegen) getOrInstantiateFunc(name string, decl *ast.FuncDecl, argType
 		if argTypes[i].ContainsUnknown() {
 			panic(fmt.Sprintf("nox: call to '%s': cannot pass an empty array literal '[]' for argument '%s' without an explicit type; write it as e.g. (an []TYPE) or add a type to '%s's parameter", name, p.Name, name))
 		}
+		if p.Type != nil {
+			want := cg.resolveTypeExpr(p.Type)
+			if !want.Equals(argTypes[i]) {
+				panic(fmt.Sprintf("nox: call to '%s': argument '%s' expects %s, got %s", name, p.Name, want.String(), argTypes[i].String()))
