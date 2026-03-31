@@ -117,3 +117,7 @@ func (cg *Codegen) getOrInstantiateFunc(name string, decl *ast.FuncDecl, argType
 		return fi
 	}
 
+	// Check parameter type compatibility for explicitly-typed parameters.
+	for i, p := range decl.Params {
+		if i >= len(argTypes) {
+			break
