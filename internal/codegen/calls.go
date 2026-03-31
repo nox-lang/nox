@@ -165,3 +165,5 @@ func (cg *Codegen) resolveNamespace(parts []string) (*Namespace, string) {
 			return ns, strings.Join(parts[i:], "::")
 		}
 	}
+	panic(fmt.Sprintf("nox: unknown namespace '%s' (add an 'import' or 'include' for it)", strings.Join(parts, "::")))
+}
