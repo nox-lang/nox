@@ -133,3 +133,7 @@ func (cg *Codegen) getOrInstantiateFunc(name string, decl *ast.FuncDecl, argType
 		}
 	}
 
+	mangled := cg.freshName("nox_fn_" + sanitizeIdent(name))
+	fi := &FuncInstance{MangledName: mangled, Decl: decl, ParamTypes: argTypes, IsAsync: decl.IsAsync}
+	if decl.ReturnType != nil {
+		fi.RetType = cg.resolveTypeExpr(decl.ReturnType)
