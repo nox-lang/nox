@@ -29,3 +29,6 @@ func (fb *funcBuilder) resolveCallArgs(c *ctx, fname string, params []*ast.Param
 		}
 	}
 	if variadic == nil && len(callArgs) > len(fixed) {
+		panic(fmt.Sprintf("nox: call to '%s': too many arguments (expected %d, got %d)", fname, len(fixed), len(callArgs)))
+	}
+
