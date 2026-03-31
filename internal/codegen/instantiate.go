@@ -19,3 +19,5 @@ func (fb *funcBuilder) resolveCallArgs(c *ctx, fname string, params []*ast.Param
 		fixed = params[:len(params)-1]
 	} else {
 		fixed = params
+	}
+
