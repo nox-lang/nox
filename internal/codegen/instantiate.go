@@ -89,3 +89,7 @@ func min(a, b int) int {
 	return b
 }
 
+// callUserFunc generates a call to a top-level Nox function, instantiating
+// (monomorphizing) it for the given argument types if this is the first
+// time it's been called with them.
+func (fb *funcBuilder) callUserFunc(c *ctx, name string, callArgs []ast.Expr) (string, Type) {
