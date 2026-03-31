@@ -168,3 +168,7 @@ func sanitizeIdent(s string) string {
 	return sb.String()
 }
 
+// emitSyncFunc generates a plain (non-async) function instance. If
+// thisType is non-nil, an implicit `this` parameter of that class type is
+// added (used for class methods; thisParamName names it, conventionally
+// "this").
