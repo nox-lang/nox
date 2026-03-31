@@ -52,3 +52,7 @@ func (fb *funcBuilder) resolveCallArgs(c *ctx, fname string, params []*ast.Param
 	if variadic != nil {
 		rest := callArgs[min(len(fixed), len(callArgs)):]
 		var elemType *Type
+		if variadic.Type != nil {
+			t := fb.cg.resolveTypeExpr(variadic.Type)
+			elemType = &t
+		}
