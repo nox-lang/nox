@@ -148,3 +148,7 @@ func (cg *Codegen) getOrInstantiateFunc(name string, decl *ast.FuncDecl, argType
 		cg.emitAsyncFunc(fi, decl, argTypes, nil)
 	} else {
 		cg.emitSyncFunc(fi, decl, argTypes, "this", nil)
+	}
+	fi.Emitting = false
+	return fi
+}
