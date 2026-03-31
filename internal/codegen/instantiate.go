@@ -48,3 +48,7 @@ func (fb *funcBuilder) resolveCallArgs(c *ctx, fname string, params []*ast.Param
 			codes = append(codes, code)
 			types = append(types, t)
 		}
+	}
+	if variadic != nil {
+		rest := callArgs[min(len(fixed), len(callArgs)):]
+		var elemType *Type
