@@ -195,3 +195,7 @@ func (cg *Codegen) emitSyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes [
 		cparams = append(cparams, fmt.Sprintf("%s %s", fb.cg.ctype(argTypes[i]), cIdent(p.Name)))
 	}
 	if len(cparams) == 0 {
+		cparams = append(cparams, "void")
+	}
+	retC := "void"
+	if fi.RetType.Kind != KVoid {
