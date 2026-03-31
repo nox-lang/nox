@@ -76,3 +76,7 @@ func (fb *funcBuilder) resolveCallArgs(c *ctx, fname string, params []*ast.Param
 			et := TInt()
 			elemType = &et
 		}
+		codes = append(codes, tmp)
+		types = append(types, TSlice(*elemType))
+	}
+	return codes, types
