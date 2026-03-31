@@ -110,3 +110,7 @@ func (fb *funcBuilder) callUserFunc(c *ctx, name string, callArgs []ast.Expr) (s
 // instance of decl for the given concrete argument types.
 func (cg *Codegen) getOrInstantiateFunc(name string, decl *ast.FuncDecl, argTypes []Type) *FuncInstance {
 	key := funcKey{name: name, argsKey: mangleList(argTypes)}
+	if fi, ok := cg.instCache[key]; ok {
+		if fi.Emitting && !fi.RetTypeKnown {
+			panic(fmt.Sprintf("nox: recursive call to '%s' before its return type could be inferred; add an explicit return type annotation (func %s(...): TYPE)", name, name))
+		}
