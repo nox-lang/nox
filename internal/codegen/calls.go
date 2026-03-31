@@ -138,3 +138,7 @@ func (fb *funcBuilder) genQualIdentCall(c *ctx, x *ast.QualIdent, args []ast.Exp
 	case NSInclude:
 		return fb.genIncludeCall(c, sym, args)
 	case NSUser:
+		decl, ok := ns.Funcs[sym]
+		if !ok {
+			panic(fmt.Sprintf("nox: %s: '%s' has no function '%s'", fb.fname, strings.Join(x.Parts[:len(x.Parts)-1], "::"), sym))
+		}
