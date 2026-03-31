@@ -153,3 +153,7 @@ func (fb *funcBuilder) genQualIdentCall(c *ctx, x *ast.QualIdent, args []ast.Exp
 	panic(fmt.Sprintf("nox: %s: cannot call '%s'", fb.fname, strings.Join(x.Parts, "::")))
 }
 
+// resolveNamespace splits a `::`-path into (namespace, trailing symbol),
+// trying progressively shorter namespace prefixes (a namespace registered
+// under an unaliased multi-segment import path, e.g. "libs::math", is
+// matched by its full joined path).
