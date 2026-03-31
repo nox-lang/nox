@@ -144,3 +144,7 @@ func (cg *Codegen) getOrInstantiateFunc(name string, decl *ast.FuncDecl, argType
 	cg.funcInstances[mangled] = fi
 	cg.funcOrder = append(cg.funcOrder, mangled)
 
+	if decl.IsAsync {
+		cg.emitAsyncFunc(fi, decl, argTypes, nil)
+	} else {
+		cg.emitSyncFunc(fi, decl, argTypes, "this", nil)
