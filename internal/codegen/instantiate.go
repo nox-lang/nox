@@ -44,3 +44,7 @@ func (fb *funcBuilder) resolveCallArgs(c *ctx, fname string, params []*ast.Param
 			code, t := fb.genExpr(dc, p.Default)
 			for _, ln := range *dpre {
 				c.emit(ln)
+			}
+			codes = append(codes, code)
+			types = append(types, t)
+		}
