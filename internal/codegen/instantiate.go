@@ -72,3 +72,7 @@ func (fb *funcBuilder) resolveCallArgs(c *ctx, fname string, params []*ast.Param
 		}
 		if elemType == nil {
 			// No variadic args passed and no declared type: default to int
+			// (an empty variadic array is otherwise untypeable).
+			et := TInt()
+			elemType = &et
+		}
