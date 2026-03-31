@@ -17,3 +17,7 @@ func (fb *funcBuilder) genExpr(c *ctx, e ast.Expr) (string, Type) {
 		return formatFloatLiteral(x.Value), TFloat()
 	case *ast.StringLit:
 		return fmt.Sprintf(`nox_string_from_cstr(%s)`, cStringLiteral(x.Value)), TString()
+	case *ast.BoolLit:
+		if x.Value {
+			return "true", TBool()
+		}
