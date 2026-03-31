@@ -172,3 +172,7 @@ func sanitizeIdent(s string) string {
 // thisType is non-nil, an implicit `this` parameter of that class type is
 // added (used for class methods; thisParamName names it, conventionally
 // "this").
+func (cg *Codegen) emitSyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes []Type, thisParamName string, thisType *Type) {
+	scope := newScope(nil)
+	var cparams []string
+	if thisType != nil {
