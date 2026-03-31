@@ -36,3 +36,7 @@ func (fb *funcBuilder) resolveCallArgs(c *ctx, fname string, params []*ast.Param
 	var types []Type
 	for i, p := range fixed {
 		if i < len(callArgs) {
+			code, t := fb.genExpr(c, callArgs[i])
+			codes = append(codes, code)
+			types = append(types, t)
+		} else {
