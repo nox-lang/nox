@@ -121,3 +121,7 @@ func (cg *Codegen) getOrInstantiateFunc(name string, decl *ast.FuncDecl, argType
 	for i, p := range decl.Params {
 		if i >= len(argTypes) {
 			break
+		}
+		if argTypes[i].ContainsUnknown() {
+			panic(fmt.Sprintf("nox: call to '%s': cannot pass an empty array literal '[]' for argument '%s' without an explicit type; write it as e.g. (an []TYPE) or add a type to '%s's parameter", name, p.Name, name))
+		}
