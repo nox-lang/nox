@@ -21,3 +21,7 @@ func (fb *funcBuilder) resolveCallArgs(c *ctx, fname string, params []*ast.Param
 		fixed = params
 	}
 
+	if len(callArgs) < len(fixed) {
+		for i := len(callArgs); i < len(fixed); i++ {
+			if fixed[i].Default == nil {
+				panic(fmt.Sprintf("nox: call to '%s': missing required argument '%s'", fname, fixed[i].Name))
