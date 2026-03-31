@@ -64,3 +64,7 @@ func (fb *funcBuilder) resolveCallArgs(c *ctx, fname string, params []*ast.Param
 				et := t
 				elemType = &et
 			} else if !elemType.Equals(t) {
+				panic(fmt.Sprintf("nox: call to '%s': variadic argument type mismatch (%s vs %s)", fname, elemType.String(), t.String()))
+			}
+			etmp := fb.cg.freshTmp("velem")
+			c.emit(compilef("%s %s = %s;", fb.cg.ctype(t), etmp, code))
