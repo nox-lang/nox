@@ -161,3 +161,7 @@ func (cg *Codegen) resolveNamespace(parts []string) (*Namespace, string) {
 	for i := len(parts) - 1; i >= 1; i-- {
 		key := strings.Join(parts[:i], "::")
 		if ns, ok := cg.namespaces[key]; ok {
+			ns.namespaceKeyPrefix = key
+			return ns, strings.Join(parts[i:], "::")
+		}
+	}
