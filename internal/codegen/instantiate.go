@@ -180,3 +180,7 @@ func (cg *Codegen) emitSyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes [
 		cparams = append(cparams, fmt.Sprintf("%s %s", cg.ctypeStatic(*thisType), cIdent(thisParamName)))
 	}
 	for i, p := range decl.Params {
+		scope.define(p.Name, argTypes[i])
+	}
+	fb := &funcBuilder{cg: cg, fname: fi.MangledName, isAsync: false, selfInstance: fi}
+	if fi.RetTypeKnown {
