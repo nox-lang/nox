@@ -60,3 +60,7 @@ func (fb *funcBuilder) resolveCallArgs(c *ctx, fname string, params []*ast.Param
 		c.emit(compilef("nox_slice %s = nox_slice_new();", tmp))
 		for _, a := range rest {
 			code, t := fb.genExpr(c, a)
+			if elemType == nil {
+				et := t
+				elemType = &et
+			} else if !elemType.Equals(t) {
