@@ -137,3 +137,7 @@ func (cg *Codegen) getOrInstantiateFunc(name string, decl *ast.FuncDecl, argType
 	fi := &FuncInstance{MangledName: mangled, Decl: decl, ParamTypes: argTypes, IsAsync: decl.IsAsync}
 	if decl.ReturnType != nil {
 		fi.RetType = cg.resolveTypeExpr(decl.ReturnType)
+		fi.RetTypeKnown = true
+	}
+	fi.Emitting = true
+	cg.instCache[key] = fi
