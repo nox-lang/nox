@@ -184,3 +184,7 @@ func (cg *Codegen) emitSyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes [
 	}
 	fb := &funcBuilder{cg: cg, fname: fi.MangledName, isAsync: false, selfInstance: fi}
 	if fi.RetTypeKnown {
+		fb.retType = fi.RetType
+		fb.retTypeKnown = true
+	}
+	bodyC := fb.buildFunctionBody(scope, decl.Body, "")
