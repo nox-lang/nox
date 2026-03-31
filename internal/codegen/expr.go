@@ -9,3 +9,7 @@ import (
 	"nox/internal/token"
 )
 
+func (fb *funcBuilder) genExpr(c *ctx, e ast.Expr) (string, Type) {
+	switch x := e.(type) {
+	case *ast.IntLit:
+		return fmt.Sprintf("%dLL", x.Value), TInt()
