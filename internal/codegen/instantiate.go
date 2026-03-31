@@ -165,3 +165,6 @@ func sanitizeIdent(s string) string {
 			sb.WriteByte('_')
 		}
 	}
+	return sb.String()
+}
+
