@@ -141,3 +141,6 @@ func (cg *Codegen) getOrInstantiateFunc(name string, decl *ast.FuncDecl, argType
 	}
 	fi.Emitting = true
 	cg.instCache[key] = fi
+	cg.funcInstances[mangled] = fi
+	cg.funcOrder = append(cg.funcOrder, mangled)
+
