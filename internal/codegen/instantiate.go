@@ -152,3 +152,4 @@ func (cg *Codegen) getOrInstantiateFunc(name string, decl *ast.FuncDecl, argType
 	fi.Emitting = false
 	return fi
 }
+
