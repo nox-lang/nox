@@ -32,3 +32,7 @@ func (fb *funcBuilder) resolveCallArgs(c *ctx, fname string, params []*ast.Param
 		panic(fmt.Sprintf("nox: call to '%s': too many arguments (expected %d, got %d)", fname, len(fixed), len(callArgs)))
 	}
 
+	var codes []string
+	var types []Type
+	for i, p := range fixed {
+		if i < len(callArgs) {
