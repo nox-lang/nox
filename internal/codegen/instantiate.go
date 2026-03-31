@@ -205,3 +205,6 @@ func (cg *Codegen) emitSyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes [
 	fi.Body = fmt.Sprintf("static %s %s(%s) {\n%s}", retC, fi.MangledName, strings.Join(cparams, ", "), indent(bodyC, "    "))
 }
 
+// ctypeStatic is like ctype but used for `this` parameters, where the class
+// struct typedef is guaranteed to already be registered.
+func (cg *Codegen) ctypeStatic(t Type) string { return cg.ctype(t) }
