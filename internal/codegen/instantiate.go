@@ -106,3 +106,7 @@ func (fb *funcBuilder) callUserFunc(c *ctx, name string, callArgs []ast.Expr) (s
 	return call, fi.RetType
 }
 
+// getOrInstantiateFunc returns the (possibly newly generated) monomorphized
+// instance of decl for the given concrete argument types.
+func (cg *Codegen) getOrInstantiateFunc(name string, decl *ast.FuncDecl, argTypes []Type) *FuncInstance {
+	key := funcKey{name: name, argsKey: mangleList(argTypes)}
