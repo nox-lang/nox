@@ -114,3 +114,6 @@ func (cg *Codegen) getOrInstantiateFunc(name string, decl *ast.FuncDecl, argType
 		if fi.Emitting && !fi.RetTypeKnown {
 			panic(fmt.Sprintf("nox: recursive call to '%s' before its return type could be inferred; add an explicit return type annotation (func %s(...): TYPE)", name, name))
 		}
+		return fi
+	}
+
