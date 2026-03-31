@@ -176,3 +176,7 @@ func (cg *Codegen) emitSyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes [
 	scope := newScope(nil)
 	var cparams []string
 	if thisType != nil {
+		scope.define(thisParamName, *thisType)
+		cparams = append(cparams, fmt.Sprintf("%s %s", cg.ctypeStatic(*thisType), cIdent(thisParamName)))
+	}
+	for i, p := range decl.Params {
