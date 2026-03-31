@@ -142,3 +142,7 @@ func (fb *funcBuilder) genQualIdentCall(c *ctx, x *ast.QualIdent, args []ast.Exp
 		if !ok {
 			panic(fmt.Sprintf("nox: %s: '%s' has no function '%s'", fb.fname, strings.Join(x.Parts[:len(x.Parts)-1], "::"), sym))
 		}
+		argCodes, argTypes := fb.resolveCallArgs(c, sym, decl.Params, args, fb.cg.globalScope)
+		fi := fb.cg.getOrInstantiateFunc(ns.namespaceKeyPrefix+"::"+sym, decl, argTypes)
+		call := fmt.Sprintf("%s(%s)", fi.MangledName, strings.Join(argCodes, ", "))
+		if fi.IsAsync {
