@@ -97,3 +97,7 @@ func (fb *funcBuilder) callUserFunc(c *ctx, name string, callArgs []ast.Expr) (s
 	if !ok {
 		panic(fmt.Sprintf("nox: %s: call to undefined function '%s'", fb.fname, name))
 	}
+	argCodes, argTypes := fb.resolveCallArgs(c, name, decl.Params, callArgs, fb.cg.globalScope)
+	fi := fb.cg.getOrInstantiateFunc(name, decl, argTypes)
+	call := fmt.Sprintf("%s(%s)", fi.MangledName, strings.Join(argCodes, ", "))
+	if fi.IsAsync {
