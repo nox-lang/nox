@@ -101,3 +101,7 @@ func (fb *funcBuilder) callUserFunc(c *ctx, name string, callArgs []ast.Expr) (s
 	fi := fb.cg.getOrInstantiateFunc(name, decl, argTypes)
 	call := fmt.Sprintf("%s(%s)", fi.MangledName, strings.Join(argCodes, ", "))
 	if fi.IsAsync {
+		return call, TTask(fi.RetType)
+	}
+	return call, fi.RetType
+}
