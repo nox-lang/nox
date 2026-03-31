@@ -56,3 +56,7 @@ func (fb *funcBuilder) resolveCallArgs(c *ctx, fname string, params []*ast.Param
 			t := fb.cg.resolveTypeExpr(variadic.Type)
 			elemType = &t
 		}
+		tmp := fb.cg.freshTmp("variadic")
+		c.emit(compilef("nox_slice %s = nox_slice_new();", tmp))
+		for _, a := range rest {
+			code, t := fb.genExpr(c, a)
