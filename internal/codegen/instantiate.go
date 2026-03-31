@@ -129,3 +129,7 @@ func (cg *Codegen) getOrInstantiateFunc(name string, decl *ast.FuncDecl, argType
 			want := cg.resolveTypeExpr(p.Type)
 			if !want.Equals(argTypes[i]) {
 				panic(fmt.Sprintf("nox: call to '%s': argument '%s' expects %s, got %s", name, p.Name, want.String(), argTypes[i].String()))
+			}
+		}
+	}
+
