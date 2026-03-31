@@ -68,3 +68,7 @@ func (fb *funcBuilder) resolveCallArgs(c *ctx, fname string, params []*ast.Param
 			}
 			etmp := fb.cg.freshTmp("velem")
 			c.emit(compilef("%s %s = %s;", fb.cg.ctype(t), etmp, code))
+			c.emit(compilef("nox_slice_push_raw(&%s, &%s, sizeof(%s));", tmp, etmp, fb.cg.ctype(t)))
+		}
+		if elemType == nil {
+			// No variadic args passed and no declared type: default to int
