@@ -153,3 +153,7 @@ func (cg *Codegen) getOrInstantiateFunc(name string, decl *ast.FuncDecl, argType
 	return fi
 }
 
+// sanitizeIdent strips characters that are not valid in a C identifier
+// fragment (Nox identifiers are already alnum/underscore, so this is mostly
+// a defensive no-op).
+func sanitizeIdent(s string) string {
