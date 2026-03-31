@@ -15,3 +15,7 @@ func (fb *funcBuilder) resolveCallArgs(c *ctx, fname string, params []*ast.Param
 	var fixed []*ast.Param
 	var variadic *ast.Param
 	if len(params) > 0 && params[len(params)-1].Variadic {
+		variadic = params[len(params)-1]
+		fixed = params[:len(params)-1]
+	} else {
+		fixed = params
