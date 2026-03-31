@@ -191,3 +191,7 @@ func (cg *Codegen) emitSyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes [
 	fi.RetType = fb.retType
 	fi.RetTypeKnown = true
 
+	for i, p := range decl.Params {
+		cparams = append(cparams, fmt.Sprintf("%s %s", fb.cg.ctype(argTypes[i]), cIdent(p.Name)))
+	}
+	if len(cparams) == 0 {
