@@ -201,3 +201,5 @@ func (fb *funcBuilder) genFixedArrayLit(c *ctx, x *ast.ArrayLit, arrType Type) (
 	return tmp, arrType
 }
 
+// ---------------- maps ----------------
+
