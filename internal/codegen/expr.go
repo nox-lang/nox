@@ -110,3 +110,7 @@ func cStringLiteral(s string) string {
 		default:
 			if r < 32 {
 				sb.WriteString(fmt.Sprintf(`\x%02x`, r))
+			} else {
+				sb.WriteRune(r)
+			}
+		}
