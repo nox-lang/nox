@@ -90,3 +90,7 @@ func formatFloatLiteral(v float64) string {
 	return s
 }
 
+func cStringLiteral(s string) string {
+	var sb strings.Builder
+	sb.WriteByte('"')
+	for _, r := range s {
