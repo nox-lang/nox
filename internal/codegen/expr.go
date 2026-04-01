@@ -198,3 +198,6 @@ func (fb *funcBuilder) genFixedArrayLit(c *ctx, x *ast.ArrayLit, arrType Type) (
 		}
 		c.emit(compilef("%s.d[%d] = %s;", tmp, i, code))
 	}
+	return tmp, arrType
+}
+
