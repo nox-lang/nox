@@ -231,3 +231,7 @@ func (fb *funcBuilder) genMapLit(c *ctx, x *ast.MapLit) (string, Type) {
 		panic(fmt.Sprintf("nox: %s: %s cannot be used as a map key", fb.fname, keyType.String()))
 	}
 	mTmp := fb.cg.freshTmp("map")
+	c.emit(compilef("nox_map* %s = nox_map_new(%s, sizeof(%s), sizeof(%s));", mTmp, mapKeyKindC(keyType), fb.cg.ctype(keyType), fb.cg.ctype(valType)))
+	for i := range kcodes {
+		kTmp := fb.cg.freshTmp("mk")
+		c.emit(compilef("%s %s = %s;", fb.cg.ctype(keyType), kTmp, kcodes[i]))
