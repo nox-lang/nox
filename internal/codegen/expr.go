@@ -29,3 +29,7 @@ func (fb *funcBuilder) genExpr(c *ctx, e ast.Expr) (string, Type) {
 		if !ok {
 			panic("nox: 'this' used outside of a method")
 		}
+		return cIdent("this"), t
+	case *ast.Ident:
+		return fb.genIdent(c, x)
+	case *ast.QualIdent:
