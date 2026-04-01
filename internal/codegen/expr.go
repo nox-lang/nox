@@ -227,3 +227,7 @@ func (fb *funcBuilder) genMapLit(c *ctx, x *ast.MapLit) (string, Type) {
 	if !haveType {
 		panic(fmt.Sprintf("nox: %s: an empty map literal needs an explicit type, e.g. map<string, int>{}", fb.fname))
 	}
+	if !isValidMapKey(keyType) {
+		panic(fmt.Sprintf("nox: %s: %s cannot be used as a map key", fb.fname, keyType.String()))
+	}
+	mTmp := fb.cg.freshTmp("map")
