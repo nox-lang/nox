@@ -242,3 +242,7 @@ func (fb *funcBuilder) genMapLit(c *ctx, x *ast.MapLit) (string, Type) {
 
 // ---------------- make() ----------------
 
+func (fb *funcBuilder) genMakeExpr(c *ctx, x *ast.MakeExpr) (string, Type) {
+	t := fb.cg.resolveTypeExpr(x.Type)
+	switch t.Kind {
+	case KSlice:
