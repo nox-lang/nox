@@ -169,3 +169,7 @@ func (fb *funcBuilder) genArrayLit(c *ctx, x *ast.ArrayLit) (string, Type) {
 func (fb *funcBuilder) genTypedSliceLit(c *ctx, x *ast.ArrayLit, sliceType Type) (string, Type) {
 	elemType := *sliceType.Elem
 	tmp := fb.cg.freshTmp("arr")
+	c.emit(compilef("nox_slice %s = nox_slice_new();", tmp))
+	for _, el := range x.Elems {
+		code, t := fb.genExpr(c, el)
+		if !elemType.Equals(t) {
