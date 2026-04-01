@@ -41,3 +41,7 @@ func (fb *funcBuilder) genExpr(c *ctx, e ast.Expr) (string, Type) {
 	case *ast.UnaryExpr:
 		return fb.genUnaryExpr(c, x)
 	case *ast.CallExpr:
+		return fb.genCallExpr(c, x)
+	case *ast.IndexExpr:
+		return fb.genIndexExpr(c, x)
+	case *ast.MemberExpr:
