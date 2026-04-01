@@ -219,3 +219,7 @@ func (fb *funcBuilder) genMapLit(c *ctx, x *ast.MapLit) (string, Type) {
 			keyType, valType = kt, vt
 			haveType = true
 		} else if !keyType.Equals(kt) || !valType.Equals(vt) {
+			panic(fmt.Sprintf("nox: %s: map literal entry has type %s: %s, expected %s: %s", fb.fname, kt.String(), vt.String(), keyType.String(), valType.String()))
+		}
+		kcodes = append(kcodes, kc)
+		vcodes = append(vcodes, vc)
