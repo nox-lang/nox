@@ -61,3 +61,7 @@ func (fb *funcBuilder) genExpr(c *ctx, e ast.Expr) (string, Type) {
 	case *ast.ParallelExpr:
 		return fb.genParallelExpr(c, x)
 	case *ast.ForCondStmt:
+		code, t, vv := fb.genForCond(c.scope, x, true)
+		c.emit(code)
+		return vv, t
+	case *ast.ForInStmt:
