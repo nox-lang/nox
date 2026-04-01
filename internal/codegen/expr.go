@@ -173,3 +173,7 @@ func (fb *funcBuilder) genTypedSliceLit(c *ctx, x *ast.ArrayLit, sliceType Type)
 	for _, el := range x.Elems {
 		code, t := fb.genExpr(c, el)
 		if !elemType.Equals(t) {
+			panic(fmt.Sprintf("nox: %s: []%s{...} element has type %s", fb.fname, elemType.String(), t.String()))
+		}
+		etmp := fb.cg.freshTmp("elem")
+		c.emit(compilef("%s %s = %s;", fb.cg.ctype(elemType), etmp, code))
