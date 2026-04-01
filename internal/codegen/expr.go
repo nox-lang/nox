@@ -121,3 +121,7 @@ func cStringLiteral(s string) string {
 
 // ---------------- identifiers ----------------
 
+func (fb *funcBuilder) genIdent(c *ctx, x *ast.Ident) (string, Type) {
+	if t, ok := c.scope.lookup(x.Name); ok {
+		return cIdent(x.Name), t
+	}
