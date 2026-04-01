@@ -207,3 +207,7 @@ func (fb *funcBuilder) genMapLit(c *ctx, x *ast.MapLit) (string, Type) {
 	var keyType, valType Type
 	haveType := false
 	if x.Type != nil {
+		mt := fb.cg.resolveTypeExpr(x.Type)
+		keyType, valType = *mt.Key, *mt.Elem
+		haveType = true
+	}
