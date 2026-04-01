@@ -65,3 +65,7 @@ func (fb *funcBuilder) genExpr(c *ctx, e ast.Expr) (string, Type) {
 		c.emit(code)
 		return vv, t
 	case *ast.ForInStmt:
+		code, t, vv := fb.genForIn(c.scope, x, true)
+		c.emit(code)
+		return vv, t
+	case *ast.WhileStmt:
