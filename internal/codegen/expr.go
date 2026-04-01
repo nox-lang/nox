@@ -246,3 +246,7 @@ func (fb *funcBuilder) genMakeExpr(c *ctx, x *ast.MakeExpr) (string, Type) {
 	t := fb.cg.resolveTypeExpr(x.Type)
 	switch t.Kind {
 	case KSlice:
+		if len(x.Args) < 1 || len(x.Args) > 2 {
+			panic(fmt.Sprintf("nox: %s: make([]T, len[, cap]) takes a length and an optional capacity", fb.fname))
+		}
+		lenCode, lt := fb.genExpr(c, x.Args[0])
