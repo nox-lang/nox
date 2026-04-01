@@ -21,3 +21,7 @@ func (fb *funcBuilder) genExpr(c *ctx, e ast.Expr) (string, Type) {
 		if x.Value {
 			return "true", TBool()
 		}
+		return "false", TBool()
+	case *ast.NullLit:
+		panic("nox: explicit 'null' cannot appear in an expression; declare an uninitialized variable with 'let name: Type' instead")
+	case *ast.ThisExpr:
