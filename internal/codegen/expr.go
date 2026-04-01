@@ -258,3 +258,7 @@ func (fb *funcBuilder) genMakeExpr(c *ctx, x *ast.MakeExpr) (string, Type) {
 			cc, ct := fb.genExpr(c, x.Args[1])
 			if ct.Kind != KInt {
 				panic(fmt.Sprintf("nox: %s: make([]T, len, cap): cap must be int", fb.fname))
+			}
+			capCode = cc
+		}
+		elemC := fb.cg.ctype(*t.Elem)
