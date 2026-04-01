@@ -102,3 +102,7 @@ func cStringLiteral(s string) string {
 		case '\n':
 			sb.WriteString(`\n`)
 		case '\t':
+			sb.WriteString(`\t`)
+		case '\r':
+			sb.WriteString(`\r`)
+		case 0:
