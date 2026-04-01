@@ -181,3 +181,4 @@ func (fb *funcBuilder) genTypedSliceLit(c *ctx, x *ast.ArrayLit, sliceType Type)
 	}
 	return tmp, sliceType
 }
+
