@@ -37,3 +37,7 @@ func (fb *funcBuilder) genExpr(c *ctx, e ast.Expr) (string, Type) {
 	case *ast.ArrayLit:
 		return fb.genArrayLit(c, x)
 	case *ast.BinaryExpr:
+		return fb.genBinaryExpr(c, x)
+	case *ast.UnaryExpr:
+		return fb.genUnaryExpr(c, x)
+	case *ast.CallExpr:
