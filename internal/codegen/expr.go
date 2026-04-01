@@ -86,3 +86,7 @@ func formatFloatLiteral(v float64) string {
 	s := strconv.FormatFloat(v, 'g', -1, 64)
 	if !strings.ContainsAny(s, ".eE") {
 		s += ".0"
+	}
+	return s
+}
+
