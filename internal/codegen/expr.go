@@ -119,3 +119,5 @@ func cStringLiteral(s string) string {
 	return sb.String()
 }
 
+// ---------------- identifiers ----------------
+
