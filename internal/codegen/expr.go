@@ -266,3 +266,7 @@ func (fb *funcBuilder) genMakeExpr(c *ctx, x *ast.MakeExpr) (string, Type) {
 		c.emit(compilef("nox_slice %s = nox_slice_make(%s, %s, sizeof(%s));", tmp, lenCode, capCode, elemC))
 		return tmp, t
 	case KMap:
+		if len(x.Args) != 0 {
+			panic(fmt.Sprintf("nox: %s: make(map<K, V>) takes no extra arguments", fb.fname))
+		}
+		tmp := fb.cg.freshTmp("mkmap")
