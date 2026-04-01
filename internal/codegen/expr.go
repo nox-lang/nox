@@ -106,3 +106,7 @@ func cStringLiteral(s string) string {
 		case '\r':
 			sb.WriteString(`\r`)
 		case 0:
+			sb.WriteString(`\0`)
+		default:
+			if r < 32 {
+				sb.WriteString(fmt.Sprintf(`\x%02x`, r))
