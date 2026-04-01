@@ -77,3 +77,7 @@ func (fb *funcBuilder) genExpr(c *ctx, e ast.Expr) (string, Type) {
 		c.emit(code)
 		return vv, t
 	case *ast.IfStmt:
+		return fb.genIfExpr(c, x)
+	}
+	panic(fmt.Sprintf("codegen: unhandled expression %T", e))
+}
