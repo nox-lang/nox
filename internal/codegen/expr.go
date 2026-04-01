@@ -53,3 +53,7 @@ func (fb *funcBuilder) genExpr(c *ctx, e ast.Expr) (string, Type) {
 	case *ast.MakeExpr:
 		return fb.genMakeExpr(c, x)
 	case *ast.FuncLit:
+		return fb.genFuncLitValue(c, x)
+	case *ast.PropagateExpr:
+		return fb.genPropagateExpr(c, x)
+	case *ast.AwaitExpr:
