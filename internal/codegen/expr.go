@@ -270,3 +270,7 @@ func (fb *funcBuilder) genMakeExpr(c *ctx, x *ast.MakeExpr) (string, Type) {
 			panic(fmt.Sprintf("nox: %s: make(map<K, V>) takes no extra arguments", fb.fname))
 		}
 		tmp := fb.cg.freshTmp("mkmap")
+		c.emit(compilef("nox_map* %s = nox_map_new(%s, sizeof(%s), sizeof(%s));", tmp, mapKeyKindC(*t.Key), fb.cg.ctype(*t.Key), fb.cg.ctype(*t.Elem)))
+		return tmp, t
+	}
+	panic(fmt.Sprintf("nox: %s: make(...) supports slice and map types only, got %s", fb.fname, t.String()))
