@@ -98,3 +98,7 @@ func cStringLiteral(s string) string {
 		case '"':
 			sb.WriteString(`\"`)
 		case '\\':
+			sb.WriteString(`\\`)
+		case '\n':
+			sb.WriteString(`\n`)
+		case '\t':
