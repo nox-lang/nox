@@ -140,3 +140,7 @@ func (fb *funcBuilder) genArrayLit(c *ctx, x *ast.ArrayLit) (string, Type) {
 	if x.Type != nil {
 		te := fb.cg.resolveTypeExpr(x.Type)
 		if te.Kind == KArray {
+			return fb.genFixedArrayLit(c, x, te)
+		}
+		return fb.genTypedSliceLit(c, x, te)
+	}
