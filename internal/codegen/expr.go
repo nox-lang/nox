@@ -211,3 +211,7 @@ func (fb *funcBuilder) genMapLit(c *ctx, x *ast.MapLit) (string, Type) {
 		keyType, valType = *mt.Key, *mt.Elem
 		haveType = true
 	}
+	var kcodes, vcodes []string
+	for i := range x.Keys {
+		kc, kt := fb.genExpr(c, x.Keys[i])
+		vc, vt := fb.genExpr(c, x.Vals[i])
