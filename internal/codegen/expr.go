@@ -148,3 +148,7 @@ func (fb *funcBuilder) genArrayLit(c *ctx, x *ast.ArrayLit) (string, Type) {
 	c.emit(compilef("nox_slice %s = nox_slice_new();", tmp))
 	var elemType *Type
 	for _, el := range x.Elems {
+		code, t := fb.genExpr(c, el)
+		if elemType == nil {
+			et := t
+			elemType = &et
