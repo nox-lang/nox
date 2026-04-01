@@ -250,3 +250,7 @@ func (fb *funcBuilder) genMakeExpr(c *ctx, x *ast.MakeExpr) (string, Type) {
 			panic(fmt.Sprintf("nox: %s: make([]T, len[, cap]) takes a length and an optional capacity", fb.fname))
 		}
 		lenCode, lt := fb.genExpr(c, x.Args[0])
+		if lt.Kind != KInt {
+			panic(fmt.Sprintf("nox: %s: make([]T, len): len must be int", fb.fname))
+		}
+		capCode := lenCode
