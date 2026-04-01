@@ -152,3 +152,7 @@ func (fb *funcBuilder) genArrayLit(c *ctx, x *ast.ArrayLit) (string, Type) {
 		if elemType == nil {
 			et := t
 			elemType = &et
+		} else if !elemType.Equals(t) {
+			panic(fmt.Sprintf("nox: %s: array literal has mixed element types (%s vs %s)", fb.fname, elemType.String(), t.String()))
+		}
+		etmp := fb.cg.freshTmp("elem")
