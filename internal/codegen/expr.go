@@ -114,3 +114,7 @@ func cStringLiteral(s string) string {
 				sb.WriteRune(r)
 			}
 		}
+	}
+	sb.WriteByte('"')
+	return sb.String()
+}
