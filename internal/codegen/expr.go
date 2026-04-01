@@ -182,3 +182,7 @@ func (fb *funcBuilder) genTypedSliceLit(c *ctx, x *ast.ArrayLit, sliceType Type)
 	return tmp, sliceType
 }
 
+// genFixedArrayLit compiles the fixed-size form `[N]T{a, b, c}`.
+func (fb *funcBuilder) genFixedArrayLit(c *ctx, x *ast.ArrayLit, arrType Type) (string, Type) {
+	elemType := *arrType.Elem
+	if int64(len(x.Elems)) > arrType.Len {
