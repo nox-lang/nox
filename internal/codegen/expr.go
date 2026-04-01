@@ -177,3 +177,7 @@ func (fb *funcBuilder) genTypedSliceLit(c *ctx, x *ast.ArrayLit, sliceType Type)
 		}
 		etmp := fb.cg.freshTmp("elem")
 		c.emit(compilef("%s %s = %s;", fb.cg.ctype(elemType), etmp, code))
+		c.emit(compilef("nox_slice_push_raw(&%s, &%s, sizeof(%s));", tmp, etmp, fb.cg.ctype(elemType)))
+	}
+	return tmp, sliceType
+}
