@@ -186,3 +186,7 @@ func (fb *funcBuilder) genTypedSliceLit(c *ctx, x *ast.ArrayLit, sliceType Type)
 func (fb *funcBuilder) genFixedArrayLit(c *ctx, x *ast.ArrayLit, arrType Type) (string, Type) {
 	elemType := *arrType.Elem
 	if int64(len(x.Elems)) > arrType.Len {
+		panic(fmt.Sprintf("nox: %s: [%d]%s{...} literal has %d elements, more than its length", fb.fname, arrType.Len, elemType.String(), len(x.Elems)))
+	}
+	arrC := fb.cg.ctype(arrType)
+	tmp := fb.cg.freshTmp("farr")
