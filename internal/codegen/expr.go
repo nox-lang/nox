@@ -215,3 +215,7 @@ func (fb *funcBuilder) genMapLit(c *ctx, x *ast.MapLit) (string, Type) {
 	for i := range x.Keys {
 		kc, kt := fb.genExpr(c, x.Keys[i])
 		vc, vt := fb.genExpr(c, x.Vals[i])
+		if !haveType {
+			keyType, valType = kt, vt
+			haveType = true
+		} else if !keyType.Equals(kt) || !valType.Equals(vt) {
