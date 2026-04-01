@@ -262,3 +262,7 @@ func (fb *funcBuilder) genMakeExpr(c *ctx, x *ast.MakeExpr) (string, Type) {
 			capCode = cc
 		}
 		elemC := fb.cg.ctype(*t.Elem)
+		tmp := fb.cg.freshTmp("mkslice")
+		c.emit(compilef("nox_slice %s = nox_slice_make(%s, %s, sizeof(%s));", tmp, lenCode, capCode, elemC))
+		return tmp, t
+	case KMap:
