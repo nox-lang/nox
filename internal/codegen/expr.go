@@ -144,3 +144,7 @@ func (fb *funcBuilder) genArrayLit(c *ctx, x *ast.ArrayLit) (string, Type) {
 		}
 		return fb.genTypedSliceLit(c, x, te)
 	}
+	tmp := fb.cg.freshTmp("arr")
+	c.emit(compilef("nox_slice %s = nox_slice_new();", tmp))
+	var elemType *Type
+	for _, el := range x.Elems {
