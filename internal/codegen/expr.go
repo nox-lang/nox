@@ -235,3 +235,7 @@ func (fb *funcBuilder) genMapLit(c *ctx, x *ast.MapLit) (string, Type) {
 	for i := range kcodes {
 		kTmp := fb.cg.freshTmp("mk")
 		c.emit(compilef("%s %s = %s;", fb.cg.ctype(keyType), kTmp, kcodes[i]))
+		c.emit(compilef("*(%s*)nox_map_put(%s, &%s) = %s;", fb.cg.ctype(valType), mTmp, kTmp, vcodes[i]))
+	}
+	return mTmp, TMap(keyType, valType)
+}
