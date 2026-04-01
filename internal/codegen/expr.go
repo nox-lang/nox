@@ -223,3 +223,7 @@ func (fb *funcBuilder) genMapLit(c *ctx, x *ast.MapLit) (string, Type) {
 		}
 		kcodes = append(kcodes, kc)
 		vcodes = append(vcodes, vc)
+	}
+	if !haveType {
+		panic(fmt.Sprintf("nox: %s: an empty map literal needs an explicit type, e.g. map<string, int>{}", fb.fname))
+	}
