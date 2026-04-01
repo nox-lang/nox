@@ -94,3 +94,7 @@ func cStringLiteral(s string) string {
 	var sb strings.Builder
 	sb.WriteByte('"')
 	for _, r := range s {
+		switch r {
+		case '"':
+			sb.WriteString(`\"`)
+		case '\\':
