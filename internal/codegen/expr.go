@@ -194,3 +194,7 @@ func (fb *funcBuilder) genFixedArrayLit(c *ctx, x *ast.ArrayLit, arrType Type) (
 	for i, el := range x.Elems {
 		code, t := fb.genExpr(c, el)
 		if !elemType.Equals(t) {
+			panic(fmt.Sprintf("nox: %s: [%d]%s{...} element has type %s", fb.fname, arrType.Len, elemType.String(), t.String()))
+		}
+		c.emit(compilef("%s.d[%d] = %s;", tmp, i, code))
+	}
