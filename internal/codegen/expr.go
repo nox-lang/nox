@@ -136,3 +136,7 @@ func (fb *funcBuilder) genIdent(c *ctx, x *ast.Ident) (string, Type) {
 
 // ---------------- arrays ----------------
 
+func (fb *funcBuilder) genArrayLit(c *ctx, x *ast.ArrayLit) (string, Type) {
+	if x.Type != nil {
+		te := fb.cg.resolveTypeExpr(x.Type)
+		if te.Kind == KArray {
