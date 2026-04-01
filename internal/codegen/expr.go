@@ -240,3 +240,5 @@ func (fb *funcBuilder) genMapLit(c *ctx, x *ast.MapLit) (string, Type) {
 	return mTmp, TMap(keyType, valType)
 }
 
+// ---------------- make() ----------------
+
