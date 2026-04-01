@@ -190,3 +190,7 @@ func (fb *funcBuilder) genFixedArrayLit(c *ctx, x *ast.ArrayLit, arrType Type) (
 	}
 	arrC := fb.cg.ctype(arrType)
 	tmp := fb.cg.freshTmp("farr")
+	c.emit(compilef("%s %s = {0};", arrC, tmp))
+	for i, el := range x.Elems {
+		code, t := fb.genExpr(c, el)
+		if !elemType.Equals(t) {
