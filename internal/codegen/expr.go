@@ -25,3 +25,7 @@ func (fb *funcBuilder) genExpr(c *ctx, e ast.Expr) (string, Type) {
 	case *ast.NullLit:
 		panic("nox: explicit 'null' cannot appear in an expression; declare an uninitialized variable with 'let name: Type' instead")
 	case *ast.ThisExpr:
+		t, ok := c.scope.lookup("this")
+		if !ok {
+			panic("nox: 'this' used outside of a method")
+		}
