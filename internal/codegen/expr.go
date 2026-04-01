@@ -160,3 +160,7 @@ func (fb *funcBuilder) genArrayLit(c *ctx, x *ast.ArrayLit) (string, Type) {
 		c.emit(compilef("nox_slice_push_raw(&%s, &%s, sizeof(%s));", tmp, etmp, fb.cg.ctype(t)))
 	}
 	if elemType == nil {
+		return tmp, TSlice(Type{Kind: KUnknown})
+	}
+	return tmp, TSlice(*elemType)
+}
