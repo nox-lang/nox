@@ -45,3 +45,7 @@ func (fb *funcBuilder) genExpr(c *ctx, e ast.Expr) (string, Type) {
 	case *ast.IndexExpr:
 		return fb.genIndexExpr(c, x)
 	case *ast.MemberExpr:
+		return fb.genMemberRead(c, x)
+	case *ast.SliceExpr:
+		return fb.genSliceExpr(c, x)
+	case *ast.MapLit:
