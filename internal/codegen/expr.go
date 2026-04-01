@@ -81,3 +81,4 @@ func (fb *funcBuilder) genExpr(c *ctx, e ast.Expr) (string, Type) {
 	}
 	panic(fmt.Sprintf("codegen: unhandled expression %T", e))
 }
+
