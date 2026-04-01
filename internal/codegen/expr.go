@@ -203,3 +203,7 @@ func (fb *funcBuilder) genFixedArrayLit(c *ctx, x *ast.ArrayLit, arrType Type) (
 
 // ---------------- maps ----------------
 
+func (fb *funcBuilder) genMapLit(c *ctx, x *ast.MapLit) (string, Type) {
+	var keyType, valType Type
+	haveType := false
+	if x.Type != nil {
