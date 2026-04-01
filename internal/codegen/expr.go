@@ -73,3 +73,7 @@ func (fb *funcBuilder) genExpr(c *ctx, e ast.Expr) (string, Type) {
 		c.emit(code)
 		return vv, t
 	case *ast.SwitchStmt:
+		code, t, vv := fb.genSwitch(c.scope, x, true)
+		c.emit(code)
+		return vv, t
+	case *ast.IfStmt:
