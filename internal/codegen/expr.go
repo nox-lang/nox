@@ -165,3 +165,7 @@ func (fb *funcBuilder) genArrayLit(c *ctx, x *ast.ArrayLit) (string, Type) {
 	return tmp, TSlice(*elemType)
 }
 
+// genTypedSliceLit compiles the explicit-element-type form `[]T{a, b, c}`.
+func (fb *funcBuilder) genTypedSliceLit(c *ctx, x *ast.ArrayLit, sliceType Type) (string, Type) {
+	elemType := *sliceType.Elem
+	tmp := fb.cg.freshTmp("arr")
