@@ -33,3 +33,7 @@ func (fb *funcBuilder) genExpr(c *ctx, e ast.Expr) (string, Type) {
 	case *ast.Ident:
 		return fb.genIdent(c, x)
 	case *ast.QualIdent:
+		return fb.genQualIdentValue(c, x)
+	case *ast.ArrayLit:
+		return fb.genArrayLit(c, x)
+	case *ast.BinaryExpr:
