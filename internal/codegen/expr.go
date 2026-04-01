@@ -156,3 +156,7 @@ func (fb *funcBuilder) genArrayLit(c *ctx, x *ast.ArrayLit) (string, Type) {
 			panic(fmt.Sprintf("nox: %s: array literal has mixed element types (%s vs %s)", fb.fname, elemType.String(), t.String()))
 		}
 		etmp := fb.cg.freshTmp("elem")
+		c.emit(compilef("%s %s = %s;", fb.cg.ctype(t), etmp, code))
+		c.emit(compilef("nox_slice_push_raw(&%s, &%s, sizeof(%s));", tmp, etmp, fb.cg.ctype(t)))
+	}
+	if elemType == nil {
