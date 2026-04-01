@@ -164,3 +164,4 @@ func (fb *funcBuilder) genArrayLit(c *ctx, x *ast.ArrayLit) (string, Type) {
 	}
 	return tmp, TSlice(*elemType)
 }
+
