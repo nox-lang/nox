@@ -503,3 +503,7 @@ func (fb *funcBuilder) genLvalue(c *ctx, e ast.Expr) (string, Type) {
 		}
 		ci := fb.cg.classInstances[xType.ClassKey]
 		ft, ok := ci.FieldTypes[x.Name]
+		if !ok {
+			panic(fmt.Sprintf("nox: %s: class '%s' has no field '%s'", fb.fname, ci.ClassName, x.Name))
+		}
+		if fieldIsPrivate(ci.Decl, x.Name) && fb.currentClassKey != xType.ClassKey {
