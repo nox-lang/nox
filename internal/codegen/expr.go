@@ -516,3 +516,7 @@ func (fb *funcBuilder) genLvalue(c *ctx, e ast.Expr) (string, Type) {
 
 // ---------------- indexing / member read ----------------
 
+func (fb *funcBuilder) genIndexExpr(c *ctx, x *ast.IndexExpr) (string, Type) {
+	xCode, xType := fb.genExpr(c, x.X)
+	idxCode, idxType := fb.genExpr(c, x.Index)
+	switch xType.Kind {
