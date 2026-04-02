@@ -444,3 +444,7 @@ func (fb *funcBuilder) genUnaryExpr(c *ctx, x *ast.UnaryExpr) (string, Type) {
 			panic(fmt.Sprintf("nox: %s: unary '-' requires a numeric operand", fb.fname))
 		}
 		return fmt.Sprintf("(-%s)", code), t
+	case token.NOT:
+		code, t := fb.genExpr(c, x.X)
+		if t.Kind != KBool {
+			panic(fmt.Sprintf("nox: %s: unary '!' requires a bool operand", fb.fname))
