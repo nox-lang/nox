@@ -511,3 +511,6 @@ func (fb *funcBuilder) genLvalue(c *ctx, e ast.Expr) (string, Type) {
 		}
 		return fmt.Sprintf("(%s)->%s", xCode, x.Name), ft
 	}
+	panic(fmt.Sprintf("nox: %s: expression is not addressable", fb.fname))
+}
+
