@@ -475,3 +475,7 @@ func (fb *funcBuilder) genLvalue(c *ctx, e ast.Expr) (string, Type) {
 		idxCode, idxType := fb.genExpr(c, x.Index)
 		switch xType.Kind {
 		case KSlice:
+			c.emit(compilef("nox_slice_check_index(&(%s), %s);", xCode, idxCode))
+			elemC := fb.cg.ctype(*xType.Elem)
+			return fmt.Sprintf("((%s*)(%s).data)[%s]", elemC, xCode, idxCode), *xType.Elem
+		case KArray:
