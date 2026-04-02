@@ -308,3 +308,7 @@ func (fb *funcBuilder) genSliceExpr(c *ctx, x *ast.SliceExpr) (string, Type) {
 
 // ---------------- binary / unary ----------------
 
+func (fb *funcBuilder) genBinaryExpr(c *ctx, x *ast.BinaryExpr) (string, Type) {
+	if x.Op == token.AND || x.Op == token.OR {
+		return fb.genShortCircuit(c, x)
+	}
