@@ -403,3 +403,7 @@ func (fb *funcBuilder) genNullComparison(c *ctx, x *ast.BinaryExpr) (string, Typ
 // evaluation even when the right-hand operand requires hoisted
 // pre-statements (e.g. it contains a `?` propagation or an await).
 func (fb *funcBuilder) genShortCircuit(c *ctx, x *ast.BinaryExpr) (string, Type) {
+	lcCode, lt := fb.genExpr(c, x.X)
+	if lt.Kind != KBool {
+		panic(fmt.Sprintf("nox: %s: '%s' requires bool operands", fb.fname, x.Op.String()))
+	}
