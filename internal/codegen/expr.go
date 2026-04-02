@@ -278,3 +278,7 @@ func (fb *funcBuilder) genMakeExpr(c *ctx, x *ast.MakeExpr) (string, Type) {
 
 // ---------------- slicing: x[lo:hi] ----------------
 
+func (fb *funcBuilder) genSliceExpr(c *ctx, x *ast.SliceExpr) (string, Type) {
+	xCode, xType := fb.genExpr(c, x.X)
+	evalBound := func(e ast.Expr, def string) string {
+		if e == nil {
