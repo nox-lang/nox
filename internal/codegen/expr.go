@@ -355,3 +355,7 @@ func (fb *funcBuilder) genBinaryExpr(c *ctx, x *ast.BinaryExpr) (string, Type) {
 		if !lt.Equals(rt) {
 			panic(fmt.Sprintf("nox: %s: cannot compare %s with %s", fb.fname, lt.String(), rt.String()))
 		}
+		neg := ""
+		if x.Op == token.NE {
+			neg = "!"
+		}
