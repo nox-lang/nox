@@ -323,3 +323,7 @@ func (fb *funcBuilder) genBinaryExpr(c *ctx, x *ast.BinaryExpr) (string, Type) {
 	lc, lt := fb.genExpr(c, x.X)
 	rc, rt := fb.genExpr(c, x.Y)
 
+	switch x.Op {
+	case token.PLUS:
+		if lt.Kind == KString && rt.Kind == KString {
+			return fmt.Sprintf("nox_string_concat(%s, %s)", lc, rc), TString()
