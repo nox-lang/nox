@@ -471,3 +471,7 @@ func (fb *funcBuilder) genLvalue(c *ctx, e ast.Expr) (string, Type) {
 	case *ast.Ident:
 		return fb.genIdent(c, x)
 	case *ast.IndexExpr:
+		xCode, xType := fb.genExpr(c, x.X)
+		idxCode, idxType := fb.genExpr(c, x.Index)
+		switch xType.Kind {
+		case KSlice:
