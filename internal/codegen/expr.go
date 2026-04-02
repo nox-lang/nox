@@ -483,3 +483,7 @@ func (fb *funcBuilder) genLvalue(c *ctx, e ast.Expr) (string, Type) {
 				panic(fmt.Sprintf("nox: %s: array index must be int", fb.fname))
 			}
 			if _, isCall := x.X.(*ast.CallExpr); isCall {
+				panic(fmt.Sprintf("nox: %s: cannot assign into an element of an array returned by a function call (arrays are copied by value)", fb.fname))
+			}
+			c.emit(compilef("nox_check_array_index(%s, %dLL);", idxCode, xType.Len))
+			return fmt.Sprintf("(%s).d[%s]", xCode, idxCode), *xType.Elem
