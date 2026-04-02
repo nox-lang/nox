@@ -294,3 +294,7 @@ func (fb *funcBuilder) genSliceExpr(c *ctx, x *ast.SliceExpr) (string, Type) {
 		loCode := evalBound(x.Lo, "0LL")
 		hiCode := evalBound(x.Hi, fmt.Sprintf("((int64_t)(%s).len)", xCode))
 		return fmt.Sprintf("nox_string_substring(%s, %s, %s)", xCode, loCode, hiCode), TString()
+	}
+	if xType.Kind != KSlice {
+		panic(fmt.Sprintf("nox: %s: 'x[lo:hi]' requires a slice or string, got %s", fb.fname, xType.String()))
+	}
