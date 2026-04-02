@@ -495,3 +495,7 @@ func (fb *funcBuilder) genLvalue(c *ctx, e ast.Expr) (string, Type) {
 			c.emit(compilef("%s %s = %s;", fb.cg.ctype(*xType.Key), keyTmp, idxCode))
 			return fmt.Sprintf("(*(%s*)nox_map_put(%s, &%s))", fb.cg.ctype(*xType.Elem), xCode, keyTmp), *xType.Elem
 		}
+		panic(fmt.Sprintf("nox: %s: indexing requires a slice, array, or map, got %s", fb.fname, xType.String()))
+	case *ast.MemberExpr:
+		xCode, xType := fb.genExpr(c, x.X)
+		if xType.Kind != KClass {
