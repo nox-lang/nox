@@ -335,3 +335,7 @@ func (fb *funcBuilder) genBinaryExpr(c *ctx, x *ast.BinaryExpr) (string, Type) {
 		return fmt.Sprintf("(%s - %s)", lc, rc), lt
 	case token.STAR:
 		requireSameNumeric(fb.fname, lt, rt)
+		return fmt.Sprintf("(%s * %s)", lc, rc), lt
+	case token.SLASH:
+		requireSameNumeric(fb.fname, lt, rt)
+		return fmt.Sprintf("(%s / %s)", lc, rc), lt
