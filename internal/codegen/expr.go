@@ -363,3 +363,7 @@ func (fb *funcBuilder) genBinaryExpr(c *ctx, x *ast.BinaryExpr) (string, Type) {
 			return fmt.Sprintf("(%snox_string_eq(%s, %s))", neg, lc, rc), TBool()
 		}
 		return fmt.Sprintf("(%s %s %s)", lc, x.Op.String(), rc), TBool()
+	case token.AMP, token.PIPE, token.CARET:
+		if lt.Kind != KInt || rt.Kind != KInt {
+			panic(fmt.Sprintf("nox: %s: bitwise operators require int operands", fb.fname))
+		}
