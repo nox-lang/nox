@@ -276,3 +276,5 @@ func (fb *funcBuilder) genMakeExpr(c *ctx, x *ast.MakeExpr) (string, Type) {
 	panic(fmt.Sprintf("nox: %s: make(...) supports slice and map types only, got %s", fb.fname, t.String()))
 }
 
+// ---------------- slicing: x[lo:hi] ----------------
+
