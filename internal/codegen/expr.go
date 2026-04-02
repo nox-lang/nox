@@ -532,3 +532,7 @@ func (fb *funcBuilder) genIndexExpr(c *ctx, x *ast.IndexExpr) (string, Type) {
 	case KArray:
 		if idxType.Kind != KInt {
 			panic(fmt.Sprintf("nox: %s: array index must be int", fb.fname))
+		}
+		c.emit(compilef("nox_check_array_index(%s, %dLL);", idxCode, xType.Len))
+		return fmt.Sprintf("((%s).d[%s])", xCode, idxCode), *xType.Elem
+	case KMap:
