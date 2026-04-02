@@ -419,3 +419,7 @@ func (fb *funcBuilder) genShortCircuit(c *ctx, x *ast.BinaryExpr) (string, Type)
 		}
 		return fmt.Sprintf("(%s %s %s)", lcCode, op, rcCode), TBool()
 	}
+	tmp := fb.cg.freshTmp("sc")
+	var elseBranch strings.Builder
+	for _, p := range *rpre {
+		elseBranch.WriteString(p)
