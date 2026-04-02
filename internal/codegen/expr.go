@@ -282,3 +282,7 @@ func (fb *funcBuilder) genSliceExpr(c *ctx, x *ast.SliceExpr) (string, Type) {
 	xCode, xType := fb.genExpr(c, x.X)
 	evalBound := func(e ast.Expr, def string) string {
 		if e == nil {
+			return def
+		}
+		code, t := fb.genExpr(c, e)
+		if t.Kind != KInt {
