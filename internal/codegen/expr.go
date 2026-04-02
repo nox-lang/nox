@@ -351,3 +351,7 @@ func (fb *funcBuilder) genBinaryExpr(c *ctx, x *ast.BinaryExpr) (string, Type) {
 		}
 		requireSameNumeric(fb.fname, lt, rt)
 		return fmt.Sprintf("(%s %s %s)", lc, x.Op.String(), rc), TBool()
+	case token.EQ, token.NE:
+		if !lt.Equals(rt) {
+			panic(fmt.Sprintf("nox: %s: cannot compare %s with %s", fb.fname, lt.String(), rt.String()))
+		}
