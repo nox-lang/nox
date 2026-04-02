@@ -327,3 +327,7 @@ func (fb *funcBuilder) genBinaryExpr(c *ctx, x *ast.BinaryExpr) (string, Type) {
 	case token.PLUS:
 		if lt.Kind == KString && rt.Kind == KString {
 			return fmt.Sprintf("nox_string_concat(%s, %s)", lc, rc), TString()
+		}
+		requireSameNumeric(fb.fname, lt, rt)
+		return fmt.Sprintf("(%s + %s)", lc, rc), lt
+	case token.MINUS:
