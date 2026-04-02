@@ -290,3 +290,7 @@ func (fb *funcBuilder) genSliceExpr(c *ctx, x *ast.SliceExpr) (string, Type) {
 		}
 		return code
 	}
+	if xType.Kind == KString {
+		loCode := evalBound(x.Lo, "0LL")
+		hiCode := evalBound(x.Hi, fmt.Sprintf("((int64_t)(%s).len)", xCode))
+		return fmt.Sprintf("nox_string_substring(%s, %s, %s)", xCode, loCode, hiCode), TString()
