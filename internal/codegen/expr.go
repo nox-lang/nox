@@ -415,3 +415,7 @@ func (fb *funcBuilder) genShortCircuit(c *ctx, x *ast.BinaryExpr) (string, Type)
 	if len(*rpre) == 0 {
 		op := "&&"
 		if x.Op == token.OR {
+			op = "||"
+		}
+		return fmt.Sprintf("(%s %s %s)", lcCode, op, rcCode), TBool()
+	}
