@@ -456,3 +456,7 @@ func (fb *funcBuilder) genUnaryExpr(c *ctx, x *ast.UnaryExpr) (string, Type) {
 	case token.STAR:
 		code, t := fb.genExpr(c, x.X)
 		if t.Kind != KPointer {
+			panic(fmt.Sprintf("nox: %s: unary '*' requires a pointer operand", fb.fname))
+		}
+		return fmt.Sprintf("(*%s)", code), *t.Elem
+	}
