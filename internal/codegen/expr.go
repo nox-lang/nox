@@ -436,3 +436,7 @@ func (fb *funcBuilder) genShortCircuit(c *ctx, x *ast.BinaryExpr) (string, Type)
 	return tmp, TBool()
 }
 
+func (fb *funcBuilder) genUnaryExpr(c *ctx, x *ast.UnaryExpr) (string, Type) {
+	switch x.Op {
+	case token.MINUS:
+		code, t := fb.genExpr(c, x.X)
