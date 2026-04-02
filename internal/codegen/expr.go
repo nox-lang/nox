@@ -524,3 +524,7 @@ func (fb *funcBuilder) genIndexExpr(c *ctx, x *ast.IndexExpr) (string, Type) {
 		if idxType.Kind != KInt {
 			panic(fmt.Sprintf("nox: %s: array index must be int", fb.fname))
 		}
+		tmp := fb.cg.freshTmp("arrv")
+		c.emit(compilef("nox_slice %s = %s;", tmp, xCode))
+		c.emit(compilef("nox_slice_check_index(&%s, %s);", tmp, idxCode))
+		elemC := fb.cg.ctype(*xType.Elem)
