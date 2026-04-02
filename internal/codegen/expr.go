@@ -520,3 +520,7 @@ func (fb *funcBuilder) genIndexExpr(c *ctx, x *ast.IndexExpr) (string, Type) {
 	xCode, xType := fb.genExpr(c, x.X)
 	idxCode, idxType := fb.genExpr(c, x.Index)
 	switch xType.Kind {
+	case KSlice:
+		if idxType.Kind != KInt {
+			panic(fmt.Sprintf("nox: %s: array index must be int", fb.fname))
+		}
