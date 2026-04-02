@@ -359,3 +359,7 @@ func (fb *funcBuilder) genBinaryExpr(c *ctx, x *ast.BinaryExpr) (string, Type) {
 		if x.Op == token.NE {
 			neg = "!"
 		}
+		if lt.Kind == KString {
+			return fmt.Sprintf("(%snox_string_eq(%s, %s))", neg, lc, rc), TBool()
+		}
+		return fmt.Sprintf("(%s %s %s)", lc, x.Op.String(), rc), TBool()
