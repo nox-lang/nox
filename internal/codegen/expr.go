@@ -435,3 +435,4 @@ func (fb *funcBuilder) genShortCircuit(c *ctx, x *ast.BinaryExpr) (string, Type)
 	c.emit("}\n")
 	return tmp, TBool()
 }
+
