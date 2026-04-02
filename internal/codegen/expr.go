@@ -427,3 +427,7 @@ func (fb *funcBuilder) genShortCircuit(c *ctx, x *ast.BinaryExpr) (string, Type)
 	elseBranch.WriteString(compilef("%s = %s;", tmp, rcCode))
 	c.emit(compilef("bool %s;", tmp))
 	if x.Op == token.AND {
+		c.emit(compilef("if (!(%s)) { %s = false; } else {", lcCode, tmp))
+	} else {
+		c.emit(compilef("if (%s) { %s = true; } else {", lcCode, tmp))
+	}
