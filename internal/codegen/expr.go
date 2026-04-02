@@ -399,3 +399,7 @@ func (fb *funcBuilder) genNullComparison(c *ctx, x *ast.BinaryExpr) (string, Typ
 	return fmt.Sprintf("(%s %s NULL)", code, op), TBool()
 }
 
+// genShortCircuit implements `&&`/`||` while preserving short-circuit
+// evaluation even when the right-hand operand requires hoisted
+// pre-statements (e.g. it contains a `?` propagation or an await).
+func (fb *funcBuilder) genShortCircuit(c *ctx, x *ast.BinaryExpr) (string, Type) {
