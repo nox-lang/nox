@@ -306,3 +306,5 @@ func (fb *funcBuilder) genSliceExpr(c *ctx, x *ast.SliceExpr) (string, Type) {
 	return fmt.Sprintf("nox_slice_slice(%s, %s, %s, sizeof(%s))", tmp, loCode, hiCode, elemC), xType
 }
 
+// ---------------- binary / unary ----------------
+
