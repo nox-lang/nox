@@ -452,3 +452,7 @@ func (fb *funcBuilder) genUnaryExpr(c *ctx, x *ast.UnaryExpr) (string, Type) {
 		return fmt.Sprintf("(!%s)", code), TBool()
 	case token.AMP:
 		lvalue, t := fb.genLvalue(c, x.X)
+		return fmt.Sprintf("(&%s)", lvalue), TPointer(t)
+	case token.STAR:
+		code, t := fb.genExpr(c, x.X)
+		if t.Kind != KPointer {
