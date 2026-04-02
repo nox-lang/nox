@@ -499,3 +499,7 @@ func (fb *funcBuilder) genLvalue(c *ctx, e ast.Expr) (string, Type) {
 	case *ast.MemberExpr:
 		xCode, xType := fb.genExpr(c, x.X)
 		if xType.Kind != KClass {
+			panic(fmt.Sprintf("nox: %s: cannot take the address of a member of a non-class value", fb.fname))
+		}
+		ci := fb.cg.classInstances[xType.ClassKey]
+		ft, ok := ci.FieldTypes[x.Name]
