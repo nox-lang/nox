@@ -448,3 +448,7 @@ func (fb *funcBuilder) genUnaryExpr(c *ctx, x *ast.UnaryExpr) (string, Type) {
 		code, t := fb.genExpr(c, x.X)
 		if t.Kind != KBool {
 			panic(fmt.Sprintf("nox: %s: unary '!' requires a bool operand", fb.fname))
+		}
+		return fmt.Sprintf("(!%s)", code), TBool()
+	case token.AMP:
+		lvalue, t := fb.genLvalue(c, x.X)
