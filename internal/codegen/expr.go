@@ -339,3 +339,7 @@ func (fb *funcBuilder) genBinaryExpr(c *ctx, x *ast.BinaryExpr) (string, Type) {
 	case token.SLASH:
 		requireSameNumeric(fb.fname, lt, rt)
 		return fmt.Sprintf("(%s / %s)", lc, rc), lt
+	case token.PERCENT:
+		if lt.Kind != KInt || rt.Kind != KInt {
+			panic(fmt.Sprintf("nox: %s: '%%' requires int operands", fb.fname))
+		}
