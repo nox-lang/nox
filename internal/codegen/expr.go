@@ -286,3 +286,7 @@ func (fb *funcBuilder) genSliceExpr(c *ctx, x *ast.SliceExpr) (string, Type) {
 		}
 		code, t := fb.genExpr(c, e)
 		if t.Kind != KInt {
+			panic(fmt.Sprintf("nox: %s: slice bounds must be int", fb.fname))
+		}
+		return code
+	}
