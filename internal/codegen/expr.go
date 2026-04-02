@@ -387,3 +387,7 @@ func (fb *funcBuilder) genNullComparison(c *ctx, x *ast.BinaryExpr) (string, Typ
 	valExpr := x.X
 	if isNullLit(x.X) {
 		valExpr = x.Y
+	}
+	code, t := fb.genExpr(c, valExpr)
+	if t.Kind != KPointer && t.Kind != KClass {
+		panic(fmt.Sprintf("nox: %s: 'null' can only be compared against a pointer or class value, not %s", fb.fname, t.String()))
