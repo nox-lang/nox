@@ -431,3 +431,7 @@ func (fb *funcBuilder) genShortCircuit(c *ctx, x *ast.BinaryExpr) (string, Type)
 	} else {
 		c.emit(compilef("if (%s) { %s = true; } else {", lcCode, tmp))
 	}
+	c.emit(indent(elseBranch.String(), "    "))
+	c.emit("}\n")
+	return tmp, TBool()
+}
