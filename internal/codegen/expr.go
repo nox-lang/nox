@@ -312,3 +312,7 @@ func (fb *funcBuilder) genBinaryExpr(c *ctx, x *ast.BinaryExpr) (string, Type) {
 	if x.Op == token.AND || x.Op == token.OR {
 		return fb.genShortCircuit(c, x)
 	}
+	// `x == null` / `x != null`: null cannot appear as a general expression
+	// (Nox forbids explicitly assigning it), but comparing a pointer or
+	// class value against null — e.g. to check an array `.find(...)` result
+	// — is common and necessary, so it's handled here as a special case
