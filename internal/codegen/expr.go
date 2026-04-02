@@ -347,3 +347,7 @@ func (fb *funcBuilder) genBinaryExpr(c *ctx, x *ast.BinaryExpr) (string, Type) {
 	case token.LT, token.GT, token.LE, token.GE:
 		if lt.Kind == KString && rt.Kind == KString {
 			op := map[token.Kind]string{token.LT: "<", token.GT: ">", token.LE: "<=", token.GE: ">="}[x.Op]
+			return fmt.Sprintf("(nox_string_cmp(%s, %s) %s 0)", lc, rc, op), TBool()
+		}
+		requireSameNumeric(fb.fname, lt, rt)
+		return fmt.Sprintf("(%s %s %s)", lc, x.Op.String(), rc), TBool()
