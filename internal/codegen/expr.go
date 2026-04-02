@@ -463,3 +463,7 @@ func (fb *funcBuilder) genUnaryExpr(c *ctx, x *ast.UnaryExpr) (string, Type) {
 	panic(fmt.Sprintf("nox: %s: unhandled unary operator", fb.fname))
 }
 
+// genLvalue returns a C lvalue expression (suitable for `&`) for the subset
+// of expressions that denote a storage location: identifiers, array
+// indexing, and class member access.
+func (fb *funcBuilder) genLvalue(c *ctx, e ast.Expr) (string, Type) {
