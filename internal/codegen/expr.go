@@ -367,3 +367,7 @@ func (fb *funcBuilder) genBinaryExpr(c *ctx, x *ast.BinaryExpr) (string, Type) {
 		if lt.Kind != KInt || rt.Kind != KInt {
 			panic(fmt.Sprintf("nox: %s: bitwise operators require int operands", fb.fname))
 		}
+		return fmt.Sprintf("(%s %s %s)", lc, x.Op.String(), rc), TInt()
+	}
+	panic(fmt.Sprintf("nox: %s: unhandled binary operator %s", fb.fname, x.Op.String()))
+}
