@@ -467,3 +467,7 @@ func (fb *funcBuilder) genUnaryExpr(c *ctx, x *ast.UnaryExpr) (string, Type) {
 // of expressions that denote a storage location: identifiers, array
 // indexing, and class member access.
 func (fb *funcBuilder) genLvalue(c *ctx, e ast.Expr) (string, Type) {
+	switch x := e.(type) {
+	case *ast.Ident:
+		return fb.genIdent(c, x)
+	case *ast.IndexExpr:
