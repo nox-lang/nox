@@ -371,3 +371,4 @@ func (fb *funcBuilder) genBinaryExpr(c *ctx, x *ast.BinaryExpr) (string, Type) {
 	}
 	panic(fmt.Sprintf("nox: %s: unhandled binary operator %s", fb.fname, x.Op.String()))
 }
+
