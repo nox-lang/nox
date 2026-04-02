@@ -460,3 +460,6 @@ func (fb *funcBuilder) genUnaryExpr(c *ctx, x *ast.UnaryExpr) (string, Type) {
 		}
 		return fmt.Sprintf("(*%s)", code), *t.Elem
 	}
+	panic(fmt.Sprintf("nox: %s: unhandled unary operator", fb.fname))
+}
+
