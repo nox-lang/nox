@@ -302,3 +302,7 @@ func (fb *funcBuilder) genSliceExpr(c *ctx, x *ast.SliceExpr) (string, Type) {
 	c.emit(compilef("nox_slice %s = %s;", tmp, xCode))
 	loCode := evalBound(x.Lo, "0LL")
 	hiCode := evalBound(x.Hi, fmt.Sprintf("%s.len", tmp))
+	elemC := fb.cg.ctype(*xType.Elem)
+	return fmt.Sprintf("nox_slice_slice(%s, %s, %s, sizeof(%s))", tmp, loCode, hiCode, elemC), xType
+}
+
