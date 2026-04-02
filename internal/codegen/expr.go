@@ -343,3 +343,7 @@ func (fb *funcBuilder) genBinaryExpr(c *ctx, x *ast.BinaryExpr) (string, Type) {
 		if lt.Kind != KInt || rt.Kind != KInt {
 			panic(fmt.Sprintf("nox: %s: '%%' requires int operands", fb.fname))
 		}
+		return fmt.Sprintf("(%s %% %s)", lc, rc), TInt()
+	case token.LT, token.GT, token.LE, token.GE:
+		if lt.Kind == KString && rt.Kind == KString {
+			op := map[token.Kind]string{token.LT: "<", token.GT: ">", token.LE: "<=", token.GE: ">="}[x.Op]
