@@ -383,3 +383,7 @@ func isNullLit(e ast.Expr) bool {
 	return ok
 }
 
+func (fb *funcBuilder) genNullComparison(c *ctx, x *ast.BinaryExpr) (string, Type) {
+	valExpr := x.X
+	if isNullLit(x.X) {
+		valExpr = x.Y
