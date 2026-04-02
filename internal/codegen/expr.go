@@ -479,3 +479,7 @@ func (fb *funcBuilder) genLvalue(c *ctx, e ast.Expr) (string, Type) {
 			elemC := fb.cg.ctype(*xType.Elem)
 			return fmt.Sprintf("((%s*)(%s).data)[%s]", elemC, xCode, idxCode), *xType.Elem
 		case KArray:
+			if idxType.Kind != KInt {
+				panic(fmt.Sprintf("nox: %s: array index must be int", fb.fname))
+			}
+			if _, isCall := x.X.(*ast.CallExpr); isCall {
