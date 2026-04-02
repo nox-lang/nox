@@ -395,3 +395,7 @@ func (fb *funcBuilder) genNullComparison(c *ctx, x *ast.BinaryExpr) (string, Typ
 	op := "=="
 	if x.Op == token.NE {
 		op = "!="
+	}
+	return fmt.Sprintf("(%s %s NULL)", code, op), TBool()
+}
+
