@@ -440,3 +440,7 @@ func (fb *funcBuilder) genUnaryExpr(c *ctx, x *ast.UnaryExpr) (string, Type) {
 	switch x.Op {
 	case token.MINUS:
 		code, t := fb.genExpr(c, x.X)
+		if t.Kind != KInt && t.Kind != KFloat {
+			panic(fmt.Sprintf("nox: %s: unary '-' requires a numeric operand", fb.fname))
+		}
+		return fmt.Sprintf("(-%s)", code), t
