@@ -411,3 +411,7 @@ func (fb *funcBuilder) genShortCircuit(c *ctx, x *ast.BinaryExpr) (string, Type)
 	rcCode, rt := fb.genExpr(rc2, x.Y)
 	if rt.Kind != KBool {
 		panic(fmt.Sprintf("nox: %s: '%s' requires bool operands", fb.fname, x.Op.String()))
+	}
+	if len(*rpre) == 0 {
+		op := "&&"
+		if x.Op == token.OR {
