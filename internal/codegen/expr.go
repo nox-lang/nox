@@ -407,3 +407,7 @@ func (fb *funcBuilder) genShortCircuit(c *ctx, x *ast.BinaryExpr) (string, Type)
 	if lt.Kind != KBool {
 		panic(fmt.Sprintf("nox: %s: '%s' requires bool operands", fb.fname, x.Op.String()))
 	}
+	rc2, rpre := newCtx(c.scope)
+	rcCode, rt := fb.genExpr(rc2, x.Y)
+	if rt.Kind != KBool {
+		panic(fmt.Sprintf("nox: %s: '%s' requires bool operands", fb.fname, x.Op.String()))
