@@ -316,3 +316,7 @@ func (fb *funcBuilder) genBinaryExpr(c *ctx, x *ast.BinaryExpr) (string, Type) {
 	// (Nox forbids explicitly assigning it), but comparing a pointer or
 	// class value against null — e.g. to check an array `.find(...)` result
 	// — is common and necessary, so it's handled here as a special case
+	// rather than through the generic NullLit codegen path.
+	if (x.Op == token.EQ || x.Op == token.NE) && (isNullLit(x.X) || isNullLit(x.Y)) {
+		return fb.genNullComparison(c, x)
+	}
