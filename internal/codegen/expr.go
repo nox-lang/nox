@@ -320,3 +320,6 @@ func (fb *funcBuilder) genBinaryExpr(c *ctx, x *ast.BinaryExpr) (string, Type) {
 	if (x.Op == token.EQ || x.Op == token.NE) && (isNullLit(x.X) || isNullLit(x.Y)) {
 		return fb.genNullComparison(c, x)
 	}
+	lc, lt := fb.genExpr(c, x.X)
+	rc, rt := fb.genExpr(c, x.Y)
+
