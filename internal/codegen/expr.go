@@ -382,3 +382,4 @@ func isNullLit(e ast.Expr) bool {
 	_, ok := e.(*ast.NullLit)
 	return ok
 }
+
