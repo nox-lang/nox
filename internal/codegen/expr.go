@@ -423,3 +423,7 @@ func (fb *funcBuilder) genShortCircuit(c *ctx, x *ast.BinaryExpr) (string, Type)
 	var elseBranch strings.Builder
 	for _, p := range *rpre {
 		elseBranch.WriteString(p)
+	}
+	elseBranch.WriteString(compilef("%s = %s;", tmp, rcCode))
+	c.emit(compilef("bool %s;", tmp))
+	if x.Op == token.AND {
