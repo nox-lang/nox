@@ -491,3 +491,7 @@ func (fb *funcBuilder) genLvalue(c *ctx, e ast.Expr) (string, Type) {
 			if !idxType.Equals(*xType.Key) {
 				panic(fmt.Sprintf("nox: %s: map key has type %s, expected %s", fb.fname, idxType.String(), xType.Key.String()))
 			}
+			keyTmp := fb.cg.freshTmp("mkey")
+			c.emit(compilef("%s %s = %s;", fb.cg.ctype(*xType.Key), keyTmp, idxCode))
+			return fmt.Sprintf("(*(%s*)nox_map_put(%s, &%s))", fb.cg.ctype(*xType.Elem), xCode, keyTmp), *xType.Elem
+		}
