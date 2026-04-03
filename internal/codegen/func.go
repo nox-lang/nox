@@ -111,3 +111,7 @@ func (fb *funcBuilder) genStmt(scope *Scope, st ast.Stmt) string {
 		return code
 	case *ast.WhileStmt:
 		code, _, _ := fb.genWhile(scope, s, false)
+		return code
+	case *ast.BreakStmt:
+		return fb.genBreakStmt(scope, s)
+	case *ast.NextStmt:
