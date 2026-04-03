@@ -548,3 +548,4 @@ func (fb *funcBuilder) genIndexExpr(c *ctx, x *ast.IndexExpr) (string, Type) {
 	}
 	panic(fmt.Sprintf("nox: %s: indexing requires a slice, array, or map, got %s", fb.fname, xType.String()))
 }
+
