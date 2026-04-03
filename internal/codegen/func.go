@@ -145,3 +145,7 @@ func (fb *funcBuilder) errorJumpCode() string {
 	if len(fb.tryStack) > 0 {
 		top := fb.tryStack[len(fb.tryStack)-1]
 		return fmt.Sprintf("goto %s;", top.catchLabel)
+	}
+	return "%%RETZERO%% goto __nox_exit;"
+}
+
