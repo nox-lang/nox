@@ -581,3 +581,7 @@ func (fb *funcBuilder) genMemberRead(c *ctx, x *ast.MemberExpr) (string, Type) {
 	case KString:
 		if x.Name == "length" {
 			return fmt.Sprintf("((int64_t)(%s).len)", xCode), TInt()
+		}
+	case KTask:
+		if x.Name != "Result" {
+			panic(fmt.Sprintf("nox: %s: Task has no property '%s' (did you mean '.Result'?)", fb.fname, x.Name))
