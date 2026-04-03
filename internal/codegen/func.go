@@ -68,3 +68,7 @@ func compilef(format string, args ...interface{}) string {
 	s := fmt.Sprintf(format, args...)
 	if !strings.HasSuffix(s, "\n") {
 		s += "\n"
+	}
+	return s
+}
+
