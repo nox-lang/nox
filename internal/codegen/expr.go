@@ -553,3 +553,7 @@ func (fb *funcBuilder) genIndexExpr(c *ctx, x *ast.IndexExpr) (string, Type) {
 // `.length`, and class field reads. Method calls (`.push(...)`,
 // `.substring(...)`, etc.) are handled by genCallExpr instead.
 func (fb *funcBuilder) genMemberRead(c *ctx, x *ast.MemberExpr) (string, Type) {
+	// `ClassName.field` — a static class member, not an instance read.
+	if recvIdent, ok := x.X.(*ast.Ident); ok {
+		if _, isLocal := c.scope.lookup(recvIdent.Name); !isLocal {
+			if _, isClass := fb.cg.classesByName[recvIdent.Name]; isClass {
