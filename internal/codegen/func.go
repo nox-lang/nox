@@ -83,3 +83,7 @@ func (fb *funcBuilder) genBlock(parent *Scope, b *ast.BlockStmt) string {
 	return sb.String()
 }
 
+func (fb *funcBuilder) genStmt(scope *Scope, st ast.Stmt) string {
+	switch s := st.(type) {
+	case *ast.LetStmt:
+		return fb.genLetStmt(scope, s) + fb.errorCheckSnippet()
