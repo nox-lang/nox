@@ -95,3 +95,7 @@ func (fb *funcBuilder) genStmt(scope *Scope, st ast.Stmt) string {
 		for _, p := range *pre {
 			sb.WriteString(p)
 		}
+		if code != "" {
+			sb.WriteString(compilef("%s;", code))
+		}
+		return sb.String() + fb.errorCheckSnippet()
