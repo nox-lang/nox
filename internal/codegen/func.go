@@ -47,3 +47,7 @@ type loopCtx struct {
 	resultVar     string
 	brokeVar      string
 	resultType    *Type
+	hofLabel      string // for "hofvalue": label to jump to after storing the result
+	continueLabel string // for real loops: label `next`/`next value` jumps to
+}
+
