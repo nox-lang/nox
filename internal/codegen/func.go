@@ -22,3 +22,7 @@ type funcBuilder struct {
 	retType      Type
 	isAsync      bool
 
+	defers    []*deferEntry
+	loopStack []*loopCtx
+	tryStack  []*tryCtx
+
