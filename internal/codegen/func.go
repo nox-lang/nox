@@ -115,3 +115,7 @@ func (fb *funcBuilder) genStmt(scope *Scope, st ast.Stmt) string {
 	case *ast.BreakStmt:
 		return fb.genBreakStmt(scope, s)
 	case *ast.NextStmt:
+		return fb.genNextStmt(scope, s)
+	case *ast.YieldStmt:
+		return fb.genYieldStmt(scope, s)
+	case *ast.ReturnStmt:
