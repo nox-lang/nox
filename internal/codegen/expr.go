@@ -593,3 +593,7 @@ func (fb *funcBuilder) genMemberRead(c *ctx, x *ast.MemberExpr) (string, Type) {
 			c.emit(compilef("nox_task_wait(%s);", taskTmp))
 			return "", TVoid()
 		}
+		elemC := fb.cg.ctype(elemType)
+		return fmt.Sprintf("(*(%s*)nox_task_result(%s))", elemC, taskTmp), elemType
+	case KClass:
+		ci := fb.cg.classInstances[xType.ClassKey]
