@@ -597,3 +597,7 @@ func (fb *funcBuilder) genMemberRead(c *ctx, x *ast.MemberExpr) (string, Type) {
 		return fmt.Sprintf("(*(%s*)nox_task_result(%s))", elemC, taskTmp), elemType
 	case KClass:
 		ci := fb.cg.classInstances[xType.ClassKey]
+		if ft, ok := ci.FieldTypes[x.Name]; ok {
+			if fieldIsPrivate(ci.Decl, x.Name) && fb.currentClassKey != xType.ClassKey {
+				panic(fmt.Sprintf("nox: %s: '%s' is a private field of class '%s'", fb.fname, x.Name, ci.ClassName))
+			}
