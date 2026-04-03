@@ -589,3 +589,7 @@ func (fb *funcBuilder) genMemberRead(c *ctx, x *ast.MemberExpr) (string, Type) {
 		elemType := *xType.Elem
 		taskTmp := fb.cg.freshTmp("task")
 		c.emit(compilef("nox_task* %s = %s;", taskTmp, xCode))
+		if elemType.Kind == KVoid {
+			c.emit(compilef("nox_task_wait(%s);", taskTmp))
+			return "", TVoid()
+		}
