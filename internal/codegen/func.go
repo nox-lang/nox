@@ -74,3 +74,7 @@ func compilef(format string, args ...interface{}) string {
 
 // ---------------- blocks & statement dispatch ----------------
 
+func (fb *funcBuilder) genBlock(parent *Scope, b *ast.BlockStmt) string {
+	scope := newScope(parent)
+	var sb strings.Builder
+	for _, st := range b.Stmts {
