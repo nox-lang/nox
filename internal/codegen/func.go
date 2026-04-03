@@ -155,3 +155,7 @@ func (fb *funcBuilder) errorCheckSnippet() string {
 
 // ---------------- let / assign ----------------
 
+func (fb *funcBuilder) genLetStmt(scope *Scope, s *ast.LetStmt) string {
+	c, pre := newCtx(scope)
+	if s.Name == "_" {
+		// The blank identifier: evaluate for any side effect and discard —
