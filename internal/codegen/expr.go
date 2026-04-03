@@ -573,3 +573,7 @@ func (fb *funcBuilder) genMemberRead(c *ctx, x *ast.MemberExpr) (string, Type) {
 	case KArray:
 		if x.Name == "length" {
 			return fmt.Sprintf("%dLL", xType.Len), TInt()
+		}
+	case KMap:
+		if x.Name == "length" {
+			return fmt.Sprintf("nox_map_len(%s)", xCode), TInt()
