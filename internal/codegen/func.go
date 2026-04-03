@@ -99,3 +99,7 @@ func (fb *funcBuilder) genStmt(scope *Scope, st ast.Stmt) string {
 			sb.WriteString(compilef("%s;", code))
 		}
 		return sb.String() + fb.errorCheckSnippet()
+	case *ast.AssignStmt:
+		return fb.genAssignStmt(scope, s) + fb.errorCheckSnippet()
+	case *ast.IfStmt:
+		return fb.genIfStmt(scope, s)
