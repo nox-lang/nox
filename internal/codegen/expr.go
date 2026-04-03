@@ -561,3 +561,7 @@ func (fb *funcBuilder) genMemberRead(c *ctx, x *ast.MemberExpr) (string, Type) {
 			}
 		}
 	}
+	xCode, xType := fb.genExpr(c, x.X)
+	switch xType.Kind {
+	case KSlice:
+		switch x.Name {
