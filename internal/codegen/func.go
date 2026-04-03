@@ -43,3 +43,7 @@ type loopCtx struct {
 	mode          string // "collect" | "breakvalue" | "hofvalue" | "plain"
 	isSwitch      bool   // true if this context represents a `switch`, not a loop
 	collectVar    string
+	elemType      *Type
+	resultVar     string
+	brokeVar      string
+	resultType    *Type
