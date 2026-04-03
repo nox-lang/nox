@@ -159,3 +159,7 @@ func (fb *funcBuilder) genLetStmt(scope *Scope, s *ast.LetStmt) string {
 	c, pre := newCtx(scope)
 	if s.Name == "_" {
 		// The blank identifier: evaluate for any side effect and discard —
+		// never stored, never readable (matches Go's `_`).
+		if s.Value == nil {
+			panic(fmt.Sprintf("nox: %s: 'let _' needs a value to discard", fb.fname))
+		}
