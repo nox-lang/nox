@@ -549,3 +549,7 @@ func (fb *funcBuilder) genIndexExpr(c *ctx, x *ast.IndexExpr) (string, Type) {
 	panic(fmt.Sprintf("nox: %s: indexing requires a slice, array, or map, got %s", fb.fname, xType.String()))
 }
 
+// genMemberRead handles `.` access used as a value, not a call: array/string
+// `.length`, and class field reads. Method calls (`.push(...)`,
+// `.substring(...)`, etc.) are handled by genCallExpr instead.
+func (fb *funcBuilder) genMemberRead(c *ctx, x *ast.MemberExpr) (string, Type) {
