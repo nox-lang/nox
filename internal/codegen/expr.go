@@ -557,3 +557,7 @@ func (fb *funcBuilder) genMemberRead(c *ctx, x *ast.MemberExpr) (string, Type) {
 	if recvIdent, ok := x.X.(*ast.Ident); ok {
 		if _, isLocal := c.scope.lookup(recvIdent.Name); !isLocal {
 			if _, isClass := fb.cg.classesByName[recvIdent.Name]; isClass {
+				return fb.genStaticFieldRead(recvIdent.Name, x.Name)
+			}
+		}
+	}
