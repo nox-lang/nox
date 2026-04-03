@@ -87,3 +87,7 @@ func (fb *funcBuilder) genStmt(scope *Scope, st ast.Stmt) string {
 	switch s := st.(type) {
 	case *ast.LetStmt:
 		return fb.genLetStmt(scope, s) + fb.errorCheckSnippet()
+	case *ast.ExprStmt:
+		c, pre := newCtx(scope)
+		code, t := fb.genExpr(c, s.X)
+		_ = t
