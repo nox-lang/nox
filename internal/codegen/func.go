@@ -127,3 +127,7 @@ func (fb *funcBuilder) genStmt(scope *Scope, st ast.Stmt) string {
 		return fb.genDeferStmt(scope, s)
 	case *ast.TryStmt:
 		return fb.genTryStmt(scope, s)
+	case *ast.BlockStmt:
+		return fb.genBlock(scope, s)
+	}
+	panic(fmt.Sprintf("codegen: unhandled statement %T", st))
