@@ -26,3 +26,7 @@ type funcBuilder struct {
 	loopStack []*loopCtx
 	tryStack  []*tryCtx
 
+	deferFlagQueue []string
+	deferFlagIdx   int
+}
+
