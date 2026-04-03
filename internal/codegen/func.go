@@ -141,3 +141,7 @@ func (fb *funcBuilder) genStmt(scope *Scope, st ast.Stmt) string {
 // errorJumpCode returns the C control transfer to perform when an unhandled
 // Nox error is detected: jump to the nearest enclosing try's catch handler,
 // or (if none) store the zero return value and jump to the function's exit.
+func (fb *funcBuilder) errorJumpCode() string {
+	if len(fb.tryStack) > 0 {
+		top := fb.tryStack[len(fb.tryStack)-1]
+		return fmt.Sprintf("goto %s;", top.catchLabel)
