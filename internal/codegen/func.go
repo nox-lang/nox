@@ -57,3 +57,7 @@ type ctx struct {
 	pre   *[]string
 }
 
+func newCtx(scope *Scope) (*ctx, *[]string) {
+	pre := []string{}
+	return &ctx{scope: scope, pre: &pre}, &pre
+}
