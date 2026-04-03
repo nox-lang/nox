@@ -133,3 +133,7 @@ func (fb *funcBuilder) genStmt(scope *Scope, st ast.Stmt) string {
 	panic(fmt.Sprintf("codegen: unhandled statement %T", st))
 }
 
+// errorCheckSnippet is appended after any statement that might have executed
+// a fallible call (we conservatively add it after every simple statement).
+// If an unhandled Nox error is pending: inside a try, jump to its catch
+// block; otherwise propagate by returning from the function immediately
