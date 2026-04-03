@@ -103,3 +103,7 @@ func (fb *funcBuilder) genStmt(scope *Scope, st ast.Stmt) string {
 		return fb.genAssignStmt(scope, s) + fb.errorCheckSnippet()
 	case *ast.IfStmt:
 		return fb.genIfStmt(scope, s)
+	case *ast.ForCondStmt:
+		code, _, _ := fb.genForCond(scope, s, false)
+		return code
+	case *ast.ForInStmt:
