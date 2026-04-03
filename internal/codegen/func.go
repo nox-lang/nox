@@ -12,3 +12,5 @@ import (
 // one function/method body (or the top-level main/global-init pseudo body).
 type funcBuilder struct {
 	cg    *Codegen
+	fname string
+
