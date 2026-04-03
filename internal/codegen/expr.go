@@ -605,3 +605,5 @@ func (fb *funcBuilder) genMemberRead(c *ctx, x *ast.MemberExpr) (string, Type) {
 		}
 		panic(fmt.Sprintf("nox: %s: class '%s' has no field '%s'", fb.fname, ci.ClassName, x.Name))
 	}
+	panic(fmt.Sprintf("nox: %s: value of type %s has no property '%s'", fb.fname, xType.String(), x.Name))
+}
