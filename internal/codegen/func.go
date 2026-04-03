@@ -62,3 +62,5 @@ func newCtx(scope *Scope) (*ctx, *[]string) {
 	return &ctx{scope: scope, pre: &pre}, &pre
 }
 
+func (c *ctx) emit(line string) { *c.pre = append(*c.pre, line) }
+
