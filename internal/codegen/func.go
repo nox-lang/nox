@@ -153,3 +153,5 @@ func (fb *funcBuilder) errorCheckSnippet() string {
 	return compilef("if (NOX_HAS_ERR) { %s }", fb.errorJumpCode())
 }
 
+// ---------------- let / assign ----------------
+
