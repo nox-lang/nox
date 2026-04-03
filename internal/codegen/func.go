@@ -91,3 +91,7 @@ func (fb *funcBuilder) genStmt(scope *Scope, st ast.Stmt) string {
 		c, pre := newCtx(scope)
 		code, t := fb.genExpr(c, s.X)
 		_ = t
+		var sb strings.Builder
+		for _, p := range *pre {
+			sb.WriteString(p)
+		}
