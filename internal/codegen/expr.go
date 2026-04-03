@@ -585,3 +585,7 @@ func (fb *funcBuilder) genMemberRead(c *ctx, x *ast.MemberExpr) (string, Type) {
 	case KTask:
 		if x.Name != "Result" {
 			panic(fmt.Sprintf("nox: %s: Task has no property '%s' (did you mean '.Result'?)", fb.fname, x.Name))
+		}
+		elemType := *xType.Elem
+		taskTmp := fb.cg.freshTmp("task")
+		c.emit(compilef("nox_task* %s = %s;", taskTmp, xCode))
