@@ -119,3 +119,7 @@ func (fb *funcBuilder) genStmt(scope *Scope, st ast.Stmt) string {
 	case *ast.YieldStmt:
 		return fb.genYieldStmt(scope, s)
 	case *ast.ReturnStmt:
+		return fb.emitReturn(scope, s.Value)
+	case *ast.SwitchStmt:
+		code, _, _ := fb.genSwitch(scope, s, false)
+		return code
