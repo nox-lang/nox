@@ -18,3 +18,7 @@ type funcBuilder struct {
 	currentClassName string       // set while generating any class method (instance or static): the class's declared name, for private-access checks
 	selfInstance    *FuncInstance // back-reference so a self-recursive call can see the return type as soon as it's known, not just after the whole body finishes
 
+	retTypeKnown bool
+	retType      Type
+	isAsync      bool
+
