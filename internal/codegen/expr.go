@@ -536,3 +536,7 @@ func (fb *funcBuilder) genIndexExpr(c *ctx, x *ast.IndexExpr) (string, Type) {
 		c.emit(compilef("nox_check_array_index(%s, %dLL);", idxCode, xType.Len))
 		return fmt.Sprintf("((%s).d[%s])", xCode, idxCode), *xType.Elem
 	case KMap:
+		if !idxType.Equals(*xType.Key) {
+			panic(fmt.Sprintf("nox: %s: map key has type %s, expected %s", fb.fname, idxType.String(), xType.Key.String()))
+		}
+		keyTmp := fb.cg.freshTmp("mkey")
