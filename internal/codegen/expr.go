@@ -565,3 +565,7 @@ func (fb *funcBuilder) genMemberRead(c *ctx, x *ast.MemberExpr) (string, Type) {
 	switch xType.Kind {
 	case KSlice:
 		switch x.Name {
+		case "length":
+			return fmt.Sprintf("((int64_t)(%s).len)", xCode), TInt()
+		case "capacity":
+			return fmt.Sprintf("((int64_t)(%s).cap)", xCode), TInt()
