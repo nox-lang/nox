@@ -569,3 +569,7 @@ func (fb *funcBuilder) genMemberRead(c *ctx, x *ast.MemberExpr) (string, Type) {
 			return fmt.Sprintf("((int64_t)(%s).len)", xCode), TInt()
 		case "capacity":
 			return fmt.Sprintf("((int64_t)(%s).cap)", xCode), TInt()
+		}
+	case KArray:
+		if x.Name == "length" {
+			return fmt.Sprintf("%dLL", xType.Len), TInt()
