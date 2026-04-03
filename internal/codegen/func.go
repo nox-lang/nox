@@ -39,3 +39,7 @@ type deferEntry struct {
 	bodyC   string
 }
 
+type loopCtx struct {
+	mode          string // "collect" | "breakvalue" | "hofvalue" | "plain"
+	isSwitch      bool   // true if this context represents a `switch`, not a loop
+	collectVar    string
