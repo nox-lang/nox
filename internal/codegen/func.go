@@ -30,3 +30,7 @@ type funcBuilder struct {
 	deferFlagIdx   int
 }
 
+type tryCtx struct {
+	catchLabel string
+}
+
