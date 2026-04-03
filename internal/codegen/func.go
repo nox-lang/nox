@@ -123,3 +123,7 @@ func (fb *funcBuilder) genStmt(scope *Scope, st ast.Stmt) string {
 	case *ast.SwitchStmt:
 		code, _, _ := fb.genSwitch(scope, s, false)
 		return code
+	case *ast.DeferStmt:
+		return fb.genDeferStmt(scope, s)
+	case *ast.TryStmt:
+		return fb.genTryStmt(scope, s)
