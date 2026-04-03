@@ -544,3 +544,7 @@ func (fb *funcBuilder) genIndexExpr(c *ctx, x *ast.IndexExpr) (string, Type) {
 		valC := fb.cg.ctype(*xType.Elem)
 		foundTmp := fb.cg.freshTmp("mfound")
 		c.emit(compilef("void* %s = nox_map_find(%s, &%s);", foundTmp, xCode, keyTmp))
+		return fmt.Sprintf("(%s ? *(%s*)%s : %s)", foundTmp, valC, foundTmp, fb.cg.zeroValueC(*xType.Elem)), *xType.Elem
+	}
+	panic(fmt.Sprintf("nox: %s: indexing requires a slice, array, or map, got %s", fb.fname, xType.String()))
+}
