@@ -540,3 +540,7 @@ func (fb *funcBuilder) genIndexExpr(c *ctx, x *ast.IndexExpr) (string, Type) {
 			panic(fmt.Sprintf("nox: %s: map key has type %s, expected %s", fb.fname, idxType.String(), xType.Key.String()))
 		}
 		keyTmp := fb.cg.freshTmp("mkey")
+		c.emit(compilef("%s %s = %s;", fb.cg.ctype(*xType.Key), keyTmp, idxCode))
+		valC := fb.cg.ctype(*xType.Elem)
+		foundTmp := fb.cg.freshTmp("mfound")
+		c.emit(compilef("void* %s = nox_map_find(%s, &%s);", foundTmp, xCode, keyTmp))
