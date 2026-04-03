@@ -82,3 +82,4 @@ func (fb *funcBuilder) genBlock(parent *Scope, b *ast.BlockStmt) string {
 	}
 	return sb.String()
 }
+
