@@ -137,3 +137,7 @@ func (fb *funcBuilder) genStmt(scope *Scope, st ast.Stmt) string {
 // a fallible call (we conservatively add it after every simple statement).
 // If an unhandled Nox error is pending: inside a try, jump to its catch
 // block; otherwise propagate by returning from the function immediately
+// (after running defers), like an unwinding exception.
+// errorJumpCode returns the C control transfer to perform when an unhandled
+// Nox error is detected: jump to the nearest enclosing try's catch handler,
+// or (if none) store the zero return value and jump to the function's exit.
