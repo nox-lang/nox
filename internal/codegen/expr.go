@@ -601,3 +601,7 @@ func (fb *funcBuilder) genMemberRead(c *ctx, x *ast.MemberExpr) (string, Type) {
 			if fieldIsPrivate(ci.Decl, x.Name) && fb.currentClassKey != xType.ClassKey {
 				panic(fmt.Sprintf("nox: %s: '%s' is a private field of class '%s'", fb.fname, x.Name, ci.ClassName))
 			}
+			return fmt.Sprintf("(%s)->%s", xCode, x.Name), ft
+		}
+		panic(fmt.Sprintf("nox: %s: class '%s' has no field '%s'", fb.fname, ci.ClassName, x.Name))
+	}
