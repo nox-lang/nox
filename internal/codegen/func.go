@@ -240,3 +240,7 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 		}
 		existing, ok := scope.lookup(target.Name)
 		var sb strings.Builder
+		for _, p := range *pre {
+			sb.WriteString(p)
+		}
+		if !ok {
