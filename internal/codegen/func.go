@@ -364,3 +364,7 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 			}
 			ci.FieldTypes[target.Name] = valType
 			ci.FieldOrder = append(ci.FieldOrder, target.Name)
+			ft = valType
+		} else if !ft.Equals(valType) {
+			panic(fmt.Sprintf("nox: %s: cannot assign %s to field '%s' of type %s", fb.fname, valType.String(), target.Name, ft.String()))
+		}
