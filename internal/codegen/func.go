@@ -167,3 +167,7 @@ func (fb *funcBuilder) genLetStmt(scope *Scope, s *ast.LetStmt) string {
 		var sb strings.Builder
 		for _, p := range *pre {
 			sb.WriteString(p)
+		}
+		if code != "" {
+			sb.WriteString(compilef("(void)(%s);", code))
+		}
