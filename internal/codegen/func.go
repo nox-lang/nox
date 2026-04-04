@@ -449,3 +449,7 @@ func (fb *funcBuilder) genIfStmt(scope *Scope, s *ast.IfStmt) string {
 func (fb *funcBuilder) genIfExpr(c *ctx, s *ast.IfStmt) (string, Type) {
 	resultVar := fb.cg.freshTmp("ifresult")
 	var resultType *Type
+	body := fb.genIfChainExpr(c.scope, s, resultVar, &resultType)
+	if resultType == nil {
+		panic(fmt.Sprintf("nox: %s: if-expression: could not determine a result type", fb.fname))
+	}
