@@ -417,3 +417,7 @@ func (fb *funcBuilder) genIfStmt(scope *Scope, s *ast.IfStmt) string {
 		sb.WriteString("} else ")
 		switch e := s.Else.(type) {
 		case *ast.IfStmt:
+			inner := fb.genIfStmt(scope, e)
+			// re-indent: drop trailing newline management by concatenation
+			sb.WriteString("{\n")
+			sb.WriteString(indent(inner, "    "))
