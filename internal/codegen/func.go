@@ -207,3 +207,4 @@ func (fb *funcBuilder) genLetStmt(scope *Scope, s *ast.LetStmt) string {
 	sb.WriteString(compilef("%s %s = %s;", fb.cg.ctype(t), cIdent(s.Name), code))
 	return sb.String()
 }
+
