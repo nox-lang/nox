@@ -195,3 +195,7 @@ func (fb *funcBuilder) genLetStmt(scope *Scope, s *ast.LetStmt) string {
 			panic(fmt.Sprintf("nox: %s: cannot assign %s to 'let %s: %s'", fb.fname, t.String(), s.Name, want.String()))
 		}
 		t = want
+	}
+	if t.ContainsUnknown() {
+		panic(fmt.Sprintf("nox: %s: cannot infer the element type of an empty array literal assigned to '%s'; add an explicit type (let %s: []TYPE = [])", fb.fname, s.Name, s.Name))
+	}
