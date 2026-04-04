@@ -216,3 +216,7 @@ func (fb *funcBuilder) inferDeferredLocalType(scope *Scope, name string) (Type, 
 	// We don't have direct access to "the rest of the block" here since we
 	// generate statement-by-statement; callers needing this should instead
 	// annotate the type explicitly. As a pragmatic fallback we default such
+	// variables to a same-scope search is not implemented; require annotation.
+	return Type{}, false
+}
+
