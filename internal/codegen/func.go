@@ -179,3 +179,7 @@ func (fb *funcBuilder) genLetStmt(scope *Scope, s *ast.LetStmt) string {
 		if s.Type != nil {
 			t := fb.cg.resolveTypeExpr(s.Type)
 			scope.define(s.Name, t)
+			return compilef("%s %s = %s;", fb.cg.ctype(t), cIdent(s.Name), fb.cg.zeroValueC(t))
+		}
+		t, ok := fb.inferDeferredLocalType(scope, s.Name)
+		if !ok {
