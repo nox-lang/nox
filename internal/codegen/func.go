@@ -383,3 +383,7 @@ func assignOpC(op token.Kind, t Type) string {
 	switch op {
 	case token.ASSIGN:
 		return "="
+	case token.PLUSEQ:
+		return "+="
+	case token.MINUSEQ:
+		return "-="
