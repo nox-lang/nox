@@ -324,3 +324,7 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 					}
 					if !ft.Equals(valType) {
 						panic(fmt.Sprintf("nox: %s: cannot assign %s to static field '%s' of type %s", fb.fname, valType.String(), target.Name, ft.String()))
+					}
+					var sb strings.Builder
+					for _, p := range *pre {
+						sb.WriteString(p)
