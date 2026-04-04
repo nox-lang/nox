@@ -356,3 +356,7 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 			if ci.StructEmitted {
 				panic(fmt.Sprintf("nox: %s: class '%s' has no field '%s' (fields must be established by an assignment inside 'init')", fb.fname, ci.ClassName, target.Name))
 			}
+			if s.Op != token.ASSIGN {
+				panic(fmt.Sprintf("nox: %s: field '%s' of class '%s' must be assigned with '=' the first time (to establish its type)", fb.fname, target.Name, ci.ClassName))
+			}
+			if valType.ContainsUnknown() {
