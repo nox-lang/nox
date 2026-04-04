@@ -332,3 +332,7 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 					lvalue := staticFieldCName(recvIdent.Name, target.Name)
 					if s.Op == token.PLUSEQ && ft.Kind == KString {
 						sb.WriteString(compilef("%s = nox_string_concat(%s, %s);", lvalue, lvalue, valCode))
+					} else {
+						sb.WriteString(compilef("%s %s %s;", lvalue, assignOpC(s.Op, ft), valCode))
+					}
+					return sb.String()
