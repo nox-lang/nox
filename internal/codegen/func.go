@@ -220,3 +220,7 @@ func (fb *funcBuilder) inferDeferredLocalType(scope *Scope, name string) (Type, 
 	return Type{}, false
 }
 
+func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
+	c, pre := newCtx(scope)
+	valCode, valType := fb.genExpr(c, s.Value)
+
