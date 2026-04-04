@@ -260,3 +260,7 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 			panic(fmt.Sprintf("nox: %s: cannot assign %s to variable '%s' of type %s", fb.fname, valType.String(), target.Name, existing.String()))
 		}
 		if existing.Kind == KString && s.Op == token.PLUSEQ {
+			sb.WriteString(compilef("%s = nox_string_concat(%s, %s);", cIdent(target.Name), cIdent(target.Name), valCode))
+			return sb.String()
+		}
+		sb.WriteString(compilef("%s %s %s;", cIdent(target.Name), op, valCode))
