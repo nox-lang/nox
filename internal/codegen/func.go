@@ -236,3 +236,7 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 			if valCode != "" {
 				sb.WriteString(compilef("(void)(%s);", valCode))
 			}
+			return sb.String()
+		}
+		existing, ok := scope.lookup(target.Name)
+		var sb strings.Builder
