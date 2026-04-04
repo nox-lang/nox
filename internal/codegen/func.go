@@ -208,3 +208,7 @@ func (fb *funcBuilder) genLetStmt(scope *Scope, s *ast.LetStmt) string {
 	return sb.String()
 }
 
+// inferDeferredLocalType handles `let value` (no initializer, no type): scan
+// forward in the *same* block for the first plain assignment to this name
+// and use its type. This is a deliberate simplification of Nox's "value
+// starts null until first use" rule (see project README for rationale).
