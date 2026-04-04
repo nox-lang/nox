@@ -244,3 +244,7 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 			sb.WriteString(p)
 		}
 		if !ok {
+			// implicit-typed first assignment (supports `let value` deferred inference)
+			if valType.ContainsUnknown() {
+				panic(fmt.Sprintf("nox: %s: cannot infer the type of '%s' from an empty array literal '[]'; declare it with an explicit type first (let %s: []TYPE)", fb.fname, target.Name, target.Name))
+			}
