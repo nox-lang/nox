@@ -405,3 +405,7 @@ func (fb *funcBuilder) genIfStmt(scope *Scope, s *ast.IfStmt) string {
 	c, pre := newCtx(scope)
 	condCode, condType := fb.genExpr(c, s.Cond)
 	if condType.Kind != KBool {
+		panic(fmt.Sprintf("nox: %s: if condition must be bool, got %s", fb.fname, condType.String()))
+	}
+	var sb strings.Builder
+	for _, p := range *pre {
