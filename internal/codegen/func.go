@@ -256,3 +256,7 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 		if s.Op != token.ASSIGN && !existing.Equals(valType) {
 			panic(fmt.Sprintf("nox: %s: type mismatch in compound assignment to '%s'", fb.fname, target.Name))
 		}
+		if s.Op == token.ASSIGN && !existing.Equals(valType) {
+			panic(fmt.Sprintf("nox: %s: cannot assign %s to variable '%s' of type %s", fb.fname, valType.String(), target.Name, existing.String()))
+		}
+		if existing.Kind == KString && s.Op == token.PLUSEQ {
