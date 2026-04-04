@@ -429,3 +429,7 @@ func (fb *funcBuilder) genIfStmt(scope *Scope, s *ast.IfStmt) string {
 		}
 	} else {
 		sb.WriteString("}\n")
+	}
+	return sb.String()
+}
+
