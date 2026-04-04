@@ -360,3 +360,7 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 				panic(fmt.Sprintf("nox: %s: field '%s' of class '%s' must be assigned with '=' the first time (to establish its type)", fb.fname, target.Name, ci.ClassName))
 			}
 			if valType.ContainsUnknown() {
+				panic(fmt.Sprintf("nox: %s: cannot infer the type of field '%s' from an empty array literal '[]'; give it an explicit type (let %s: []TYPE) or assign a non-empty array first", fb.fname, target.Name, target.Name))
+			}
+			ci.FieldTypes[target.Name] = valType
+			ci.FieldOrder = append(ci.FieldOrder, target.Name)
