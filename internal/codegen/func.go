@@ -308,3 +308,7 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 				sb.WriteString(compilef("%s %s %s;", lvalue, assignOpC(s.Op, *xType.Elem), valCode))
 			}
 			return sb.String()
+		}
+		panic(fmt.Sprintf("nox: %s: indexing requires a slice, array, or map, got %s", fb.fname, xType.String()))
+	case *ast.MemberExpr:
+		if recvIdent, ok := target.X.(*ast.Ident); ok {
