@@ -368,3 +368,7 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 		} else if !ft.Equals(valType) {
 			panic(fmt.Sprintf("nox: %s: cannot assign %s to field '%s' of type %s", fb.fname, valType.String(), target.Name, ft.String()))
 		}
+		lvalue := fmt.Sprintf("(%s)->%s", xCode, target.Name)
+		if s.Op == token.PLUSEQ && ft.Kind == KString {
+			sb.WriteString(compilef("%s = nox_string_concat(%s, %s);", lvalue, lvalue, valCode))
+		} else {
