@@ -228,3 +228,7 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 	case *ast.Ident:
 		if target.Name == "_" {
 			// The blank identifier discards the value (side effects already
+			// captured by *pre above); it is never a real storage location.
+			var sb strings.Builder
+			for _, p := range *pre {
+				sb.WriteString(p)
