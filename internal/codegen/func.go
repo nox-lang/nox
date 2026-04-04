@@ -344,3 +344,7 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 		for _, p := range *pre {
 			sb.WriteString(p)
 		}
+		if xType.Kind != KClass {
+			panic(fmt.Sprintf("nox: %s: cannot assign to member '%s' of non-class value", fb.fname, target.Name))
+		}
+		ci := fb.cg.classInstances[xType.ClassKey]
