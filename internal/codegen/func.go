@@ -421,3 +421,7 @@ func (fb *funcBuilder) genIfStmt(scope *Scope, s *ast.IfStmt) string {
 			// re-indent: drop trailing newline management by concatenation
 			sb.WriteString("{\n")
 			sb.WriteString(indent(inner, "    "))
+			sb.WriteString("}\n")
+		case *ast.BlockStmt:
+			sb.WriteString("{\n")
+			sb.WriteString(indent(fb.genBlock(scope, e), "    "))
