@@ -316,3 +316,7 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 				if _, isClass := fb.cg.classesByName[recvIdent.Name]; isClass {
 					key := recvIdent.Name + "." + target.Name
 					ft, ok := fb.cg.staticFieldType[key]
+					if !ok {
+						panic(fmt.Sprintf("nox: %s: class '%s' has no static field '%s'", fb.fname, recvIdent.Name, target.Name))
+					}
+					if !isExported(target.Name) && fb.currentClassName != recvIdent.Name {
