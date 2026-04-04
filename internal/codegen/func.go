@@ -183,3 +183,7 @@ func (fb *funcBuilder) genLetStmt(scope *Scope, s *ast.LetStmt) string {
 		}
 		t, ok := fb.inferDeferredLocalType(scope, s.Name)
 		if !ok {
+			panic(fmt.Sprintf("nox: cannot infer type of uninitialized variable '%s' in %s; add an explicit type (let %s: TYPE)", s.Name, fb.fname, s.Name))
+		}
+		scope.define(s.Name, t)
+		return compilef("%s %s = %s;", fb.cg.ctype(t), cIdent(s.Name), fb.cg.zeroValueC(t))
