@@ -304,3 +304,7 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 			lvalue := fmt.Sprintf("(*(%s*)nox_map_put(%s, &%s))", fb.cg.ctype(*xType.Elem), xCode, keyTmp)
 			if s.Op == token.PLUSEQ && xType.Elem.Kind == KString {
 				sb.WriteString(compilef("%s = nox_string_concat(%s, %s);", lvalue, lvalue, valCode))
+			} else {
+				sb.WriteString(compilef("%s %s %s;", lvalue, assignOpC(s.Op, *xType.Elem), valCode))
+			}
+			return sb.String()
