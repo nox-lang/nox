@@ -296,3 +296,7 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 			}
 			return sb.String()
 		case KMap:
+			if !idxType.Equals(*xType.Key) {
+				panic(fmt.Sprintf("nox: %s: map key has type %s, expected %s", fb.fname, idxType.String(), xType.Key.String()))
+			}
+			keyTmp := fb.cg.freshTmp("mkey")
