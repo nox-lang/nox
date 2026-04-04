@@ -336,3 +336,7 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 						sb.WriteString(compilef("%s %s %s;", lvalue, assignOpC(s.Op, ft), valCode))
 					}
 					return sb.String()
+				}
+			}
+		}
+		xCode, xType := fb.genExpr(c, target.X)
