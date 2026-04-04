@@ -248,3 +248,7 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 			if valType.ContainsUnknown() {
 				panic(fmt.Sprintf("nox: %s: cannot infer the type of '%s' from an empty array literal '[]'; declare it with an explicit type first (let %s: []TYPE)", fb.fname, target.Name, target.Name))
 			}
+			scope.define(target.Name, valType)
+			sb.WriteString(compilef("%s %s = %s;", fb.cg.ctype(valType), cIdent(target.Name), valCode))
+			return sb.String()
+		}
