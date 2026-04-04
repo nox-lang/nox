@@ -352,3 +352,7 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 		if ok && fieldIsPrivate(ci.Decl, target.Name) && fb.currentClassKey != xType.ClassKey {
 			panic(fmt.Sprintf("nox: %s: '%s' is a private field of class '%s'", fb.fname, target.Name, ci.ClassName))
 		}
+		if !ok {
+			if ci.StructEmitted {
+				panic(fmt.Sprintf("nox: %s: class '%s' has no field '%s' (fields must be established by an assignment inside 'init')", fb.fname, ci.ClassName, target.Name))
+			}
