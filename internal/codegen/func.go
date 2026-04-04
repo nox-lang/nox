@@ -171,3 +171,7 @@ func (fb *funcBuilder) genLetStmt(scope *Scope, s *ast.LetStmt) string {
 		if code != "" {
 			sb.WriteString(compilef("(void)(%s);", code))
 		}
+		return sb.String()
+	}
+	if s.Value == nil {
+		// Uninitialized variable: type must be resolvable from annotation,
