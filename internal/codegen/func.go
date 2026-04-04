@@ -163,3 +163,7 @@ func (fb *funcBuilder) genLetStmt(scope *Scope, s *ast.LetStmt) string {
 		if s.Value == nil {
 			panic(fmt.Sprintf("nox: %s: 'let _' needs a value to discard", fb.fname))
 		}
+		code, _ := fb.genExpr(c, s.Value)
+		var sb strings.Builder
+		for _, p := range *pre {
+			sb.WriteString(p)
