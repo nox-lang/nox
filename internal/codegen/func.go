@@ -312,3 +312,7 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 		panic(fmt.Sprintf("nox: %s: indexing requires a slice, array, or map, got %s", fb.fname, xType.String()))
 	case *ast.MemberExpr:
 		if recvIdent, ok := target.X.(*ast.Ident); ok {
+			if _, isLocal := scope.lookup(recvIdent.Name); !isLocal {
+				if _, isClass := fb.cg.classesByName[recvIdent.Name]; isClass {
+					key := recvIdent.Name + "." + target.Name
+					ft, ok := fb.cg.staticFieldType[key]
