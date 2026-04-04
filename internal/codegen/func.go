@@ -252,3 +252,7 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 			sb.WriteString(compilef("%s %s = %s;", fb.cg.ctype(valType), cIdent(target.Name), valCode))
 			return sb.String()
 		}
+		op := assignOpC(s.Op, existing)
+		if s.Op != token.ASSIGN && !existing.Equals(valType) {
+			panic(fmt.Sprintf("nox: %s: type mismatch in compound assignment to '%s'", fb.fname, target.Name))
+		}
