@@ -276,3 +276,7 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 		case KSlice:
 			elemC := fb.cg.ctype(*xType.Elem)
 			lvalue := fmt.Sprintf("((%s*)(%s).data)[%s]", elemC, xCode, idxCode)
+			sb.WriteString(compilef("nox_slice_check_index(&(%s), %s);", xCode, idxCode))
+			if s.Op == token.PLUSEQ && xType.Elem.Kind == KString {
+				sb.WriteString(compilef("%s = nox_string_concat(%s, %s);", lvalue, lvalue, valCode))
+			} else {
