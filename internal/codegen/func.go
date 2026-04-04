@@ -433,3 +433,7 @@ func (fb *funcBuilder) genIfStmt(scope *Scope, s *ast.IfStmt) string {
 	return sb.String()
 }
 
+// ---------------- if, as an expression ----------------
+//
+// `if` used as a plain statement (genIfStmt, above) is unchanged: no `else`
+// is required, and its branches are ordinary statement lists. `if` used as
