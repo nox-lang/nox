@@ -268,3 +268,7 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 	case *ast.IndexExpr:
 		xCode, xType := fb.genExpr(c, target.X)
 		idxCode, idxType := fb.genExpr(c, target.Index)
+		var sb strings.Builder
+		for _, p := range *pre {
+			sb.WriteString(p)
+		}
