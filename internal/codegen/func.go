@@ -409,3 +409,7 @@ func (fb *funcBuilder) genIfStmt(scope *Scope, s *ast.IfStmt) string {
 	}
 	var sb strings.Builder
 	for _, p := range *pre {
+		sb.WriteString(p)
+	}
+	sb.WriteString(compilef("if (%s) {", condCode))
+	sb.WriteString(indent(fb.genBlock(scope, s.Then), "    "))
