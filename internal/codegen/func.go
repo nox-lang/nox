@@ -376,3 +376,6 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 		}
 		return sb.String()
 	}
+	panic(fmt.Sprintf("nox: %s: invalid assignment target", fb.fname))
+}
+
