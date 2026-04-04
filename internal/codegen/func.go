@@ -401,3 +401,7 @@ func cIdent(name string) string {
 
 // ---------------- if ----------------
 
+func (fb *funcBuilder) genIfStmt(scope *Scope, s *ast.IfStmt) string {
+	c, pre := newCtx(scope)
+	condCode, condType := fb.genExpr(c, s.Cond)
+	if condType.Kind != KBool {
