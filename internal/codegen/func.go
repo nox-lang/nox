@@ -187,3 +187,7 @@ func (fb *funcBuilder) genLetStmt(scope *Scope, s *ast.LetStmt) string {
 		}
 		scope.define(s.Name, t)
 		return compilef("%s %s = %s;", fb.cg.ctype(t), cIdent(s.Name), fb.cg.zeroValueC(t))
+	}
+	code, t := fb.genExpr(c, s.Value)
+	if s.Type != nil {
+		want := fb.cg.resolveTypeExpr(s.Type)
