@@ -453,3 +453,7 @@ func (fb *funcBuilder) genIfExpr(c *ctx, s *ast.IfStmt) (string, Type) {
 	if resultType == nil {
 		panic(fmt.Sprintf("nox: %s: if-expression: could not determine a result type", fb.fname))
 	}
+	c.emit(compilef("%s %s;", fb.cg.ctype(*resultType), resultVar))
+	c.emit(body)
+	return resultVar, *resultType
+}
