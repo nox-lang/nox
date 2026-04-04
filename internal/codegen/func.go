@@ -232,3 +232,7 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 			var sb strings.Builder
 			for _, p := range *pre {
 				sb.WriteString(p)
+			}
+			if valCode != "" {
+				sb.WriteString(compilef("(void)(%s);", valCode))
+			}
