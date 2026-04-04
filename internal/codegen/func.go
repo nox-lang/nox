@@ -272,3 +272,7 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 		for _, p := range *pre {
 			sb.WriteString(p)
 		}
+		switch xType.Kind {
+		case KSlice:
+			elemC := fb.cg.ctype(*xType.Elem)
+			lvalue := fmt.Sprintf("((%s*)(%s).data)[%s]", elemC, xCode, idxCode)
