@@ -348,3 +348,7 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 			panic(fmt.Sprintf("nox: %s: cannot assign to member '%s' of non-class value", fb.fname, target.Name))
 		}
 		ci := fb.cg.classInstances[xType.ClassKey]
+		ft, ok := ci.FieldTypes[target.Name]
+		if ok && fieldIsPrivate(ci.Decl, target.Name) && fb.currentClassKey != xType.ClassKey {
+			panic(fmt.Sprintf("nox: %s: '%s' is a private field of class '%s'", fb.fname, target.Name, ci.ClassName))
+		}
