@@ -379,3 +379,7 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 	panic(fmt.Sprintf("nox: %s: invalid assignment target", fb.fname))
 }
 
+func assignOpC(op token.Kind, t Type) string {
+	switch op {
+	case token.ASSIGN:
+		return "="
