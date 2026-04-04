@@ -425,3 +425,7 @@ func (fb *funcBuilder) genIfStmt(scope *Scope, s *ast.IfStmt) string {
 		case *ast.BlockStmt:
 			sb.WriteString("{\n")
 			sb.WriteString(indent(fb.genBlock(scope, e), "    "))
+			sb.WriteString("}\n")
+		}
+	} else {
+		sb.WriteString("}\n")
