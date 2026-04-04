@@ -288,3 +288,7 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 				panic(fmt.Sprintf("nox: %s: array index must be int", fb.fname))
 			}
 			sb.WriteString(compilef("nox_check_array_index(%s, %dLL);", idxCode, xType.Len))
+			lvalue := fmt.Sprintf("(%s).d[%s]", xCode, idxCode)
+			if s.Op == token.PLUSEQ && xType.Elem.Kind == KString {
+				sb.WriteString(compilef("%s = nox_string_concat(%s, %s);", lvalue, lvalue, valCode))
+			} else {
