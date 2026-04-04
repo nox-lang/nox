@@ -199,3 +199,7 @@ func (fb *funcBuilder) genLetStmt(scope *Scope, s *ast.LetStmt) string {
 	if t.ContainsUnknown() {
 		panic(fmt.Sprintf("nox: %s: cannot infer the element type of an empty array literal assigned to '%s'; add an explicit type (let %s: []TYPE = [])", fb.fname, s.Name, s.Name))
 	}
+	scope.define(s.Name, t)
+	var sb strings.Builder
+	for _, p := range *pre {
+		sb.WriteString(p)
