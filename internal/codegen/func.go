@@ -391,3 +391,7 @@ func assignOpC(op token.Kind, t Type) string {
 		return "*="
 	case token.SLASHEQ:
 		return "/="
+	}
+	return "="
+}
+
