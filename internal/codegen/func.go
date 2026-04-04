@@ -387,3 +387,7 @@ func assignOpC(op token.Kind, t Type) string {
 		return "+="
 	case token.MINUSEQ:
 		return "-="
+	case token.STAREQ:
+		return "*="
+	case token.SLASHEQ:
+		return "/="
