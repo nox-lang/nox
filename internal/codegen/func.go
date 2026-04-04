@@ -175,3 +175,7 @@ func (fb *funcBuilder) genLetStmt(scope *Scope, s *ast.LetStmt) string {
 	}
 	if s.Value == nil {
 		// Uninitialized variable: type must be resolvable from annotation,
+		// or inferred later from the first assignment in this scope.
+		if s.Type != nil {
+			t := fb.cg.resolveTypeExpr(s.Type)
+			scope.define(s.Name, t)
