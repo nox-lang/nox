@@ -284,3 +284,7 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 			}
 			return sb.String()
 		case KArray:
+			if idxType.Kind != KInt {
+				panic(fmt.Sprintf("nox: %s: array index must be int", fb.fname))
+			}
+			sb.WriteString(compilef("nox_check_array_index(%s, %dLL);", idxCode, xType.Len))
