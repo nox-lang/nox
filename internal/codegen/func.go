@@ -300,3 +300,7 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 				panic(fmt.Sprintf("nox: %s: map key has type %s, expected %s", fb.fname, idxType.String(), xType.Key.String()))
 			}
 			keyTmp := fb.cg.freshTmp("mkey")
+			sb.WriteString(compilef("%s %s = %s;", fb.cg.ctype(*xType.Key), keyTmp, idxCode))
+			lvalue := fmt.Sprintf("(*(%s*)nox_map_put(%s, &%s))", fb.cg.ctype(*xType.Elem), xCode, keyTmp)
+			if s.Op == token.PLUSEQ && xType.Elem.Kind == KString {
+				sb.WriteString(compilef("%s = nox_string_concat(%s, %s);", lvalue, lvalue, valCode))
