@@ -320,3 +320,7 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 						panic(fmt.Sprintf("nox: %s: class '%s' has no static field '%s'", fb.fname, recvIdent.Name, target.Name))
 					}
 					if !isExported(target.Name) && fb.currentClassName != recvIdent.Name {
+						panic(fmt.Sprintf("nox: %s: '%s' is a private static field of class '%s'", fb.fname, target.Name, recvIdent.Name))
+					}
+					if !ft.Equals(valType) {
+						panic(fmt.Sprintf("nox: %s: cannot assign %s to static field '%s' of type %s", fb.fname, valType.String(), target.Name, ft.String()))
