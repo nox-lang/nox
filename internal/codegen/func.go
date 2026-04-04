@@ -437,3 +437,7 @@ func (fb *funcBuilder) genIfStmt(scope *Scope, s *ast.IfStmt) string {
 //
 // `if` used as a plain statement (genIfStmt, above) is unchanged: no `else`
 // is required, and its branches are ordinary statement lists. `if` used as
+// an *expression* (e.g. `let x = if (c) { a } else { b }`) is a distinct,
+// stricter form: every branch must be present (an `else` is mandatory) and
+// each branch's final statement must be a bare value expression, which
+// becomes that branch's contribution to the overall result — there is no
