@@ -191,3 +191,7 @@ func (fb *funcBuilder) genLetStmt(scope *Scope, s *ast.LetStmt) string {
 	code, t := fb.genExpr(c, s.Value)
 	if s.Type != nil {
 		want := fb.cg.resolveTypeExpr(s.Type)
+		if !want.Equals(t) {
+			panic(fmt.Sprintf("nox: %s: cannot assign %s to 'let %s: %s'", fb.fname, t.String(), s.Name, want.String()))
+		}
+		t = want
