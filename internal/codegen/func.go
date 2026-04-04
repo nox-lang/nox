@@ -264,3 +264,7 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 			return sb.String()
 		}
 		sb.WriteString(compilef("%s %s %s;", cIdent(target.Name), op, valCode))
+		return sb.String()
+	case *ast.IndexExpr:
+		xCode, xType := fb.genExpr(c, target.X)
+		idxCode, idxType := fb.genExpr(c, target.Index)
