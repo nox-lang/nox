@@ -413,3 +413,7 @@ func (fb *funcBuilder) genIfStmt(scope *Scope, s *ast.IfStmt) string {
 	}
 	sb.WriteString(compilef("if (%s) {", condCode))
 	sb.WriteString(indent(fb.genBlock(scope, s.Then), "    "))
+	if s.Else != nil {
+		sb.WriteString("} else ")
+		switch e := s.Else.(type) {
+		case *ast.IfStmt:
