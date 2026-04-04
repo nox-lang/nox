@@ -224,3 +224,7 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 	c, pre := newCtx(scope)
 	valCode, valType := fb.genExpr(c, s.Value)
 
+	switch target := s.Target.(type) {
+	case *ast.Ident:
+		if target.Name == "_" {
+			// The blank identifier discards the value (side effects already
