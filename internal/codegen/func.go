@@ -340,3 +340,7 @@ func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
 			}
 		}
 		xCode, xType := fb.genExpr(c, target.X)
+		var sb strings.Builder
+		for _, p := range *pre {
+			sb.WriteString(p)
+		}
