@@ -649,3 +649,7 @@ func (fb *funcBuilder) assembleLoop(lc *loopCtx, header, bodyC string, isExprCtx
 		if lc.elemType != nil {
 			elem = *lc.elemType
 		}
+		sb.WriteString(compilef("nox_slice %s = nox_slice_new();", lc.collectVar))
+		sb.WriteString(header + " {\n")
+		sb.WriteString(indent(bodyC, "    "))
+		sb.WriteString("}\n")
