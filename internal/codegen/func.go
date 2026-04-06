@@ -523,3 +523,7 @@ func (fb *funcBuilder) genBranchExpr(parentScope *Scope, block *ast.BlockStmt, r
 // loop or function literal) contains a `next value` (collect mode) and/or a
 // `break value` (break-with-value mode). A `break value` (or `next value`)
 // found inside a nested `switch` belongs to that switch (or, for `next`,
+// still targets the outer loop — but doesn't change *this* loop's own
+// collect-mode determination the way a directly-nested one would... in
+// fact it does, since `next` always targets the nearest real loop even
+// through a switch — see genNextStmt), so both are scanned through nested
