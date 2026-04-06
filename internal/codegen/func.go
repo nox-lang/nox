@@ -510,3 +510,7 @@ func (fb *funcBuilder) genBranchExpr(parentScope *Scope, block *ast.BlockStmt, r
 	if *resultType == nil {
 		tc := t
 		*resultType = &tc
+	} else if !(*resultType).Equals(t) {
+		panic(fmt.Sprintf("nox: %s: if-expression branches have inconsistent types (%s vs %s)", fb.fname, (*resultType).String(), t.String()))
+	}
+	sb.WriteString(compilef("%s = %s;", resultVar, code))
