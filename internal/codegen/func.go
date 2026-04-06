@@ -531,3 +531,7 @@ func (fb *funcBuilder) genBranchExpr(parentScope *Scope, block *ast.BlockStmt, r
 func scanLoopBody(b *ast.BlockStmt) (hasNext, hasBreakValue bool) {
 	var walkStmts func(stmts []ast.Stmt, inSwitch bool)
 	var walkStmt func(st ast.Stmt, inSwitch bool)
+	walkStmt = func(st ast.Stmt, inSwitch bool) {
+		switch s := st.(type) {
+		case *ast.NextStmt:
+			if s.Value != nil {
