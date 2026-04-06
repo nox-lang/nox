@@ -601,3 +601,7 @@ func scanSwitchBody(cases []*ast.SwitchCase, def *ast.BlockStmt) (hasBreakValue 
 	}
 	walkStmts = func(stmts []ast.Stmt) {
 		for _, st := range stmts {
+			walkStmt(st)
+		}
+	}
+	for _, c := range cases {
