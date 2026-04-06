@@ -486,3 +486,7 @@ func (fb *funcBuilder) genIfChainExpr(scope *Scope, s *ast.IfStmt, resultVar str
 	return sb.String()
 }
 
+// genBranchExpr compiles one branch of an if-expression: every statement
+// but the last runs normally, and the last statement must be a bare value
+// expression, assigned into the shared resultVar.
+func (fb *funcBuilder) genBranchExpr(parentScope *Scope, block *ast.BlockStmt, resultVar string, resultType **Type) string {
