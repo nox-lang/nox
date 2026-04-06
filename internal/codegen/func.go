@@ -661,3 +661,7 @@ func (fb *funcBuilder) assembleLoop(lc *loopCtx, header, bodyC string, isExprCtx
 			rt = *lc.resultType
 		}
 		sb.WriteString(compilef("%s %s = %s;", fb.cg.ctype(rt), lc.resultVar, fb.cg.zeroValueC(rt)))
+		sb.WriteString(compilef("bool %s = false;", lc.brokeVar))
+		sb.WriteString(header + " {\n")
+		sb.WriteString(indent(bodyC, "    "))
+		sb.WriteString("}\n")
