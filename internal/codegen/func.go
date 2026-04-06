@@ -458,3 +458,7 @@ func (fb *funcBuilder) genIfExpr(c *ctx, s *ast.IfStmt) (string, Type) {
 	return resultVar, *resultType
 }
 
+func (fb *funcBuilder) genIfChainExpr(scope *Scope, s *ast.IfStmt, resultVar string, resultType **Type) string {
+	c, pre := newCtx(scope)
+	condCode, condType := fb.genExpr(c, s.Cond)
+	if condType.Kind != KBool {
