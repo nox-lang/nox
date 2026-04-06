@@ -694,3 +694,7 @@ func (fb *funcBuilder) genForCond(scope *Scope, s *ast.ForCondStmt, isExprCtx bo
 	}
 	lc := fb.beginLoop(s.Body)
 	bodyC := fb.genBlock(scope, s.Body)
+	bodyC += compilef("%s: ;", lc.continueLabel)
+	fb.endLoop()
+	header := fmt.Sprintf("for (; %s; )", condCode)
+	// re-evaluate condition each iteration if it references mutable state:
