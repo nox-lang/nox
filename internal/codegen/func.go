@@ -716,3 +716,7 @@ func (fb *funcBuilder) genForCond(scope *Scope, s *ast.ForCondStmt, isExprCtx bo
 	return preSB.String() + loopCode, rt, vv
 }
 
+func (fb *funcBuilder) genWhile(scope *Scope, s *ast.WhileStmt, isExprCtx bool) (string, Type, string) {
+	c, pre := newCtx(scope)
+	condCode, ct := fb.genExpr(c, s.Cond)
+	if ct.Kind != KBool {
