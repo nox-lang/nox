@@ -506,3 +506,7 @@ func (fb *funcBuilder) genBranchExpr(parentScope *Scope, block *ast.BlockStmt, r
 	code, t := fb.genExpr(c, es.X)
 	for _, p := range *pre {
 		sb.WriteString(p)
+	}
+	if *resultType == nil {
+		tc := t
+		*resultType = &tc
