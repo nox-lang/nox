@@ -535,3 +535,7 @@ func scanLoopBody(b *ast.BlockStmt) (hasNext, hasBreakValue bool) {
 		switch s := st.(type) {
 		case *ast.NextStmt:
 			if s.Value != nil {
+				hasNext = true
+			}
+		case *ast.BreakStmt:
+			if s.Value != nil && !inSwitch {
