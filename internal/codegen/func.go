@@ -573,3 +573,7 @@ func scanLoopBody(b *ast.BlockStmt) (hasNext, hasBreakValue bool) {
 	return
 }
 
+// scanSwitchBody determines whether this switch's own cases (not crossing
+// into a nested loop, function literal, or nested switch) contain a
+// `break value`.
+func scanSwitchBody(cases []*ast.SwitchCase, def *ast.BlockStmt) (hasBreakValue bool) {
