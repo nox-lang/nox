@@ -482,3 +482,7 @@ func (fb *funcBuilder) genIfChainExpr(scope *Scope, s *ast.IfStmt, resultVar str
 		sb.WriteString("}\n")
 	default:
 		panic(fmt.Sprintf("nox: %s: an if-expression must have an 'else' covering every case", fb.fname))
+	}
+	return sb.String()
+}
+
