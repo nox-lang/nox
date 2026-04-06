@@ -629,3 +629,5 @@ func (fb *funcBuilder) beginLoop(b *ast.BlockStmt) *loopCtx {
 	}
 	fb.loopStack = append(fb.loopStack, lc)
 	return lc
+}
+
