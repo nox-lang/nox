@@ -678,3 +678,7 @@ func (fb *funcBuilder) assembleLoop(lc *loopCtx, header, bodyC string, isExprCtx
 	return sb.String(), resultType, valueVar
 }
 
+func (fb *funcBuilder) genForCond(scope *Scope, s *ast.ForCondStmt, isExprCtx bool) (string, Type, string) {
+	c, pre := newCtx(scope)
+	condCode := "1"
+	if s.Cond != nil {
