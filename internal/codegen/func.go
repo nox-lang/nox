@@ -637,3 +637,7 @@ func (fb *funcBuilder) endLoop() *loopCtx {
 	return lc
 }
 
+// assembleLoop wraps a generated C loop body with whatever preamble/epilogue
+// the loop's mode requires, and reports the resulting (code, Type, isExpr).
+func (fb *funcBuilder) assembleLoop(lc *loopCtx, header, bodyC string, isExprCtx bool) (string, Type, string) {
+	var sb strings.Builder
