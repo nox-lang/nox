@@ -474,3 +474,7 @@ func (fb *funcBuilder) genIfChainExpr(scope *Scope, s *ast.IfStmt, resultVar str
 	switch e := s.Else.(type) {
 	case *ast.IfStmt:
 		sb.WriteString("{\n")
+		sb.WriteString(indent(fb.genIfChainExpr(scope, e, resultVar, resultType), "    "))
+		sb.WriteString("}\n")
+	case *ast.BlockStmt:
+		sb.WriteString("{\n")
