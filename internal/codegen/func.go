@@ -625,3 +625,7 @@ func (fb *funcBuilder) beginLoop(b *ast.BlockStmt) *loopCtx {
 	} else if hasBreakValue {
 		lc.mode = "breakvalue"
 		lc.resultVar = fb.cg.freshTmp("result")
+		lc.brokeVar = fb.cg.freshTmp("broke")
+	}
+	fb.loopStack = append(fb.loopStack, lc)
+	return lc
