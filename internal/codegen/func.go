@@ -466,3 +466,7 @@ func (fb *funcBuilder) genIfChainExpr(scope *Scope, s *ast.IfStmt, resultVar str
 	}
 	var sb strings.Builder
 	for _, p := range *pre {
+		sb.WriteString(p)
+	}
+	sb.WriteString(compilef("if (%s) {", condCode))
+	sb.WriteString(indent(fb.genBranchExpr(scope, s.Then, resultVar, resultType), "    "))
