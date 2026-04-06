@@ -702,3 +702,7 @@ func (fb *funcBuilder) genForCond(scope *Scope, s *ast.ForCondStmt, isExprCtx bo
 	// must recompute them every loop iteration, not hoist once. Use a while
 	// wrapper that re-runs the condition's `pre` computations each pass.
 	if len(*pre) != 0 {
+		// condition has side-effecting pre-statements: emit as for(;;){ pre; if(!cond) break; body }
+		var innerSB strings.Builder
+		for _, p := range *pre {
+			innerSB.WriteString(p)
