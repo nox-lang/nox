@@ -706,3 +706,7 @@ func (fb *funcBuilder) genForCond(scope *Scope, s *ast.ForCondStmt, isExprCtx bo
 		var innerSB strings.Builder
 		for _, p := range *pre {
 			innerSB.WriteString(p)
+		}
+		innerSB.WriteString(compilef("if (!(%s)) break;", condCode))
+		innerSB.WriteString(bodyC)
+		loopCode, rt, vv := fb.assembleLoop(lc, "for (;;)", innerSB.String(), isExprCtx)
