@@ -555,3 +555,7 @@ func scanLoopBody(b *ast.BlockStmt) (hasNext, hasBreakValue bool) {
 			if s.Default != nil {
 				walkStmts(s.Default.Stmts, true)
 			}
+		case *ast.TryStmt:
+			walkStmts(s.Body.Stmts, inSwitch)
+			walkStmts(s.CatchBody.Stmts, inSwitch)
+		// Nested loops and function literals establish a new boundary: a
