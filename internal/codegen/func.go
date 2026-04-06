@@ -457,3 +457,4 @@ func (fb *funcBuilder) genIfExpr(c *ctx, s *ast.IfStmt) (string, Type) {
 	c.emit(body)
 	return resultVar, *resultType
 }
+
