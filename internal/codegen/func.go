@@ -571,3 +571,5 @@ func scanLoopBody(b *ast.BlockStmt) (hasNext, hasBreakValue bool) {
 	}
 	walkStmts(b.Stmts, false)
 	return
+}
+
