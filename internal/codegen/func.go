@@ -617,3 +617,7 @@ func (fb *funcBuilder) beginLoop(b *ast.BlockStmt) *loopCtx {
 	hasNext, hasBreakValue := scanLoopBody(b)
 	if hasNext && hasBreakValue {
 		panic(fmt.Sprintf("nox: %s: a loop cannot mix a value-collecting 'next' with a value-carrying 'break' in the same loop", fb.fname))
+	}
+	lc := &loopCtx{mode: "plain", continueLabel: fb.cg.freshTmp("continue")}
+	if hasNext {
+		lc.mode = "collect"
