@@ -645,3 +645,7 @@ func (fb *funcBuilder) assembleLoop(lc *loopCtx, header, bodyC string, isExprCtx
 	valueVar := ""
 	switch lc.mode {
 	case "collect":
+		elem := TInt()
+		if lc.elemType != nil {
+			elem = *lc.elemType
+		}
