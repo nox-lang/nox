@@ -621,3 +621,7 @@ func (fb *funcBuilder) beginLoop(b *ast.BlockStmt) *loopCtx {
 	lc := &loopCtx{mode: "plain", continueLabel: fb.cg.freshTmp("continue")}
 	if hasNext {
 		lc.mode = "collect"
+		lc.collectVar = fb.cg.freshTmp("collect")
+	} else if hasBreakValue {
+		lc.mode = "breakvalue"
+		lc.resultVar = fb.cg.freshTmp("result")
