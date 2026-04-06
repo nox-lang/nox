@@ -653,3 +653,7 @@ func (fb *funcBuilder) assembleLoop(lc *loopCtx, header, bodyC string, isExprCtx
 		sb.WriteString(header + " {\n")
 		sb.WriteString(indent(bodyC, "    "))
 		sb.WriteString("}\n")
+		resultType = TSlice(elem)
+		valueVar = lc.collectVar
+	case "breakvalue":
+		rt := TInt()
