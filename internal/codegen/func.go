@@ -690,3 +690,7 @@ func (fb *funcBuilder) genForCond(scope *Scope, s *ast.ForCondStmt, isExprCtx bo
 	}
 	var preSB strings.Builder
 	for _, p := range *pre {
+		preSB.WriteString(p)
+	}
+	lc := fb.beginLoop(s.Body)
+	bodyC := fb.genBlock(scope, s.Body)
