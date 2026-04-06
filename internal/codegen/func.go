@@ -527,3 +527,7 @@ func (fb *funcBuilder) genBranchExpr(parentScope *Scope, block *ast.BlockStmt, r
 // collect-mode determination the way a directly-nested one would... in
 // fact it does, since `next` always targets the nearest real loop even
 // through a switch — see genNextStmt), so both are scanned through nested
+// switches the same way `next`'s own runtime targeting works.
+func scanLoopBody(b *ast.BlockStmt) (hasNext, hasBreakValue bool) {
+	var walkStmts func(stmts []ast.Stmt, inSwitch bool)
+	var walkStmt func(st ast.Stmt, inSwitch bool)
