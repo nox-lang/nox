@@ -720,3 +720,7 @@ func (fb *funcBuilder) genWhile(scope *Scope, s *ast.WhileStmt, isExprCtx bool) 
 	c, pre := newCtx(scope)
 	condCode, ct := fb.genExpr(c, s.Cond)
 	if ct.Kind != KBool {
+		panic(fmt.Sprintf("nox: %s: while-condition must be bool", fb.fname))
+	}
+	lc := fb.beginLoop(s.Body)
+	bodyC := fb.genBlock(scope, s.Body)
