@@ -669,3 +669,7 @@ func (fb *funcBuilder) assembleLoop(lc *loopCtx, header, bodyC string, isExprCtx
 		valueVar = lc.resultVar
 	default:
 		sb.WriteString(header + " {\n")
+		sb.WriteString(indent(bodyC, "    "))
+		sb.WriteString("}\n")
+		if isExprCtx {
+			panic(fmt.Sprintf("nox: %s: this loop/switch produces no value (no collecting 'next' or value-carrying 'break') but is used as an expression", fb.fname))
