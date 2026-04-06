@@ -710,3 +710,7 @@ func (fb *funcBuilder) genForCond(scope *Scope, s *ast.ForCondStmt, isExprCtx bo
 		innerSB.WriteString(compilef("if (!(%s)) break;", condCode))
 		innerSB.WriteString(bodyC)
 		loopCode, rt, vv := fb.assembleLoop(lc, "for (;;)", innerSB.String(), isExprCtx)
+		return preSB.String() + loopCode, rt, vv
+	}
+	loopCode, rt, vv := fb.assembleLoop(lc, header, bodyC, isExprCtx)
+	return preSB.String() + loopCode, rt, vv
