@@ -641,3 +641,7 @@ func (fb *funcBuilder) endLoop() *loopCtx {
 // the loop's mode requires, and reports the resulting (code, Type, isExpr).
 func (fb *funcBuilder) assembleLoop(lc *loopCtx, header, bodyC string, isExprCtx bool) (string, Type, string) {
 	var sb strings.Builder
+	resultType := TVoid()
+	valueVar := ""
+	switch lc.mode {
+	case "collect":
