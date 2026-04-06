@@ -470,3 +470,7 @@ func (fb *funcBuilder) genIfChainExpr(scope *Scope, s *ast.IfStmt, resultVar str
 	}
 	sb.WriteString(compilef("if (%s) {", condCode))
 	sb.WriteString(indent(fb.genBranchExpr(scope, s.Then, resultVar, resultType), "    "))
+	sb.WriteString("} else ")
+	switch e := s.Else.(type) {
+	case *ast.IfStmt:
+		sb.WriteString("{\n")
