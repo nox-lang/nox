@@ -698,3 +698,7 @@ func (fb *funcBuilder) genForCond(scope *Scope, s *ast.ForCondStmt, isExprCtx bo
 	fb.endLoop()
 	header := fmt.Sprintf("for (; %s; )", condCode)
 	// re-evaluate condition each iteration if it references mutable state:
+	// since Nox conditions are arbitrary expressions (not just idents), we
+	// must recompute them every loop iteration, not hoist once. Use a while
+	// wrapper that re-runs the condition's `pre` computations each pass.
+	if len(*pre) != 0 {
