@@ -665,3 +665,7 @@ func (fb *funcBuilder) assembleLoop(lc *loopCtx, header, bodyC string, isExprCtx
 		sb.WriteString(header + " {\n")
 		sb.WriteString(indent(bodyC, "    "))
 		sb.WriteString("}\n")
+		resultType = rt
+		valueVar = lc.resultVar
+	default:
+		sb.WriteString(header + " {\n")
