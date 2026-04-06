@@ -682,3 +682,7 @@ func (fb *funcBuilder) genForCond(scope *Scope, s *ast.ForCondStmt, isExprCtx bo
 	c, pre := newCtx(scope)
 	condCode := "1"
 	if s.Cond != nil {
+		var ct Type
+		condCode, ct = fb.genExpr(c, s.Cond)
+		if ct.Kind != KBool {
+			panic(fmt.Sprintf("nox: %s: for-condition must be bool", fb.fname))
