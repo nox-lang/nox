@@ -563,3 +563,7 @@ func scanLoopBody(b *ast.BlockStmt) (hasNext, hasBreakValue bool) {
 		case *ast.ForCondStmt, *ast.ForInStmt, *ast.WhileStmt:
 			return
 		}
+	}
+	walkStmts = func(stmts []ast.Stmt, inSwitch bool) {
+		for _, st := range stmts {
+			walkStmt(st, inSwitch)
