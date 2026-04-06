@@ -714,3 +714,5 @@ func (fb *funcBuilder) genForCond(scope *Scope, s *ast.ForCondStmt, isExprCtx bo
 	}
 	loopCode, rt, vv := fb.assembleLoop(lc, header, bodyC, isExprCtx)
 	return preSB.String() + loopCode, rt, vv
+}
+
