@@ -677,3 +677,4 @@ func (fb *funcBuilder) assembleLoop(lc *loopCtx, header, bodyC string, isExprCtx
 	}
 	return sb.String(), resultType, valueVar
 }
+
