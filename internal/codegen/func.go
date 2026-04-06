@@ -577,3 +577,7 @@ func scanLoopBody(b *ast.BlockStmt) (hasNext, hasBreakValue bool) {
 // into a nested loop, function literal, or nested switch) contain a
 // `break value`.
 func scanSwitchBody(cases []*ast.SwitchCase, def *ast.BlockStmt) (hasBreakValue bool) {
+	var walkStmts func([]ast.Stmt)
+	var walkStmt func(ast.Stmt)
+	walkStmt = func(st ast.Stmt) {
+		switch s := st.(type) {
