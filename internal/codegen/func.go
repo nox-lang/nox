@@ -559,3 +559,7 @@ func scanLoopBody(b *ast.BlockStmt) (hasNext, hasBreakValue bool) {
 			walkStmts(s.Body.Stmts, inSwitch)
 			walkStmts(s.CatchBody.Stmts, inSwitch)
 		// Nested loops and function literals establish a new boundary: a
+		// `next`/`break value` inside them belongs to *that* construct.
+		case *ast.ForCondStmt, *ast.ForInStmt, *ast.WhileStmt:
+			return
+		}
