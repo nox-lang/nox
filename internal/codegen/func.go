@@ -589,3 +589,7 @@ func scanSwitchBody(cases []*ast.SwitchCase, def *ast.BlockStmt) (hasBreakValue 
 			walkStmts(s.Then.Stmts)
 			if s.Else != nil {
 				walkStmt(s.Else)
+			}
+		case *ast.BlockStmt:
+			walkStmts(s.Stmts)
+		case *ast.TryStmt:
