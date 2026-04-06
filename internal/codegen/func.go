@@ -519,3 +519,7 @@ func (fb *funcBuilder) genBranchExpr(parentScope *Scope, block *ast.BlockStmt, r
 
 // ---------------- loops ----------------
 
+// scanLoopBody determines whether the loop body (not crossing into a nested
+// loop or function literal) contains a `next value` (collect mode) and/or a
+// `break value` (break-with-value mode). A `break value` (or `next value`)
+// found inside a nested `switch` belongs to that switch (or, for `next`,
