@@ -498,3 +498,7 @@ func (fb *funcBuilder) genBranchExpr(parentScope *Scope, block *ast.BlockStmt, r
 	for _, st := range block.Stmts[:len(block.Stmts)-1] {
 		sb.WriteString(fb.genStmt(scope, st))
 	}
+	es, ok := block.Stmts[len(block.Stmts)-1].(*ast.ExprStmt)
+	if !ok {
+		panic(fmt.Sprintf("nox: %s: an if-expression branch must end with a value expression", fb.fname))
+	}
