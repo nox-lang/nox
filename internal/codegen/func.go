@@ -657,3 +657,7 @@ func (fb *funcBuilder) assembleLoop(lc *loopCtx, header, bodyC string, isExprCtx
 		valueVar = lc.collectVar
 	case "breakvalue":
 		rt := TInt()
+		if lc.resultType != nil {
+			rt = *lc.resultType
+		}
+		sb.WriteString(compilef("%s %s = %s;", fb.cg.ctype(rt), lc.resultVar, fb.cg.zeroValueC(rt)))
