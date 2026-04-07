@@ -780,3 +780,7 @@ func (fb *funcBuilder) genForIn(scope *Scope, s *ast.ForInStmt, isExprCtx bool) 
 	arrTmp := fb.cg.freshTmp("arr")
 	preSB.WriteString(compilef("nox_slice %s = %s;", arrTmp, arrCode))
 
+	inner := newScope(scope)
+	idxVar := fb.cg.freshTmp("i")
+	if s.IndexName != "" && s.IndexName != "_" {
+		inner.define(s.IndexName, TInt())
