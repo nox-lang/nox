@@ -928,3 +928,7 @@ func (fb *funcBuilder) genForInRange(scope *Scope, s *ast.ForInStmt, args []ast.
 	if s.IndexName != "" && s.IndexName != "_" {
 		bodySB.WriteString(compilef("int64_t %s = %s;", cIdent(s.IndexName), idxVar))
 	}
+	bodySB.WriteString(fb.genBlock(inner, s.Body))
+	bodySB.WriteString(compilef("%s: ;", lc.continueLabel))
+	fb.endLoop()
+
