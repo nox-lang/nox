@@ -872,3 +872,7 @@ func (fb *funcBuilder) genForInMap(scope *Scope, s *ast.ForInStmt, pre, mapCode 
 	bodySB.WriteString(compilef("%s: ;", lc.continueLabel))
 	fb.endLoop()
 
+	header := fmt.Sprintf("for (int64_t %s = 0; %s < nox_map_used(%s); %s++)", idxVar, idxVar, mapTmp, idxVar)
+	loopCode, rt, vv := fb.assembleLoop(lc, header, bodySB.String(), isExprCtx)
+	return pre + loopCode, rt, vv
+}
