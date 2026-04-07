@@ -851,3 +851,7 @@ func (fb *funcBuilder) genForInMap(scope *Scope, s *ast.ForInStmt, pre, mapCode 
 	if s.IndexName != "" && s.IndexName != "_" {
 		inner.define(s.IndexName, keyType)
 	}
+	if s.ValueName != "_" {
+		inner.define(s.ValueName, valType)
+	}
+
