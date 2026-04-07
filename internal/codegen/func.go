@@ -788,3 +788,4 @@ func (fb *funcBuilder) genForIn(scope *Scope, s *ast.ForInStmt, isExprCtx bool) 
 	if s.ValueName != "_" {
 		inner.define(s.ValueName, elemType)
 	}
+
