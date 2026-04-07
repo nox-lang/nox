@@ -739,3 +739,7 @@ func (fb *funcBuilder) genWhile(scope *Scope, s *ast.WhileStmt, isExprCtx bool) 
 	return fb.assembleLoop(lc, "for (;;)", innerSB.String(), isExprCtx)
 }
 
+// isRangeCall reports whether e is a call to the built-in `range(...)`
+// pseudo-function, and returns its argument expressions.
+func isRangeCall(e ast.Expr) ([]ast.Expr, bool) {
+	call, ok := e.(*ast.CallExpr)
