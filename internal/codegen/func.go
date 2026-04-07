@@ -867,3 +867,7 @@ func (fb *funcBuilder) genForInMap(scope *Scope, s *ast.ForInStmt, pre, mapCode 
 	}
 	if s.ValueName != "_" {
 		bodySB.WriteString(compilef("%s %s = *(%s*)%s;", fb.cg.ctype(valType), cIdent(s.ValueName), fb.cg.ctype(valType), valPtr))
+	}
+	bodySB.WriteString(fb.genBlock(inner, s.Body))
+	bodySB.WriteString(compilef("%s: ;", lc.continueLabel))
+	fb.endLoop()
