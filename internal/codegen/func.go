@@ -901,3 +901,7 @@ func (fb *funcBuilder) genForInRange(scope *Scope, s *ast.ForInStmt, args []ast.
 	case 2:
 		loCode, hiCode, stepCode = evalInt(args[0]), evalInt(args[1]), "1LL"
 	case 3:
+		loCode, hiCode, stepCode = evalInt(args[0]), evalInt(args[1]), evalInt(args[2])
+	}
+	for _, p := range *pre {
+		preSB.WriteString(p)
