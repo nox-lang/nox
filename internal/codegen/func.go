@@ -806,3 +806,7 @@ func (fb *funcBuilder) genForIn(scope *Scope, s *ast.ForInStmt, isExprCtx bool) 
 	return preSB.String() + loopCode, rt, vv
 }
 
+// genForInFixedArray is genForIn's [N]T counterpart: it reads through the
+// by-value struct's .d[] field instead of a nox_slice's .data.
+func (fb *funcBuilder) genForInFixedArray(scope *Scope, s *ast.ForInStmt, pre, arrCode string, arrType Type, isExprCtx bool) (string, Type, string) {
+	elemType := *arrType.Elem
