@@ -764,3 +764,6 @@ func (fb *funcBuilder) genForIn(scope *Scope, s *ast.ForInStmt, isExprCtx bool) 
 	arrCode, arrType := fb.genExpr(c, s.Array)
 	var preSB strings.Builder
 	for _, p := range *pre {
+		preSB.WriteString(p)
+	}
+
