@@ -810,3 +810,6 @@ func (fb *funcBuilder) genForIn(scope *Scope, s *ast.ForInStmt, isExprCtx bool) 
 // by-value struct's .d[] field instead of a nox_slice's .data.
 func (fb *funcBuilder) genForInFixedArray(scope *Scope, s *ast.ForInStmt, pre, arrCode string, arrType Type, isExprCtx bool) (string, Type, string) {
 	elemType := *arrType.Elem
+	arrTmp := fb.cg.freshTmp("farr")
+	pre += compilef("%s %s = %s;", fb.cg.ctype(arrType), arrTmp, arrCode)
+
