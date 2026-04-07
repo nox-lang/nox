@@ -817,3 +817,7 @@ func (fb *funcBuilder) genForInFixedArray(scope *Scope, s *ast.ForInStmt, pre, a
 	idxVar := fb.cg.freshTmp("i")
 	if s.IndexName != "" && s.IndexName != "_" {
 		inner.define(s.IndexName, TInt())
+	}
+	if s.ValueName != "_" {
+		inner.define(s.ValueName, elemType)
+	}
