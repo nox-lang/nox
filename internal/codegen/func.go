@@ -753,3 +753,7 @@ func isRangeCall(e ast.Expr) ([]ast.Expr, bool) {
 	return call.Args, true
 }
 
+func (fb *funcBuilder) genForIn(scope *Scope, s *ast.ForInStmt, isExprCtx bool) (string, Type, string) {
+	// `for (v in range(...))` / `for (i, v in range(...))`: a direct
+	// counting loop, without materializing a []int — see genRangeArgs.
+	if args, ok := isRangeCall(s.Array); ok {
