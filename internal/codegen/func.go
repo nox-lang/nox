@@ -936,3 +936,6 @@ func (fb *funcBuilder) genForInRange(scope *Scope, s *ast.ForInStmt, args []ast.
 		"for (int64_t %s = %s, %s = 0; (%s > 0) ? (%s < %s) : (%s > %s); %s += %s, %s++)",
 		vVar, loTmp, idxVar, stepTmp, vVar, hiTmp, vVar, hiTmp, vVar, stepTmp, idxVar)
 	loopCode, rt, vv := fb.assembleLoop(lc, header, bodySB.String(), isExprCtx)
+	return preSB.String() + loopCode, rt, vv
+}
+
