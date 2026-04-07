@@ -743,3 +743,7 @@ func (fb *funcBuilder) genWhile(scope *Scope, s *ast.WhileStmt, isExprCtx bool) 
 // pseudo-function, and returns its argument expressions.
 func isRangeCall(e ast.Expr) ([]ast.Expr, bool) {
 	call, ok := e.(*ast.CallExpr)
+	if !ok {
+		return nil, false
+	}
+	id, ok := call.Callee.(*ast.Ident)
