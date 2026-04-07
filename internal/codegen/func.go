@@ -821,3 +821,4 @@ func (fb *funcBuilder) genForInFixedArray(scope *Scope, s *ast.ForInStmt, pre, a
 	if s.ValueName != "_" {
 		inner.define(s.ValueName, elemType)
 	}
+
