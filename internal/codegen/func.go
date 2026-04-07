@@ -855,3 +855,7 @@ func (fb *funcBuilder) genForInMap(scope *Scope, s *ast.ForInStmt, pre, mapCode 
 		inner.define(s.ValueName, valType)
 	}
 
+	idxVar := fb.cg.freshTmp("mi")
+	keyPtr := fb.cg.freshTmp("mk")
+	valPtr := fb.cg.freshTmp("mv")
+	lc := fb.beginLoop(s.Body)
