@@ -924,3 +924,7 @@ func (fb *funcBuilder) genForInRange(scope *Scope, s *ast.ForInStmt, args []ast.
 	var bodySB strings.Builder
 	if s.ValueName != "_" {
 		bodySB.WriteString(compilef("int64_t %s = %s;", cIdent(s.ValueName), vVar))
+	}
+	if s.IndexName != "" && s.IndexName != "_" {
+		bodySB.WriteString(compilef("int64_t %s = %s;", cIdent(s.IndexName), idxVar))
+	}
