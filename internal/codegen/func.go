@@ -847,3 +847,7 @@ func (fb *funcBuilder) genForInMap(scope *Scope, s *ast.ForInStmt, pre, mapCode 
 	mapTmp := fb.cg.freshTmp("map")
 	pre += compilef("nox_map* %s = %s;", mapTmp, mapCode)
 
+	inner := newScope(scope)
+	if s.IndexName != "" && s.IndexName != "_" {
+		inner.define(s.IndexName, keyType)
+	}
