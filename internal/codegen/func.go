@@ -910,3 +910,7 @@ func (fb *funcBuilder) genForInRange(scope *Scope, s *ast.ForInStmt, args []ast.
 	preSB.WriteString(compilef("int64_t %s = %s, %s = %s, %s = %s;", loTmp, loCode, hiTmp, hiCode, stepTmp, stepCode))
 	preSB.WriteString(compilef("if (%s == 0) { nox_panic(\"range: step must not be zero\"); }", stepTmp))
 
+	inner := newScope(scope)
+	if s.IndexName != "" && s.IndexName != "_" {
+		inner.define(s.IndexName, TInt())
+	}
