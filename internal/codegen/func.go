@@ -801,3 +801,7 @@ func (fb *funcBuilder) genForIn(scope *Scope, s *ast.ForInStmt, isExprCtx bool) 
 	bodySB.WriteString(compilef("%s: ;", lc.continueLabel))
 	fb.endLoop()
 
+	header := fmt.Sprintf("for (int64_t %s = 0; %s < %s.len; %s++)", idxVar, idxVar, arrTmp, idxVar)
+	loopCode, rt, vv := fb.assembleLoop(lc, header, bodySB.String(), isExprCtx)
+	return preSB.String() + loopCode, rt, vv
+}
