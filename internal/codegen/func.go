@@ -876,3 +876,4 @@ func (fb *funcBuilder) genForInMap(scope *Scope, s *ast.ForInStmt, pre, mapCode 
 	loopCode, rt, vv := fb.assembleLoop(lc, header, bodySB.String(), isExprCtx)
 	return pre + loopCode, rt, vv
 }
+
