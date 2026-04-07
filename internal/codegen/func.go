@@ -779,3 +779,4 @@ func (fb *funcBuilder) genForIn(scope *Scope, s *ast.ForInStmt, isExprCtx bool) 
 	elemType := *arrType.Elem
 	arrTmp := fb.cg.freshTmp("arr")
 	preSB.WriteString(compilef("nox_slice %s = %s;", arrTmp, arrCode))
+
