@@ -914,3 +914,7 @@ func (fb *funcBuilder) genForInRange(scope *Scope, s *ast.ForInStmt, args []ast.
 	if s.IndexName != "" && s.IndexName != "_" {
 		inner.define(s.IndexName, TInt())
 	}
+	if s.ValueName != "_" {
+		inner.define(s.ValueName, TInt())
+	}
+	idxVar := fb.cg.freshTmp("ri")
