@@ -877,3 +877,7 @@ func (fb *funcBuilder) genForInMap(scope *Scope, s *ast.ForInStmt, pre, mapCode 
 	return pre + loopCode, rt, vv
 }
 
+// genForInRange implements `for (v in range(...))` / `for (i, v in
+// range(...))` as a direct counting loop — range()'s bounds are evaluated
+// once, up front, exactly like any other for-in's source expression, but no
+// []int is ever materialized.
