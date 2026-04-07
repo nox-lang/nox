@@ -757,3 +757,6 @@ func (fb *funcBuilder) genForIn(scope *Scope, s *ast.ForInStmt, isExprCtx bool) 
 	// `for (v in range(...))` / `for (i, v in range(...))`: a direct
 	// counting loop, without materializing a []int — see genRangeArgs.
 	if args, ok := isRangeCall(s.Array); ok {
+		return fb.genForInRange(scope, s, args, isExprCtx)
+	}
+
