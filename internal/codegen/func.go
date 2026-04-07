@@ -893,3 +893,7 @@ func (fb *funcBuilder) genForInRange(scope *Scope, s *ast.ForInStmt, args []ast.
 			panic(fmt.Sprintf("nox: %s: range(...) arguments must be int", fb.fname))
 		}
 		return code
+	}
+	var loCode, hiCode, stepCode string
+	switch len(args) {
+	case 1:
