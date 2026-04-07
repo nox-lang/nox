@@ -839,3 +839,7 @@ func (fb *funcBuilder) genForInFixedArray(scope *Scope, s *ast.ForInStmt, pre, a
 	return pre + loopCode, rt, vv
 }
 
+// genForInMap implements `for (v in m)` (values) and `for (k, v in m)`
+// (key/value pairs), reusing the same `for (a[, b] in expr)` grammar as
+// slice/array iteration — the first variable takes the index/key slot.
+func (fb *funcBuilder) genForInMap(scope *Scope, s *ast.ForInStmt, pre, mapCode string, mapType Type, isExprCtx bool) (string, Type, string) {
