@@ -834,3 +834,7 @@ func (fb *funcBuilder) genForInFixedArray(scope *Scope, s *ast.ForInStmt, pre, a
 	bodySB.WriteString(compilef("%s: ;", lc.continueLabel))
 	fb.endLoop()
 
+	header := fmt.Sprintf("for (int64_t %s = 0; %s < %d; %s++)", idxVar, idxVar, arrType.Len, idxVar)
+	loopCode, rt, vv := fb.assembleLoop(lc, header, bodySB.String(), isExprCtx)
+	return pre + loopCode, rt, vv
+}
