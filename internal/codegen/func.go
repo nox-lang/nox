@@ -863,3 +863,7 @@ func (fb *funcBuilder) genForInMap(scope *Scope, s *ast.ForInStmt, pre, mapCode 
 	bodySB.WriteString(compilef("void *%s, *%s;", keyPtr, valPtr))
 	bodySB.WriteString(compilef("if (!nox_map_entry(%s, %s, &%s, &%s)) { goto %s; }", mapTmp, idxVar, keyPtr, valPtr, lc.continueLabel))
 	if s.IndexName != "" && s.IndexName != "_" {
+		bodySB.WriteString(compilef("%s %s = *(%s*)%s;", fb.cg.ctype(keyType), cIdent(s.IndexName), fb.cg.ctype(keyType), keyPtr))
+	}
+	if s.ValueName != "_" {
+		bodySB.WriteString(compilef("%s %s = *(%s*)%s;", fb.cg.ctype(valType), cIdent(s.ValueName), fb.cg.ctype(valType), valPtr))
