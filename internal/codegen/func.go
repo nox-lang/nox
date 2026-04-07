@@ -885,3 +885,7 @@ func (fb *funcBuilder) genForInRange(scope *Scope, s *ast.ForInStmt, args []ast.
 	if len(args) < 1 || len(args) > 3 {
 		panic(fmt.Sprintf("nox: %s: range(...) takes 1 to 3 int arguments (range(hi), range(lo, hi), range(lo, hi, step))", fb.fname))
 	}
+	c, pre := newCtx(scope)
+	var preSB strings.Builder
+	evalInt := func(e ast.Expr) string {
+		code, t := fb.genExpr(c, e)
