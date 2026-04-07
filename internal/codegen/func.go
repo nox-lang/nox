@@ -789,3 +789,7 @@ func (fb *funcBuilder) genForIn(scope *Scope, s *ast.ForInStmt, isExprCtx bool) 
 		inner.define(s.ValueName, elemType)
 	}
 
+	lc := fb.beginLoop(s.Body)
+	var bodySB strings.Builder
+	if s.ValueName != "_" {
+		bodySB.WriteString(compilef("%s %s = ((%s*)%s.data)[%s];", fb.cg.ctype(elemType), cIdent(s.ValueName), fb.cg.ctype(elemType), arrTmp, idxVar))
