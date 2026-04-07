@@ -889,3 +889,7 @@ func (fb *funcBuilder) genForInRange(scope *Scope, s *ast.ForInStmt, args []ast.
 	var preSB strings.Builder
 	evalInt := func(e ast.Expr) string {
 		code, t := fb.genExpr(c, e)
+		if t.Kind != KInt {
+			panic(fmt.Sprintf("nox: %s: range(...) arguments must be int", fb.fname))
+		}
+		return code
