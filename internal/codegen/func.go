@@ -793,3 +793,7 @@ func (fb *funcBuilder) genForIn(scope *Scope, s *ast.ForInStmt, isExprCtx bool) 
 	var bodySB strings.Builder
 	if s.ValueName != "_" {
 		bodySB.WriteString(compilef("%s %s = ((%s*)%s.data)[%s];", fb.cg.ctype(elemType), cIdent(s.ValueName), fb.cg.ctype(elemType), arrTmp, idxVar))
+	}
+	if s.IndexName != "" && s.IndexName != "_" {
+		bodySB.WriteString(compilef("%s %s = %s;", fb.cg.ctype(TInt()), cIdent(s.IndexName), idxVar))
+	}
