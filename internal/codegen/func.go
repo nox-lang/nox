@@ -771,3 +771,7 @@ func (fb *funcBuilder) genForIn(scope *Scope, s *ast.ForInStmt, isExprCtx bool) 
 		return fb.genForInMap(scope, s, preSB.String(), arrCode, arrType, isExprCtx)
 	}
 	if arrType.Kind == KArray {
+		return fb.genForInFixedArray(scope, s, preSB.String(), arrCode, arrType, isExprCtx)
+	}
+	if arrType.Kind != KSlice {
+		panic(fmt.Sprintf("nox: %s: 'for (... in ...)' requires a slice, array, or map, got %s", fb.fname, arrType.String()))
