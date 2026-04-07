@@ -751,3 +751,5 @@ func isRangeCall(e ast.Expr) ([]ast.Expr, bool) {
 		return nil, false
 	}
 	return call.Args, true
+}
+
