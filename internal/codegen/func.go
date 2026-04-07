@@ -747,3 +747,7 @@ func isRangeCall(e ast.Expr) ([]ast.Expr, bool) {
 		return nil, false
 	}
 	id, ok := call.Callee.(*ast.Ident)
+	if !ok || id.Name != "range" {
+		return nil, false
+	}
+	return call.Args, true
