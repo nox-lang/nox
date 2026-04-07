@@ -939,3 +939,5 @@ func (fb *funcBuilder) genForInRange(scope *Scope, s *ast.ForInStmt, args []ast.
 	return preSB.String() + loopCode, rt, vv
 }
 
+// ---------------- switch ----------------
+
