@@ -724,3 +724,7 @@ func (fb *funcBuilder) genWhile(scope *Scope, s *ast.WhileStmt, isExprCtx bool) 
 	}
 	lc := fb.beginLoop(s.Body)
 	bodyC := fb.genBlock(scope, s.Body)
+	bodyC += compilef("%s: ;", lc.continueLabel)
+	fb.endLoop()
+	if len(*pre) == 0 {
+		header := fmt.Sprintf("while (%s)", condCode)
