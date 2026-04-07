@@ -918,3 +918,5 @@ func (fb *funcBuilder) genForInRange(scope *Scope, s *ast.ForInStmt, args []ast.
 		inner.define(s.ValueName, TInt())
 	}
 	idxVar := fb.cg.freshTmp("ri")
+	vVar := fb.cg.freshTmp("rv")
+
