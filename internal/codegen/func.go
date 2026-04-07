@@ -805,3 +805,4 @@ func (fb *funcBuilder) genForIn(scope *Scope, s *ast.ForInStmt, isExprCtx bool) 
 	loopCode, rt, vv := fb.assembleLoop(lc, header, bodySB.String(), isExprCtx)
 	return preSB.String() + loopCode, rt, vv
 }
+
