@@ -881,3 +881,7 @@ func (fb *funcBuilder) genForInMap(scope *Scope, s *ast.ForInStmt, pre, mapCode 
 // range(...))` as a direct counting loop — range()'s bounds are evaluated
 // once, up front, exactly like any other for-in's source expression, but no
 // []int is ever materialized.
+func (fb *funcBuilder) genForInRange(scope *Scope, s *ast.ForInStmt, args []ast.Expr, isExprCtx bool) (string, Type, string) {
+	if len(args) < 1 || len(args) > 3 {
+		panic(fmt.Sprintf("nox: %s: range(...) takes 1 to 3 int arguments (range(hi), range(lo, hi), range(lo, hi, step))", fb.fname))
+	}
