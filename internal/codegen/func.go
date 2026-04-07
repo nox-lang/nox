@@ -909,3 +909,4 @@ func (fb *funcBuilder) genForInRange(scope *Scope, s *ast.ForInStmt, args []ast.
 	loTmp, hiTmp, stepTmp := fb.cg.freshTmp("rlo"), fb.cg.freshTmp("rhi"), fb.cg.freshTmp("rstep")
 	preSB.WriteString(compilef("int64_t %s = %s, %s = %s, %s = %s;", loTmp, loCode, hiTmp, hiCode, stepTmp, stepCode))
 	preSB.WriteString(compilef("if (%s == 0) { nox_panic(\"range: step must not be zero\"); }", stepTmp))
+
