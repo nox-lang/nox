@@ -897,3 +897,7 @@ func (fb *funcBuilder) genForInRange(scope *Scope, s *ast.ForInStmt, args []ast.
 	var loCode, hiCode, stepCode string
 	switch len(args) {
 	case 1:
+		loCode, hiCode, stepCode = "0LL", evalInt(args[0]), "1LL"
+	case 2:
+		loCode, hiCode, stepCode = evalInt(args[0]), evalInt(args[1]), "1LL"
+	case 3:
