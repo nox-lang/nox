@@ -760,3 +760,7 @@ func (fb *funcBuilder) genForIn(scope *Scope, s *ast.ForInStmt, isExprCtx bool) 
 		return fb.genForInRange(scope, s, args, isExprCtx)
 	}
 
+	c, pre := newCtx(scope)
+	arrCode, arrType := fb.genExpr(c, s.Array)
+	var preSB strings.Builder
+	for _, p := range *pre {
