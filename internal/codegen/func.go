@@ -932,3 +932,7 @@ func (fb *funcBuilder) genForInRange(scope *Scope, s *ast.ForInStmt, args []ast.
 	bodySB.WriteString(compilef("%s: ;", lc.continueLabel))
 	fb.endLoop()
 
+	header := fmt.Sprintf(
+		"for (int64_t %s = %s, %s = 0; (%s > 0) ? (%s < %s) : (%s > %s); %s += %s, %s++)",
+		vVar, loTmp, idxVar, stepTmp, vVar, hiTmp, vVar, hiTmp, vVar, stepTmp, idxVar)
+	loopCode, rt, vv := fb.assembleLoop(lc, header, bodySB.String(), isExprCtx)
