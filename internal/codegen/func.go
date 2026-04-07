@@ -736,3 +736,6 @@ func (fb *funcBuilder) genWhile(scope *Scope, s *ast.WhileStmt, isExprCtx bool) 
 	}
 	innerSB.WriteString(compilef("if (!(%s)) break;", condCode))
 	innerSB.WriteString(bodyC)
+	return fb.assembleLoop(lc, "for (;;)", innerSB.String(), isExprCtx)
+}
+
