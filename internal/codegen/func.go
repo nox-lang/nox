@@ -813,3 +813,7 @@ func (fb *funcBuilder) genForInFixedArray(scope *Scope, s *ast.ForInStmt, pre, a
 	arrTmp := fb.cg.freshTmp("farr")
 	pre += compilef("%s %s = %s;", fb.cg.ctype(arrType), arrTmp, arrCode)
 
+	inner := newScope(scope)
+	idxVar := fb.cg.freshTmp("i")
+	if s.IndexName != "" && s.IndexName != "_" {
+		inner.define(s.IndexName, TInt())
