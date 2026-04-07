@@ -728,3 +728,7 @@ func (fb *funcBuilder) genWhile(scope *Scope, s *ast.WhileStmt, isExprCtx bool) 
 	fb.endLoop()
 	if len(*pre) == 0 {
 		header := fmt.Sprintf("while (%s)", condCode)
+		return fb.assembleLoop(lc, header, bodyC, isExprCtx)
+	}
+	var innerSB strings.Builder
+	for _, p := range *pre {
