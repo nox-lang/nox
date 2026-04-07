@@ -871,3 +871,4 @@ func (fb *funcBuilder) genForInMap(scope *Scope, s *ast.ForInStmt, pre, mapCode 
 	bodySB.WriteString(fb.genBlock(inner, s.Body))
 	bodySB.WriteString(compilef("%s: ;", lc.continueLabel))
 	fb.endLoop()
+
