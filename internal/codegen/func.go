@@ -859,3 +859,7 @@ func (fb *funcBuilder) genForInMap(scope *Scope, s *ast.ForInStmt, pre, mapCode 
 	keyPtr := fb.cg.freshTmp("mk")
 	valPtr := fb.cg.freshTmp("mv")
 	lc := fb.beginLoop(s.Body)
+	var bodySB strings.Builder
+	bodySB.WriteString(compilef("void *%s, *%s;", keyPtr, valPtr))
+	bodySB.WriteString(compilef("if (!nox_map_entry(%s, %s, &%s, &%s)) { goto %s; }", mapTmp, idxVar, keyPtr, valPtr, lc.continueLabel))
+	if s.IndexName != "" && s.IndexName != "_" {
