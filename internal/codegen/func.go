@@ -822,3 +822,7 @@ func (fb *funcBuilder) genForInFixedArray(scope *Scope, s *ast.ForInStmt, pre, a
 		inner.define(s.ValueName, elemType)
 	}
 
+	lc := fb.beginLoop(s.Body)
+	var bodySB strings.Builder
+	if s.ValueName != "_" {
+		bodySB.WriteString(compilef("%s %s = %s.d[%s];", fb.cg.ctype(elemType), cIdent(s.ValueName), arrTmp, idxVar))
