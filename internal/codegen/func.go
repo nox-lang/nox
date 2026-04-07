@@ -838,3 +838,4 @@ func (fb *funcBuilder) genForInFixedArray(scope *Scope, s *ast.ForInStmt, pre, a
 	loopCode, rt, vv := fb.assembleLoop(lc, header, bodySB.String(), isExprCtx)
 	return pre + loopCode, rt, vv
 }
+
