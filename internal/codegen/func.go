@@ -784,3 +784,7 @@ func (fb *funcBuilder) genForIn(scope *Scope, s *ast.ForInStmt, isExprCtx bool) 
 	idxVar := fb.cg.freshTmp("i")
 	if s.IndexName != "" && s.IndexName != "_" {
 		inner.define(s.IndexName, TInt())
+	}
+	if s.ValueName != "_" {
+		inner.define(s.ValueName, elemType)
+	}
