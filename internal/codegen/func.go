@@ -767,3 +767,7 @@ func (fb *funcBuilder) genForIn(scope *Scope, s *ast.ForInStmt, isExprCtx bool) 
 		preSB.WriteString(p)
 	}
 
+	if arrType.Kind == KMap {
+		return fb.genForInMap(scope, s, preSB.String(), arrCode, arrType, isExprCtx)
+	}
+	if arrType.Kind == KArray {
