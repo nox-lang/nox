@@ -732,3 +732,7 @@ func (fb *funcBuilder) genWhile(scope *Scope, s *ast.WhileStmt, isExprCtx bool) 
 	}
 	var innerSB strings.Builder
 	for _, p := range *pre {
+		innerSB.WriteString(p)
+	}
+	innerSB.WriteString(compilef("if (!(%s)) break;", condCode))
+	innerSB.WriteString(bodyC)
