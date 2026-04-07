@@ -830,3 +830,7 @@ func (fb *funcBuilder) genForInFixedArray(scope *Scope, s *ast.ForInStmt, pre, a
 	if s.IndexName != "" && s.IndexName != "_" {
 		bodySB.WriteString(compilef("%s %s = %s;", fb.cg.ctype(TInt()), cIdent(s.IndexName), idxVar))
 	}
+	bodySB.WriteString(fb.genBlock(inner, s.Body))
+	bodySB.WriteString(compilef("%s: ;", lc.continueLabel))
+	fb.endLoop()
+
