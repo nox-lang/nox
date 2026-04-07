@@ -920,3 +920,7 @@ func (fb *funcBuilder) genForInRange(scope *Scope, s *ast.ForInStmt, args []ast.
 	idxVar := fb.cg.freshTmp("ri")
 	vVar := fb.cg.freshTmp("rv")
 
+	lc := fb.beginLoop(s.Body)
+	var bodySB strings.Builder
+	if s.ValueName != "_" {
+		bodySB.WriteString(compilef("int64_t %s = %s;", cIdent(s.ValueName), vVar))
