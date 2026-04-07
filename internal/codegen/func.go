@@ -775,3 +775,7 @@ func (fb *funcBuilder) genForIn(scope *Scope, s *ast.ForInStmt, isExprCtx bool) 
 	}
 	if arrType.Kind != KSlice {
 		panic(fmt.Sprintf("nox: %s: 'for (... in ...)' requires a slice, array, or map, got %s", fb.fname, arrType.String()))
+	}
+	elemType := *arrType.Elem
+	arrTmp := fb.cg.freshTmp("arr")
+	preSB.WriteString(compilef("nox_slice %s = %s;", arrTmp, arrCode))
