@@ -1117,3 +1117,7 @@ func (fb *funcBuilder) genYieldStmt(scope *Scope, s *ast.YieldStmt) string {
 // any) into the function's single return slot and jump to the function's
 // single exit point, where defers run exactly once.
 func (fb *funcBuilder) emitReturn(scope *Scope, valueExpr ast.Expr) string {
+	var sb strings.Builder
+	if valueExpr != nil {
+		c, pre := newCtx(scope)
+		code, t := fb.genExpr(c, valueExpr)
