@@ -1014,3 +1014,7 @@ func (fb *funcBuilder) genBreakStmt(scope *Scope, s *ast.BreakStmt) string {
 	if len(fb.loopStack) == 0 {
 		panic(fmt.Sprintf("nox: %s: 'break' used outside of a loop", fb.fname))
 	}
+	lc := fb.loopStack[len(fb.loopStack)-1]
+	if s.Value == nil {
+		return "break;\n"
+	}
