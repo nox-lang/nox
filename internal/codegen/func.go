@@ -1137,3 +1137,7 @@ func (fb *funcBuilder) emitReturn(scope *Scope, valueExpr ast.Expr) string {
 		sb.WriteString(compilef("__ret = %s;", code))
 	} else {
 		if !fb.retTypeKnown {
+			fb.retType = TVoid()
+			fb.retTypeKnown = true
+			if fb.selfInstance != nil {
+				fb.selfInstance.RetType = TVoid()
