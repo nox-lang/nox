@@ -1065,3 +1065,7 @@ func (fb *funcBuilder) genNextStmt(scope *Scope, s *ast.NextStmt) string {
 	c, pre := newCtx(scope)
 	code, t := fb.genExpr(c, s.Value)
 	if lc.elemType == nil {
+		et := t
+		lc.elemType = &et
+	} else if !lc.elemType.Equals(t) {
+		panic(fmt.Sprintf("nox: %s: inconsistent collected 'next' value types in the same loop (%s vs %s)", fb.fname, lc.elemType.String(), t.String()))
