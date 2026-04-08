@@ -1026,3 +1026,7 @@ func (fb *funcBuilder) genBreakStmt(scope *Scope, s *ast.BreakStmt) string {
 	if lc.resultType == nil {
 		rt := t
 		lc.resultType = &rt
+	} else if !lc.resultType.Equals(t) {
+		panic(fmt.Sprintf("nox: %s: inconsistent 'break' value types in the same loop (%s vs %s)", fb.fname, lc.resultType.String(), t.String()))
+	}
+	var sb strings.Builder
