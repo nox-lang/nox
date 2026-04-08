@@ -1151,3 +1151,7 @@ func (fb *funcBuilder) emitReturn(scope *Scope, valueExpr ast.Expr) string {
 	return sb.String()
 }
 
+func (fb *funcBuilder) deferPrologue() string {
+	var sb strings.Builder
+	for i := len(fb.defers) - 1; i >= 0; i-- {
+		d := fb.defers[i]
