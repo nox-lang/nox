@@ -1170,3 +1170,5 @@ func (fb *funcBuilder) deferPrologue() string {
 // e.g. when the type is inferred from the function's own return statements).
 func (fb *funcBuilder) buildFunctionBody(scope *Scope, body *ast.BlockStmt, retFinalOverride string) string {
 	declFlags := fb.prepareDefers(body)
+	bodyC := fb.genBlock(scope, body)
+
