@@ -1041,3 +1041,7 @@ func (fb *funcBuilder) genBreakStmt(scope *Scope, s *ast.BreakStmt) string {
 // `next value` (continue, but first collect `value` into the loop's result
 // array — this is what used to be spelled `return value` inside a loop).
 // It always jumps via each real loop's own continueLabel (see beginLoop)
+// rather than emitting a bare C `continue`, so it behaves correctly even
+// when reached through an intervening `switch` (which is internally
+// implemented as its own tiny loop-like construct that a raw `continue`
+// would incorrectly target instead of the real outer loop).
