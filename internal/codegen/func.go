@@ -1155,3 +1155,7 @@ func (fb *funcBuilder) deferPrologue() string {
 	var sb strings.Builder
 	for i := len(fb.defers) - 1; i >= 0; i-- {
 		d := fb.defers[i]
+		sb.WriteString(compilef("if (%s) {", d.flagVar))
+		sb.WriteString(indent(d.bodyC, "    "))
+		sb.WriteString("}\n")
+	}
