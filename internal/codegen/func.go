@@ -982,3 +982,7 @@ func (fb *funcBuilder) genSwitch(scope *Scope, s *ast.SwitchStmt, isExprCtx bool
 			}
 			conds = append(conds, eqExprC(subjTmp, subjType, code, t))
 		}
+		condC := strings.Join(conds, " || ")
+		if first {
+			bodySB.WriteString(compilef("if (%s) {", condC))
+			first = false
