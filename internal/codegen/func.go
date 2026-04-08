@@ -970,3 +970,7 @@ func (fb *funcBuilder) genSwitch(scope *Scope, s *ast.SwitchStmt, isExprCtx bool
 	}
 	fb.loopStack = append(fb.loopStack, lc)
 
+	var bodySB strings.Builder
+	first := true
+	for _, cs := range s.Cases {
+		var conds []string
