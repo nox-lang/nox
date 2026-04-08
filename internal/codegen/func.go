@@ -1145,3 +1145,7 @@ func (fb *funcBuilder) emitReturn(scope *Scope, valueExpr ast.Expr) string {
 			}
 		} else if fb.retType.Kind != KVoid {
 			panic(fmt.Sprintf("nox: %s: bare 'return' in a function that returns %s", fb.fname, fb.retType.String()))
+		}
+	}
+	sb.WriteString("goto __nox_exit;\n")
+	return sb.String()
