@@ -1125,3 +1125,7 @@ func (fb *funcBuilder) emitReturn(scope *Scope, valueExpr ast.Expr) string {
 			sb.WriteString(p)
 		}
 		if !fb.retTypeKnown {
+			fb.retType = t
+			fb.retTypeKnown = true
+			if fb.selfInstance != nil {
+				fb.selfInstance.RetType = t
