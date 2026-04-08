@@ -1053,3 +1053,7 @@ func (fb *funcBuilder) genNextStmt(scope *Scope, s *ast.NextStmt) string {
 			break
 		}
 	}
+	if lc == nil {
+		panic(fmt.Sprintf("nox: %s: 'next' used outside of a loop", fb.fname))
+	}
+	if s.Value == nil {
