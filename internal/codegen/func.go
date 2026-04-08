@@ -1073,3 +1073,7 @@ func (fb *funcBuilder) genNextStmt(scope *Scope, s *ast.NextStmt) string {
 	var sb strings.Builder
 	for _, p := range *pre {
 		sb.WriteString(p)
+	}
+	tmp := fb.cg.freshTmp("nv")
+	sb.WriteString(compilef("%s %s = %s;", fb.cg.ctype(t), tmp, code))
+	sb.WriteString(compilef("nox_slice_push_raw(&%s, &%s, sizeof(%s));", lc.collectVar, tmp, fb.cg.ctype(t)))
