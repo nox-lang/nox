@@ -949,3 +949,5 @@ func eqExprC(aC string, aT Type, bC string, bT Type) string {
 		return fmt.Sprintf("nox_string_eq(%s, %s)", aC, bC)
 	}
 	return fmt.Sprintf("(%s == %s)", aC, bC)
+}
+
