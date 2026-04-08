@@ -998,3 +998,7 @@ func (fb *funcBuilder) genSwitch(scope *Scope, s *ast.SwitchStmt, isExprCtx bool
 		} else {
 			bodySB.WriteString("} else {\n")
 		}
+		bodySB.WriteString(indent(fb.genBlock(scope, s.Default), "    "))
+	}
+	if !first {
+		bodySB.WriteString("}\n")
