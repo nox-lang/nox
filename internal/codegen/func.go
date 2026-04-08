@@ -1002,3 +1002,6 @@ func (fb *funcBuilder) genSwitch(scope *Scope, s *ast.SwitchStmt, isExprCtx bool
 	}
 	if !first {
 		bodySB.WriteString("}\n")
+	}
+	fb.loopStack = fb.loopStack[:len(fb.loopStack)-1]
+
