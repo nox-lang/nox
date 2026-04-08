@@ -1159,3 +1159,6 @@ func (fb *funcBuilder) deferPrologue() string {
 		sb.WriteString(indent(d.bodyC, "    "))
 		sb.WriteString("}\n")
 	}
+	return sb.String()
+}
+
