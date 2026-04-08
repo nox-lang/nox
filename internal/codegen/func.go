@@ -1129,3 +1129,7 @@ func (fb *funcBuilder) emitReturn(scope *Scope, valueExpr ast.Expr) string {
 			fb.retTypeKnown = true
 			if fb.selfInstance != nil {
 				fb.selfInstance.RetType = t
+				fb.selfInstance.RetTypeKnown = true
+			}
+		} else if !fb.retType.Equals(t) {
+			panic(fmt.Sprintf("nox: %s: inconsistent return types (%s vs %s)", fb.fname, fb.retType.String(), t.String()))
