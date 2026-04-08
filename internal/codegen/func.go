@@ -955,3 +955,7 @@ func (fb *funcBuilder) genSwitch(scope *Scope, s *ast.SwitchStmt, isExprCtx bool
 	c, pre := newCtx(scope)
 	subjCode, subjType := fb.genExpr(c, s.Subject)
 	var preSB strings.Builder
+	for _, p := range *pre {
+		preSB.WriteString(p)
+	}
+	subjTmp := fb.cg.freshTmp("switchval")
