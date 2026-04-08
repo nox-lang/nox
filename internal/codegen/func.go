@@ -1109,3 +1109,7 @@ func (fb *funcBuilder) genYieldStmt(scope *Scope, s *ast.YieldStmt) string {
 		sb.WriteString(p)
 	}
 	sb.WriteString(compilef("%s = %s;", lc.resultVar, code))
+	sb.WriteString(compilef("goto %s;", lc.hofLabel))
+	return sb.String()
+}
+
