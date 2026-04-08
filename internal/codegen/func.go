@@ -1034,3 +1034,6 @@ func (fb *funcBuilder) genBreakStmt(scope *Scope, s *ast.BreakStmt) string {
 		sb.WriteString(p)
 	}
 	sb.WriteString(compilef("%s = %s; %s = true; break;", lc.resultVar, code, lc.brokeVar))
+	return sb.String()
+}
+
