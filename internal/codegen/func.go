@@ -965,3 +965,7 @@ func (fb *funcBuilder) genSwitch(scope *Scope, s *ast.SwitchStmt, isExprCtx bool
 	lc := &loopCtx{mode: "plain", isSwitch: true}
 	if hasBreakValue {
 		lc.mode = "breakvalue"
+		lc.resultVar = fb.cg.freshTmp("result")
+		lc.brokeVar = fb.cg.freshTmp("broke")
+	}
+	fb.loopStack = append(fb.loopStack, lc)
