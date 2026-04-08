@@ -1141,3 +1141,7 @@ func (fb *funcBuilder) emitReturn(scope *Scope, valueExpr ast.Expr) string {
 			fb.retTypeKnown = true
 			if fb.selfInstance != nil {
 				fb.selfInstance.RetType = TVoid()
+				fb.selfInstance.RetTypeKnown = true
+			}
+		} else if fb.retType.Kind != KVoid {
+			panic(fmt.Sprintf("nox: %s: bare 'return' in a function that returns %s", fb.fname, fb.retType.String()))
