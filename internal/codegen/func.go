@@ -1081,3 +1081,7 @@ func (fb *funcBuilder) genNextStmt(scope *Scope, s *ast.NextStmt) string {
 	return sb.String()
 }
 
+// genYieldStmt implements `yield value` inside an
+// each/eachIndex/map/filter/find callback or a sort comparator: it supplies
+// this invocation's result without exiting the enclosing Nox function
+// (unlike `return`, which — uniformly, everywhere — always does).
