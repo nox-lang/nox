@@ -1172,3 +1172,7 @@ func (fb *funcBuilder) buildFunctionBody(scope *Scope, body *ast.BlockStmt, retF
 	declFlags := fb.prepareDefers(body)
 	bodyC := fb.genBlock(scope, body)
 
+	var sb strings.Builder
+	sb.WriteString("%%RETDECL%%\n")
+	sb.WriteString(declFlags)
+	sb.WriteString(bodyC)
