@@ -1030,3 +1030,7 @@ func (fb *funcBuilder) genBreakStmt(scope *Scope, s *ast.BreakStmt) string {
 		panic(fmt.Sprintf("nox: %s: inconsistent 'break' value types in the same loop (%s vs %s)", fb.fname, lc.resultType.String(), t.String()))
 	}
 	var sb strings.Builder
+	for _, p := range *pre {
+		sb.WriteString(p)
+	}
+	sb.WriteString(compilef("%s = %s; %s = true; break;", lc.resultVar, code, lc.brokeVar))
