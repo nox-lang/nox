@@ -1101,3 +1101,7 @@ func (fb *funcBuilder) genYieldStmt(scope *Scope, s *ast.YieldStmt) string {
 	if lc.resultType == nil {
 		et := t
 		lc.resultType = &et
+	} else if !lc.resultType.Equals(t) {
+		panic(fmt.Sprintf("nox: %s: inconsistent 'yield' value types in the same callback (%s vs %s)", fb.fname, lc.resultType.String(), t.String()))
+	}
+	var sb strings.Builder
