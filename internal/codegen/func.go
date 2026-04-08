@@ -1018,3 +1018,7 @@ func (fb *funcBuilder) genBreakStmt(scope *Scope, s *ast.BreakStmt) string {
 	if s.Value == nil {
 		return "break;\n"
 	}
+	c, pre := newCtx(scope)
+	code, t := fb.genExpr(c, s.Value)
+	if lc.mode != "breakvalue" {
+		panic(fmt.Sprintf("nox: %s: 'break <value>' is not valid here", fb.fname))
