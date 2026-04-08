@@ -1005,3 +1005,7 @@ func (fb *funcBuilder) genSwitch(scope *Scope, s *ast.SwitchStmt, isExprCtx bool
 	}
 	fb.loopStack = fb.loopStack[:len(fb.loopStack)-1]
 
+	fullBody := bodySB.String() + "break;\n"
+	loopCode, rt, vv := fb.assembleLoop(lc, "for (;;)", fullBody, isExprCtx)
+	return preSB.String() + loopCode, rt, vv
+}
