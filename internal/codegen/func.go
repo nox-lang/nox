@@ -1149,3 +1149,5 @@ func (fb *funcBuilder) emitReturn(scope *Scope, valueExpr ast.Expr) string {
 	}
 	sb.WriteString("goto __nox_exit;\n")
 	return sb.String()
+}
+
