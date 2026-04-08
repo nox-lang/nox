@@ -1162,3 +1162,7 @@ func (fb *funcBuilder) deferPrologue() string {
 	return sb.String()
 }
 
+// buildFunctionBody generates the full `{ ... }` contents for a function:
+// defer-flag declarations, the body itself, and a single exit point that
+// runs armed defers and returns. It resolves the deferred %%RETDECL%% /
+// %%RETZERO%% / %%RETFINAL%% placeholders once the return type is known
