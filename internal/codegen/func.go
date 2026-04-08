@@ -986,3 +986,7 @@ func (fb *funcBuilder) genSwitch(scope *Scope, s *ast.SwitchStmt, isExprCtx bool
 		if first {
 			bodySB.WriteString(compilef("if (%s) {", condC))
 			first = false
+		} else {
+			bodySB.WriteString(compilef("} else if (%s) {", condC))
+		}
+		bodySB.WriteString(indent(fb.genBlock(scope, cs.Body), "    "))
