@@ -1089,3 +1089,7 @@ func (fb *funcBuilder) genYieldStmt(scope *Scope, s *ast.YieldStmt) string {
 	var lc *loopCtx
 	for i := len(fb.loopStack) - 1; i >= 0; i-- {
 		if !fb.loopStack[i].isSwitch {
+			lc = fb.loopStack[i]
+			break
+		}
+	}
