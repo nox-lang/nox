@@ -1037,3 +1037,7 @@ func (fb *funcBuilder) genBreakStmt(scope *Scope, s *ast.BreakStmt) string {
 	return sb.String()
 }
 
+// genNextStmt implements a loop's `next` (like C's `continue`) and
+// `next value` (continue, but first collect `value` into the loop's result
+// array — this is what used to be spelled `return value` inside a loop).
+// It always jumps via each real loop's own continueLabel (see beginLoop)
