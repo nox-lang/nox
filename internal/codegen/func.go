@@ -1105,3 +1105,7 @@ func (fb *funcBuilder) genYieldStmt(scope *Scope, s *ast.YieldStmt) string {
 		panic(fmt.Sprintf("nox: %s: inconsistent 'yield' value types in the same callback (%s vs %s)", fb.fname, lc.resultType.String(), t.String()))
 	}
 	var sb strings.Builder
+	for _, p := range *pre {
+		sb.WriteString(p)
+	}
+	sb.WriteString(compilef("%s = %s;", lc.resultVar, code))
