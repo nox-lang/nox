@@ -1057,3 +1057,7 @@ func (fb *funcBuilder) genNextStmt(scope *Scope, s *ast.NextStmt) string {
 		panic(fmt.Sprintf("nox: %s: 'next' used outside of a loop", fb.fname))
 	}
 	if s.Value == nil {
+		return compilef("goto %s;", lc.continueLabel)
+	}
+	if lc.mode != "collect" {
+		panic(fmt.Sprintf("nox: %s: 'next <value>' is not valid here (this loop was not detected as collecting; move any other 'next <value>'/'break <value>' consistently within it)", fb.fname))
