@@ -951,3 +951,7 @@ func eqExprC(aC string, aT Type, bC string, bT Type) string {
 	return fmt.Sprintf("(%s == %s)", aC, bC)
 }
 
+func (fb *funcBuilder) genSwitch(scope *Scope, s *ast.SwitchStmt, isExprCtx bool) (string, Type, string) {
+	c, pre := newCtx(scope)
+	subjCode, subjType := fb.genExpr(c, s.Subject)
+	var preSB strings.Builder
