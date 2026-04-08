@@ -1121,3 +1121,7 @@ func (fb *funcBuilder) emitReturn(scope *Scope, valueExpr ast.Expr) string {
 	if valueExpr != nil {
 		c, pre := newCtx(scope)
 		code, t := fb.genExpr(c, valueExpr)
+		for _, p := range *pre {
+			sb.WriteString(p)
+		}
+		if !fb.retTypeKnown {
