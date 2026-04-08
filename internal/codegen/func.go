@@ -1166,3 +1166,7 @@ func (fb *funcBuilder) deferPrologue() string {
 // defer-flag declarations, the body itself, and a single exit point that
 // runs armed defers and returns. It resolves the deferred %%RETDECL%% /
 // %%RETZERO%% / %%RETFINAL%% placeholders once the return type is known
+// (which may only become known partway through generating the body itself,
+// e.g. when the type is inferred from the function's own return statements).
+func (fb *funcBuilder) buildFunctionBody(scope *Scope, body *ast.BlockStmt, retFinalOverride string) string {
+	declFlags := fb.prepareDefers(body)
