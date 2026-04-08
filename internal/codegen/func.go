@@ -1045,3 +1045,7 @@ func (fb *funcBuilder) genBreakStmt(scope *Scope, s *ast.BreakStmt) string {
 // when reached through an intervening `switch` (which is internally
 // implemented as its own tiny loop-like construct that a raw `continue`
 // would incorrectly target instead of the real outer loop).
+func (fb *funcBuilder) genNextStmt(scope *Scope, s *ast.NextStmt) string {
+	var lc *loopCtx
+	for i := len(fb.loopStack) - 1; i >= 0; i-- {
+		if !fb.loopStack[i].isSwitch {
