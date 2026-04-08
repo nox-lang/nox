@@ -959,3 +959,5 @@ func (fb *funcBuilder) genSwitch(scope *Scope, s *ast.SwitchStmt, isExprCtx bool
 		preSB.WriteString(p)
 	}
 	subjTmp := fb.cg.freshTmp("switchval")
+	preSB.WriteString(compilef("%s %s = %s;", fb.cg.ctype(subjType), subjTmp, subjCode))
+
