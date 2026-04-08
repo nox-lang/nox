@@ -1113,3 +1113,7 @@ func (fb *funcBuilder) genYieldStmt(scope *Scope, s *ast.YieldStmt) string {
 	return sb.String()
 }
 
+// emitReturn generates a real function-level return: store the value (if
+// any) into the function's single return slot and jump to the function's
+// single exit point, where defers run exactly once.
+func (fb *funcBuilder) emitReturn(scope *Scope, valueExpr ast.Expr) string {
