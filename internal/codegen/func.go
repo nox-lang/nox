@@ -1097,3 +1097,7 @@ func (fb *funcBuilder) genYieldStmt(scope *Scope, s *ast.YieldStmt) string {
 		panic(fmt.Sprintf("nox: %s: 'yield' used outside of an each/map/filter/find callback or a sort comparator", fb.fname))
 	}
 	c, pre := newCtx(scope)
+	code, t := fb.genExpr(c, s.Value)
+	if lc.resultType == nil {
+		et := t
+		lc.resultType = &et
