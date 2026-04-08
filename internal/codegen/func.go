@@ -1010,3 +1010,7 @@ func (fb *funcBuilder) genSwitch(scope *Scope, s *ast.SwitchStmt, isExprCtx bool
 	return preSB.String() + loopCode, rt, vv
 }
 
+func (fb *funcBuilder) genBreakStmt(scope *Scope, s *ast.BreakStmt) string {
+	if len(fb.loopStack) == 0 {
+		panic(fmt.Sprintf("nox: %s: 'break' used outside of a loop", fb.fname))
+	}
