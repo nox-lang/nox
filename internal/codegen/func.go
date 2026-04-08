@@ -978,3 +978,7 @@ func (fb *funcBuilder) genSwitch(scope *Scope, s *ast.SwitchStmt, isExprCtx bool
 			c2, pre2 := newCtx(scope)
 			code, t := fb.genExpr(c2, v)
 			if len(*pre2) > 0 {
+				panic(fmt.Sprintf("nox: %s: switch 'case' values must be simple expressions", fb.fname))
+			}
+			conds = append(conds, eqExprC(subjTmp, subjType, code, t))
+		}
