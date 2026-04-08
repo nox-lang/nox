@@ -941,3 +941,7 @@ func (fb *funcBuilder) genForInRange(scope *Scope, s *ast.ForInStmt, args []ast.
 
 // ---------------- switch ----------------
 
+func eqExprC(aC string, aT Type, bC string, bT Type) string {
+	if !aT.Equals(bT) {
+		panic(fmt.Sprintf("nox: switch: case value type %s does not match subject type %s", bT.String(), aT.String()))
+	}
