@@ -1009,3 +1009,4 @@ func (fb *funcBuilder) genSwitch(scope *Scope, s *ast.SwitchStmt, isExprCtx bool
 	loopCode, rt, vv := fb.assembleLoop(lc, "for (;;)", fullBody, isExprCtx)
 	return preSB.String() + loopCode, rt, vv
 }
+
