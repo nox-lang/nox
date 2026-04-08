@@ -1069,3 +1069,7 @@ func (fb *funcBuilder) genNextStmt(scope *Scope, s *ast.NextStmt) string {
 		lc.elemType = &et
 	} else if !lc.elemType.Equals(t) {
 		panic(fmt.Sprintf("nox: %s: inconsistent collected 'next' value types in the same loop (%s vs %s)", fb.fname, lc.elemType.String(), t.String()))
+	}
+	var sb strings.Builder
+	for _, p := range *pre {
+		sb.WriteString(p)
