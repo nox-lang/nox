@@ -974,3 +974,7 @@ func (fb *funcBuilder) genSwitch(scope *Scope, s *ast.SwitchStmt, isExprCtx bool
 	first := true
 	for _, cs := range s.Cases {
 		var conds []string
+		for _, v := range cs.Values {
+			c2, pre2 := newCtx(scope)
+			code, t := fb.genExpr(c2, v)
+			if len(*pre2) > 0 {
