@@ -1085,3 +1085,7 @@ func (fb *funcBuilder) genNextStmt(scope *Scope, s *ast.NextStmt) string {
 // each/eachIndex/map/filter/find callback or a sort comparator: it supplies
 // this invocation's result without exiting the enclosing Nox function
 // (unlike `return`, which — uniformly, everywhere — always does).
+func (fb *funcBuilder) genYieldStmt(scope *Scope, s *ast.YieldStmt) string {
+	var lc *loopCtx
+	for i := len(fb.loopStack) - 1; i >= 0; i-- {
+		if !fb.loopStack[i].isSwitch {
