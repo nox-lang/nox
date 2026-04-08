@@ -1093,3 +1093,7 @@ func (fb *funcBuilder) genYieldStmt(scope *Scope, s *ast.YieldStmt) string {
 			break
 		}
 	}
+	if lc == nil || lc.mode != "hofvalue" {
+		panic(fmt.Sprintf("nox: %s: 'yield' used outside of an each/map/filter/find callback or a sort comparator", fb.fname))
+	}
+	c, pre := newCtx(scope)
