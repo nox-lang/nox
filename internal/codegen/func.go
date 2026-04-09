@@ -1258,3 +1258,7 @@ func scanDefers(b *ast.BlockStmt) int {
 			for _, c := range s.Cases {
 				walkStmts(c.Body.Stmts)
 			}
+			if s.Default != nil {
+				walkStmts(s.Default.Stmts)
+			}
+		case *ast.TryStmt:
