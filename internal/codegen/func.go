@@ -1242,3 +1242,7 @@ func scanDefers(b *ast.BlockStmt) int {
 		case *ast.DeferStmt:
 			count++
 		case *ast.IfStmt:
+			walkStmts(s.Then.Stmts)
+			if s.Else != nil {
+				walkStmt(s.Else)
+			}
