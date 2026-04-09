@@ -1279,3 +1279,7 @@ func scanDefers(b *ast.BlockStmt) int {
 // level body, so that all defer-armed flags exist (declared false) before
 // any code that might reference them in a return's defer-prologue.
 func (fb *funcBuilder) prepareDefers(body *ast.BlockStmt) string {
+	n := scanDefers(body)
+	var sb strings.Builder
+	for i := 0; i < n; i++ {
+		name := fb.cg.freshTmp("defer_armed")
