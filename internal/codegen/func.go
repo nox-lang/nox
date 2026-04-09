@@ -1215,3 +1215,7 @@ func (fb *funcBuilder) genTryStmt(scope *Scope, s *ast.TryStmt) string {
 	catchBodySB.WriteString("nox_clear_error();\n")
 	catchBodySB.WriteString(fb.genBlock(catchScope, s.CatchBody))
 
+	var sb strings.Builder
+	sb.WriteString("{\n")
+	sb.WriteString(indent(bodyC, "    "))
+	sb.WriteString(compilef("    goto %s;", endLabel))
