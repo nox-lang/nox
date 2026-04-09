@@ -1205,3 +1205,6 @@ func (fb *funcBuilder) genTryStmt(scope *Scope, s *ast.TryStmt) string {
 	catchLabel := fb.cg.freshTmp("catch")
 	endLabel := fb.cg.freshTmp("tryend")
 	fb.tryStack = append(fb.tryStack, &tryCtx{catchLabel: catchLabel})
+	bodyC := fb.genBlock(scope, s.Body)
+	fb.tryStack = fb.tryStack[:len(fb.tryStack)-1]
+
