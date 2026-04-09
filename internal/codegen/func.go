@@ -1228,3 +1228,5 @@ func (fb *funcBuilder) genTryStmt(scope *Scope, s *ast.TryStmt) string {
 	return sb.String()
 }
 
+// ---------------- defer ----------------
+
