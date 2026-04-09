@@ -20,3 +20,5 @@ func freeVarNames(body *ast.BlockStmt, params []*ast.Param) []string {
 	for _, p := range params {
 		bound[p.Name] = true
 	}
+	used := map[string]bool{}
+
