@@ -1293,3 +1293,7 @@ func (fb *funcBuilder) genDeferStmt(scope *Scope, s *ast.DeferStmt) string {
 	if fb.deferFlagIdx >= len(fb.deferFlagQueue) {
 		panic("nox: internal error: defer flag queue exhausted")
 	}
+	flagVar := fb.deferFlagQueue[fb.deferFlagIdx]
+	fb.deferFlagIdx++
+	bodyC := fb.genBlock(scope, s.Body)
+	fb.defers = append(fb.defers, &deferEntry{flagVar: flagVar, bodyC: bodyC})
