@@ -1283,3 +1283,7 @@ func (fb *funcBuilder) prepareDefers(body *ast.BlockStmt) string {
 	var sb strings.Builder
 	for i := 0; i < n; i++ {
 		name := fb.cg.freshTmp("defer_armed")
+		fb.deferFlagQueue = append(fb.deferFlagQueue, name)
+		sb.WriteString(compilef("bool %s = false;", name))
+	}
+	return sb.String()
