@@ -1234,3 +1234,7 @@ func (fb *funcBuilder) genTryStmt(scope *Scope, s *ast.TryStmt) string {
 // scope (i.e. not inside a nested FuncLit, which is never reached by this
 // walk since FuncLit only ever appears inside expressions).
 func scanDefers(b *ast.BlockStmt) int {
+	count := 0
+	var walkStmts func([]ast.Stmt)
+	var walkStmt func(ast.Stmt)
+	walkStmt = func(st ast.Stmt) {
