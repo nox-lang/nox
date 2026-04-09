@@ -1262,3 +1262,7 @@ func scanDefers(b *ast.BlockStmt) int {
 				walkStmts(s.Default.Stmts)
 			}
 		case *ast.TryStmt:
+			walkStmts(s.Body.Stmts)
+			walkStmts(s.CatchBody.Stmts)
+		}
+	}
