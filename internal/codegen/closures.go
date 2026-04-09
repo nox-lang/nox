@@ -98,3 +98,7 @@ func freeVarNames(body *ast.BlockStmt, params []*ast.Param) []string {
 		case *ast.ThisExpr:
 			used["this"] = true
 		case *ast.BinaryExpr:
+			walkExpr(x.X)
+			walkExpr(x.Y)
+		case *ast.UnaryExpr:
+			walkExpr(x.X)
