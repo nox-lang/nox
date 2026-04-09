@@ -1196,3 +1196,7 @@ func (fb *funcBuilder) buildFunctionBody(scope *Scope, body *ast.BlockStmt, retF
 		retFinal = retFinalOverride
 	}
 	out := strings.ReplaceAll(sb.String(), "%%RETDECL%%", retDecl)
+	out = strings.ReplaceAll(out, "%%RETZERO%%", retZero)
+	out = strings.ReplaceAll(out, "%%RETFINAL%%", retFinal)
+	return out
+}
