@@ -1274,3 +1274,4 @@ func scanDefers(b *ast.BlockStmt) int {
 	walkStmts(b.Stmts)
 	return count
 }
+
