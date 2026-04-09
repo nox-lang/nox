@@ -78,3 +78,7 @@ func freeVarNames(body *ast.BlockStmt, params []*ast.Param) []string {
 				for _, v := range cs.Values {
 					walkExpr(v)
 				}
+				walkStmts(cs.Body.Stmts)
+			}
+			if s.Default != nil {
+				walkStmts(s.Default.Stmts)
