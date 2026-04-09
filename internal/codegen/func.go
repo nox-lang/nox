@@ -1200,3 +1200,4 @@ func (fb *funcBuilder) buildFunctionBody(scope *Scope, body *ast.BlockStmt, retF
 	out = strings.ReplaceAll(out, "%%RETFINAL%%", retFinal)
 	return out
 }
+
