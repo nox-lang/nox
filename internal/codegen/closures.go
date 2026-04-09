@@ -90,3 +90,7 @@ func freeVarNames(body *ast.BlockStmt, params []*ast.Param) []string {
 			bound[s.CatchVar] = true
 			walkStmts(s.CatchBody.Stmts)
 		}
+	}
+	walkExpr = func(e ast.Expr) {
+		switch x := e.(type) {
+		case *ast.Ident:
