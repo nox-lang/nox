@@ -1230,3 +1230,7 @@ func (fb *funcBuilder) genTryStmt(scope *Scope, s *ast.TryStmt) string {
 
 // ---------------- defer ----------------
 
+// scanDefers counts `defer` statements belonging to this function's own
+// scope (i.e. not inside a nested FuncLit, which is never reached by this
+// walk since FuncLit only ever appears inside expressions).
+func scanDefers(b *ast.BlockStmt) int {
