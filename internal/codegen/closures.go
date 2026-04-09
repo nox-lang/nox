@@ -94,3 +94,7 @@ func freeVarNames(body *ast.BlockStmt, params []*ast.Param) []string {
 	walkExpr = func(e ast.Expr) {
 		switch x := e.(type) {
 		case *ast.Ident:
+			used[x.Name] = true
+		case *ast.ThisExpr:
+			used["this"] = true
+		case *ast.BinaryExpr:
