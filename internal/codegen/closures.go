@@ -74,3 +74,7 @@ func freeVarNames(body *ast.BlockStmt, params []*ast.Param) []string {
 			}
 		case *ast.SwitchStmt:
 			walkExpr(s.Subject)
+			for _, cs := range s.Cases {
+				for _, v := range cs.Values {
+					walkExpr(v)
+				}
