@@ -16,3 +16,7 @@ import (
 // free ones, so at worst it captures a variable unnecessarily rather than
 // missing a real capture.
 func freeVarNames(body *ast.BlockStmt, params []*ast.Param) []string {
+	bound := map[string]bool{}
+	for _, p := range params {
+		bound[p.Name] = true
+	}
