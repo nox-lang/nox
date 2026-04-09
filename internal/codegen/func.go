@@ -1287,3 +1287,5 @@ func (fb *funcBuilder) prepareDefers(body *ast.BlockStmt) string {
 		sb.WriteString(compilef("bool %s = false;", name))
 	}
 	return sb.String()
+}
+
