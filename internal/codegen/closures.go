@@ -122,3 +122,7 @@ func freeVarNames(body *ast.BlockStmt, params []*ast.Param) []string {
 			walkExpr(x.X)
 		case *ast.ParallelExpr:
 			for _, ce := range x.Calls {
+				walkExpr(ce)
+			}
+		case *ast.FuncLit:
+			for _, n := range freeVarNames(x.Body, x.Params) {
