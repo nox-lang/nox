@@ -12,3 +12,7 @@ import (
 // that are not one of params and not locally bound somewhere in body (by
 // `let`, a for-loop variable, or a try/catch variable). It is a
 // syntax-level approximation (it does not model textual ordering/shadowing
+// precisely) that only ever under-excludes bound names, never over-excludes
+// free ones, so at worst it captures a variable unnecessarily rather than
+// missing a real capture.
+func freeVarNames(body *ast.BlockStmt, params []*ast.Param) []string {
