@@ -1297,3 +1297,5 @@ func (fb *funcBuilder) genDeferStmt(scope *Scope, s *ast.DeferStmt) string {
 	fb.deferFlagIdx++
 	bodyC := fb.genBlock(scope, s.Body)
 	fb.defers = append(fb.defers, &deferEntry{flagVar: flagVar, bodyC: bodyC})
+	return compilef("%s = true;", flagVar)
+}
