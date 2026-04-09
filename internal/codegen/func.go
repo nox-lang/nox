@@ -1238,3 +1238,7 @@ func scanDefers(b *ast.BlockStmt) int {
 	var walkStmts func([]ast.Stmt)
 	var walkStmt func(ast.Stmt)
 	walkStmt = func(st ast.Stmt) {
+		switch s := st.(type) {
+		case *ast.DeferStmt:
+			count++
+		case *ast.IfStmt:
