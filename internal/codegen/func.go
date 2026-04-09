@@ -1254,3 +1254,7 @@ func scanDefers(b *ast.BlockStmt) int {
 			walkStmts(s.Body.Stmts)
 		case *ast.WhileStmt:
 			walkStmts(s.Body.Stmts)
+		case *ast.SwitchStmt:
+			for _, c := range s.Cases {
+				walkStmts(c.Body.Stmts)
+			}
