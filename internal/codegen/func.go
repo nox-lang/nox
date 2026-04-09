@@ -1275,3 +1275,7 @@ func scanDefers(b *ast.BlockStmt) int {
 	return count
 }
 
+// prepareDefers must be called once, before generating a function's top
+// level body, so that all defer-armed flags exist (declared false) before
+// any code that might reference them in a return's defer-prologue.
+func (fb *funcBuilder) prepareDefers(body *ast.BlockStmt) string {
