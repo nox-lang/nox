@@ -1219,3 +1219,7 @@ func (fb *funcBuilder) genTryStmt(scope *Scope, s *ast.TryStmt) string {
 	sb.WriteString("{\n")
 	sb.WriteString(indent(bodyC, "    "))
 	sb.WriteString(compilef("    goto %s;", endLabel))
+	sb.WriteString("}\n")
+	sb.WriteString(compilef("%s: ;", catchLabel))
+	sb.WriteString("{\n")
+	sb.WriteString(indent(catchBodySB.String(), "    "))
