@@ -1270,3 +1270,7 @@ func scanDefers(b *ast.BlockStmt) int {
 		for _, st := range stmts {
 			walkStmt(st)
 		}
+	}
+	walkStmts(b.Stmts)
+	return count
+}
