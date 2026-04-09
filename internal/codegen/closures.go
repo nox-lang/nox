@@ -26,3 +26,7 @@ func freeVarNames(body *ast.BlockStmt, params []*ast.Param) []string {
 	var walkStmt func(ast.Stmt)
 	walkStmts := func(stmts []ast.Stmt) {
 		for _, s := range stmts {
+			walkStmt(s)
+		}
+	}
+	walkStmt = func(st ast.Stmt) {
