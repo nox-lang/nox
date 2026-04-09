@@ -1176,3 +1176,7 @@ func (fb *funcBuilder) buildFunctionBody(scope *Scope, body *ast.BlockStmt, retF
 	sb.WriteString("%%RETDECL%%\n")
 	sb.WriteString(declFlags)
 	sb.WriteString(bodyC)
+	sb.WriteString("__nox_exit: ;\n")
+	sb.WriteString(fb.deferPrologue())
+	sb.WriteString("%%RETFINAL%%\n")
+
