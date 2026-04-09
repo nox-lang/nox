@@ -1184,3 +1184,7 @@ func (fb *funcBuilder) buildFunctionBody(scope *Scope, body *ast.BlockStmt, retF
 		fb.retType = TVoid()
 		fb.retTypeKnown = true
 	}
+	retDecl := ""
+	retZero := ""
+	retFinal := "return;"
+	if fb.retType.Kind != KVoid {
