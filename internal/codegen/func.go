@@ -1192,3 +1192,7 @@ func (fb *funcBuilder) buildFunctionBody(scope *Scope, body *ast.BlockStmt, retF
 		retZero = fmt.Sprintf("__ret = %s;", fb.cg.zeroValueC(fb.retType))
 		retFinal = "return __ret;"
 	}
+	if retFinalOverride != "" {
+		retFinal = retFinalOverride
+	}
+	out := strings.ReplaceAll(sb.String(), "%%RETDECL%%", retDecl)
