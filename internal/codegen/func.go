@@ -1188,3 +1188,7 @@ func (fb *funcBuilder) buildFunctionBody(scope *Scope, body *ast.BlockStmt, retF
 	retZero := ""
 	retFinal := "return;"
 	if fb.retType.Kind != KVoid {
+		retDecl = fmt.Sprintf("%s __ret = %s;", fb.cg.ctype(fb.retType), fb.cg.zeroValueC(fb.retType))
+		retZero = fmt.Sprintf("__ret = %s;", fb.cg.zeroValueC(fb.retType))
+		retFinal = "return __ret;"
+	}
