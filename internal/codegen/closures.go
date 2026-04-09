@@ -82,3 +82,7 @@ func freeVarNames(body *ast.BlockStmt, params []*ast.Param) []string {
 			}
 			if s.Default != nil {
 				walkStmts(s.Default.Stmts)
+			}
+		case *ast.DeferStmt:
+			walkStmts(s.Body.Stmts)
+		case *ast.TryStmt:
