@@ -34,3 +34,7 @@ func freeVarNames(body *ast.BlockStmt, params []*ast.Param) []string {
 		case *ast.LetStmt:
 			if s.Value != nil {
 				walkExpr(s.Value)
+			}
+			bound[s.Name] = true
+		case *ast.ExprStmt:
+			walkExpr(s.X)
