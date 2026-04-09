@@ -1266,3 +1266,7 @@ func scanDefers(b *ast.BlockStmt) int {
 			walkStmts(s.CatchBody.Stmts)
 		}
 	}
+	walkStmts = func(stmts []ast.Stmt) {
+		for _, st := range stmts {
+			walkStmt(st)
+		}
