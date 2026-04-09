@@ -102,3 +102,7 @@ func freeVarNames(body *ast.BlockStmt, params []*ast.Param) []string {
 			walkExpr(x.Y)
 		case *ast.UnaryExpr:
 			walkExpr(x.X)
+		case *ast.CallExpr:
+			walkExpr(x.Callee)
+			for _, a := range x.Args {
+				walkExpr(a)
