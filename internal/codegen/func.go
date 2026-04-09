@@ -1212,3 +1212,6 @@ func (fb *funcBuilder) genTryStmt(scope *Scope, s *ast.TryStmt) string {
 	catchScope.define(s.CatchVar, TString())
 	var catchBodySB strings.Builder
 	catchBodySB.WriteString(compilef("nox_string %s = nox_get_error_message();", cIdent(s.CatchVar)))
+	catchBodySB.WriteString("nox_clear_error();\n")
+	catchBodySB.WriteString(fb.genBlock(catchScope, s.CatchBody))
+
