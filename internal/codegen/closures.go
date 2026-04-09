@@ -38,3 +38,7 @@ func freeVarNames(body *ast.BlockStmt, params []*ast.Param) []string {
 			bound[s.Name] = true
 		case *ast.ExprStmt:
 			walkExpr(s.X)
+		case *ast.AssignStmt:
+			walkExpr(s.Target)
+			walkExpr(s.Value)
+		case *ast.IfStmt:
