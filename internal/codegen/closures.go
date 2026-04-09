@@ -86,3 +86,7 @@ func freeVarNames(body *ast.BlockStmt, params []*ast.Param) []string {
 		case *ast.DeferStmt:
 			walkStmts(s.Body.Stmts)
 		case *ast.TryStmt:
+			walkStmts(s.Body.Stmts)
+			bound[s.CatchVar] = true
+			walkStmts(s.CatchBody.Stmts)
+		}
