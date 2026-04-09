@@ -46,3 +46,7 @@ func freeVarNames(body *ast.BlockStmt, params []*ast.Param) []string {
 			walkStmts(s.Then.Stmts)
 			if s.Else != nil {
 				walkStmt(s.Else)
+			}
+		case *ast.BlockStmt:
+			walkStmts(s.Stmts)
+		case *ast.ForCondStmt:
