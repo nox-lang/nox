@@ -1227,3 +1227,4 @@ func (fb *funcBuilder) genTryStmt(scope *Scope, s *ast.TryStmt) string {
 	sb.WriteString(compilef("%s: ;", endLabel))
 	return sb.String()
 }
+
