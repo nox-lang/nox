@@ -1289,3 +1289,7 @@ func (fb *funcBuilder) prepareDefers(body *ast.BlockStmt) string {
 	return sb.String()
 }
 
+func (fb *funcBuilder) genDeferStmt(scope *Scope, s *ast.DeferStmt) string {
+	if fb.deferFlagIdx >= len(fb.deferFlagQueue) {
+		panic("nox: internal error: defer flag queue exhausted")
+	}
