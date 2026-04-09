@@ -1180,3 +1180,7 @@ func (fb *funcBuilder) buildFunctionBody(scope *Scope, body *ast.BlockStmt, retF
 	sb.WriteString(fb.deferPrologue())
 	sb.WriteString("%%RETFINAL%%\n")
 
+	if !fb.retTypeKnown {
+		fb.retType = TVoid()
+		fb.retTypeKnown = true
+	}
