@@ -269,3 +269,7 @@ func (fb *funcBuilder) genAwaitExpr(c *ctx, x *ast.AwaitExpr) (string, Type) {
 		// their results into a single []T (see lib/nox_thread.c).
 		elemType := *t.Elem.Elem
 		tasksTmp := fb.cg.freshTmp("tasks")
+		c.emit(compilef("nox_slice %s = %s;", tasksTmp, code))
+		elemSize := "0"
+		if elemType.Kind != KVoid {
+			elemSize = fmt.Sprintf("(int64_t)sizeof(%s)", fb.cg.ctype(elemType))
