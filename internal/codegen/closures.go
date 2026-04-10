@@ -158,3 +158,7 @@ func retPtrOrNil(t Type) *Type {
 // first-class value (assigned to a `let`, stored, or passed to something
 // other than a directly-inlined built-in higher-order method) into a
 // closure: a small generated top-level C function plus a captured-variable
+// environment struct, represented at runtime as a `{fn, env}` fat pointer.
+func (fb *funcBuilder) genFuncLitValue(c *ctx, x *ast.FuncLit) (string, Type) {
+	free := freeVarNames(x.Body, x.Params)
+	var capturedNames []string
