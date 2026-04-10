@@ -232,3 +232,7 @@ func (fb *funcBuilder) genFuncLitValue(c *ctx, x *ast.FuncLit) (string, Type) {
 	if len(capturedNames) > 0 {
 		envTmp := fb.cg.freshTmp("env")
 		c.emit(compilef("%s* %s = (%s*)NOX_ALLOC(sizeof(%s));", envStructName, envTmp, envStructName, envStructName))
+		for _, n := range capturedNames {
+			c.emit(compilef("%s->%s = %s;", envTmp, cIdent(n), cIdent(n)))
+		}
+		envExpr = envTmp
