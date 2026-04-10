@@ -215,3 +215,7 @@ func (fb *funcBuilder) genFuncLitValue(c *ctx, x *ast.FuncLit) (string, Type) {
 	if innerFB.retType.Kind != KVoid {
 		retC = fb.cg.ctype(innerFB.retType)
 	}
+	cparams := []string{"void* __envp"}
+	for i, p := range x.Params {
+		cparams = append(cparams, fmt.Sprintf("%s %s", fb.cg.ctype(paramTypes[i]), cIdent(p.Name)))
+	}
