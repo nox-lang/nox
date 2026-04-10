@@ -23,3 +23,7 @@ import (
 func (cg *Codegen) emitAsyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes []Type, thisType *Type) {
 	bodyName := fi.MangledName + "__body"
 	threadName := fi.MangledName + "__thread"
+	argsStructName := fi.MangledName + "__args"
+	fi.AsyncBodyName = bodyName
+	fi.AsyncThreadName = threadName
+
