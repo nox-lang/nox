@@ -31,3 +31,7 @@ func (cg *Codegen) emitAsyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes 
 	if thisType != nil {
 		scope.define("this", *thisType)
 	}
+	for i, p := range decl.Params {
+		scope.define(p.Name, argTypes[i])
+	}
+	fb := &funcBuilder{cg: cg, fname: bodyName, isAsync: true, selfInstance: fi}
