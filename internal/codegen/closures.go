@@ -228,3 +228,7 @@ func (fb *funcBuilder) genFuncLitValue(c *ctx, x *ast.FuncLit) (string, Type) {
 	fnType := Type{Kind: KFunc, Params: paramTypes, Ret: retPtrOrNil(innerFB.retType)}
 	ctypeName := fb.cg.ctype(fnType) // ensures the closure fat-pointer struct typedef is registered
 
+	envExpr := "NULL"
+	if len(capturedNames) > 0 {
+		envTmp := fb.cg.freshTmp("env")
+		c.emit(compilef("%s* %s = (%s*)NOX_ALLOC(sizeof(%s));", envStructName, envTmp, envStructName, envStructName))
