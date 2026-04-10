@@ -43,3 +43,5 @@ func (cg *Codegen) emitAsyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes 
 	fi.RetType = fb.retType
 	fi.RetTypeKnown = true
 	resultC := cg.ctype(fi.RetType)
+	taskC := cg.ctype(TTask(fi.RetType)) // "nox_task*"
+
