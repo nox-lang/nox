@@ -236,3 +236,7 @@ func (fb *funcBuilder) genFuncLitValue(c *ctx, x *ast.FuncLit) (string, Type) {
 			c.emit(compilef("%s->%s = %s;", envTmp, cIdent(n), cIdent(n)))
 		}
 		envExpr = envTmp
+	}
+	closTmp := fb.cg.freshTmp("clo")
+	c.emit(compilef("%s %s;", ctypeName, closTmp))
+	c.emit(compilef("%s.fn = %s;", closTmp, mangled))
