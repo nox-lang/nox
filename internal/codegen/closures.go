@@ -304,3 +304,7 @@ func (fb *funcBuilder) genAwaitExpr(c *ctx, x *ast.AwaitExpr) (string, Type) {
 // knows how to await a whole array of tasks at once.
 func (fb *funcBuilder) genParallelExpr(c *ctx, x *ast.ParallelExpr) (string, Type) {
 	if len(x.Calls) == 0 {
+		panic(fmt.Sprintf("nox: %s: 'parallel { }' must contain at least one call", fb.fname))
+	}
+	var taskType *Type
+	tasksTmp := fb.cg.freshTmp("ptasks")
