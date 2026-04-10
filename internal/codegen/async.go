@@ -39,3 +39,7 @@ func (cg *Codegen) emitAsyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes 
 		fb.retType = fi.RetType
 		fb.retTypeKnown = true
 	}
+	bodyC := fb.buildFunctionBody(scope, decl.Body, "")
+	fi.RetType = fb.retType
+	fi.RetTypeKnown = true
+	resultC := cg.ctype(fi.RetType)
