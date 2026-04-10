@@ -281,3 +281,7 @@ func (fb *funcBuilder) genAwaitExpr(c *ctx, x *ast.AwaitExpr) (string, Type) {
 			return "", TVoid()
 		}
 		resC := fb.cg.ctype(TSlice(elemType))
+		return fmt.Sprintf("(*(%s*)nox_task_result(%s))", resC, allTmp), TSlice(elemType)
+	}
+	if t.Kind != KTask {
+		panic(fmt.Sprintf("nox: %s: 'await' requires a Task (the result of calling an async function) or an array of Tasks (from 'parallel { }'), got %s", fb.fname, t.String()))
