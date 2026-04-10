@@ -300,3 +300,7 @@ func (fb *funcBuilder) genAwaitExpr(c *ctx, x *ast.AwaitExpr) (string, Type) {
 // async function, which — per emitAsyncFunc — already starts running on its
 // own thread as soon as it's called) and yields an array of their Task
 // handles, in call order. It does not itself join them: `Parallel { ... }`
+// is always written as `await parallel { ... }` in Nox, and genAwaitExpr
+// knows how to await a whole array of tasks at once.
+func (fb *funcBuilder) genParallelExpr(c *ctx, x *ast.ParallelExpr) (string, Type) {
+	if len(x.Calls) == 0 {
