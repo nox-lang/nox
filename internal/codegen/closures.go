@@ -197,3 +197,7 @@ func (fb *funcBuilder) genFuncLitValue(c *ctx, x *ast.FuncLit) (string, Type) {
 		innerScope.define(p.Name, paramTypes[i])
 	}
 	innerFB := &funcBuilder{cg: fb.cg, fname: mangled}
+	if x.ReturnType != nil {
+		innerFB.retType = fb.cg.resolveTypeExpr(x.ReturnType)
+		innerFB.retTypeKnown = true
+	}
