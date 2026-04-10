@@ -45,3 +45,7 @@ func (cg *Codegen) emitAsyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes 
 	resultC := cg.ctype(fi.RetType)
 	taskC := cg.ctype(TTask(fi.RetType)) // "nox_task*"
 
+	// paramList builds "(TYPE name, ...)" including an optional leading
+	// `this` receiver, shared by the body/bundle/public-entry pieces below.
+	paramList := func() []string {
+		var ps []string
