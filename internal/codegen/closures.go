@@ -261,3 +261,7 @@ func (fb *funcBuilder) genPropagateExpr(c *ctx, x *ast.PropagateExpr) (string, T
 	return tmp, t
 }
 
+func (fb *funcBuilder) genAwaitExpr(c *ctx, x *ast.AwaitExpr) (string, Type) {
+	code, t := fb.genExpr(c, x.X)
+	if t.Kind == KSlice && t.Elem != nil && t.Elem.Kind == KTask {
+		// `await parallel { ... }`: an array of not-yet-joined Task
