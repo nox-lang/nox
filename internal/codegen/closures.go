@@ -134,3 +134,5 @@ func freeVarNames(body *ast.BlockStmt, params []*ast.Param) []string {
 			walkStmt(e.(ast.Stmt))
 		}
 	}
+	walkStmts(body.Stmts)
+
