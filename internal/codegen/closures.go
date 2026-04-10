@@ -320,3 +320,7 @@ func (fb *funcBuilder) genParallelExpr(c *ctx, x *ast.ParallelExpr) (string, Typ
 		} else if !taskType.Equals(t) {
 			panic(fmt.Sprintf("nox: %s: 'parallel { }': all calls must return the same type", fb.fname))
 		}
+		taskC := fb.cg.ctype(t)
+		tmp := fb.cg.freshTmp("ptask")
+		c.emit(compilef("%s %s = %s;", taskC, tmp, code))
+		c.emit(compilef("nox_slice_push_raw(&%s, &%s, sizeof(%s));", tasksTmp, tmp, taskC))
