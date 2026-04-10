@@ -140,3 +140,7 @@ func freeVarNames(body *ast.BlockStmt, params []*ast.Param) []string {
 	for n := range used {
 		if !bound[n] {
 			free = append(free, n)
+		}
+	}
+	sort.Strings(free)
+	return free
