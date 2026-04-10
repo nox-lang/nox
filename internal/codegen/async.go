@@ -61,3 +61,7 @@ func (cg *Codegen) emitAsyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes 
 		return ps
 	}
 
+	bodyRetC := "void"
+	if fi.RetType.Kind != KVoid {
+		bodyRetC = resultC
+	}
