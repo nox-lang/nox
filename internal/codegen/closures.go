@@ -308,3 +308,7 @@ func (fb *funcBuilder) genParallelExpr(c *ctx, x *ast.ParallelExpr) (string, Typ
 	}
 	var taskType *Type
 	tasksTmp := fb.cg.freshTmp("ptasks")
+	c.emit(compilef("nox_slice %s = nox_slice_new();", tasksTmp))
+	for _, call := range x.Calls {
+		code, t := fb.genExpr(c, call)
+		if t.Kind != KTask {
