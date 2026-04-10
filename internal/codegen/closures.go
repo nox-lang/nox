@@ -219,3 +219,7 @@ func (fb *funcBuilder) genFuncLitValue(c *ctx, x *ast.FuncLit) (string, Type) {
 	for i, p := range x.Params {
 		cparams = append(cparams, fmt.Sprintf("%s %s", fb.cg.ctype(paramTypes[i]), cIdent(p.Name)))
 	}
+	forward := fmt.Sprintf("static %s %s(%s);", retC, mangled, strings.Join(cparams, ", "))
+	def := fmt.Sprintf("static %s %s(%s) {\n%s}", retC, mangled, strings.Join(cparams, ", "), indent(fullBody, "    "))
+	fi := &FuncInstance{MangledName: mangled, Forward: forward, Body: def, RetType: innerFB.retType, RetTypeKnown: true, ParamTypes: paramTypes}
+	fb.cg.funcInstances[mangled] = fi
