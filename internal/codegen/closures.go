@@ -316,3 +316,7 @@ func (fb *funcBuilder) genParallelExpr(c *ctx, x *ast.ParallelExpr) (string, Typ
 		}
 		if taskType == nil {
 			tt := t
+			taskType = &tt
+		} else if !taskType.Equals(t) {
+			panic(fmt.Sprintf("nox: %s: 'parallel { }': all calls must return the same type", fb.fname))
+		}
