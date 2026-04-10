@@ -144,3 +144,5 @@ func freeVarNames(body *ast.BlockStmt, params []*ast.Param) []string {
 	}
 	sort.Strings(free)
 	return free
+}
+
