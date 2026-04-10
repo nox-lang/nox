@@ -296,3 +296,7 @@ func (fb *funcBuilder) genAwaitExpr(c *ctx, x *ast.AwaitExpr) (string, Type) {
 	return fmt.Sprintf("(*(%s*)nox_task_result(%s))", elemC, tmp), *t.Elem
 }
 
+// genParallelExpr spawns every call in the block (each must be a call to an
+// async function, which — per emitAsyncFunc — already starts running on its
+// own thread as soon as it's called) and yields an array of their Task
+// handles, in call order. It does not itself join them: `Parallel { ... }`
