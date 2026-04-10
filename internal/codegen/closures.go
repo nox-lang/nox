@@ -126,3 +126,7 @@ func freeVarNames(body *ast.BlockStmt, params []*ast.Param) []string {
 			}
 		case *ast.FuncLit:
 			for _, n := range freeVarNames(x.Body, x.Params) {
+				used[n] = true
+			}
+		case *ast.ForCondStmt, *ast.ForInStmt, *ast.WhileStmt, *ast.SwitchStmt:
+			// these implement both Stmt and Expr (used as expressions); walk
