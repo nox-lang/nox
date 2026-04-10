@@ -150,3 +150,7 @@ func retPtrOrNil(t Type) *Type {
 	if t.Kind == KVoid {
 		return nil
 	}
+	cp := t
+	return &cp
+}
+
