@@ -35,3 +35,7 @@ func (cg *Codegen) emitAsyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes 
 		scope.define(p.Name, argTypes[i])
 	}
 	fb := &funcBuilder{cg: cg, fname: bodyName, isAsync: true, selfInstance: fi}
+	if fi.RetTypeKnown {
+		fb.retType = fi.RetType
+		fb.retTypeKnown = true
+	}
