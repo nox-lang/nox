@@ -246,3 +246,7 @@ func (fb *funcBuilder) genFuncLitValue(c *ctx, x *ast.FuncLit) (string, Type) {
 
 // ---------------- ? / await / Parallel ----------------
 
+func (fb *funcBuilder) genPropagateExpr(c *ctx, x *ast.PropagateExpr) (string, Type) {
+	code, t := fb.genExpr(c, x.X)
+	if t.Kind == KVoid {
+		if code != "" {
