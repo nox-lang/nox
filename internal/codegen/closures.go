@@ -154,3 +154,7 @@ func retPtrOrNil(t Type) *Type {
 	return &cp
 }
 
+// genFuncLitValue compiles an anonymous function literal used as a
+// first-class value (assigned to a `let`, stored, or passed to something
+// other than a directly-inlined built-in higher-order method) into a
+// closure: a small generated top-level C function plus a captured-variable
