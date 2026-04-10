@@ -146,3 +146,7 @@ func freeVarNames(body *ast.BlockStmt, params []*ast.Param) []string {
 	return free
 }
 
+func retPtrOrNil(t Type) *Type {
+	if t.Kind == KVoid {
+		return nil
+	}
