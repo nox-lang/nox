@@ -265,3 +265,7 @@ func (fb *funcBuilder) genAwaitExpr(c *ctx, x *ast.AwaitExpr) (string, Type) {
 	code, t := fb.genExpr(c, x.X)
 	if t.Kind == KSlice && t.Elem != nil && t.Elem.Kind == KTask {
 		// `await parallel { ... }`: an array of not-yet-joined Task
+		// handles — nox_task_when_all joins each in order and collects
+		// their results into a single []T (see lib/nox_thread.c).
+		elemType := *t.Elem.Elem
+		tasksTmp := fb.cg.freshTmp("tasks")
