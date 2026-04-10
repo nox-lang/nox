@@ -15,3 +15,7 @@ import (
 //  2. a per-instantiation argument-bundle struct (nox_task_start's body
 //     signature only takes one void* argument)
 //  3. a trampoline matching nox_body_fn's signature, which unpacks the
+//     bundle, runs the body, and stores the result through its `result`
+//     out-parameter
+//  4. the public entry point (what Nox call sites actually invoke), which
+//     allocates the bundle and calls nox_task_start, returning the
