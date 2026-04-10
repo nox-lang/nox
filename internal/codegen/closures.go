@@ -225,3 +225,6 @@ func (fb *funcBuilder) genFuncLitValue(c *ctx, x *ast.FuncLit) (string, Type) {
 	fb.cg.funcInstances[mangled] = fi
 	fb.cg.funcOrder = append(fb.cg.funcOrder, mangled)
 
+	fnType := Type{Kind: KFunc, Params: paramTypes, Ret: retPtrOrNil(innerFB.retType)}
+	ctypeName := fb.cg.ctype(fnType) // ensures the closure fat-pointer struct typedef is registered
+
