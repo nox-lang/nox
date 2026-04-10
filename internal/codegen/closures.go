@@ -136,3 +136,7 @@ func freeVarNames(body *ast.BlockStmt, params []*ast.Param) []string {
 	}
 	walkStmts(body.Stmts)
 
+	var free []string
+	for n := range used {
+		if !bound[n] {
+			free = append(free, n)
