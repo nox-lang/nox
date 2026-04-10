@@ -254,3 +254,7 @@ func (fb *funcBuilder) genPropagateExpr(c *ctx, x *ast.PropagateExpr) (string, T
 		}
 		c.emit(compilef("if (NOX_HAS_ERR) { %s }", fb.errorJumpCode()))
 		return "", TVoid()
+	}
+	tmp := fb.cg.freshTmp("prop")
+	c.emit(compilef("%s %s = %s;", fb.cg.ctype(t), tmp, code))
+	c.emit(compilef("if (NOX_HAS_ERR) { %s }", fb.errorJumpCode()))
