@@ -273,3 +273,7 @@ func (fb *funcBuilder) genAwaitExpr(c *ctx, x *ast.AwaitExpr) (string, Type) {
 		elemSize := "0"
 		if elemType.Kind != KVoid {
 			elemSize = fmt.Sprintf("(int64_t)sizeof(%s)", fb.cg.ctype(elemType))
+		}
+		allTmp := fb.cg.freshTmp("all")
+		c.emit(compilef("nox_task* %s = nox_task_when_all(%s, %s);", allTmp, tasksTmp, elemSize))
+		if elemType.Kind == KVoid {
