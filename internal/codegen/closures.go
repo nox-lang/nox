@@ -166,3 +166,7 @@ func (fb *funcBuilder) genFuncLitValue(c *ctx, x *ast.FuncLit) (string, Type) {
 	for _, n := range free {
 		if t, ok := c.scope.lookup(n); ok {
 			capturedNames = append(capturedNames, n)
+			capturedTypes = append(capturedTypes, t)
+		}
+	}
+
