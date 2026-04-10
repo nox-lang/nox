@@ -49,3 +49,7 @@ func (cg *Codegen) emitAsyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes 
 	// `this` receiver, shared by the body/bundle/public-entry pieces below.
 	paramList := func() []string {
 		var ps []string
+		if thisType != nil {
+			ps = append(ps, fmt.Sprintf("%s %s", cg.ctype(*thisType), cIdent("this")))
+		}
+		for i, p := range decl.Params {
