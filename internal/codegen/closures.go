@@ -324,3 +324,6 @@ func (fb *funcBuilder) genParallelExpr(c *ctx, x *ast.ParallelExpr) (string, Typ
 		tmp := fb.cg.freshTmp("ptask")
 		c.emit(compilef("%s %s = %s;", taskC, tmp, code))
 		c.emit(compilef("nox_slice_push_raw(&%s, &%s, sizeof(%s));", tasksTmp, tmp, taskC))
+	}
+	return tasksTmp, TSlice(*taskType)
+}
