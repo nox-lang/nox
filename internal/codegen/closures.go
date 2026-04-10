@@ -178,3 +178,7 @@ func (fb *funcBuilder) genFuncLitValue(c *ctx, x *ast.FuncLit) (string, Type) {
 		paramTypes = append(paramTypes, fb.cg.resolveTypeExpr(p.Type))
 	}
 
+	mangled := fb.cg.freshName("nox_closure")
+	var envStructName string
+	if len(capturedNames) > 0 {
+		envStructName = mangled + "__env"
