@@ -11,3 +11,7 @@ import (
 // async instance/static method, when thisType is non-nil) callable and
 // awaitable, on top of the shared nox_task runtime (lib/nox_thread.c):
 //
+//  1. a plain synchronous "body" function holding the real logic
+//  2. a per-instantiation argument-bundle struct (nox_task_start's body
+//     signature only takes one void* argument)
+//  3. a trampoline matching nox_body_fn's signature, which unpacks the
