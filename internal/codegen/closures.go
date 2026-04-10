@@ -289,3 +289,7 @@ func (fb *funcBuilder) genAwaitExpr(c *ctx, x *ast.AwaitExpr) (string, Type) {
 	tmp := fb.cg.freshTmp("task")
 	c.emit(compilef("nox_task* %s = %s;", tmp, code))
 	if t.Elem.Kind == KVoid {
+		c.emit(compilef("nox_task_wait(%s);", tmp))
+		return "", TVoid()
+	}
+	elemC := fb.cg.ctype(*t.Elem)
