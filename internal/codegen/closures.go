@@ -193,3 +193,7 @@ func (fb *funcBuilder) genFuncLitValue(c *ctx, x *ast.FuncLit) (string, Type) {
 	for i, n := range capturedNames {
 		innerScope.define(n, capturedTypes[i])
 	}
+	for i, p := range x.Params {
+		innerScope.define(p.Name, paramTypes[i])
+	}
+	innerFB := &funcBuilder{cg: fb.cg, fname: mangled}
