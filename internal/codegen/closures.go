@@ -170,3 +170,7 @@ func (fb *funcBuilder) genFuncLitValue(c *ctx, x *ast.FuncLit) (string, Type) {
 		}
 	}
 
+	var paramTypes []Type
+	for _, p := range x.Params {
+		if p.Type == nil {
+			panic(fmt.Sprintf("nox: %s: an anonymous function stored in a variable needs explicit parameter types, e.g. (x: int) { ... }", fb.fname))
