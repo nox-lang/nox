@@ -189,3 +189,7 @@ func (fb *funcBuilder) genFuncLitValue(c *ctx, x *ast.FuncLit) (string, Type) {
 		fb.cg.typeDefs = append(fb.cg.typeDefs, fmt.Sprintf("typedef struct {\n%s} %s;", fields.String(), envStructName))
 	}
 
+	innerScope := newScope(nil)
+	for i, n := range capturedNames {
+		innerScope.define(n, capturedTypes[i])
+	}
