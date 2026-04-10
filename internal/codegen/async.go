@@ -19,3 +19,7 @@ import (
 //     out-parameter
 //  4. the public entry point (what Nox call sites actually invoke), which
 //     allocates the bundle and calls nox_task_start, returning the
+//     resulting nox_task* immediately (ctype(KTask) == "nox_task*")
+func (cg *Codegen) emitAsyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes []Type, thisType *Type) {
+	bodyName := fi.MangledName + "__body"
+	threadName := fi.MangledName + "__thread"
