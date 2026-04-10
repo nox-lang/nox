@@ -250,3 +250,7 @@ func (fb *funcBuilder) genPropagateExpr(c *ctx, x *ast.PropagateExpr) (string, T
 	code, t := fb.genExpr(c, x.X)
 	if t.Kind == KVoid {
 		if code != "" {
+			c.emit(compilef("%s;", code))
+		}
+		c.emit(compilef("if (NOX_HAS_ERR) { %s }", fb.errorJumpCode()))
+		return "", TVoid()
