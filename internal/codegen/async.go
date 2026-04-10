@@ -27,3 +27,7 @@ func (cg *Codegen) emitAsyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes 
 	fi.AsyncBodyName = bodyName
 	fi.AsyncThreadName = threadName
 
+	scope := newScope(nil)
+	if thisType != nil {
+		scope.define("this", *thisType)
+	}
