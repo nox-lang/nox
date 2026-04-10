@@ -57,3 +57,7 @@ func (cg *Codegen) emitAsyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes 
 		}
 		if len(ps) == 0 {
 			ps = append(ps, "void")
+		}
+		return ps
+	}
+
