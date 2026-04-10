@@ -209,3 +209,5 @@ func (fb *funcBuilder) genFuncLitValue(c *ctx, x *ast.FuncLit) (string, Type) {
 		}
 	}
 	bodyC := innerFB.buildFunctionBody(innerScope, x.Body, "")
+	fullBody := unpackPrefix.String() + bodyC
+
