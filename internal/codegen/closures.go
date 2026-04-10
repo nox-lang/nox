@@ -312,3 +312,7 @@ func (fb *funcBuilder) genParallelExpr(c *ctx, x *ast.ParallelExpr) (string, Typ
 	for _, call := range x.Calls {
 		code, t := fb.genExpr(c, call)
 		if t.Kind != KTask {
+			panic(fmt.Sprintf("nox: %s: 'parallel { }' may only contain calls to async functions", fb.fname))
+		}
+		if taskType == nil {
+			tt := t
