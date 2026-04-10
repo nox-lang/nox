@@ -130,3 +130,7 @@ func freeVarNames(body *ast.BlockStmt, params []*ast.Param) []string {
 			}
 		case *ast.ForCondStmt, *ast.ForInStmt, *ast.WhileStmt, *ast.SwitchStmt:
 			// these implement both Stmt and Expr (used as expressions); walk
+			// them via walkStmt's logic by wrapping in a throwaway block.
+			walkStmt(e.(ast.Stmt))
+		}
+	}
