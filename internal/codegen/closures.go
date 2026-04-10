@@ -293,3 +293,6 @@ func (fb *funcBuilder) genAwaitExpr(c *ctx, x *ast.AwaitExpr) (string, Type) {
 		return "", TVoid()
 	}
 	elemC := fb.cg.ctype(*t.Elem)
+	return fmt.Sprintf("(*(%s*)nox_task_result(%s))", elemC, tmp), *t.Elem
+}
+
