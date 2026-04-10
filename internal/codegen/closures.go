@@ -205,3 +205,7 @@ func (fb *funcBuilder) genFuncLitValue(c *ctx, x *ast.FuncLit) (string, Type) {
 	if len(capturedNames) > 0 {
 		unpackPrefix.WriteString(fmt.Sprintf("%s* __env = (%s*)__envp;\n", envStructName, envStructName))
 		for i, n := range capturedNames {
+			unpackPrefix.WriteString(fmt.Sprintf("%s %s = __env->%s;\n", fb.cg.ctype(capturedTypes[i]), cIdent(n), cIdent(n)))
+		}
+	}
+	bodyC := innerFB.buildFunctionBody(innerScope, x.Body, "")
