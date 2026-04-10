@@ -162,3 +162,7 @@ func retPtrOrNil(t Type) *Type {
 func (fb *funcBuilder) genFuncLitValue(c *ctx, x *ast.FuncLit) (string, Type) {
 	free := freeVarNames(x.Body, x.Params)
 	var capturedNames []string
+	var capturedTypes []Type
+	for _, n := range free {
+		if t, ok := c.scope.lookup(n); ok {
+			capturedNames = append(capturedNames, n)
