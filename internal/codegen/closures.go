@@ -285,3 +285,7 @@ func (fb *funcBuilder) genAwaitExpr(c *ctx, x *ast.AwaitExpr) (string, Type) {
 	}
 	if t.Kind != KTask {
 		panic(fmt.Sprintf("nox: %s: 'await' requires a Task (the result of calling an async function) or an array of Tasks (from 'parallel { }'), got %s", fb.fname, t.String()))
+	}
+	tmp := fb.cg.freshTmp("task")
+	c.emit(compilef("nox_task* %s = %s;", tmp, code))
+	if t.Elem.Kind == KVoid {
