@@ -182,3 +182,7 @@ func (fb *funcBuilder) genFuncLitValue(c *ctx, x *ast.FuncLit) (string, Type) {
 	var envStructName string
 	if len(capturedNames) > 0 {
 		envStructName = mangled + "__env"
+		var fields strings.Builder
+		for i, n := range capturedNames {
+			fields.WriteString(fmt.Sprintf("    %s %s;\n", fb.cg.ctype(capturedTypes[i]), cIdent(n)))
+		}
