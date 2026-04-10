@@ -53,3 +53,7 @@ func (cg *Codegen) emitAsyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes 
 			ps = append(ps, fmt.Sprintf("%s %s", cg.ctype(*thisType), cIdent("this")))
 		}
 		for i, p := range decl.Params {
+			ps = append(ps, fmt.Sprintf("%s %s", cg.ctype(argTypes[i]), cIdent(p.Name)))
+		}
+		if len(ps) == 0 {
+			ps = append(ps, "void")
