@@ -252,3 +252,4 @@ func (fb *funcBuilder) genTaskStatic(c *ctx, methodName string, args []ast.Expr)
 	}
 	panic(fmt.Sprintf("nox: %s: Task has no static method '%s'", fb.fname, methodName))
 }
+
