@@ -240,3 +240,7 @@ func (fb *funcBuilder) genTaskStatic(c *ctx, methodName string, args []ast.Expr)
 			panic(fmt.Sprintf("nox: %s: Task.WhenAll(...) expects a []Task<T>, got %s", fb.fname, t.String()))
 		}
 		elemType := *t.Elem.Elem
+		elemSize := "0"
+		if elemType.Kind != KVoid {
+			elemSize = fmt.Sprintf("(int64_t)sizeof(%s)", fb.cg.ctype(elemType))
+		}
