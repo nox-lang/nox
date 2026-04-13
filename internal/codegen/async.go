@@ -236,3 +236,7 @@ func (fb *funcBuilder) genTaskStatic(c *ctx, methodName string, args []ast.Expr)
 			panic(fmt.Sprintf("nox: %s: Task.WhenAll(...) takes exactly one argument, a []Task<T>", fb.fname))
 		}
 		code, t := fb.genExpr(c, args[0])
+		if t.Kind != KSlice || t.Elem.Kind != KTask {
+			panic(fmt.Sprintf("nox: %s: Task.WhenAll(...) expects a []Task<T>, got %s", fb.fname, t.String()))
+		}
+		elemType := *t.Elem.Elem
