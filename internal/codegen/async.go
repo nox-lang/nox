@@ -84,3 +84,5 @@ func (cg *Codegen) emitAsyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes 
 	if argFields.Len() == 0 {
 		argFields.WriteString("    char __unused;\n")
 	}
+	sbDef.WriteString(fmt.Sprintf("typedef struct {\n%s} %s;\n\n", argFields.String(), argsStructName))
+
