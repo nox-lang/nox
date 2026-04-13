@@ -76,3 +76,7 @@ func (cg *Codegen) emitAsyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes 
 	// cast back into a real, typed pointer).
 	var argFields strings.Builder
 	if thisType != nil {
+		argFields.WriteString(fmt.Sprintf("    %s %s;\n", cg.ctype(*thisType), cIdent("this")))
+	}
+	for i, p := range decl.Params {
+		argFields.WriteString(fmt.Sprintf("    %s %s;\n", cg.ctype(argTypes[i]), cIdent(p.Name)))
