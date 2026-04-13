@@ -90,3 +90,7 @@ func (cg *Codegen) emitAsyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes 
 	sbFwd.WriteString(fmt.Sprintf("static void %s(void *__raw, void *__result);\n", threadName))
 	var callArgs []string
 	if thisType != nil {
+		callArgs = append(callArgs, fmt.Sprintf("__a->%s", cIdent("this")))
+	}
+	for _, p := range decl.Params {
+		callArgs = append(callArgs, fmt.Sprintf("__a->%s", cIdent(p.Name)))
