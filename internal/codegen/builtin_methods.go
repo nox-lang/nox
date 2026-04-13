@@ -38,3 +38,5 @@ func (fb *funcBuilder) genReceiverLvalue(c *ctx, e ast.Expr) (string, Type) {
 	tmp := fb.cg.freshTmp("recv")
 	c.emit(compilef("%s %s = %s;", fb.cg.ctype(t), tmp, code))
 	return tmp, t
+}
+
