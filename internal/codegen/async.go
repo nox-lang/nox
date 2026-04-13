@@ -146,3 +146,7 @@ func (cg *Codegen) emitAsyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes 
 // environment is already opaque (void*) inside the NoxFn_* struct, so one
 // trampoline per return type covers every capture shape.
 func (cg *Codegen) ensureZeroArgTrampoline(retType Type) string {
+	key := "void"
+	if retType.Kind != KVoid {
+		key = mangle(retType)
+	}
