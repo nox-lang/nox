@@ -15,3 +15,7 @@ var builtinMethodNames = map[string]bool{
 	"toInt": true, "toFloat": true, "toBool": true, "toString": true,
 }
 
+// mutatingBuiltinMethods are the built-ins that need a genuinely addressable
+// receiver (see genReceiverLvalue) because they modify the receiver's
+// underlying storage in place.
+var mutatingBuiltinMethods = map[string]bool{
