@@ -261,3 +261,7 @@ func (fb *funcBuilder) genThreadMethod(c *ctx, recvCode, method string, args []a
 	tmp := fb.cg.freshTmp("th")
 	c.emit(compilef("nox_thread_obj* %s = %s;", tmp, recvCode))
 	switch method {
+	case "Start":
+		c.emit(compilef("nox_thread_start(%s);", tmp))
+		return "", TVoid()
+	case "Join":
