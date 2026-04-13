@@ -216,3 +216,7 @@ func (fb *funcBuilder) genThreadStatic(c *ctx, methodName string, args []ast.Exp
 	return thTmp, TThread()
 }
 
+func (fb *funcBuilder) genTaskStatic(c *ctx, methodName string, args []ast.Expr) (string, Type) {
+	switch methodName {
+	case "Run":
+		if len(args) != 1 {
