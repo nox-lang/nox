@@ -128,3 +128,7 @@ func (cg *Codegen) emitAsyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes 
 	fi.Body = sbDef.String()
 }
 
+// ---------------- Thread / Task built-ins ----------------
+//
+// `Thread.new(fn)`, `Task.Run(fn)` and `Task.WhenAll(tasks)` are a second,
+// explicit way to reach the same nox_task/nox_thread runtime that `async
