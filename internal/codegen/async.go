@@ -191,3 +191,7 @@ func (fb *funcBuilder) genZeroArgClosureArg(c *ctx, who string, e ast.Expr) (ptr
 	}
 	retType = TVoid()
 	if t.Ret != nil {
+		retType = *t.Ret
+	}
+	cloC := fb.cg.ctype(t)
+	cloTmp := fb.cg.freshTmp("clo")
