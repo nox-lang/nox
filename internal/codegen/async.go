@@ -142,3 +142,7 @@ func (cg *Codegen) emitAsyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes 
 // nox_body_fn-shaped trampoline that invokes a zero-argument closure
 // (NoxFn_<ret>, no params) stored at the arg pointer, storing its result (if
 // any) through the result pointer. Shared by every Thread.new/Task.Run call
+// site whose closure has the same return type — the closure's captured
+// environment is already opaque (void*) inside the NoxFn_* struct, so one
+// trampoline per return type covers every capture shape.
+func (cg *Codegen) ensureZeroArgTrampoline(retType Type) string {
