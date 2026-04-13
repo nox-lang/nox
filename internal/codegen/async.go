@@ -179,3 +179,7 @@ func (cg *Codegen) ensureZeroArgTrampoline(retType Type) string {
 	return name
 }
 
+// genZeroArgClosureArg evaluates a `() { ... }` argument, checks it takes no
+// parameters, and heap-copies the resulting closure so a pointer to it
+// survives past this statement (needed since it is handed to another
+// thread). Returns the heap pointer expression and the closure's result
