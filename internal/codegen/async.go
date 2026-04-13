@@ -117,3 +117,7 @@ func (cg *Codegen) emitAsyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes 
 	for _, p := range decl.Params {
 		pubBody.WriteString(fmt.Sprintf("__argp->%s = %s;\n", cIdent(p.Name), cIdent(p.Name)))
 	}
+	resultSize := "0"
+	if fi.RetType.Kind != KVoid {
+		resultSize = fmt.Sprintf("(int64_t)sizeof(%s)", resultC)
+	}
