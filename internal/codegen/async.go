@@ -102,3 +102,6 @@ func (cg *Codegen) emitAsyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes 
 		trampolineBody.WriteString(fmt.Sprintf("if (__result) { *(%s*)__result = __r; }\n", resultC))
 	} else {
 		trampolineBody.WriteString(fmt.Sprintf("%s(%s);\n", bodyName, strings.Join(callArgs, ", ")))
+	}
+	sbDef.WriteString(fmt.Sprintf("static void %s(void *__raw, void *__result) {\n%s}\n\n", threadName, indent(trampolineBody.String(), "    ")))
+
