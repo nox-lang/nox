@@ -19,3 +19,6 @@ var builtinMethodNames = map[string]bool{
 // receiver (see genReceiverLvalue) because they modify the receiver's
 // underlying storage in place.
 var mutatingBuiltinMethods = map[string]bool{
+	"push": true, "pop": true, "insert": true, "remove": true, "clear": true, "sort": true,
+}
+
