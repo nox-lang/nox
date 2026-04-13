@@ -132,3 +132,7 @@ func (cg *Codegen) emitAsyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes 
 //
 // `Thread.new(fn)`, `Task.Run(fn)` and `Task.WhenAll(tasks)` are a second,
 // explicit way to reach the same nox_task/nox_thread runtime that `async
+// func`/`await`/`parallel` uses above — modeled on C#'s Task API. `fn` must
+// be a zero-argument anonymous function; its return type (if any) becomes
+// the Task's result type. Both families freely interoperate: a value
+// produced by Task.Run(...) can be `await`-ed, and an `async func` call can
