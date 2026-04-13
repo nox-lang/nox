@@ -138,3 +138,7 @@ func (cg *Codegen) emitAsyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes 
 // produced by Task.Run(...) can be `await`-ed, and an `async func` call can
 // be placed in a []Task and passed to Task.WhenAll(...).
 
+// ensureZeroArgTrampoline returns (creating it once, if necessary) a
+// nox_body_fn-shaped trampoline that invokes a zero-argument closure
+// (NoxFn_<ret>, no params) stored at the arg pointer, storing its result (if
+// any) through the result pointer. Shared by every Thread.new/Task.Run call
