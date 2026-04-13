@@ -105,3 +105,7 @@ func (cg *Codegen) emitAsyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes 
 	}
 	sbDef.WriteString(fmt.Sprintf("static void %s(void *__raw, void *__result) {\n%s}\n\n", threadName, indent(trampolineBody.String(), "    ")))
 
+	// Public entry point.
+	pubParams := paramList()
+	sbFwd.WriteString(fmt.Sprintf("static %s %s(%s);\n", taskC, fi.MangledName, strings.Join(pubParams, ", ")))
+
