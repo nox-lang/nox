@@ -199,3 +199,6 @@ func (fb *funcBuilder) genZeroArgClosureArg(c *ctx, who string, e ast.Expr) (ptr
 	ptrTmp := fb.cg.freshTmp("clop")
 	c.emit(compilef("%s* %s = (%s*)NOX_ALLOC(sizeof(%s));", cloC, ptrTmp, cloC, cloC))
 	c.emit(compilef("*%s = %s;", ptrTmp, cloTmp))
+	return ptrTmp, retType
+}
+
