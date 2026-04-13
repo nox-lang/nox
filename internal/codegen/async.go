@@ -164,3 +164,7 @@ func (cg *Codegen) ensureZeroArgTrampoline(retType Type) string {
 	var body string
 	if retType.Kind == KVoid {
 		body = fmt.Sprintf("(void)__result;\n%s* __c = (%s*)__arg;\n__c->fn(__c->env);", cloC, cloC)
+	} else {
+		retC := cg.ctype(retType)
+		body = fmt.Sprintf("%s* __c = (%s*)__arg;\n%s __r = __c->fn(__c->env);\nif (__result) { *(%s*)__result = __r; }", cloC, cloC, retC, retC)
+	}
