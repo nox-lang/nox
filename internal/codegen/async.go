@@ -121,3 +121,6 @@ func (cg *Codegen) emitAsyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes 
 	if fi.RetType.Kind != KVoid {
 		resultSize = fmt.Sprintf("(int64_t)sizeof(%s)", resultC)
 	}
+	pubBody.WriteString(fmt.Sprintf("return nox_task_start(%s, __argp, %s);\n", threadName, resultSize))
+	sbDef.WriteString(fmt.Sprintf("static %s %s(%s) {\n%s}\n", taskC, fi.MangledName, strings.Join(pubParams, ", "), indent(pubBody.String(), "    ")))
+
