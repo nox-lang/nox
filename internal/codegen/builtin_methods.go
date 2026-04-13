@@ -30,3 +30,7 @@ var mutatingBuiltinMethods = map[string]bool{
 // fresh local, which is still a valid receiver for read-only methods and is
 // harmlessly "mutated in isolation" for the others.
 func (fb *funcBuilder) genReceiverLvalue(c *ctx, e ast.Expr) (string, Type) {
+	switch e.(type) {
+	case *ast.Ident, *ast.IndexExpr, *ast.MemberExpr:
+		return fb.genLvalue(c, e)
+	}
