@@ -257,3 +257,7 @@ func (fb *funcBuilder) genTaskStatic(c *ctx, methodName string, args []ast.Expr)
 func (fb *funcBuilder) genThreadMethod(c *ctx, recvCode, method string, args []ast.Expr) (string, Type) {
 	if len(args) != 0 {
 		panic(fmt.Sprintf("nox: %s: Thread.%s() takes no arguments", fb.fname, method))
+	}
+	tmp := fb.cg.freshTmp("th")
+	c.emit(compilef("nox_thread_obj* %s = %s;", tmp, recvCode))
+	switch method {
