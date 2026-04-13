@@ -183,3 +183,7 @@ func (cg *Codegen) ensureZeroArgTrampoline(retType Type) string {
 // parameters, and heap-copies the resulting closure so a pointer to it
 // survives past this statement (needed since it is handed to another
 // thread). Returns the heap pointer expression and the closure's result
+// type (TVoid() if it returns nothing).
+func (fb *funcBuilder) genZeroArgClosureArg(c *ctx, who string, e ast.Expr) (ptrExpr string, retType Type) {
+	code, t := fb.genExpr(c, e)
+	if t.Kind != KFunc || len(t.Params) != 0 {
