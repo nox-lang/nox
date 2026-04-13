@@ -158,3 +158,5 @@ func (cg *Codegen) ensureZeroArgTrampoline(retType Type) string {
 		r := retType
 		closureType.Ret = &r
 	}
+	cloC := cg.ctype(closureType) // registers NoxFn_<ret>
+
