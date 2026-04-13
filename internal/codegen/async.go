@@ -136,3 +136,5 @@ func (cg *Codegen) emitAsyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes 
 // be a zero-argument anonymous function; its return type (if any) becomes
 // the Task's result type. Both families freely interoperate: a value
 // produced by Task.Run(...) can be `await`-ed, and an `async func` call can
+// be placed in a []Task and passed to Task.WhenAll(...).
+
