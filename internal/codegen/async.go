@@ -160,3 +160,7 @@ func (cg *Codegen) ensureZeroArgTrampoline(retType Type) string {
 	}
 	cloC := cg.ctype(closureType) // registers NoxFn_<ret>
 
+	name := cg.freshName("nox_zarg_tramp")
+	var body string
+	if retType.Kind == KVoid {
+		body = fmt.Sprintf("(void)__result;\n%s* __c = (%s*)__arg;\n__c->fn(__c->env);", cloC, cloC)
