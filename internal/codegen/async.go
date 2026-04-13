@@ -154,3 +154,7 @@ func (cg *Codegen) ensureZeroArgTrampoline(retType Type) string {
 		return name
 	}
 	closureType := Type{Kind: KFunc}
+	if retType.Kind != KVoid {
+		r := retType
+		closureType.Ret = &r
+	}
