@@ -168,3 +168,7 @@ func (cg *Codegen) ensureZeroArgTrampoline(retType Type) string {
 		retC := cg.ctype(retType)
 		body = fmt.Sprintf("%s* __c = (%s*)__arg;\n%s __r = __c->fn(__c->env);\nif (__result) { *(%s*)__result = __r; }", cloC, cloC, retC, retC)
 	}
+	fi := &FuncInstance{
+		MangledName: name,
+		Forward:     fmt.Sprintf("static void %s(void *__arg, void *__result);", name),
+		Body:        fmt.Sprintf("static void %s(void *__arg, void *__result) {\n%s\n}", name, indent(body, "    ")),
