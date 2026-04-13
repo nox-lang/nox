@@ -94,3 +94,7 @@ func (cg *Codegen) emitAsyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes 
 	}
 	for _, p := range decl.Params {
 		callArgs = append(callArgs, fmt.Sprintf("__a->%s", cIdent(p.Name)))
+	}
+	var trampolineBody strings.Builder
+	trampolineBody.WriteString(fmt.Sprintf("%s* __a = (%s*)__raw;\n", argsStructName, argsStructName))
+	if fi.RetType.Kind != KVoid {
