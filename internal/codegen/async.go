@@ -66,3 +66,5 @@ func (cg *Codegen) emitAsyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes 
 		bodyRetC = resultC
 	}
 
+	var sbFwd, sbDef strings.Builder
+
