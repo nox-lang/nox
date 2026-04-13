@@ -224,3 +224,7 @@ func (fb *funcBuilder) genTaskStatic(c *ctx, methodName string, args []ast.Expr)
 		}
 		ptrExpr, retType := fb.genZeroArgClosureArg(c, "Task.Run", args[0])
 		tramp := fb.cg.ensureZeroArgTrampoline(retType)
+		resultSize := "0"
+		if retType.Kind != KVoid {
+			resultSize = fmt.Sprintf("(int64_t)sizeof(%s)", fb.cg.ctype(retType))
+		}
