@@ -244,3 +244,7 @@ func (fb *funcBuilder) genTaskStatic(c *ctx, methodName string, args []ast.Expr)
 		if elemType.Kind != KVoid {
 			elemSize = fmt.Sprintf("(int64_t)sizeof(%s)", fb.cg.ctype(elemType))
 		}
+		tasksTmp := fb.cg.freshTmp("tasks")
+		c.emit(compilef("nox_slice %s = %s;", tasksTmp, code))
+		outTmp := fb.cg.freshTmp("taskall")
+		c.emit(compilef("nox_task* %s = nox_task_when_all(%s, %s);", outTmp, tasksTmp, elemSize))
