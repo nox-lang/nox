@@ -214,3 +214,5 @@ func (fb *funcBuilder) genThreadStatic(c *ctx, methodName string, args []ast.Exp
 	thTmp := fb.cg.freshTmp("thread")
 	c.emit(compilef("nox_thread_obj* %s = nox_thread_new(%s, %s);", thTmp, tramp, ptrExpr))
 	return thTmp, TThread()
+}
+
