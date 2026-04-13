@@ -269,3 +269,4 @@ func (fb *funcBuilder) genThreadMethod(c *ctx, recvCode, method string, args []a
 		return "", TVoid()
 	}
 	panic(fmt.Sprintf("nox: %s: Thread has no method '%s' (available: .Start(), .Join())", fb.fname, method))
+}
