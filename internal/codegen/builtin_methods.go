@@ -48,3 +48,7 @@ func (fb *funcBuilder) genBuiltinMethodCall(c *ctx, recv string, recvType Type, 
 		}
 		return fb.genConversion(recv, recvType, method)
 	}
+	switch recvType.Kind {
+	case KString:
+		return fb.genStringMethod(c, recv, method, args)
+	case KSlice:
