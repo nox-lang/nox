@@ -124,3 +124,7 @@ func (cg *Codegen) emitAsyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes 
 	pubBody.WriteString(fmt.Sprintf("return nox_task_start(%s, __argp, %s);\n", threadName, resultSize))
 	sbDef.WriteString(fmt.Sprintf("static %s %s(%s) {\n%s}\n", taskC, fi.MangledName, strings.Join(pubParams, ", "), indent(pubBody.String(), "    ")))
 
+	fi.Forward = sbFwd.String()
+	fi.Body = sbDef.String()
+}
+
