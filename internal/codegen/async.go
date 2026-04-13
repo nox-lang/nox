@@ -210,3 +210,7 @@ func (fb *funcBuilder) genThreadStatic(c *ctx, methodName string, args []ast.Exp
 		panic(fmt.Sprintf("nox: %s: Thread.new(...) takes exactly one argument, a zero-argument anonymous function", fb.fname))
 	}
 	ptrExpr, retType := fb.genZeroArgClosureArg(c, "Thread.new", args[0])
+	tramp := fb.cg.ensureZeroArgTrampoline(retType) // any return value is discarded — a Thread has no .Result
+	thTmp := fb.cg.freshTmp("thread")
+	c.emit(compilef("nox_thread_obj* %s = nox_thread_new(%s, %s);", thTmp, tramp, ptrExpr))
+	return thTmp, TThread()
