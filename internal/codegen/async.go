@@ -86,3 +86,7 @@ func (cg *Codegen) emitAsyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes 
 	}
 	sbDef.WriteString(fmt.Sprintf("typedef struct {\n%s} %s;\n\n", argFields.String(), argsStructName))
 
+	// Trampoline: matches nox_body_fn (void(*)(void *arg, void *result)).
+	sbFwd.WriteString(fmt.Sprintf("static void %s(void *__raw, void *__result);\n", threadName))
+	var callArgs []string
+	if thisType != nil {
