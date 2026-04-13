@@ -40,3 +40,7 @@ func (fb *funcBuilder) genReceiverLvalue(c *ctx, e ast.Expr) (string, Type) {
 	return tmp, t
 }
 
+func (fb *funcBuilder) genBuiltinMethodCall(c *ctx, recv string, recvType Type, method string, args []ast.Expr) (string, Type) {
+	switch method {
+	case "toInt", "toFloat", "toBool", "toString":
+		if len(args) != 0 {
