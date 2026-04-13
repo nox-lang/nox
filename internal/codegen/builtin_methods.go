@@ -22,3 +22,7 @@ var mutatingBuiltinMethods = map[string]bool{
 	"push": true, "pop": true, "insert": true, "remove": true, "clear": true, "sort": true,
 }
 
+// genReceiverLvalue evaluates e as the receiver of a built-in method call.
+// If e naturally denotes storage (a variable, an index, or a class member),
+// the *real* underlying storage is returned so that mutating methods
+// (push/pop/insert/remove/clear/sort) affect it in place. Otherwise (e.g.
