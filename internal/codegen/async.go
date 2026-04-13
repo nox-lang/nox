@@ -172,3 +172,7 @@ func (cg *Codegen) ensureZeroArgTrampoline(retType Type) string {
 		MangledName: name,
 		Forward:     fmt.Sprintf("static void %s(void *__arg, void *__result);", name),
 		Body:        fmt.Sprintf("static void %s(void *__arg, void *__result) {\n%s\n}", name, indent(body, "    ")),
+	}
+	cg.funcInstances[name] = fi
+	cg.funcOrder = append(cg.funcOrder, name)
+	cg.zeroArgTrampolines[key] = name
