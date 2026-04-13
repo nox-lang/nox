@@ -228,3 +228,7 @@ func (fb *funcBuilder) genTaskStatic(c *ctx, methodName string, args []ast.Expr)
 		if retType.Kind != KVoid {
 			resultSize = fmt.Sprintf("(int64_t)sizeof(%s)", fb.cg.ctype(retType))
 		}
+		taskTmp := fb.cg.freshTmp("task")
+		c.emit(compilef("nox_task* %s = nox_task_start(%s, %s, %s);", taskTmp, tramp, ptrExpr, resultSize))
+		return taskTmp, TTask(retType)
+	case "WhenAll":
