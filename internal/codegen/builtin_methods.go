@@ -44,3 +44,7 @@ func (fb *funcBuilder) genBuiltinMethodCall(c *ctx, recv string, recvType Type, 
 	switch method {
 	case "toInt", "toFloat", "toBool", "toString":
 		if len(args) != 0 {
+			panic(fmt.Sprintf("nox: %s: '.%s()' takes no arguments", fb.fname, method))
+		}
+		return fb.genConversion(recv, recvType, method)
+	}
