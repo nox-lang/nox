@@ -176,3 +176,6 @@ func (cg *Codegen) ensureZeroArgTrampoline(retType Type) string {
 	cg.funcInstances[name] = fi
 	cg.funcOrder = append(cg.funcOrder, name)
 	cg.zeroArgTrampolines[key] = name
+	return name
+}
+
