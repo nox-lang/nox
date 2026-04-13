@@ -68,3 +68,7 @@ func (cg *Codegen) emitAsyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes 
 
 	var sbFwd, sbDef strings.Builder
 
+	bodyParams := paramList()
+	sbFwd.WriteString(fmt.Sprintf("static %s %s(%s);\n", bodyRetC, bodyName, strings.Join(bodyParams, ", ")))
+	sbDef.WriteString(fmt.Sprintf("static %s %s(%s) {\n%s}\n\n", bodyRetC, bodyName, strings.Join(bodyParams, ", "), indent(bodyC, "    ")))
+
