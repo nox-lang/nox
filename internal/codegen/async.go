@@ -220,3 +220,7 @@ func (fb *funcBuilder) genTaskStatic(c *ctx, methodName string, args []ast.Expr)
 	switch methodName {
 	case "Run":
 		if len(args) != 1 {
+			panic(fmt.Sprintf("nox: %s: Task.Run(...) takes exactly one argument, a zero-argument anonymous function", fb.fname))
+		}
+		ptrExpr, retType := fb.genZeroArgClosureArg(c, "Task.Run", args[0])
+		tramp := fb.cg.ensureZeroArgTrampoline(retType)
