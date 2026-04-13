@@ -34,3 +34,7 @@ func (fb *funcBuilder) genReceiverLvalue(c *ctx, e ast.Expr) (string, Type) {
 	case *ast.Ident, *ast.IndexExpr, *ast.MemberExpr:
 		return fb.genLvalue(c, e)
 	}
+	code, t := fb.genExpr(c, e)
+	tmp := fb.cg.freshTmp("recv")
+	c.emit(compilef("%s %s = %s;", fb.cg.ctype(t), tmp, code))
+	return tmp, t
