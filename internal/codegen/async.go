@@ -265,3 +265,7 @@ func (fb *funcBuilder) genThreadMethod(c *ctx, recvCode, method string, args []a
 		c.emit(compilef("nox_thread_start(%s);", tmp))
 		return "", TVoid()
 	case "Join":
+		c.emit(compilef("nox_thread_join(%s);", tmp))
+		return "", TVoid()
+	}
+	panic(fmt.Sprintf("nox: %s: Thread has no method '%s' (available: .Start(), .Join())", fb.fname, method))
