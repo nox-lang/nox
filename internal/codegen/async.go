@@ -187,3 +187,7 @@ func (cg *Codegen) ensureZeroArgTrampoline(retType Type) string {
 func (fb *funcBuilder) genZeroArgClosureArg(c *ctx, who string, e ast.Expr) (ptrExpr string, retType Type) {
 	code, t := fb.genExpr(c, e)
 	if t.Kind != KFunc || len(t.Params) != 0 {
+		panic(fmt.Sprintf("nox: %s: %s expects a zero-argument anonymous function, e.g. %s(() { ... })", fb.fname, who, who))
+	}
+	retType = TVoid()
+	if t.Ret != nil {
