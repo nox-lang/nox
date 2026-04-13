@@ -253,3 +253,7 @@ func (fb *funcBuilder) genTaskStatic(c *ctx, methodName string, args []ast.Expr)
 	panic(fmt.Sprintf("nox: %s: Task has no static method '%s'", fb.fname, methodName))
 }
 
+// genThreadMethod compiles `t.Start()` / `t.Join()` on a Thread value.
+func (fb *funcBuilder) genThreadMethod(c *ctx, recvCode, method string, args []ast.Expr) (string, Type) {
+	if len(args) != 0 {
+		panic(fmt.Sprintf("nox: %s: Thread.%s() takes no arguments", fb.fname, method))
