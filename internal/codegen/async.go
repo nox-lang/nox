@@ -206,3 +206,7 @@ func (fb *funcBuilder) genThreadStatic(c *ctx, methodName string, args []ast.Exp
 	if methodName != "new" {
 		panic(fmt.Sprintf("nox: %s: Thread has no static member '%s' (did you mean Thread.new(...)?)", fb.fname, methodName))
 	}
+	if len(args) != 1 {
+		panic(fmt.Sprintf("nox: %s: Thread.new(...) takes exactly one argument, a zero-argument anonymous function", fb.fname))
+	}
+	ptrExpr, retType := fb.genZeroArgClosureArg(c, "Thread.new", args[0])
