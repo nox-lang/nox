@@ -232,3 +232,7 @@ func (fb *funcBuilder) genTaskStatic(c *ctx, methodName string, args []ast.Expr)
 		c.emit(compilef("nox_task* %s = nox_task_start(%s, %s, %s);", taskTmp, tramp, ptrExpr, resultSize))
 		return taskTmp, TTask(retType)
 	case "WhenAll":
+		if len(args) != 1 {
+			panic(fmt.Sprintf("nox: %s: Task.WhenAll(...) takes exactly one argument, a []Task<T>", fb.fname))
+		}
+		code, t := fb.genExpr(c, args[0])
