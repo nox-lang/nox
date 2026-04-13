@@ -150,3 +150,7 @@ func (cg *Codegen) ensureZeroArgTrampoline(retType Type) string {
 	if retType.Kind != KVoid {
 		key = mangle(retType)
 	}
+	if name, ok := cg.zeroArgTrampolines[key]; ok {
+		return name
+	}
+	closureType := Type{Kind: KFunc}
