@@ -72,3 +72,7 @@ func (cg *Codegen) emitAsyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes 
 	sbFwd.WriteString(fmt.Sprintf("static %s %s(%s);\n", bodyRetC, bodyName, strings.Join(bodyParams, ", ")))
 	sbDef.WriteString(fmt.Sprintf("static %s %s(%s) {\n%s}\n\n", bodyRetC, bodyName, strings.Join(bodyParams, ", "), indent(bodyC, "    ")))
 
+	// Argument bundle struct (typedef so the trampoline's lone void* can be
+	// cast back into a real, typed pointer).
+	var argFields strings.Builder
+	if thisType != nil {
