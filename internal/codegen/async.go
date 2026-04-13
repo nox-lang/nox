@@ -109,3 +109,7 @@ func (cg *Codegen) emitAsyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes 
 	pubParams := paramList()
 	sbFwd.WriteString(fmt.Sprintf("static %s %s(%s);\n", taskC, fi.MangledName, strings.Join(pubParams, ", ")))
 
+	var pubBody strings.Builder
+	pubBody.WriteString(fmt.Sprintf("%s* __argp = (%s*)NOX_ALLOC(sizeof(%s));\n", argsStructName, argsStructName, argsStructName))
+	if thisType != nil {
+		pubBody.WriteString(fmt.Sprintf("__argp->%s = %s;\n", cIdent("this"), cIdent("this")))
