@@ -248,3 +248,7 @@ func (fb *funcBuilder) genTaskStatic(c *ctx, methodName string, args []ast.Expr)
 		c.emit(compilef("nox_slice %s = %s;", tasksTmp, code))
 		outTmp := fb.cg.freshTmp("taskall")
 		c.emit(compilef("nox_task* %s = nox_task_when_all(%s, %s);", outTmp, tasksTmp, elemSize))
+		return outTmp, TTask(TSlice(elemType))
+	}
+	panic(fmt.Sprintf("nox: %s: Task has no static method '%s'", fb.fname, methodName))
+}
