@@ -77,3 +77,7 @@ func (fb *funcBuilder) genConversion(recv string, t Type, method string) (string
 			return conv("nox_string_to_int", TInt())
 		}
 	case "toFloat":
+		switch t.Kind {
+		case KFloat:
+			return conv("", TFloat())
+		case KInt:
