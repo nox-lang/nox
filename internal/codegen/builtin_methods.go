@@ -119,3 +119,7 @@ func (fb *funcBuilder) genStringMethod(c *ctx, recv string, method string, args 
 	switch method {
 	case "empty":
 		if len(args) != 0 {
+			panic(fmt.Sprintf("nox: %s: '.empty()' takes no arguments", fb.fname))
+		}
+		return fmt.Sprintf("((%s).len == 0)", recv), TBool()
+	case "contains", "startsWith", "endsWith":
