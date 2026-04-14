@@ -147,3 +147,7 @@ func (fb *funcBuilder) genStringMethod(c *ctx, recv string, method string, args 
 			panic(fmt.Sprintf("nox: %s: '.eachLine(...)' takes exactly one argument", fb.fname))
 		}
 		fl := fb.requireFuncLit(args[0], "eachLine")
+		linesTmp := fb.cg.freshTmp("lines")
+		c.emit(compilef("nox_slice %s = nox_string_split_lines(%s);", linesTmp, recv))
+		return fb.genEachLoop(c, linesTmp, TString(), fl, false)
+	}
