@@ -252,3 +252,6 @@ func (fb *funcBuilder) genArrayMethod(c *ctx, recv string, recvType Type, method
 	case "sort":
 		return fb.genSort(c, recv, elemType, args)
 	}
+	panic(fmt.Sprintf("nox: %s: array has no method '.%s(...)'", fb.fname, method))
+}
+
