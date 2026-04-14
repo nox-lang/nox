@@ -151,3 +151,6 @@ func (fb *funcBuilder) genStringMethod(c *ctx, recv string, method string, args 
 		c.emit(compilef("nox_slice %s = nox_string_split_lines(%s);", linesTmp, recv))
 		return fb.genEachLoop(c, linesTmp, TString(), fl, false)
 	}
+	panic(fmt.Sprintf("nox: %s: string has no method '.%s(...)'", fb.fname, method))
+}
+
