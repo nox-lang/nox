@@ -160,3 +160,7 @@ func (fb *funcBuilder) genArrayMethod(c *ctx, recv string, recvType Type, method
 	elemType := *recvType.Elem
 	elemC := fb.cg.ctype(elemType)
 	switch method {
+	case "push":
+		if len(args) != 1 {
+			panic(fmt.Sprintf("nox: %s: '.push(...)' takes exactly one argument", fb.fname))
+		}
