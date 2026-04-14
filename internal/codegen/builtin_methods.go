@@ -164,3 +164,7 @@ func (fb *funcBuilder) genArrayMethod(c *ctx, recv string, recvType Type, method
 		if len(args) != 1 {
 			panic(fmt.Sprintf("nox: %s: '.push(...)' takes exactly one argument", fb.fname))
 		}
+		code, t := fb.genExpr(c, args[0])
+		if !t.Equals(elemType) {
+			panic(fmt.Sprintf("nox: %s: '.push(...)': expected %s, got %s", fb.fname, elemType.String(), t.String()))
+		}
