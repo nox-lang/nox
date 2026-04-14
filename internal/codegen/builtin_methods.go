@@ -180,3 +180,7 @@ func (fb *funcBuilder) genArrayMethod(c *ctx, recv string, recvType Type, method
 		c.emit(compilef("%s %s;", elemC, tmp))
 		c.emit(compilef("nox_slice_pop_raw(&%s, &%s, sizeof(%s));", recv, tmp, elemC))
 		return tmp, elemType
+	case "insert":
+		if len(args) != 2 {
+			panic(fmt.Sprintf("nox: %s: '.insert(index, value)' takes exactly two arguments", fb.fname))
+		}
