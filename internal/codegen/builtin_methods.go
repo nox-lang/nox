@@ -135,3 +135,7 @@ func (fb *funcBuilder) genStringMethod(c *ctx, recv string, method string, args 
 	case "substring":
 		if len(args) != 2 {
 			panic(fmt.Sprintf("nox: %s: '.substring(start, end)' takes exactly two arguments", fb.fname))
+		}
+		a0, t0 := fb.genExpr(c, args[0])
+		a1, t1 := fb.genExpr(c, args[1])
+		if t0.Kind != KInt || t1.Kind != KInt {
