@@ -56,3 +56,4 @@ func (fb *funcBuilder) genBuiltinMethodCall(c *ctx, recv string, recvType Type, 
 	}
 	panic(fmt.Sprintf("nox: %s: '.%s(...)' is not available on type %s", fb.fname, method, recvType.String()))
 }
+
