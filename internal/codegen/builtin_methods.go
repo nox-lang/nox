@@ -101,3 +101,7 @@ func (fb *funcBuilder) genConversion(recv string, t Type, method string) (string
 	case "toString":
 		switch t.Kind {
 		case KString:
+			return conv("", TString())
+		case KInt:
+			return conv("nox_int_to_string", TString())
+		case KFloat:
