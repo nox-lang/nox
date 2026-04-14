@@ -220,3 +220,7 @@ func (fb *funcBuilder) genArrayMethod(c *ctx, recv string, recvType Type, method
 		c.emit(compilef("nox_slice %s = nox_slice_reverse_raw(%s, sizeof(%s));", tmp, recv, elemC))
 		return tmp, recvType
 	case "each":
+		if len(args) != 1 {
+			panic(fmt.Sprintf("nox: %s: '.each(...)' takes exactly one argument", fb.fname))
+		}
+		fl := fb.requireFuncLit(args[0], "each")
