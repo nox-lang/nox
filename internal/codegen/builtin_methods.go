@@ -154,3 +154,5 @@ func (fb *funcBuilder) genStringMethod(c *ctx, recv string, method string, args 
 	panic(fmt.Sprintf("nox: %s: string has no method '.%s(...)'", fb.fname, method))
 }
 
+// ---------------- array methods ----------------
+
