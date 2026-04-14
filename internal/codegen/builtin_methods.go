@@ -192,3 +192,7 @@ func (fb *funcBuilder) genArrayMethod(c *ctx, recv string, recvType Type, method
 		if !valT.Equals(elemType) {
 			panic(fmt.Sprintf("nox: %s: '.insert(index, value)': expected %s, got %s", fb.fname, elemType.String(), valT.String()))
 		}
+		etmp := fb.cg.freshTmp("e")
+		c.emit(compilef("%s %s = %s;", elemC, etmp, valCode))
+		c.emit(compilef("nox_slice_insert_raw(&%s, %s, &%s, sizeof(%s));", recv, idxCode, etmp, elemC))
+		return "", TVoid()
