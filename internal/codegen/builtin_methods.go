@@ -204,3 +204,7 @@ func (fb *funcBuilder) genArrayMethod(c *ctx, recv string, recvType Type, method
 		if idxT.Kind != KInt {
 			panic(fmt.Sprintf("nox: %s: '.remove(index)': index must be int", fb.fname))
 		}
+		c.emit(compilef("nox_slice_remove_raw(&%s, %s, sizeof(%s));", recv, idxCode, elemC))
+		return "", TVoid()
+	case "clear":
+		if len(args) != 0 {
