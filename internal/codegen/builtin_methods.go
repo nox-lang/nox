@@ -188,3 +188,7 @@ func (fb *funcBuilder) genArrayMethod(c *ctx, recv string, recvType Type, method
 		if idxT.Kind != KInt {
 			panic(fmt.Sprintf("nox: %s: '.insert(index, value)': index must be int", fb.fname))
 		}
+		valCode, valT := fb.genExpr(c, args[1])
+		if !valT.Equals(elemType) {
+			panic(fmt.Sprintf("nox: %s: '.insert(index, value)': expected %s, got %s", fb.fname, elemType.String(), valT.String()))
+		}
