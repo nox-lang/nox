@@ -300,3 +300,7 @@ func (fb *funcBuilder) genInlineCallback(scope *Scope, fl *ast.FuncLit, params [
 	decl := ""
 	if resultType != nil {
 		decl = fmt.Sprintf("%s %s;", fb.cg.ctype(*resultType), resultVar)
+	}
+	bodyC = strings.ReplaceAll(sb.String(), "%%HOFRESDECL%%", decl)
+	return bodyC, resultVar, resultType
+}
