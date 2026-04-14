@@ -65,3 +65,7 @@ func (fb *funcBuilder) genConversion(recv string, t Type, method string) (string
 		return fmt.Sprintf("%s(%s)", fn, recv), rt
 	}
 	switch method {
+	case "toInt":
+		switch t.Kind {
+		case KInt:
+			return conv("", TInt())
