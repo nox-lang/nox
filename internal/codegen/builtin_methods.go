@@ -228,3 +228,7 @@ func (fb *funcBuilder) genArrayMethod(c *ctx, recv string, recvType Type, method
 	case "eachIndex":
 		if len(args) != 1 {
 			panic(fmt.Sprintf("nox: %s: '.eachIndex(...)' takes exactly one argument", fb.fname))
+		}
+		fl := fb.requireFuncLit(args[0], "eachIndex")
+		return fb.genEachLoop(c, recv, elemType, fl, true)
+	case "map":
