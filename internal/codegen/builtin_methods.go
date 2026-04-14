@@ -212,3 +212,7 @@ func (fb *funcBuilder) genArrayMethod(c *ctx, recv string, recvType Type, method
 		}
 		c.emit(compilef("nox_slice_clear(&%s);", recv))
 		return "", TVoid()
+	case "reverse":
+		if len(args) != 0 {
+			panic(fmt.Sprintf("nox: %s: '.reverse()' takes no arguments", fb.fname))
+		}
