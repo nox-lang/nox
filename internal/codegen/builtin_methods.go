@@ -248,3 +248,7 @@ func (fb *funcBuilder) genArrayMethod(c *ctx, recv string, recvType Type, method
 			panic(fmt.Sprintf("nox: %s: '.find(...)' takes exactly one argument", fb.fname))
 		}
 		fl := fb.requireFuncLit(args[0], "find")
+		return fb.genFindLoop(c, recv, elemType, fl)
+	case "sort":
+		return fb.genSort(c, recv, elemType, args)
+	}
