@@ -81,3 +81,7 @@ func (fb *funcBuilder) genConversion(recv string, t Type, method string) (string
 		case KFloat:
 			return conv("", TFloat())
 		case KInt:
+			return conv("nox_int_to_float", TFloat())
+		case KBool:
+			return conv("nox_bool_to_float", TFloat())
+		case KString:
