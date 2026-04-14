@@ -168,3 +168,7 @@ func (fb *funcBuilder) genArrayMethod(c *ctx, recv string, recvType Type, method
 		if !t.Equals(elemType) {
 			panic(fmt.Sprintf("nox: %s: '.push(...)': expected %s, got %s", fb.fname, elemType.String(), t.String()))
 		}
+		etmp := fb.cg.freshTmp("e")
+		c.emit(compilef("%s %s = %s;", elemC, etmp, code))
+		c.emit(compilef("nox_slice_push_raw(&%s, &%s, sizeof(%s));", recv, etmp, elemC))
+		return "", TVoid()
