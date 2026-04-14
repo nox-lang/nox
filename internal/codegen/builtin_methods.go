@@ -240,3 +240,7 @@ func (fb *funcBuilder) genArrayMethod(c *ctx, recv string, recvType Type, method
 	case "filter":
 		if len(args) != 1 {
 			panic(fmt.Sprintf("nox: %s: '.filter(...)' takes exactly one argument", fb.fname))
+		}
+		fl := fb.requireFuncLit(args[0], "filter")
+		return fb.genFilterLoop(c, recv, elemType, fl)
+	case "find":
