@@ -269,3 +269,7 @@ type cbParam struct {
 	cexpr string
 }
 
+// genInlineCallback inlines fl's body with its parameters bound to the given
+// C source expressions, in a fresh nested scope. A `yield expr` inside fl's
+// body does not return from the enclosing Nox function — it yields a
+// per-invocation result (Nox's map/filter/find/each callback semantics),
