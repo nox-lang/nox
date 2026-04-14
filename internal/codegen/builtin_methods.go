@@ -57,3 +57,7 @@ func (fb *funcBuilder) genBuiltinMethodCall(c *ctx, recv string, recvType Type, 
 	panic(fmt.Sprintf("nox: %s: '.%s(...)' is not available on type %s", fb.fname, method, recvType.String()))
 }
 
+func (fb *funcBuilder) genConversion(recv string, t Type, method string) (string, Type) {
+	conv := func(fn string, rt Type) (string, Type) {
+		if fn == "" {
+			return recv, rt
