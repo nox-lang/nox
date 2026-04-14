@@ -109,3 +109,7 @@ func (fb *funcBuilder) genConversion(recv string, t Type, method string) (string
 		case KBool:
 			return conv("nox_bool_to_string", TString())
 		}
+	}
+	panic(fmt.Sprintf("nox: %s: '.%s()' is not available on type %s", fb.fname, method, t.String()))
+}
+
