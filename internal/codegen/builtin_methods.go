@@ -196,3 +196,7 @@ func (fb *funcBuilder) genArrayMethod(c *ctx, recv string, recvType Type, method
 		c.emit(compilef("%s %s = %s;", elemC, etmp, valCode))
 		c.emit(compilef("nox_slice_insert_raw(&%s, %s, &%s, sizeof(%s));", recv, idxCode, etmp, elemC))
 		return "", TVoid()
+	case "remove":
+		if len(args) != 1 {
+			panic(fmt.Sprintf("nox: %s: '.remove(index)' takes exactly one argument", fb.fname))
+		}
