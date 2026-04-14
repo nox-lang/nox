@@ -200,3 +200,7 @@ func (fb *funcBuilder) genArrayMethod(c *ctx, recv string, recvType Type, method
 		if len(args) != 1 {
 			panic(fmt.Sprintf("nox: %s: '.remove(index)' takes exactly one argument", fb.fname))
 		}
+		idxCode, idxT := fb.genExpr(c, args[0])
+		if idxT.Kind != KInt {
+			panic(fmt.Sprintf("nox: %s: '.remove(index)': index must be int", fb.fname))
+		}
