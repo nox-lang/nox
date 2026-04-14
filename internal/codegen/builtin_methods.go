@@ -69,3 +69,7 @@ func (fb *funcBuilder) genConversion(recv string, t Type, method string) (string
 		switch t.Kind {
 		case KInt:
 			return conv("", TInt())
+		case KFloat:
+			return conv("nox_float_to_int", TInt())
+		case KBool:
+			return conv("nox_bool_to_int", TInt())
