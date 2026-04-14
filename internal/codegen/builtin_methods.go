@@ -113,3 +113,5 @@ func (fb *funcBuilder) genConversion(recv string, t Type, method string) (string
 	panic(fmt.Sprintf("nox: %s: '.%s()' is not available on type %s", fb.fname, method, t.String()))
 }
 
+// ---------------- string methods ----------------
+
