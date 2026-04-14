@@ -115,3 +115,7 @@ func (fb *funcBuilder) genConversion(recv string, t Type, method string) (string
 
 // ---------------- string methods ----------------
 
+func (fb *funcBuilder) genStringMethod(c *ctx, recv string, method string, args []ast.Expr) (string, Type) {
+	switch method {
+	case "empty":
+		if len(args) != 0 {
