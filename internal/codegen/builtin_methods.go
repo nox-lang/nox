@@ -127,3 +127,7 @@ func (fb *funcBuilder) genStringMethod(c *ctx, recv string, method string, args 
 			panic(fmt.Sprintf("nox: %s: '.%s(...)' takes exactly one argument", fb.fname, method))
 		}
 		argCode, argType := fb.genExpr(c, args[0])
+		if argType.Kind != KString {
+			panic(fmt.Sprintf("nox: %s: '.%s(...)' expects a string argument", fb.fname, method))
+		}
+		fn := map[string]string{"contains": "nox_string_contains", "startsWith": "nox_string_starts_with", "endsWith": "nox_string_ends_with"}[method]
