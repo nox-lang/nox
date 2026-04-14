@@ -285,3 +285,7 @@ func (fb *funcBuilder) genInlineCallback(scope *Scope, fl *ast.FuncLit, params [
 	var sb strings.Builder
 	for i, p := range fl.Params {
 		inner.define(p.Name, params[i].typ)
+		sb.WriteString(compilef("%s %s = %s;", fb.cg.ctype(params[i].typ), cIdent(p.Name), params[i].cexpr))
+	}
+	resultVar = fb.cg.freshTmp("hofres")
+	label := fb.cg.freshTmp("hoflabel")
