@@ -296,3 +296,7 @@ func (fb *funcBuilder) genInlineCallback(scope *Scope, fl *ast.FuncLit, params [
 	fb.loopStack = fb.loopStack[:len(fb.loopStack)-1]
 	sb.WriteString(compilef("%s: ;", label))
 
+	resultType = lc.resultType
+	decl := ""
+	if resultType != nil {
+		decl = fmt.Sprintf("%s %s;", fb.cg.ctype(*resultType), resultVar)
