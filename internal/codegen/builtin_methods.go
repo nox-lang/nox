@@ -85,3 +85,7 @@ func (fb *funcBuilder) genConversion(recv string, t Type, method string) (string
 		case KBool:
 			return conv("nox_bool_to_float", TFloat())
 		case KString:
+			return conv("nox_string_to_float", TFloat())
+		}
+	case "toBool":
+		switch t.Kind {
