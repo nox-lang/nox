@@ -277,3 +277,7 @@ type cbParam struct {
 // the body never used `yield`. Unlike `yield`, a `return` inside fl's body
 // is an ordinary return from the *enclosing* function, since the callback
 // is inlined directly rather than compiled as its own function.
+func (fb *funcBuilder) genInlineCallback(scope *Scope, fl *ast.FuncLit, params []cbParam) (bodyC string, resultVar string, resultType *Type) {
+	if len(fl.Params) != len(params) {
+		panic(fmt.Sprintf("nox: %s: callback expects %d parameter(s), got %d", fb.fname, len(params), len(fl.Params)))
+	}
