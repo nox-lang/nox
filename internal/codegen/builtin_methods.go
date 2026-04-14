@@ -172,3 +172,7 @@ func (fb *funcBuilder) genArrayMethod(c *ctx, recv string, recvType Type, method
 		c.emit(compilef("%s %s = %s;", elemC, etmp, code))
 		c.emit(compilef("nox_slice_push_raw(&%s, &%s, sizeof(%s));", recv, etmp, elemC))
 		return "", TVoid()
+	case "pop":
+		if len(args) != 0 {
+			panic(fmt.Sprintf("nox: %s: '.pop()' takes no arguments", fb.fname))
+		}
