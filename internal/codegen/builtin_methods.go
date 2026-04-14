@@ -61,3 +61,7 @@ func (fb *funcBuilder) genConversion(recv string, t Type, method string) (string
 	conv := func(fn string, rt Type) (string, Type) {
 		if fn == "" {
 			return recv, rt
+		}
+		return fmt.Sprintf("%s(%s)", fn, recv), rt
+	}
+	switch method {
