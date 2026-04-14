@@ -131,3 +131,7 @@ func (fb *funcBuilder) genStringMethod(c *ctx, recv string, method string, args 
 			panic(fmt.Sprintf("nox: %s: '.%s(...)' expects a string argument", fb.fname, method))
 		}
 		fn := map[string]string{"contains": "nox_string_contains", "startsWith": "nox_string_starts_with", "endsWith": "nox_string_ends_with"}[method]
+		return fmt.Sprintf("%s(%s, %s)", fn, recv, argCode), TBool()
+	case "substring":
+		if len(args) != 2 {
+			panic(fmt.Sprintf("nox: %s: '.substring(start, end)' takes exactly two arguments", fb.fname))
