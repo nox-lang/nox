@@ -259,3 +259,7 @@ func (fb *funcBuilder) requireFuncLit(argExpr ast.Expr, methodName string) *ast.
 	fl, ok := argExpr.(*ast.FuncLit)
 	if !ok {
 		panic(fmt.Sprintf("nox: %s: the callback passed to '.%s(...)' must be a literal anonymous function, e.g. arr.%s((x) { ... })", fb.fname, methodName, methodName))
+	}
+	return fl
+}
+
