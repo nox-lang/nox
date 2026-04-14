@@ -123,3 +123,7 @@ func (fb *funcBuilder) genStringMethod(c *ctx, recv string, method string, args 
 		}
 		return fmt.Sprintf("((%s).len == 0)", recv), TBool()
 	case "contains", "startsWith", "endsWith":
+		if len(args) != 1 {
+			panic(fmt.Sprintf("nox: %s: '.%s(...)' takes exactly one argument", fb.fname, method))
+		}
+		argCode, argType := fb.genExpr(c, args[0])
