@@ -208,3 +208,7 @@ func (fb *funcBuilder) genArrayMethod(c *ctx, recv string, recvType Type, method
 		return "", TVoid()
 	case "clear":
 		if len(args) != 0 {
+			panic(fmt.Sprintf("nox: %s: '.clear()' takes no arguments", fb.fname))
+		}
+		c.emit(compilef("nox_slice_clear(&%s);", recv))
+		return "", TVoid()
