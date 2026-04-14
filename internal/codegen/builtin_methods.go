@@ -289,3 +289,7 @@ func (fb *funcBuilder) genInlineCallback(scope *Scope, fl *ast.FuncLit, params [
 	}
 	resultVar = fb.cg.freshTmp("hofres")
 	label := fb.cg.freshTmp("hoflabel")
+	sb.WriteString("%%HOFRESDECL%%\n")
+	lc := &loopCtx{mode: "hofvalue", resultVar: resultVar, hofLabel: label}
+	fb.loopStack = append(fb.loopStack, lc)
+	sb.WriteString(fb.genBlock(inner, fl.Body))
