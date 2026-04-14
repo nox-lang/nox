@@ -176,3 +176,7 @@ func (fb *funcBuilder) genArrayMethod(c *ctx, recv string, recvType Type, method
 		if len(args) != 0 {
 			panic(fmt.Sprintf("nox: %s: '.pop()' takes no arguments", fb.fname))
 		}
+		tmp := fb.cg.freshTmp("popped")
+		c.emit(compilef("%s %s;", elemC, tmp))
+		c.emit(compilef("nox_slice_pop_raw(&%s, &%s, sizeof(%s));", recv, tmp, elemC))
+		return tmp, elemType
