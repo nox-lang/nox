@@ -216,3 +216,7 @@ func (fb *funcBuilder) genArrayMethod(c *ctx, recv string, recvType Type, method
 		if len(args) != 0 {
 			panic(fmt.Sprintf("nox: %s: '.reverse()' takes no arguments", fb.fname))
 		}
+		tmp := fb.cg.freshTmp("rev")
+		c.emit(compilef("nox_slice %s = nox_slice_reverse_raw(%s, sizeof(%s));", tmp, recv, elemC))
+		return tmp, recvType
+	case "each":
