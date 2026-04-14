@@ -89,3 +89,7 @@ func (fb *funcBuilder) genConversion(recv string, t Type, method string) (string
 		}
 	case "toBool":
 		switch t.Kind {
+		case KBool:
+			return conv("", TBool())
+		case KInt:
+			return conv("nox_int_to_bool", TBool())
