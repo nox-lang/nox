@@ -184,3 +184,7 @@ func (fb *funcBuilder) genArrayMethod(c *ctx, recv string, recvType Type, method
 		if len(args) != 2 {
 			panic(fmt.Sprintf("nox: %s: '.insert(index, value)' takes exactly two arguments", fb.fname))
 		}
+		idxCode, idxT := fb.genExpr(c, args[0])
+		if idxT.Kind != KInt {
+			panic(fmt.Sprintf("nox: %s: '.insert(index, value)': index must be int", fb.fname))
+		}
