@@ -281,3 +281,7 @@ func (fb *funcBuilder) genInlineCallback(scope *Scope, fl *ast.FuncLit, params [
 	if len(fl.Params) != len(params) {
 		panic(fmt.Sprintf("nox: %s: callback expects %d parameter(s), got %d", fb.fname, len(params), len(fl.Params)))
 	}
+	inner := newScope(scope)
+	var sb strings.Builder
+	for i, p := range fl.Params {
+		inner.define(p.Name, params[i].typ)
