@@ -236,3 +236,7 @@ func (fb *funcBuilder) genArrayMethod(c *ctx, recv string, recvType Type, method
 			panic(fmt.Sprintf("nox: %s: '.map(...)' takes exactly one argument", fb.fname))
 		}
 		fl := fb.requireFuncLit(args[0], "map")
+		return fb.genMapLoop(c, recv, elemType, fl)
+	case "filter":
+		if len(args) != 1 {
+			panic(fmt.Sprintf("nox: %s: '.filter(...)' takes exactly one argument", fb.fname))
