@@ -139,3 +139,7 @@ func (fb *funcBuilder) genStringMethod(c *ctx, recv string, method string, args 
 		a0, t0 := fb.genExpr(c, args[0])
 		a1, t1 := fb.genExpr(c, args[1])
 		if t0.Kind != KInt || t1.Kind != KInt {
+			panic(fmt.Sprintf("nox: %s: '.substring(start, end)' expects int arguments", fb.fname))
+		}
+		return fmt.Sprintf("nox_string_substring(%s, %s, %s)", recv, a0, a1), TString()
+	case "eachLine":
