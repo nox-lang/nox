@@ -273,3 +273,7 @@ type cbParam struct {
 // C source expressions, in a fresh nested scope. A `yield expr` inside fl's
 // body does not return from the enclosing Nox function — it yields a
 // per-invocation result (Nox's map/filter/find/each callback semantics),
+// available afterwards as (resultVar, resultType) — resultType is nil if
+// the body never used `yield`. Unlike `yield`, a `return` inside fl's body
+// is an ordinary return from the *enclosing* function, since the callback
+// is inlined directly rather than compiled as its own function.
