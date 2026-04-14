@@ -293,3 +293,6 @@ func (fb *funcBuilder) genInlineCallback(scope *Scope, fl *ast.FuncLit, params [
 	lc := &loopCtx{mode: "hofvalue", resultVar: resultVar, hofLabel: label}
 	fb.loopStack = append(fb.loopStack, lc)
 	sb.WriteString(fb.genBlock(inner, fl.Body))
+	fb.loopStack = fb.loopStack[:len(fb.loopStack)-1]
+	sb.WriteString(compilef("%s: ;", label))
+
