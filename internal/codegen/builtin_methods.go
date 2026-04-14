@@ -143,3 +143,7 @@ func (fb *funcBuilder) genStringMethod(c *ctx, recv string, method string, args 
 		}
 		return fmt.Sprintf("nox_string_substring(%s, %s, %s)", recv, a0, a1), TString()
 	case "eachLine":
+		if len(args) != 1 {
+			panic(fmt.Sprintf("nox: %s: '.eachLine(...)' takes exactly one argument", fb.fname))
+		}
+		fl := fb.requireFuncLit(args[0], "eachLine")
