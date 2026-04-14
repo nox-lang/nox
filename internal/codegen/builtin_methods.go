@@ -156,3 +156,7 @@ func (fb *funcBuilder) genStringMethod(c *ctx, recv string, method string, args 
 
 // ---------------- array methods ----------------
 
+func (fb *funcBuilder) genArrayMethod(c *ctx, recv string, recvType Type, method string, args []ast.Expr) (string, Type) {
+	elemType := *recvType.Elem
+	elemC := fb.cg.ctype(elemType)
+	switch method {
