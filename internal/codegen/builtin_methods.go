@@ -52,3 +52,7 @@ func (fb *funcBuilder) genBuiltinMethodCall(c *ctx, recv string, recvType Type, 
 	case KString:
 		return fb.genStringMethod(c, recv, method, args)
 	case KSlice:
+		return fb.genArrayMethod(c, recv, recvType, method, args)
+	}
+	panic(fmt.Sprintf("nox: %s: '.%s(...)' is not available on type %s", fb.fname, method, recvType.String()))
+}
