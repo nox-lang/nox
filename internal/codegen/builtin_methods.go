@@ -402,3 +402,7 @@ func (fb *funcBuilder) genSort(c *ctx, recv string, elemType Type, args []ast.Ex
 	if len(args) == 0 {
 		var cmp string
 		switch elemType.Kind {
+		case KInt:
+			cmp = "nox_cmp_int_asc"
+		case KFloat:
+			cmp = "nox_cmp_float_asc"
