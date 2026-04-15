@@ -313,3 +313,7 @@ func (fb *funcBuilder) genEachLoop(c *ctx, recv string, elemType Type, fl *ast.F
 		if len(fl.Params) != 2 {
 			panic(fmt.Sprintf("nox: %s: 'eachIndex' callback needs two parameters (index, value)", fb.fname))
 		}
+		params = []cbParam{
+			{fl.Params[0].Name, TInt(), idxVar},
+			{fl.Params[1].Name, elemType, fmt.Sprintf("((%s*)%s.data)[%s]", elemC, recv, idxVar)},
+		}
