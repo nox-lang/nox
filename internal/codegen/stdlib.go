@@ -19,3 +19,7 @@ func stdlibConstant(pkg, sym string) (string, Type, bool) {
 	return "", Type{}, false
 }
 
+func printCallFor(t Type, code string) string {
+	switch t.Kind {
+	case KInt:
+		return fmt.Sprintf("nox_print_int(%s)", code)
