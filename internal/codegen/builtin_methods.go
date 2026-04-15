@@ -414,3 +414,7 @@ func (fb *funcBuilder) genSort(c *ctx, recv string, elemType Type, args []ast.Ex
 			panic(fmt.Sprintf("nox: %s: 'sort()' with no comparator is not supported for element type %s", fb.fname, elemType.String()))
 		}
 		c.emit(compilef("qsort(%s.data, %s.len, sizeof(%s), %s);", recv, recv, elemC, cmp))
+		return "", TVoid()
+	}
+	if len(args) != 1 {
+		panic(fmt.Sprintf("nox: %s: 'sort(...)' takes zero or one argument", fb.fname))
