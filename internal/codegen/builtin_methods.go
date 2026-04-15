@@ -394,3 +394,7 @@ func (fb *funcBuilder) genFindLoop(c *ctx, recv string, elemType Type, fl *ast.F
 	return outTmp, elemType
 }
 
+// genSort mutates recv in place: with no argument, ascending order using
+// the built-in comparator for the element type; with a literal
+// `(a, b) { return a < b }` comparator, a generated qsort() callback.
+func (fb *funcBuilder) genSort(c *ctx, recv string, elemType Type, args []ast.Expr) (string, Type) {
