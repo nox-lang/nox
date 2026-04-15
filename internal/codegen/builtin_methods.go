@@ -434,3 +434,7 @@ func (fb *funcBuilder) genSort(c *ctx, recv string, elemType Type, args []ast.Ex
 	cfb := &funcBuilder{cg: fb.cg, fname: predName}
 	cfb.retType = TBool()
 	cfb.retTypeKnown = true
+	predBodyC := cfb.buildFunctionBody(inner, fl.Body, "")
+	predParams := fmt.Sprintf("%s %s, %s %s", elemC, cIdent(fl.Params[0].Name), elemC, cIdent(fl.Params[1].Name))
+	predForward := fmt.Sprintf("static bool %s(%s);", predName, predParams)
+	predDef := fmt.Sprintf("static bool %s(%s) {\n%s}", predName, predParams, indent(predBodyC, "    "))
