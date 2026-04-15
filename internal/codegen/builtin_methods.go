@@ -450,3 +450,7 @@ func (fb *funcBuilder) genSort(c *ctx, recv string, elemType Type, args []ast.Ex
 	mangled := fb.cg.freshName("nox_sortcmp")
 	var full strings.Builder
 	full.WriteString(fmt.Sprintf("%s __a = *(const %s*)__pa;\n", elemC, elemC))
+	full.WriteString(fmt.Sprintf("%s __b = *(const %s*)__pb;\n", elemC, elemC))
+	full.WriteString(fmt.Sprintf("return %s(__a, __b) ? -1 : 1;\n", predName))
+	forward := fmt.Sprintf("static int %s(const void* __pa, const void* __pb);", mangled)
+	def := fmt.Sprintf("static int %s(const void* __pa, const void* __pb) {\n%s}", mangled, indent(full.String(), "    "))
