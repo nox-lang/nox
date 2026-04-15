@@ -430,3 +430,7 @@ func (fb *funcBuilder) genSort(c *ctx, recv string, elemType Type, args []ast.Ex
 	predName := fb.cg.freshName("nox_sortpred")
 	inner := newScope(nil)
 	inner.define(fl.Params[0].Name, elemType)
+	inner.define(fl.Params[1].Name, elemType)
+	cfb := &funcBuilder{cg: fb.cg, fname: predName}
+	cfb.retType = TBool()
+	cfb.retTypeKnown = true
