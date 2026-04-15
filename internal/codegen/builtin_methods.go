@@ -304,3 +304,4 @@ func (fb *funcBuilder) genInlineCallback(scope *Scope, fl *ast.FuncLit, params [
 	bodyC = strings.ReplaceAll(sb.String(), "%%HOFRESDECL%%", decl)
 	return bodyC, resultVar, resultType
 }
+
