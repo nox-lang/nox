@@ -367,3 +367,5 @@ func (fb *funcBuilder) genFilterLoop(c *ctx, recv string, elemType Type, fl *ast
 	loop := fmt.Sprintf("for (int64_t %s = 0; %s < %s.len; %s++) {\n%s}\n", idxVar, idxVar, recv, idxVar, indent(loopBody.String(), "    "))
 	c.emit(loop)
 	return outTmp, TSlice(elemType)
+}
+
