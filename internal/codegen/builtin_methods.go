@@ -442,3 +442,7 @@ func (fb *funcBuilder) genSort(c *ctx, recv string, elemType Type, args []ast.Ex
 	fb.cg.funcInstances[predName] = predFI
 	fb.cg.funcOrder = append(fb.cg.funcOrder, predName)
 
+	// qsort needs a true three-way comparator; we only have a "less-than"
+	// predicate, so map true -> "a sorts before b" (-1) and false -> 1. This
+	// gives a correct (if not guaranteed-stable for equal elements)
+	// ascending-by-predicate sort, consistent with how the predicate is
