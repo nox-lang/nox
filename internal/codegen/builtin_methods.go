@@ -330,3 +330,7 @@ func (fb *funcBuilder) genMapLoop(c *ctx, recv string, elemType Type, fl *ast.Fu
 	if len(fl.Params) != 1 {
 		panic(fmt.Sprintf("nox: %s: 'map' callback needs exactly one parameter", fb.fname))
 	}
+	idxVar := fb.cg.freshTmp("i")
+	elemC := fb.cg.ctype(elemType)
+	params := []cbParam{{fl.Params[0].Name, elemType, fmt.Sprintf("((%s*)%s.data)[%s]", elemC, recv, idxVar)}}
+	bodyC, resVar, resType := fb.genInlineCallback(c.scope, fl, params)
