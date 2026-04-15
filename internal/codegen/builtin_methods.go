@@ -446,3 +446,7 @@ func (fb *funcBuilder) genSort(c *ctx, recv string, elemType Type, args []ast.Ex
 	// predicate, so map true -> "a sorts before b" (-1) and false -> 1. This
 	// gives a correct (if not guaranteed-stable for equal elements)
 	// ascending-by-predicate sort, consistent with how the predicate is
+	// used in every example in the language spec.
+	mangled := fb.cg.freshName("nox_sortcmp")
+	var full strings.Builder
+	full.WriteString(fmt.Sprintf("%s __a = *(const %s*)__pa;\n", elemC, elemC))
