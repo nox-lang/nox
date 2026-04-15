@@ -15,3 +15,7 @@ func stdlibConstant(pkg, sym string) (string, Type, bool) {
 		case "E":
 			return "2.71828182845904523536", TFloat(), true
 		}
+	}
+	return "", Type{}, false
+}
+
