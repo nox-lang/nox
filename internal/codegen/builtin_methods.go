@@ -305,3 +305,7 @@ func (fb *funcBuilder) genInlineCallback(scope *Scope, fl *ast.FuncLit, params [
 	return bodyC, resultVar, resultType
 }
 
+func (fb *funcBuilder) genEachLoop(c *ctx, recv string, elemType Type, fl *ast.FuncLit, wantIndex bool) (string, Type) {
+	idxVar := fb.cg.freshTmp("i")
+	elemC := fb.cg.ctype(elemType)
+	var params []cbParam
