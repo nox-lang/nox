@@ -389,3 +389,7 @@ func (fb *funcBuilder) genFindLoop(c *ctx, recv string, elemType Type, fl *ast.F
 	loopBody.WriteString(bodyC)
 	loopBody.WriteString(compilef("if (%s) { %s = %s; %s = true; break; }", resVar, outTmp, elemExpr, foundVar))
 	loop := fmt.Sprintf("for (int64_t %s = 0; %s < %s.len; %s++) {\n%s}\n", idxVar, idxVar, recv, idxVar, indent(loopBody.String(), "    "))
+	c.emit(loop)
+	_ = foundVar // reserved: not currently exposed at the Nox level (see README for the "not found" convention)
+	return outTmp, elemType
+}
