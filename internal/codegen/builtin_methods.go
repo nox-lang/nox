@@ -309,3 +309,7 @@ func (fb *funcBuilder) genEachLoop(c *ctx, recv string, elemType Type, fl *ast.F
 	idxVar := fb.cg.freshTmp("i")
 	elemC := fb.cg.ctype(elemType)
 	var params []cbParam
+	if wantIndex {
+		if len(fl.Params) != 2 {
+			panic(fmt.Sprintf("nox: %s: 'eachIndex' callback needs two parameters (index, value)", fb.fname))
+		}
