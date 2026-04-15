@@ -33,3 +33,7 @@ func printCallFor(t Type, code string) string {
 	panic(fmt.Sprintf("nox: cannot print a value of type %s", t.String()))
 }
 
+func (fb *funcBuilder) genStdlibCall(c *ctx, pkg, sym string, args []ast.Expr) (string, Type) {
+	switch pkg {
+	case "io":
+		return fb.genIOCall(c, sym, args)
