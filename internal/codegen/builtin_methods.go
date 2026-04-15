@@ -398,3 +398,7 @@ func (fb *funcBuilder) genFindLoop(c *ctx, recv string, elemType Type, fl *ast.F
 // the built-in comparator for the element type; with a literal
 // `(a, b) { return a < b }` comparator, a generated qsort() callback.
 func (fb *funcBuilder) genSort(c *ctx, recv string, elemType Type, args []ast.Expr) (string, Type) {
+	elemC := fb.cg.ctype(elemType)
+	if len(args) == 0 {
+		var cmp string
+		switch elemType.Kind {
