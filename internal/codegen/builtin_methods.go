@@ -418,3 +418,7 @@ func (fb *funcBuilder) genSort(c *ctx, recv string, elemType Type, args []ast.Ex
 	}
 	if len(args) != 1 {
 		panic(fmt.Sprintf("nox: %s: 'sort(...)' takes zero or one argument", fb.fname))
+	}
+	fl := fb.requireFuncLit(args[0], "sort")
+	if len(fl.Params) != 2 {
+		panic(fmt.Sprintf("nox: %s: 'sort' comparator needs exactly two parameters", fb.fname))
