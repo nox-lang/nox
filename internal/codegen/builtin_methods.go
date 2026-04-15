@@ -381,3 +381,7 @@ func (fb *funcBuilder) genFindLoop(c *ctx, recv string, elemType Type, fl *ast.F
 	if resType == nil || resType.Kind != KBool {
 		panic(fmt.Sprintf("nox: %s: 'find' callback must 'yield' a bool", fb.fname))
 	}
+	outTmp := fb.cg.freshTmp("found")
+	foundVar := fb.cg.freshTmp("didfind")
+	c.emit(compilef("%s %s = %s;", elemC, outTmp, fb.cg.zeroValueC(elemType)))
+	c.emit(compilef("bool %s = false;", foundVar))
