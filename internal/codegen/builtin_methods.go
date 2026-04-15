@@ -334,3 +334,7 @@ func (fb *funcBuilder) genMapLoop(c *ctx, recv string, elemType Type, fl *ast.Fu
 	elemC := fb.cg.ctype(elemType)
 	params := []cbParam{{fl.Params[0].Name, elemType, fmt.Sprintf("((%s*)%s.data)[%s]", elemC, recv, idxVar)}}
 	bodyC, resVar, resType := fb.genInlineCallback(c.scope, fl, params)
+	if resType == nil {
+		panic(fmt.Sprintf("nox: %s: 'map' callback must 'yield' a value", fb.fname))
+	}
+	outTmp := fb.cg.freshTmp("mapped")
