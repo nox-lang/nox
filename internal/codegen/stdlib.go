@@ -41,3 +41,7 @@ func (fb *funcBuilder) genStdlibCall(c *ctx, pkg, sym string, args []ast.Expr) (
 		return fb.genRandomCall(c, sym, args)
 	case "fs":
 		return fb.genFsCall(c, sym, args)
+	case "path":
+		return fb.genPathCall(c, sym, args)
+	case "math":
+		return fb.genMathCall(c, sym, args)
