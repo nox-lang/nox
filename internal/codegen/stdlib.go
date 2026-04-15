@@ -45,3 +45,7 @@ func (fb *funcBuilder) genStdlibCall(c *ctx, pkg, sym string, args []ast.Expr) (
 		return fb.genPathCall(c, sym, args)
 	case "math":
 		return fb.genMathCall(c, sym, args)
+	case "time":
+		return fb.genTimeCall(c, sym, args)
+	}
+	panic(fmt.Sprintf("nox: %s: unknown stdlib package '%s'", fb.fname, pkg))
