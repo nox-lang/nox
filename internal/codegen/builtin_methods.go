@@ -325,3 +325,4 @@ func (fb *funcBuilder) genEachLoop(c *ctx, recv string, elemType Type, fl *ast.F
 	c.emit(loop)
 	return "", TVoid()
 }
+
