@@ -346,3 +346,4 @@ func (fb *funcBuilder) genMapLoop(c *ctx, recv string, elemType Type, fl *ast.Fu
 	c.emit(loop)
 	return outTmp, TSlice(*resType)
 }
+
