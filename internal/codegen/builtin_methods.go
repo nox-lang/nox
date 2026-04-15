@@ -359,3 +359,7 @@ func (fb *funcBuilder) genFilterLoop(c *ctx, recv string, elemType Type, fl *ast
 	if resType == nil || resType.Kind != KBool {
 		panic(fmt.Sprintf("nox: %s: 'filter' callback must 'yield' a bool", fb.fname))
 	}
+	outTmp := fb.cg.freshTmp("filtered")
+	c.emit(compilef("nox_slice %s = nox_slice_new();", outTmp))
+	var loopBody strings.Builder
+	loopBody.WriteString(bodyC)
