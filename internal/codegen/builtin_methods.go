@@ -326,3 +326,7 @@ func (fb *funcBuilder) genEachLoop(c *ctx, recv string, elemType Type, fl *ast.F
 	return "", TVoid()
 }
 
+func (fb *funcBuilder) genMapLoop(c *ctx, recv string, elemType Type, fl *ast.FuncLit) (string, Type) {
+	if len(fl.Params) != 1 {
+		panic(fmt.Sprintf("nox: %s: 'map' callback needs exactly one parameter", fb.fname))
+	}
