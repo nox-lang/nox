@@ -426,3 +426,7 @@ func (fb *funcBuilder) genSort(c *ctx, recv string, elemType Type, args []ast.Ex
 	free := freeVarNames(fl.Body, fl.Params)
 	if len(free) > 0 {
 		panic(fmt.Sprintf("nox: %s: 'sort' comparator cannot reference outer variables (found '%s'); keep the comparison self-contained", fb.fname, free[0]))
+	}
+	predName := fb.cg.freshName("nox_sortpred")
+	inner := newScope(nil)
+	inner.define(fl.Params[0].Name, elemType)
