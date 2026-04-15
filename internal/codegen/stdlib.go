@@ -23,3 +23,7 @@ func printCallFor(t Type, code string) string {
 	switch t.Kind {
 	case KInt:
 		return fmt.Sprintf("nox_print_int(%s)", code)
+	case KFloat:
+		return fmt.Sprintf("nox_print_float(%s)", code)
+	case KBool:
+		return fmt.Sprintf("nox_print_bool(%s)", code)
