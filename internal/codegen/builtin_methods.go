@@ -385,3 +385,7 @@ func (fb *funcBuilder) genFindLoop(c *ctx, recv string, elemType Type, fl *ast.F
 	foundVar := fb.cg.freshTmp("didfind")
 	c.emit(compilef("%s %s = %s;", elemC, outTmp, fb.cg.zeroValueC(elemType)))
 	c.emit(compilef("bool %s = false;", foundVar))
+	var loopBody strings.Builder
+	loopBody.WriteString(bodyC)
+	loopBody.WriteString(compilef("if (%s) { %s = %s; %s = true; break; }", resVar, outTmp, elemExpr, foundVar))
+	loop := fmt.Sprintf("for (int64_t %s = 0; %s < %s.len; %s++) {\n%s}\n", idxVar, idxVar, recv, idxVar, indent(loopBody.String(), "    "))
