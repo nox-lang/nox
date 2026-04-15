@@ -347,3 +347,7 @@ func (fb *funcBuilder) genMapLoop(c *ctx, recv string, elemType Type, fl *ast.Fu
 	return outTmp, TSlice(*resType)
 }
 
+func (fb *funcBuilder) genFilterLoop(c *ctx, recv string, elemType Type, fl *ast.FuncLit) (string, Type) {
+	if len(fl.Params) != 1 {
+		panic(fmt.Sprintf("nox: %s: 'filter' callback needs exactly one parameter", fb.fname))
+	}
