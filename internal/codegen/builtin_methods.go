@@ -422,3 +422,7 @@ func (fb *funcBuilder) genSort(c *ctx, recv string, elemType Type, args []ast.Ex
 	fl := fb.requireFuncLit(args[0], "sort")
 	if len(fl.Params) != 2 {
 		panic(fmt.Sprintf("nox: %s: 'sort' comparator needs exactly two parameters", fb.fname))
+	}
+	free := freeVarNames(fl.Body, fl.Params)
+	if len(free) > 0 {
+		panic(fmt.Sprintf("nox: %s: 'sort' comparator cannot reference outer variables (found '%s'); keep the comparison self-contained", fb.fname, free[0]))
