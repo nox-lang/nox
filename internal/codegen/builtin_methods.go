@@ -363,3 +363,7 @@ func (fb *funcBuilder) genFilterLoop(c *ctx, recv string, elemType Type, fl *ast
 	c.emit(compilef("nox_slice %s = nox_slice_new();", outTmp))
 	var loopBody strings.Builder
 	loopBody.WriteString(bodyC)
+	loopBody.WriteString(compilef("if (%s) { nox_slice_push_raw(&%s, &%s, sizeof(%s)); }", resVar, outTmp, elemExpr, elemC))
+	loop := fmt.Sprintf("for (int64_t %s = 0; %s < %s.len; %s++) {\n%s}\n", idxVar, idxVar, recv, idxVar, indent(loopBody.String(), "    "))
+	c.emit(loop)
+	return outTmp, TSlice(elemType)
