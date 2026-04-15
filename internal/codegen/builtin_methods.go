@@ -410,3 +410,7 @@ func (fb *funcBuilder) genSort(c *ctx, recv string, elemType Type, args []ast.Ex
 			cmp = "nox_cmp_string_asc"
 		case KBool:
 			cmp = "nox_cmp_bool_asc"
+		default:
+			panic(fmt.Sprintf("nox: %s: 'sort()' with no comparator is not supported for element type %s", fb.fname, elemType.String()))
+		}
+		c.emit(compilef("qsort(%s.data, %s.len, sizeof(%s), %s);", recv, recv, elemC, cmp))
