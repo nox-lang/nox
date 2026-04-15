@@ -406,3 +406,7 @@ func (fb *funcBuilder) genSort(c *ctx, recv string, elemType Type, args []ast.Ex
 			cmp = "nox_cmp_int_asc"
 		case KFloat:
 			cmp = "nox_cmp_float_asc"
+		case KString:
+			cmp = "nox_cmp_string_asc"
+		case KBool:
+			cmp = "nox_cmp_bool_asc"
