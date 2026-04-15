@@ -373,3 +373,7 @@ func (fb *funcBuilder) genFindLoop(c *ctx, recv string, elemType Type, fl *ast.F
 	if len(fl.Params) != 1 {
 		panic(fmt.Sprintf("nox: %s: 'find' callback needs exactly one parameter", fb.fname))
 	}
+	idxVar := fb.cg.freshTmp("i")
+	elemC := fb.cg.ctype(elemType)
+	elemExpr := fmt.Sprintf("((%s*)%s.data)[%s]", elemC, recv, idxVar)
+	params := []cbParam{{fl.Params[0].Name, elemType, elemExpr}}
