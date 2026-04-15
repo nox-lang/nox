@@ -454,3 +454,7 @@ func (fb *funcBuilder) genSort(c *ctx, recv string, elemType Type, args []ast.Ex
 	full.WriteString(fmt.Sprintf("return %s(__a, __b) ? -1 : 1;\n", predName))
 	forward := fmt.Sprintf("static int %s(const void* __pa, const void* __pb);", mangled)
 	def := fmt.Sprintf("static int %s(const void* __pa, const void* __pb) {\n%s}", mangled, indent(full.String(), "    "))
+	fi := &FuncInstance{MangledName: mangled, Forward: forward, Body: def}
+	fb.cg.funcInstances[mangled] = fi
+	fb.cg.funcOrder = append(fb.cg.funcOrder, mangled)
+	c.emit(compilef("qsort(%s.data, %s.len, sizeof(%s), %s);", recv, recv, elemC, mangled))
