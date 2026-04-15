@@ -31,3 +31,5 @@ func printCallFor(t Type, code string) string {
 		return fmt.Sprintf("nox_print_string(%s)", code)
 	}
 	panic(fmt.Sprintf("nox: cannot print a value of type %s", t.String()))
+}
+
