@@ -321,3 +321,7 @@ func (fb *funcBuilder) genEachLoop(c *ctx, recv string, elemType Type, fl *ast.F
 		params = []cbParam{{fl.Params[0].Name, elemType, fmt.Sprintf("((%s*)%s.data)[%s]", elemC, recv, idxVar)}}
 	}
 	bodyC, _, _ := fb.genInlineCallback(c.scope, fl, params)
+	loop := fmt.Sprintf("for (int64_t %s = 0; %s < %s.len; %s++) {\n%s}\n", idxVar, idxVar, recv, idxVar, indent(bodyC, "    "))
+	c.emit(loop)
+	return "", TVoid()
+}
