@@ -458,3 +458,5 @@ func (fb *funcBuilder) genSort(c *ctx, recv string, elemType Type, args []ast.Ex
 	fb.cg.funcInstances[mangled] = fi
 	fb.cg.funcOrder = append(fb.cg.funcOrder, mangled)
 	c.emit(compilef("qsort(%s.data, %s.len, sizeof(%s), %s);", recv, recv, elemC, mangled))
+	return "", TVoid()
+}
