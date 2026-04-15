@@ -377,3 +377,7 @@ func (fb *funcBuilder) genFindLoop(c *ctx, recv string, elemType Type, fl *ast.F
 	elemC := fb.cg.ctype(elemType)
 	elemExpr := fmt.Sprintf("((%s*)%s.data)[%s]", elemC, recv, idxVar)
 	params := []cbParam{{fl.Params[0].Name, elemType, elemExpr}}
+	bodyC, resVar, resType := fb.genInlineCallback(c.scope, fl, params)
+	if resType == nil || resType.Kind != KBool {
+		panic(fmt.Sprintf("nox: %s: 'find' callback must 'yield' a bool", fb.fname))
+	}
