@@ -393,3 +393,4 @@ func (fb *funcBuilder) genFindLoop(c *ctx, recv string, elemType Type, fl *ast.F
 	_ = foundVar // reserved: not currently exposed at the Nox level (see README for the "not found" convention)
 	return outTmp, elemType
 }
+
