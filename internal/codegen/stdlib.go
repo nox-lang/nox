@@ -37,3 +37,7 @@ func (fb *funcBuilder) genStdlibCall(c *ctx, pkg, sym string, args []ast.Expr) (
 	switch pkg {
 	case "io":
 		return fb.genIOCall(c, sym, args)
+	case "random":
+		return fb.genRandomCall(c, sym, args)
+	case "fs":
+		return fb.genFsCall(c, sym, args)
