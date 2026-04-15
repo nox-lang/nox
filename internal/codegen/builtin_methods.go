@@ -338,3 +338,7 @@ func (fb *funcBuilder) genMapLoop(c *ctx, recv string, elemType Type, fl *ast.Fu
 		panic(fmt.Sprintf("nox: %s: 'map' callback must 'yield' a value", fb.fname))
 	}
 	outTmp := fb.cg.freshTmp("mapped")
+	c.emit(compilef("nox_slice %s = nox_slice_new();", outTmp))
+	var loopBody strings.Builder
+	loopBody.WriteString(bodyC)
+	loopBody.WriteString(compilef("nox_slice_push_raw(&%s, &%s, sizeof(%s));", outTmp, resVar, fb.cg.ctype(*resType)))
