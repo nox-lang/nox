@@ -49,3 +49,5 @@ func (fb *funcBuilder) genStdlibCall(c *ctx, pkg, sym string, args []ast.Expr) (
 		return fb.genTimeCall(c, sym, args)
 	}
 	panic(fmt.Sprintf("nox: %s: unknown stdlib package '%s'", fb.fname, pkg))
+}
+
