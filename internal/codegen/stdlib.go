@@ -182,3 +182,7 @@ func (fb *funcBuilder) genFsCall(c *ctx, sym string, args []ast.Expr) (string, T
 		}
 		return code
 	}
+	need := func(n int) {
+		if len(args) != n {
+			panic(fmt.Sprintf("nox: %s: fs::%s takes exactly %d argument(s)", fb.fname, sym, n))
+		}
