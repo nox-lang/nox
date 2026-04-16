@@ -273,3 +273,7 @@ func (fb *funcBuilder) genFloatArg(c *ctx, e ast.Expr) string {
 	switch t.Kind {
 	case KFloat:
 		return code
+	case KInt:
+		return fmt.Sprintf("((double)(%s))", code)
+	}
+	panic(fmt.Sprintf("nox: %s: expected a numeric argument, got %s", fb.fname, t.String()))
