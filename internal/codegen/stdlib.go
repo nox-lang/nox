@@ -279,3 +279,7 @@ func (fb *funcBuilder) genFloatArg(c *ctx, e ast.Expr) string {
 	panic(fmt.Sprintf("nox: %s: expected a numeric argument, got %s", fb.fname, t.String()))
 }
 
+func (fb *funcBuilder) genMathCall(c *ctx, sym string, args []ast.Expr) (string, Type) {
+	unaryFloat := func(cfn string) (string, Type) {
+		if len(args) != 1 {
+			panic(fmt.Sprintf("nox: %s: math::%s(x) takes exactly one argument", fb.fname, sym))
