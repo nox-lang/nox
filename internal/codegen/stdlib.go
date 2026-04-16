@@ -57,3 +57,7 @@ func (fb *funcBuilder) genIOCall(c *ctx, sym string, args []ast.Expr) (string, T
 	switch sym {
 	case "Print", "Println":
 		for _, a := range args {
+			code, t := fb.genExpr(c, a)
+			c.emit(compilef("%s;", printCallFor(t, code)))
+		}
+		if sym == "Println" {
