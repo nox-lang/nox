@@ -231,3 +231,7 @@ func (fb *funcBuilder) genFsCall(c *ctx, sym string, args []ast.Expr) (string, T
 
 // ---------------- path ----------------
 
+func (fb *funcBuilder) genPathCall(c *ctx, sym string, args []ast.Expr) (string, Type) {
+	strArg := func(i int) string {
+		code, t := fb.genExpr(c, args[i])
+		if t.Kind != KString {
