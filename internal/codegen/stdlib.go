@@ -194,3 +194,7 @@ func (fb *funcBuilder) genFsCall(c *ctx, sym string, args []ast.Expr) (string, T
 	case "Write":
 		need(2)
 		c.emit(compilef("nox_fs_write(%s, %s);", strArg(0), strArg(1)))
+		return "", TVoid()
+	case "Append":
+		need(2)
+		c.emit(compilef("nox_fs_append(%s, %s);", strArg(0), strArg(1)))
