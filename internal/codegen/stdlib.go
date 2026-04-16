@@ -259,3 +259,7 @@ func (fb *funcBuilder) genPathCall(c *ctx, sym string, args []ast.Expr) (string,
 		return fmt.Sprintf("nox_path_stem(%s)", strArg(0)), TString()
 	case "Absolute":
 		return fmt.Sprintf("nox_path_absolute(%s)", strArg(0)), TString()
+	}
+	panic(fmt.Sprintf("nox: %s: path has no function '%s'", fb.fname, sym))
+}
+
