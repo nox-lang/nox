@@ -116,3 +116,7 @@ func (fb *funcBuilder) genFormatPrint(c *ctx, format string, args []ast.Expr) {
 
 // ---------------- random ----------------
 
+func (fb *funcBuilder) genRandomCall(c *ctx, sym string, args []ast.Expr) (string, Type) {
+	switch sym {
+	case "Rand":
+		if len(args) == 0 {
