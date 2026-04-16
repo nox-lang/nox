@@ -168,3 +168,7 @@ func (fb *funcBuilder) genRandomCall(c *ctx, sym string, args []ast.Expr) (strin
 		elemC := fb.cg.ctype(*t.Elem)
 		c.emit(compilef("nox_slice_shuffle_raw(&%s, sizeof(%s));", lv, elemC))
 		return "", TVoid()
+	}
+	panic(fmt.Sprintf("nox: %s: random has no function '%s'", fb.fname, sym))
+}
+
