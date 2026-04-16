@@ -190,3 +190,7 @@ func (fb *funcBuilder) genFsCall(c *ctx, sym string, args []ast.Expr) (string, T
 	switch sym {
 	case "Read":
 		need(1)
+		return fmt.Sprintf("nox_fs_read(%s)", strArg(0)), TString()
+	case "Write":
+		need(2)
+		c.emit(compilef("nox_fs_write(%s, %s);", strArg(0), strArg(1)))
