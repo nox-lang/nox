@@ -269,3 +269,7 @@ func (fb *funcBuilder) genPathCall(c *ctx, sym string, args []ast.Expr) (string,
 // float automatically (stdlib convenience; the core language itself
 // performs no implicit conversions — see requireSameNumeric).
 func (fb *funcBuilder) genFloatArg(c *ctx, e ast.Expr) string {
+	code, t := fb.genExpr(c, e)
+	switch t.Kind {
+	case KFloat:
+		return code
