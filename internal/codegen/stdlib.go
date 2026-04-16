@@ -156,3 +156,7 @@ func (fb *funcBuilder) genRandomCall(c *ctx, sym string, args []ast.Expr) (strin
 		outTmp := fb.cg.freshTmp("choiceval")
 		c.emit(compilef("%s %s;", elemC, outTmp))
 		c.emit(compilef("nox_slice_choice_raw(&%s, &%s, sizeof(%s));", arrTmp, outTmp, elemC))
+		return outTmp, elemType
+	case "Shuffle":
+		if len(args) != 1 {
+			panic(fmt.Sprintf("nox: %s: random::shuffle(array) takes exactly one argument", fb.fname))
