@@ -120,3 +120,7 @@ func (fb *funcBuilder) genRandomCall(c *ctx, sym string, args []ast.Expr) (strin
 	switch sym {
 	case "Rand":
 		if len(args) == 0 {
+			return "((int64_t)rand())", TInt()
+		}
+		if len(args) == 2 {
+			a0, t0 := fb.genExpr(c, args[0])
