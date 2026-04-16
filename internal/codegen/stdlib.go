@@ -65,3 +65,7 @@ func (fb *funcBuilder) genIOCall(c *ctx, sym string, args []ast.Expr) (string, T
 		}
 		return "", TVoid()
 	case "Printf", "Printfn":
+		if len(args) == 0 {
+			panic(fmt.Sprintf("nox: %s: io::%s requires a format string", fb.fname, sym))
+		}
+		fmtLit, ok := args[0].(*ast.StringLit)
