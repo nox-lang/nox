@@ -148,3 +148,7 @@ func (fb *funcBuilder) genRandomCall(c *ctx, sym string, args []ast.Expr) (strin
 		code, t := fb.genExpr(c, args[0])
 		if t.Kind != KSlice {
 			panic(fmt.Sprintf("nox: %s: random::choice(array) expects an array", fb.fname))
+		}
+		elemType := *t.Elem
+		elemC := fb.cg.ctype(elemType)
+		arrTmp := fb.cg.freshTmp("choicearr")
