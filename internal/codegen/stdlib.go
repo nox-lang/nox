@@ -174,3 +174,7 @@ func (fb *funcBuilder) genRandomCall(c *ctx, sym string, args []ast.Expr) (strin
 
 // ---------------- fs ----------------
 
+func (fb *funcBuilder) genFsCall(c *ctx, sym string, args []ast.Expr) (string, Type) {
+	strArg := func(i int) string {
+		code, t := fb.genExpr(c, args[i])
+		if t.Kind != KString {
