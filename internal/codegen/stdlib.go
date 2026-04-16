@@ -277,3 +277,5 @@ func (fb *funcBuilder) genFloatArg(c *ctx, e ast.Expr) string {
 		return fmt.Sprintf("((double)(%s))", code)
 	}
 	panic(fmt.Sprintf("nox: %s: expected a numeric argument, got %s", fb.fname, t.String()))
+}
+
