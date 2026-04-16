@@ -61,3 +61,7 @@ func (fb *funcBuilder) genIOCall(c *ctx, sym string, args []ast.Expr) (string, T
 			c.emit(compilef("%s;", printCallFor(t, code)))
 		}
 		if sym == "Println" {
+			c.emit("nox_print_raw_cstr(\"\\n\");\n")
+		}
+		return "", TVoid()
+	case "Printf", "Printfn":
