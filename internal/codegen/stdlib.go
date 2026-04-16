@@ -202,3 +202,7 @@ func (fb *funcBuilder) genFsCall(c *ctx, sym string, args []ast.Expr) (string, T
 	case "Exists":
 		need(1)
 		return fmt.Sprintf("nox_fs_exists(%s)", strArg(0)), TBool()
+	case "Remove":
+		need(1)
+		c.emit(compilef("nox_fs_remove(%s);", strArg(0)))
+		return "", TVoid()
