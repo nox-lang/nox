@@ -93,3 +93,6 @@ func (fb *funcBuilder) genIOCall(c *ctx, sym string, args []ast.Expr) (string, T
 		// returned string to convert individual values.
 		return "nox_io_scanln()", TString()
 	}
+	panic(fmt.Sprintf("nox: %s: io has no function '%s'", fb.fname, sym))
+}
+
