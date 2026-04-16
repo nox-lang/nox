@@ -108,3 +108,7 @@ func (fb *funcBuilder) genFormatPrint(c *ctx, format string, args []ast.Expr) {
 			c.emit(compilef("nox_print_raw_cstr(%s);", cStringLiteral(part)))
 		}
 		if i < len(args) {
+			code, t := fb.genExpr(c, args[i])
+			c.emit(compilef("%s;", printCallFor(t, code)))
+		}
+	}
