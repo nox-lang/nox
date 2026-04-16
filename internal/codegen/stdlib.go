@@ -206,3 +206,7 @@ func (fb *funcBuilder) genFsCall(c *ctx, sym string, args []ast.Expr) (string, T
 		need(1)
 		c.emit(compilef("nox_fs_remove(%s);", strArg(0)))
 		return "", TVoid()
+	case "Rename":
+		need(2)
+		c.emit(compilef("nox_fs_rename(%s, %s);", strArg(0), strArg(1)))
+		return "", TVoid()
