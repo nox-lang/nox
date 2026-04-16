@@ -132,3 +132,7 @@ func (fb *funcBuilder) genRandomCall(c *ctx, sym string, args []ast.Expr) (strin
 		}
 		panic(fmt.Sprintf("nox: %s: random::rand() takes zero or two arguments", fb.fname))
 	case "Randf":
+		if len(args) == 0 {
+			return "((double)rand() / (double)RAND_MAX)", TFloat()
+		}
+		if len(args) == 2 {
