@@ -299,3 +299,7 @@ func (fb *funcBuilder) genMathCall(c *ctx, sym string, args []ast.Expr) (string,
 			return fmt.Sprintf("nox_math_abs_f(%s)", code), TFloat()
 		}
 		panic(fmt.Sprintf("nox: %s: math::abs(x) expects an int or float", fb.fname))
+	case "Min", "Max":
+		if len(args) != 2 {
+			panic(fmt.Sprintf("nox: %s: math::%s(a, b) takes exactly two arguments", fb.fname, sym))
+		}
