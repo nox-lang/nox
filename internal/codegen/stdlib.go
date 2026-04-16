@@ -164,3 +164,7 @@ func (fb *funcBuilder) genRandomCall(c *ctx, sym string, args []ast.Expr) (strin
 		lv, t := fb.genReceiverLvalue(c, args[0])
 		if t.Kind != KSlice {
 			panic(fmt.Sprintf("nox: %s: random::shuffle(array) expects an array", fb.fname))
+		}
+		elemC := fb.cg.ctype(*t.Elem)
+		c.emit(compilef("nox_slice_shuffle_raw(&%s, sizeof(%s));", lv, elemC))
+		return "", TVoid()
