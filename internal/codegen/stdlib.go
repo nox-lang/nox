@@ -96,3 +96,7 @@ func (fb *funcBuilder) genIOCall(c *ctx, sym string, args []ast.Expr) (string, T
 	panic(fmt.Sprintf("nox: %s: io has no function '%s'", fb.fname, sym))
 }
 
+// genFormatPrint lowers a Printf/Printfn-style `{}`-templated string,
+// resolved entirely at compile time (the format string must be a literal).
+func (fb *funcBuilder) genFormatPrint(c *ctx, format string, args []ast.Expr) {
+	parts := strings.Split(format, "{}")
