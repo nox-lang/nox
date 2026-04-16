@@ -104,3 +104,7 @@ func (fb *funcBuilder) genFormatPrint(c *ctx, format string, args []ast.Expr) {
 		panic(fmt.Sprintf("nox: %s: format string has %d placeholder(s) but %d argument(s) were given", fb.fname, len(parts)-1, len(args)))
 	}
 	for i, part := range parts {
+		if part != "" {
+			c.emit(compilef("nox_print_raw_cstr(%s);", cStringLiteral(part)))
+		}
+		if i < len(args) {
