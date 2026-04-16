@@ -69,3 +69,7 @@ func (fb *funcBuilder) genIOCall(c *ctx, sym string, args []ast.Expr) (string, T
 			panic(fmt.Sprintf("nox: %s: io::%s requires a format string", fb.fname, sym))
 		}
 		fmtLit, ok := args[0].(*ast.StringLit)
+		if !ok {
+			panic(fmt.Sprintf("nox: %s: io::%s: the format string must be a string literal", fb.fname, sym))
+		}
+		fb.genFormatPrint(c, fmtLit.Value, args[1:])
