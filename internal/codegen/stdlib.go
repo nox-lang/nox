@@ -89,3 +89,7 @@ func (fb *funcBuilder) genIOCall(c *ctx, sym string, args []ast.Expr) (string, T
 		return "nox_io_scanln()", TString()
 	case "Scanf":
 		// Simplified: reads a full line, same as Scanln. Full scanf-style
+		// format parsing is not implemented; use .toInt()/.toFloat() on the
+		// returned string to convert individual values.
+		return "nox_io_scanln()", TString()
+	}
