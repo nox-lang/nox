@@ -178,3 +178,7 @@ func (fb *funcBuilder) genFsCall(c *ctx, sym string, args []ast.Expr) (string, T
 	strArg := func(i int) string {
 		code, t := fb.genExpr(c, args[i])
 		if t.Kind != KString {
+			panic(fmt.Sprintf("nox: %s: fs::%s expects a string argument", fb.fname, sym))
+		}
+		return code
+	}
