@@ -128,3 +128,7 @@ func (fb *funcBuilder) genRandomCall(c *ctx, sym string, args []ast.Expr) (strin
 			if t0.Kind != KInt || t1.Kind != KInt {
 				panic(fmt.Sprintf("nox: %s: random::rand(min, max) expects int arguments", fb.fname))
 			}
+			return fmt.Sprintf("((%s) + (int64_t)(rand() %% (((%s) - (%s)) + 1)))", a0, a1, a0), TInt()
+		}
+		panic(fmt.Sprintf("nox: %s: random::rand() takes zero or two arguments", fb.fname))
+	case "Randf":
