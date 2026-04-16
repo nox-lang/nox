@@ -251,3 +251,7 @@ func (fb *funcBuilder) genPathCall(c *ctx, sym string, args []ast.Expr) (string,
 		return acc, TString()
 	case "Basename":
 		return fmt.Sprintf("nox_path_basename(%s)", strArg(0)), TString()
+	case "Dirname":
+		return fmt.Sprintf("nox_path_dirname(%s)", strArg(0)), TString()
+	case "Ext":
+		return fmt.Sprintf("nox_path_ext(%s)", strArg(0)), TString()
