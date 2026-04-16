@@ -247,3 +247,7 @@ func (fb *funcBuilder) genPathCall(c *ctx, sym string, args []ast.Expr) (string,
 		acc := strArg(0)
 		for i := 1; i < len(args); i++ {
 			acc = fmt.Sprintf("nox_path_join2(%s, %s)", acc, strArg(i))
+		}
+		return acc, TString()
+	case "Basename":
+		return fmt.Sprintf("nox_path_basename(%s)", strArg(0)), TString()
