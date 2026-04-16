@@ -152,3 +152,7 @@ func (fb *funcBuilder) genRandomCall(c *ctx, sym string, args []ast.Expr) (strin
 		elemType := *t.Elem
 		elemC := fb.cg.ctype(elemType)
 		arrTmp := fb.cg.freshTmp("choicearr")
+		c.emit(compilef("nox_slice %s = %s;", arrTmp, code))
+		outTmp := fb.cg.freshTmp("choiceval")
+		c.emit(compilef("%s %s;", elemC, outTmp))
+		c.emit(compilef("nox_slice_choice_raw(&%s, &%s, sizeof(%s));", arrTmp, outTmp, elemC))
