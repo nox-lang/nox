@@ -235,3 +235,7 @@ func (fb *funcBuilder) genPathCall(c *ctx, sym string, args []ast.Expr) (string,
 	strArg := func(i int) string {
 		code, t := fb.genExpr(c, args[i])
 		if t.Kind != KString {
+			panic(fmt.Sprintf("nox: %s: path::%s expects a string argument", fb.fname, sym))
+		}
+		return code
+	}
