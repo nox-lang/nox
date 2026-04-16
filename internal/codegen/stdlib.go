@@ -295,3 +295,7 @@ func (fb *funcBuilder) genMathCall(c *ctx, sym string, args []ast.Expr) (string,
 		switch t.Kind {
 		case KInt:
 			return fmt.Sprintf("nox_math_abs_i(%s)", code), TInt()
+		case KFloat:
+			return fmt.Sprintf("nox_math_abs_f(%s)", code), TFloat()
+		}
+		panic(fmt.Sprintf("nox: %s: math::abs(x) expects an int or float", fb.fname))
