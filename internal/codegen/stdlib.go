@@ -136,3 +136,7 @@ func (fb *funcBuilder) genRandomCall(c *ctx, sym string, args []ast.Expr) (strin
 			return "((double)rand() / (double)RAND_MAX)", TFloat()
 		}
 		if len(args) == 2 {
+			a0 := fb.genFloatArg(c, args[0])
+			a1 := fb.genFloatArg(c, args[1])
+			return fmt.Sprintf("((%s) + ((double)rand() / (double)RAND_MAX) * ((%s) - (%s)))", a0, a1, a0), TFloat()
+		}
