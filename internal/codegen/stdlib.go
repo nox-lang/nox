@@ -160,3 +160,7 @@ func (fb *funcBuilder) genRandomCall(c *ctx, sym string, args []ast.Expr) (strin
 	case "Shuffle":
 		if len(args) != 1 {
 			panic(fmt.Sprintf("nox: %s: random::shuffle(array) takes exactly one argument", fb.fname))
+		}
+		lv, t := fb.genReceiverLvalue(c, args[0])
+		if t.Kind != KSlice {
+			panic(fmt.Sprintf("nox: %s: random::shuffle(array) expects an array", fb.fname))
