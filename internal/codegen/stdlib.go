@@ -100,3 +100,7 @@ func (fb *funcBuilder) genIOCall(c *ctx, sym string, args []ast.Expr) (string, T
 // resolved entirely at compile time (the format string must be a literal).
 func (fb *funcBuilder) genFormatPrint(c *ctx, format string, args []ast.Expr) {
 	parts := strings.Split(format, "{}")
+	if len(parts)-1 != len(args) {
+		panic(fmt.Sprintf("nox: %s: format string has %d placeholder(s) but %d argument(s) were given", fb.fname, len(parts)-1, len(args)))
+	}
+	for i, part := range parts {
