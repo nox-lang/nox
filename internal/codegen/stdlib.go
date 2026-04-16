@@ -85,3 +85,7 @@ func (fb *funcBuilder) genIOCall(c *ctx, sym string, args []ast.Expr) (string, T
 	case "Scanln":
 		if len(args) != 0 {
 			panic(fmt.Sprintf("nox: %s: io::scanln() takes no arguments in this implementation; it returns the next line as a string", fb.fname))
+		}
+		return "nox_io_scanln()", TString()
+	case "Scanf":
+		// Simplified: reads a full line, same as Scanln. Full scanf-style
