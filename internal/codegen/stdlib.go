@@ -140,3 +140,7 @@ func (fb *funcBuilder) genRandomCall(c *ctx, sym string, args []ast.Expr) (strin
 			a1 := fb.genFloatArg(c, args[1])
 			return fmt.Sprintf("((%s) + ((double)rand() / (double)RAND_MAX) * ((%s) - (%s)))", a0, a1, a0), TFloat()
 		}
+		panic(fmt.Sprintf("nox: %s: random::randf() takes zero or two arguments", fb.fname))
+	case "Choice":
+		if len(args) != 1 {
+			panic(fmt.Sprintf("nox: %s: random::choice(array) takes exactly one argument", fb.fname))
