@@ -291,3 +291,7 @@ func (fb *funcBuilder) genMathCall(c *ctx, sym string, args []ast.Expr) (string,
 		if len(args) != 1 {
 			panic(fmt.Sprintf("nox: %s: math::abs(x) takes exactly one argument", fb.fname))
 		}
+		code, t := fb.genExpr(c, args[0])
+		switch t.Kind {
+		case KInt:
+			return fmt.Sprintf("nox_math_abs_i(%s)", code), TInt()
