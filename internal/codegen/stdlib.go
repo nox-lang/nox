@@ -172,3 +172,5 @@ func (fb *funcBuilder) genRandomCall(c *ctx, sym string, args []ast.Expr) (strin
 	panic(fmt.Sprintf("nox: %s: random has no function '%s'", fb.fname, sym))
 }
 
+// ---------------- fs ----------------
+
