@@ -218,3 +218,7 @@ func (fb *funcBuilder) genFsCall(c *ctx, sym string, args []ast.Expr) (string, T
 		need(1)
 		c.emit(compilef("nox_fs_mkdir(%s);", strArg(0)))
 		return "", TVoid()
+	case "Rmdir":
+		need(1)
+		c.emit(compilef("nox_fs_rmdir(%s);", strArg(0)))
+		return "", TVoid()
