@@ -53,3 +53,7 @@ func (fb *funcBuilder) genStdlibCall(c *ctx, pkg, sym string, args []ast.Expr) (
 
 // ---------------- io ----------------
 
+func (fb *funcBuilder) genIOCall(c *ctx, sym string, args []ast.Expr) (string, Type) {
+	switch sym {
+	case "Print", "Println":
+		for _, a := range args {
