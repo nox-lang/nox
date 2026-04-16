@@ -222,3 +222,7 @@ func (fb *funcBuilder) genFsCall(c *ctx, sym string, args []ast.Expr) (string, T
 		need(1)
 		c.emit(compilef("nox_fs_rmdir(%s);", strArg(0)))
 		return "", TVoid()
+	case "List":
+		need(1)
+		return fmt.Sprintf("nox_fs_list(%s)", strArg(0)), TSlice(TString())
+	}
