@@ -287,3 +287,7 @@ func (fb *funcBuilder) genMathCall(c *ctx, sym string, args []ast.Expr) (string,
 		return fmt.Sprintf("%s(%s)", cfn, fb.genFloatArg(c, args[0])), TFloat()
 	}
 	switch sym {
+	case "Abs":
+		if len(args) != 1 {
+			panic(fmt.Sprintf("nox: %s: math::abs(x) takes exactly one argument", fb.fname))
+		}
