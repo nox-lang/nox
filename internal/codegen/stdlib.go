@@ -239,3 +239,7 @@ func (fb *funcBuilder) genPathCall(c *ctx, sym string, args []ast.Expr) (string,
 		}
 		return code
 	}
+	switch sym {
+	case "Join":
+		if len(args) < 2 {
+			panic(fmt.Sprintf("nox: %s: path::join(...) takes at least two arguments", fb.fname))
