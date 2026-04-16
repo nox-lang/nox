@@ -77,3 +77,7 @@ func (fb *funcBuilder) genIOCall(c *ctx, sym string, args []ast.Expr) (string, T
 			c.emit("nox_print_raw_cstr(\"\\n\");\n")
 		}
 		return "", TVoid()
+	case "Scan":
+		if len(args) != 0 {
+			panic(fmt.Sprintf("nox: %s: io::scan() takes no arguments in this implementation; it returns the next whitespace-delimited token as a string", fb.fname))
+		}
