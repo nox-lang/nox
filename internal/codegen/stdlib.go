@@ -112,3 +112,5 @@ func (fb *funcBuilder) genFormatPrint(c *ctx, format string, args []ast.Expr) {
 			c.emit(compilef("%s;", printCallFor(t, code)))
 		}
 	}
+}
+
