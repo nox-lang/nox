@@ -73,3 +73,7 @@ func (fb *funcBuilder) genIOCall(c *ctx, sym string, args []ast.Expr) (string, T
 			panic(fmt.Sprintf("nox: %s: io::%s: the format string must be a string literal", fb.fname, sym))
 		}
 		fb.genFormatPrint(c, fmtLit.Value, args[1:])
+		if sym == "Printfn" {
+			c.emit("nox_print_raw_cstr(\"\\n\");\n")
+		}
+		return "", TVoid()
