@@ -144,3 +144,7 @@ func (fb *funcBuilder) genRandomCall(c *ctx, sym string, args []ast.Expr) (strin
 	case "Choice":
 		if len(args) != 1 {
 			panic(fmt.Sprintf("nox: %s: random::choice(array) takes exactly one argument", fb.fname))
+		}
+		code, t := fb.genExpr(c, args[0])
+		if t.Kind != KSlice {
+			panic(fmt.Sprintf("nox: %s: random::choice(array) expects an array", fb.fname))
