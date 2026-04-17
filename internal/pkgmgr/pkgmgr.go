@@ -82,3 +82,7 @@ func (m *Manifest) Save(path string) error {
 		names = append(names, k)
 	}
 	sort.Strings(names)
+	for _, k := range names {
+		fmt.Fprintf(&sb, "%s = %q\n", k, m.Dependencies[k])
+	}
+	return os.WriteFile(path, []byte(sb.String()), 0644)
