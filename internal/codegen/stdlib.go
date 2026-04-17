@@ -398,3 +398,7 @@ func (fb *funcBuilder) genIncludeCall(c *ctx, funcName string, args []ast.Expr) 
 		}
 		code, t := fb.genExpr(c, a)
 		if t.Kind == KString {
+			argCodes = append(argCodes, fmt.Sprintf("(%s).data", code))
+		} else {
+			argCodes = append(argCodes, code)
+		}
