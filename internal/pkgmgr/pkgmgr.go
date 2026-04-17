@@ -22,3 +22,5 @@ type Manifest struct {
 	Name         string
 	Version      string
 	Dependencies map[string]string // name -> source (e.g. "github.com/user/repo")
+}
+
