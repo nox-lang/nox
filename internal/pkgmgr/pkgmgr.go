@@ -36,3 +36,7 @@ func Load(path string) (*Manifest, error) {
 	}
 	m := &Manifest{Dependencies: map[string]string{}}
 	section := ""
+	for _, rawLine := range strings.Split(string(data), "\n") {
+		line := strings.TrimSpace(rawLine)
+		if line == "" || strings.HasPrefix(line, "#") {
+			continue
