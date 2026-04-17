@@ -92,3 +92,7 @@ func (m *Manifest) Save(path string) error {
 // <dir>/src/main.nox.
 func Init(dir, name string) error {
 	if err := os.MkdirAll(filepath.Join(dir, "src"), 0755); err != nil {
+		return err
+	}
+	m := DefaultManifest(name)
+	if err := m.Save(filepath.Join(dir, "nox.toml")); err != nil {
