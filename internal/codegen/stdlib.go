@@ -311,3 +311,7 @@ func (fb *funcBuilder) genMathCall(c *ctx, sym string, args []ast.Expr) (string,
 		suffix := "_i"
 		if t0.Kind == KFloat {
 			suffix = "_f"
+		}
+		return fmt.Sprintf("nox_math_%s%s(%s, %s)", strings.ToLower(sym), suffix, a0, a1), t0
+	case "Pow":
+		if len(args) != 2 {
