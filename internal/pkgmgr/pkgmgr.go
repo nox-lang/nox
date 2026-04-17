@@ -108,3 +108,7 @@ func Init(dir, name string) error {
 	return nil
 }
 
+// Get validates a dependency source and returns the directory it will be
+// cloned into. The clone itself is deferred to build time (see
+// EnsureDeps) — `nox get` only needs to record the dependency in nox.toml,
+// matching how `go get`-style tools separate "declare a dependency" from
