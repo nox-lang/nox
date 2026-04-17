@@ -78,3 +78,7 @@ func (m *Manifest) Save(path string) error {
 	fmt.Fprintf(&sb, "version = %q\n", m.Version)
 	sb.WriteString("\n[dependencies]\n")
 	var names []string
+	for k := range m.Dependencies {
+		names = append(names, k)
+	}
+	sort.Strings(names)
