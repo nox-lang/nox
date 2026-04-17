@@ -347,3 +347,4 @@ func (fb *funcBuilder) genMathCall(c *ctx, sym string, args []ast.Expr) (string,
 	}
 	panic(fmt.Sprintf("nox: %s: math has no function '%s'", fb.fname, sym))
 }
+
