@@ -130,3 +130,7 @@ func EnsureDeps(root string, m *Manifest) error {
 	sort.Strings(names)
 	for _, name := range names {
 		source := m.Dependencies[name]
+		dest := filepath.Join(root, ".nox", "pkg", filepath.FromSlash(source))
+		if _, err := os.Stat(dest); err == nil {
+			continue // already cloned
+		}
