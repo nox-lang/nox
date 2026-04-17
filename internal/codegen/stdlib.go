@@ -386,3 +386,7 @@ func (fb *funcBuilder) genTimeCall(c *ctx, sym string, args []ast.Expr) (string,
 // `include`. String literal arguments become raw C string literals; string
 // *values* are passed as their `.data` (const char*) pointer, matching what
 // C APIs expect. The call's own Nox-level type is approximated as `int`
+// since Nox has no visibility into the included header's real prototype;
+// this is fine for calls used as statements (e.g. `stdio::printf(...)`) and
+// is a documented limitation for anything that needs the real return value.
+func (fb *funcBuilder) genIncludeCall(c *ctx, funcName string, args []ast.Expr) (string, Type) {
