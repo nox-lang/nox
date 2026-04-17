@@ -40,3 +40,7 @@ func Load(path string) (*Manifest, error) {
 		line := strings.TrimSpace(rawLine)
 		if line == "" || strings.HasPrefix(line, "#") {
 			continue
+		}
+		if strings.HasPrefix(line, "[") && strings.HasSuffix(line, "]") {
+			section = strings.TrimSpace(line[1 : len(line)-1])
+			continue
