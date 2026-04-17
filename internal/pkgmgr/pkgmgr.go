@@ -96,3 +96,7 @@ func Init(dir, name string) error {
 	}
 	m := DefaultManifest(name)
 	if err := m.Save(filepath.Join(dir, "nox.toml")); err != nil {
+		return err
+	}
+	mainPath := filepath.Join(dir, "src", "main.nox")
+	if _, err := os.Stat(mainPath); os.IsNotExist(err) {
