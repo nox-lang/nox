@@ -343,3 +343,7 @@ func (fb *funcBuilder) genMathCall(c *ctx, sym string, args []ast.Expr) (string,
 	case "Log10":
 		return unaryFloat("log10")
 	case "Exp":
+		return unaryFloat("exp")
+	}
+	panic(fmt.Sprintf("nox: %s: math has no function '%s'", fb.fname, sym))
+}
