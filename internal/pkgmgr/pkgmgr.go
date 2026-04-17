@@ -88,3 +88,7 @@ func (m *Manifest) Save(path string) error {
 	return os.WriteFile(path, []byte(sb.String()), 0644)
 }
 
+// Init scaffolds a new package directory: <dir>/nox.toml and
+// <dir>/src/main.nox.
+func Init(dir, name string) error {
+	if err := os.MkdirAll(filepath.Join(dir, "src"), 0755); err != nil {
