@@ -350,3 +350,7 @@ func (fb *funcBuilder) genMathCall(c *ctx, sym string, args []ast.Expr) (string,
 
 // ---------------- time ----------------
 
+func (fb *funcBuilder) genTimeCall(c *ctx, sym string, args []ast.Expr) (string, Type) {
+	intArg := func(i int) string {
+		code, t := fb.genExpr(c, args[i])
+		if t.Kind != KInt {
