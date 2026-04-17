@@ -142,3 +142,7 @@ func EnsureDeps(root string, m *Manifest) error {
 			url = "https://" + url
 		}
 		if !strings.HasSuffix(url, ".git") {
+			url += ".git"
+		}
+		fmt.Printf("nox: cloning %s -> %s\n", url, dest)
+		cmd := gitCloneCmd(url, dest)
