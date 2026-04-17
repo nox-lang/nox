@@ -319,3 +319,7 @@ func (fb *funcBuilder) genMathCall(c *ctx, sym string, args []ast.Expr) (string,
 		}
 		return fmt.Sprintf("pow(%s, %s)", fb.genFloatArg(c, args[0]), fb.genFloatArg(c, args[1])), TFloat()
 	case "Sqrt":
+		return unaryFloat("sqrt")
+	case "Floor":
+		return unaryFloat("floor")
+	case "Ceil":
