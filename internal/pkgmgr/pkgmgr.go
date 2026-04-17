@@ -70,3 +70,7 @@ func Load(path string) (*Manifest, error) {
 	return m, nil
 }
 
+// Save writes the manifest back out in the canonical layout.
+func (m *Manifest) Save(path string) error {
+	var sb strings.Builder
+	sb.WriteString("[package]\n")
