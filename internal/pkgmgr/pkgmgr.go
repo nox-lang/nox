@@ -112,3 +112,7 @@ func Init(dir, name string) error {
 // cloned into. The clone itself is deferred to build time (see
 // EnsureDeps) — `nox get` only needs to record the dependency in nox.toml,
 // matching how `go get`-style tools separate "declare a dependency" from
+// "materialize it on disk".
+func Get(root, source string) (string, error) {
+	dest := filepath.Join(root, ".nox", "pkg", filepath.FromSlash(source))
+	return dest, nil
