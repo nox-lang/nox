@@ -116,3 +116,5 @@ func Init(dir, name string) error {
 func Get(root, source string) (string, error) {
 	dest := filepath.Join(root, ".nox", "pkg", filepath.FromSlash(source))
 	return dest, nil
+}
+
