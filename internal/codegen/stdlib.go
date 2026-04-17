@@ -339,3 +339,7 @@ func (fb *funcBuilder) genMathCall(c *ctx, sym string, args []ast.Expr) (string,
 	case "Atan":
 		return unaryFloat("atan")
 	case "Log":
+		return unaryFloat("log")
+	case "Log10":
+		return unaryFloat("log10")
+	case "Exp":
