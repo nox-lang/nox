@@ -56,3 +56,7 @@ func Load(path string) (*Manifest, error) {
 		case "package":
 			switch key {
 			case "name":
+				m.Name = val
+			case "version":
+				m.Version = val
+			}
