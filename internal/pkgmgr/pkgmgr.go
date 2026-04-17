@@ -86,3 +86,5 @@ func (m *Manifest) Save(path string) error {
 		fmt.Fprintf(&sb, "%s = %q\n", k, m.Dependencies[k])
 	}
 	return os.WriteFile(path, []byte(sb.String()), 0644)
+}
+
