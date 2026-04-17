@@ -64,3 +64,7 @@ func Load(path string) (*Manifest, error) {
 			m.Dependencies[key] = val
 		}
 	}
+	if m.Name == "" {
+		return nil, fmt.Errorf("nox.toml: missing [package] name")
+	}
+	return m, nil
