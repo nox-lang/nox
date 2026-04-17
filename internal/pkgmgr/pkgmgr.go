@@ -118,3 +118,7 @@ func Get(root, source string) (string, error) {
 	return dest, nil
 }
 
+// EnsureDeps clones every dependency listed in the manifest that isn't
+// already present under <root>/.nox/pkg/. `nox build` calls this before
+// compiling, reading nox.toml for what to fetch — this is where a `nox
+// get`-declared dependency actually gets cloned.
