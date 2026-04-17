@@ -150,3 +150,7 @@ func EnsureDeps(root string, m *Manifest) error {
 		if err != nil {
 			return fmt.Errorf("git clone %s: %v\n%s", url, err, string(out))
 		}
+	}
+	return nil
+}
+
