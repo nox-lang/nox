@@ -402,3 +402,6 @@ func (fb *funcBuilder) genIncludeCall(c *ctx, funcName string, args []ast.Expr) 
 		} else {
 			argCodes = append(argCodes, code)
 		}
+	}
+	return fmt.Sprintf("%s(%s)", funcName, strings.Join(argCodes, ", ")), TInt()
+}
