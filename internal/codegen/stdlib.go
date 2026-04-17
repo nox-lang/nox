@@ -382,3 +382,7 @@ func (fb *funcBuilder) genTimeCall(c *ctx, sym string, args []ast.Expr) (string,
 
 // ---------------- raw C (`include`d headers) ----------------
 
+// genIncludeCall passes a call straight through to a C function reached via
+// `include`. String literal arguments become raw C string literals; string
+// *values* are passed as their `.data` (const char*) pointer, matching what
+// C APIs expect. The call's own Nox-level type is approximated as `int`
