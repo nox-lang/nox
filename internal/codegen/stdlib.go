@@ -307,3 +307,7 @@ func (fb *funcBuilder) genMathCall(c *ctx, sym string, args []ast.Expr) (string,
 		a1, t1 := fb.genExpr(c, args[1])
 		if !t0.Equals(t1) || (t0.Kind != KInt && t0.Kind != KFloat) {
 			panic(fmt.Sprintf("nox: %s: math::%s(a, b) expects two arguments of the same numeric type", fb.fname, sym))
+		}
+		suffix := "_i"
+		if t0.Kind == KFloat {
+			suffix = "_f"
