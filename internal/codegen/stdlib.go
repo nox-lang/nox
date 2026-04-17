@@ -354,3 +354,7 @@ func (fb *funcBuilder) genTimeCall(c *ctx, sym string, args []ast.Expr) (string,
 	intArg := func(i int) string {
 		code, t := fb.genExpr(c, args[i])
 		if t.Kind != KInt {
+			panic(fmt.Sprintf("nox: %s: time::%s expects an int argument", fb.fname, sym))
+		}
+		return code
+	}
