@@ -390,3 +390,7 @@ func (fb *funcBuilder) genTimeCall(c *ctx, sym string, args []ast.Expr) (string,
 // this is fine for calls used as statements (e.g. `stdio::printf(...)`) and
 // is a documented limitation for anything that needs the real return value.
 func (fb *funcBuilder) genIncludeCall(c *ctx, funcName string, args []ast.Expr) (string, Type) {
+	var argCodes []string
+	for _, a := range args {
+		if lit, ok := a.(*ast.StringLit); ok {
+			argCodes = append(argCodes, cStringLiteral(lit.Value))
