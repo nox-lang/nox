@@ -394,3 +394,7 @@ func (fb *funcBuilder) genIncludeCall(c *ctx, funcName string, args []ast.Expr) 
 	for _, a := range args {
 		if lit, ok := a.(*ast.StringLit); ok {
 			argCodes = append(argCodes, cStringLiteral(lit.Value))
+			continue
+		}
+		code, t := fb.genExpr(c, a)
+		if t.Kind == KString {
