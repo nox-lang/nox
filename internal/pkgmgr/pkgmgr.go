@@ -60,3 +60,7 @@ func Load(path string) (*Manifest, error) {
 			case "version":
 				m.Version = val
 			}
+		case "dependencies":
+			m.Dependencies[key] = val
+		}
+	}
