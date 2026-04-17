@@ -126,3 +126,7 @@ func EnsureDeps(root string, m *Manifest) error {
 	var names []string
 	for name := range m.Dependencies {
 		names = append(names, name)
+	}
+	sort.Strings(names)
+	for _, name := range names {
+		source := m.Dependencies[name]
