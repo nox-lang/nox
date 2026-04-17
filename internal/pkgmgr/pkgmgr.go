@@ -134,3 +134,7 @@ func EnsureDeps(root string, m *Manifest) error {
 		if _, err := os.Stat(dest); err == nil {
 			continue // already cloned
 		}
+		if err := os.MkdirAll(filepath.Dir(dest), 0755); err != nil {
+			return err
+		}
+		url := source
