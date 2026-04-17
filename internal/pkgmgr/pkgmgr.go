@@ -14,3 +14,7 @@ import (
 	"strings"
 )
 
+func gitCloneCmd(url, dest string) *exec.Cmd {
+	return exec.Command("git", "clone", "--depth", "1", url, dest)
+}
+
