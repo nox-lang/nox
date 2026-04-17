@@ -68,3 +68,5 @@ func Load(path string) (*Manifest, error) {
 		return nil, fmt.Errorf("nox.toml: missing [package] name")
 	}
 	return m, nil
+}
+
