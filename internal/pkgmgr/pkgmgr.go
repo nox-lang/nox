@@ -100,3 +100,7 @@ func Init(dir, name string) error {
 	}
 	mainPath := filepath.Join(dir, "src", "main.nox")
 	if _, err := os.Stat(mainPath); os.IsNotExist(err) {
+		stub := "package main\n\nimport(\n    \"io\"\n)\n\nfunc Main() {\n    io::Println(\"Hello, World!\")\n}\n"
+		if err := os.WriteFile(mainPath, []byte(stub), 0644); err != nil {
+			return err
+		}
