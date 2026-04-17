@@ -44,3 +44,7 @@ func Load(path string) (*Manifest, error) {
 		if strings.HasPrefix(line, "[") && strings.HasSuffix(line, "]") {
 			section = strings.TrimSpace(line[1 : len(line)-1])
 			continue
+		}
+		eq := strings.Index(line, "=")
+		if eq < 0 {
+			continue
