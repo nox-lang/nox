@@ -32,3 +32,7 @@ func DefaultManifest(name string) *Manifest {
 func Load(path string) (*Manifest, error) {
 	data, err := os.ReadFile(path)
 	if err != nil {
+		return nil, err
+	}
+	m := &Manifest{Dependencies: map[string]string{}}
+	section := ""
