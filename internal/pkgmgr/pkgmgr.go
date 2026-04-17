@@ -24,3 +24,7 @@ type Manifest struct {
 	Dependencies map[string]string // name -> source (e.g. "github.com/user/repo")
 }
 
+func DefaultManifest(name string) *Manifest {
+	return &Manifest{Name: name, Version: "0.1.0", Dependencies: map[string]string{}}
+}
+
