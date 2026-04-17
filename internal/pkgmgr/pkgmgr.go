@@ -122,3 +122,7 @@ func Get(root, source string) (string, error) {
 // already present under <root>/.nox/pkg/. `nox build` calls this before
 // compiling, reading nox.toml for what to fetch — this is where a `nox
 // get`-declared dependency actually gets cloned.
+func EnsureDeps(root string, m *Manifest) error {
+	var names []string
+	for name := range m.Dependencies {
+		names = append(names, name)
