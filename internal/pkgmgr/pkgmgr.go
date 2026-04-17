@@ -138,3 +138,7 @@ func EnsureDeps(root string, m *Manifest) error {
 			return err
 		}
 		url := source
+		if !strings.Contains(url, "://") {
+			url = "https://" + url
+		}
+		if !strings.HasSuffix(url, ".git") {
