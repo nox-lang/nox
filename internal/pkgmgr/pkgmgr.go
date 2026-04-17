@@ -52,3 +52,7 @@ func Load(path string) (*Manifest, error) {
 		key := strings.TrimSpace(line[:eq])
 		val := strings.TrimSpace(line[eq+1:])
 		val = strings.Trim(val, `"`)
+		switch section {
+		case "package":
+			switch key {
+			case "name":
