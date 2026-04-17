@@ -366,3 +366,7 @@ func (fb *funcBuilder) genTimeCall(c *ctx, sym string, args []ast.Expr) (string,
 	case "Sleep":
 		if len(args) != 1 {
 			panic(fmt.Sprintf("nox: %s: time::sleep(seconds) takes exactly one argument", fb.fname))
+		}
+		c.emit(compilef("nox_time_sleep(%s);", fb.genFloatArg(c, args[0])))
+		return "", TVoid()
+	case "Clock":
