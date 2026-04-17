@@ -315,3 +315,7 @@ func (fb *funcBuilder) genMathCall(c *ctx, sym string, args []ast.Expr) (string,
 		return fmt.Sprintf("nox_math_%s%s(%s, %s)", strings.ToLower(sym), suffix, a0, a1), t0
 	case "Pow":
 		if len(args) != 2 {
+			panic(fmt.Sprintf("nox: %s: math::pow(x, y) takes exactly two arguments", fb.fname))
+		}
+		return fmt.Sprintf("pow(%s, %s)", fb.genFloatArg(c, args[0]), fb.genFloatArg(c, args[1])), TFloat()
+	case "Sqrt":
