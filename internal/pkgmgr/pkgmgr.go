@@ -28,3 +28,7 @@ func DefaultManifest(name string) *Manifest {
 	return &Manifest{Name: name, Version: "0.1.0", Dependencies: map[string]string{}}
 }
 
+// Load reads and parses a nox.toml file.
+func Load(path string) (*Manifest, error) {
+	data, err := os.ReadFile(path)
+	if err != nil {
