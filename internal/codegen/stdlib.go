@@ -374,3 +374,7 @@ func (fb *funcBuilder) genTimeCall(c *ctx, sym string, args []ast.Expr) (string,
 	case "Year", "Month", "Day", "Hour", "Minute", "Second":
 		if len(args) != 1 {
 			panic(fmt.Sprintf("nox: %s: time::%s(t) takes exactly one argument", fb.fname, sym))
+		}
+		return fmt.Sprintf("nox_time_%s(%s)", strings.ToLower(sym), intArg(0)), TInt()
+	}
+	panic(fmt.Sprintf("nox: %s: time has no function '%s'", fb.fname, sym))
