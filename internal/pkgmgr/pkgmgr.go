@@ -48,3 +48,7 @@ func Load(path string) (*Manifest, error) {
 		eq := strings.Index(line, "=")
 		if eq < 0 {
 			continue
+		}
+		key := strings.TrimSpace(line[:eq])
+		val := strings.TrimSpace(line[eq+1:])
+		val = strings.Trim(val, `"`)
