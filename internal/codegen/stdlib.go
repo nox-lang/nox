@@ -358,3 +358,7 @@ func (fb *funcBuilder) genTimeCall(c *ctx, sym string, args []ast.Expr) (string,
 		}
 		return code
 	}
+	switch sym {
+	case "Now":
+		return "nox_time_now()", TInt()
+	case "Unix":
