@@ -104,3 +104,7 @@ func Init(dir, name string) error {
 		if err := os.WriteFile(mainPath, []byte(stub), 0644); err != nil {
 			return err
 		}
+	}
+	return nil
+}
+
