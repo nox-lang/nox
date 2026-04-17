@@ -327,3 +327,7 @@ func (fb *funcBuilder) genMathCall(c *ctx, sym string, args []ast.Expr) (string,
 	case "Round":
 		return unaryFloat("round")
 	case "Sin":
+		return unaryFloat("sin")
+	case "Cos":
+		return unaryFloat("cos")
+	case "Tan":
