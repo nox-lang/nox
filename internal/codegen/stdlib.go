@@ -378,3 +378,5 @@ func (fb *funcBuilder) genTimeCall(c *ctx, sym string, args []ast.Expr) (string,
 		return fmt.Sprintf("nox_time_%s(%s)", strings.ToLower(sym), intArg(0)), TInt()
 	}
 	panic(fmt.Sprintf("nox: %s: time has no function '%s'", fb.fname, sym))
+}
+
