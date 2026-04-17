@@ -362,3 +362,7 @@ func (fb *funcBuilder) genTimeCall(c *ctx, sym string, args []ast.Expr) (string,
 	case "Now":
 		return "nox_time_now()", TInt()
 	case "Unix":
+		return "nox_time_unix()", TInt()
+	case "Sleep":
+		if len(args) != 1 {
+			panic(fmt.Sprintf("nox: %s: time::sleep(seconds) takes exactly one argument", fb.fname))
