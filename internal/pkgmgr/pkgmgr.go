@@ -74,3 +74,7 @@ func Load(path string) (*Manifest, error) {
 func (m *Manifest) Save(path string) error {
 	var sb strings.Builder
 	sb.WriteString("[package]\n")
+	fmt.Fprintf(&sb, "name = %q\n", m.Name)
+	fmt.Fprintf(&sb, "version = %q\n", m.Version)
+	sb.WriteString("\n[dependencies]\n")
+	var names []string
