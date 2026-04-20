@@ -166,3 +166,7 @@ func FindManifest(dir string) (manifestPath, root string, ok bool) {
 			return p, d, true
 		}
 		parent := filepath.Dir(d)
+		if parent == d {
+			return "", "", false
+		}
+		d = parent
