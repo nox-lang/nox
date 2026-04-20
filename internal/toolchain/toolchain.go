@@ -112,3 +112,6 @@ func hostCC() (string, error) {
 			return p, nil
 		}
 	}
+	return "", fmt.Errorf("no C compiler found (tried cc, gcc, clang) — nox needs one, just once, to build its bundled nox-tcc; install one (e.g. 'apt install gcc', 'xcode-select --install', or a Visual Studio/MinGW toolchain on Windows) and try again")
+}
+
