@@ -145,3 +145,7 @@ func (tc *Toolchain) EnsureNative() (tccPath, searchDir string, err error) {
 	if runtime.GOOS == "windows" {
 		tccPath += ".exe"
 	}
+	if _, statErr := os.Stat(tccPath); statErr != nil {
+		if err := tc.configure(); err != nil {
+			return "", "", err
+		}
