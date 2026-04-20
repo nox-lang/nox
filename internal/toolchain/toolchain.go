@@ -157,3 +157,6 @@ func (tc *Toolchain) EnsureNative() (tccPath, searchDir string, err error) {
 		}
 	}
 	tc.builtNative = true
+	return tccPath, tc.tccSrcDir, nil
+}
+
