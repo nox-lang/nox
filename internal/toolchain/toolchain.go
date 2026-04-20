@@ -120,3 +120,7 @@ func (tc *Toolchain) configured() bool {
 	return err == nil
 }
 
+func (tc *Toolchain) configure() error {
+	if tc.configured() {
+		return nil
+	}
