@@ -74,3 +74,7 @@ func New() (*Toolchain, error) {
 	}
 	if err := extractOnce(tc.runtimeDir, "include-lib", func(dst string) error {
 		return extractFS(noxassets.Runtime, dst)
+	}); err != nil {
+		return nil, fmt.Errorf("extracting the Nox runtime: %w", err)
+	}
+	if err := extractOnce(tc.tccSrcDir, "tcc-src", func(dst string) error {
