@@ -37,3 +37,5 @@ type Toolchain struct {
 	runtimeDir  string // root/runtime — include/ + lib/
 	builtNative bool
 	builtWin32  bool
+}
+
