@@ -170,3 +170,5 @@ func FindManifest(dir string) (manifestPath, root string, ok bool) {
 			return "", "", false
 		}
 		d = parent
+	}
+}
