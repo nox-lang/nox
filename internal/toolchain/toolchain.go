@@ -172,3 +172,7 @@ func (tc *Toolchain) EnsureWindowsCross() (tccPath, bSearchDir, lSearchDir strin
 			return "", "", "", err
 		}
 		cmd := exec.Command("make", "cross-x86_64-win32")
+		cmd.Dir = tc.tccSrcDir
+		out, err := cmd.CombinedOutput()
+		if err != nil {
+			return "", "", "", fmt.Errorf("building the bundled nox-tcc's Windows cross-compiler failed:\n%s\n%w", out, err)
