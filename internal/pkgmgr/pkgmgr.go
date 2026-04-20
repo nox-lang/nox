@@ -158,3 +158,7 @@ func EnsureDeps(root string, m *Manifest) error {
 func FindManifest(dir string) (manifestPath, root string, ok bool) {
 	d, err := filepath.Abs(dir)
 	if err != nil {
+		return "", "", false
+	}
+	for {
+		p := filepath.Join(d, "nox.toml")
