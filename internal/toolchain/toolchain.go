@@ -66,3 +66,7 @@ func New() (*Toolchain, error) {
 	if err != nil {
 		base = os.TempDir()
 	}
+	root := filepath.Join(base, "nox", "toolchain-"+cacheVersion)
+	tc := &Toolchain{
+		root:       root,
+		tccSrcDir:  filepath.Join(root, "tcc"),
