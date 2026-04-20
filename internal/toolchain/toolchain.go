@@ -160,3 +160,7 @@ func (tc *Toolchain) EnsureNative() (tccPath, searchDir string, err error) {
 	return tccPath, tc.tccSrcDir, nil
 }
 
+// EnsureWindowsCross builds (if not already cached) tcc's own
+// x86_64-win32 cross target — a tcc that runs on the host and emits
+// Windows PE binaries — bootstrapped from the very same source tree, per
+// tcc/GC_BUNDLE.md. Returns the cross tcc's path plus the two directories
