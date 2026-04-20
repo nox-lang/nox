@@ -154,3 +154,7 @@ func EnsureDeps(root string, m *Manifest) error {
 	return nil
 }
 
+// path and directory, or ("", "", false) if none is found.
+func FindManifest(dir string) (manifestPath, root string, ok bool) {
+	d, err := filepath.Abs(dir)
+	if err != nil {
