@@ -141,3 +141,7 @@ func (tc *Toolchain) configure() error {
 // and returns its path plus the -B search directory it needs (for
 // libtcc1.a).
 func (tc *Toolchain) EnsureNative() (tccPath, searchDir string, err error) {
+	tccPath = filepath.Join(tc.tccSrcDir, "tcc")
+	if runtime.GOOS == "windows" {
+		tccPath += ".exe"
+	}
