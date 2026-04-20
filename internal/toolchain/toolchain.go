@@ -180,3 +180,5 @@ func (tc *Toolchain) EnsureWindowsCross() (tccPath, bSearchDir, lSearchDir strin
 	}
 	tc.builtWin32 = true
 	return tccPath, filepath.Join(tc.tccSrcDir, "win32"), tc.tccSrcDir, nil
+}
+
