@@ -97,3 +97,7 @@ func extractOnce(dst, tag string, extract func(dst string) error) error {
 	}
 	if err := os.MkdirAll(dst, 0755); err != nil {
 		return err
+	}
+	if err := extract(dst); err != nil {
+		return err
+	}
