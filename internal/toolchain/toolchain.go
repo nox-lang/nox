@@ -39,3 +39,6 @@ type Toolchain struct {
 	builtWin32  bool
 }
 
+// RuntimeIncludeDir is where <nox/nox.h> lives.
+func (tc *Toolchain) RuntimeIncludeDir() string { return filepath.Join(tc.runtimeDir, "include") }
+
