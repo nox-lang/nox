@@ -10,3 +10,5 @@
 // available on Windows via MSVC or MinGW) to bootstrap nox-tcc itself, the
 // first time it's needed; after that first build, everything is cached and
 // the host compiler is never invoked again.
+package toolchain
+
