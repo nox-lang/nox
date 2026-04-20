@@ -58,3 +58,7 @@ func (tc *Toolchain) RuntimeSources() ([]string, error) {
 	return out, nil
 }
 
+// New extracts the embedded runtime (always) into a per-user cache
+// directory, ready for EnsureNative / EnsureWindowsCross to build nox-tcc
+// into. Extraction itself needs no C compiler and always happens.
+func New() (*Toolchain, error) {
