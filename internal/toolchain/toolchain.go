@@ -153,3 +153,7 @@ func (tc *Toolchain) EnsureNative() (tccPath, searchDir string, err error) {
 		cmd.Dir = tc.tccSrcDir
 		out, err := cmd.CombinedOutput()
 		if err != nil {
+			return "", "", fmt.Errorf("building the bundled nox-tcc failed:\n%s\n%w", out, err)
+		}
+	}
+	tc.builtNative = true
