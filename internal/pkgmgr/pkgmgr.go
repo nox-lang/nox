@@ -162,3 +162,7 @@ func FindManifest(dir string) (manifestPath, root string, ok bool) {
 	}
 	for {
 		p := filepath.Join(d, "nox.toml")
+		if _, err := os.Stat(p); err == nil {
+			return p, d, true
+		}
+		parent := filepath.Dir(d)
