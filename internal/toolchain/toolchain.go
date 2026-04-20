@@ -6,3 +6,7 @@
 // against.
 //
 // The only thing this package still asks of the host machine is *some* C
+// compiler (cc, gcc, or clang — nearly universal on Linux/macOS, and
+// available on Windows via MSVC or MinGW) to bootstrap nox-tcc itself, the
+// first time it's needed; after that first build, everything is cached and
+// the host compiler is never invoked again.
