@@ -20,3 +20,6 @@ import (
 	"runtime"
 	"strconv"
 
+	noxassets "nox"
+)
+
