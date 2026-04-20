@@ -70,3 +70,7 @@ func New() (*Toolchain, error) {
 	tc := &Toolchain{
 		root:       root,
 		tccSrcDir:  filepath.Join(root, "tcc"),
+		runtimeDir: filepath.Join(root, "runtime"),
+	}
+	if err := extractOnce(tc.runtimeDir, "include-lib", func(dst string) error {
+		return extractFS(noxassets.Runtime, dst)
