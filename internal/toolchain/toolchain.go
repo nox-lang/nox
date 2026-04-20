@@ -164,3 +164,7 @@ func (tc *Toolchain) EnsureNative() (tccPath, searchDir string, err error) {
 // x86_64-win32 cross target — a tcc that runs on the host and emits
 // Windows PE binaries — bootstrapped from the very same source tree, per
 // tcc/GC_BUNDLE.md. Returns the cross tcc's path plus the two directories
+// it needs on its search path (-B and -L).
+func (tc *Toolchain) EnsureWindowsCross() (tccPath, bSearchDir, lSearchDir string, err error) {
+	tccPath = filepath.Join(tc.tccSrcDir, "x86_64-win32-tcc")
+	if _, statErr := os.Stat(tccPath); statErr != nil {
