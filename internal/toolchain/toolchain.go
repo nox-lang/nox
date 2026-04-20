@@ -119,3 +119,4 @@ func (tc *Toolchain) configured() bool {
 	_, err := os.Stat(filepath.Join(tc.tccSrcDir, "config.mak"))
 	return err == nil
 }
+
