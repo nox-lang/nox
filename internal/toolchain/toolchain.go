@@ -12,3 +12,7 @@
 // the host compiler is never invoked again.
 package toolchain
 
+import (
+	"fmt"
+	"os"
+	"os/exec"
