@@ -124,3 +124,7 @@ func (tc *Toolchain) configure() error {
 	if tc.configured() {
 		return nil
 	}
+	cc, err := hostCC()
+	if err != nil {
+		return err
+	}
