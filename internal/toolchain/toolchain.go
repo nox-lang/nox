@@ -46,3 +46,7 @@ func (tc *Toolchain) RuntimeIncludeDir() string { return filepath.Join(tc.runtim
 // generated program.
 func (tc *Toolchain) RuntimeSources() ([]string, error) {
 	entries, err := os.ReadDir(filepath.Join(tc.runtimeDir, "lib"))
+	if err != nil {
+		return nil, err
+	}
+	var out []string
