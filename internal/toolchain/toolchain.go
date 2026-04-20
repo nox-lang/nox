@@ -190,3 +190,4 @@ func (tc *Toolchain) CrossIncludeDirs() []string {
 		filepath.Join(tc.tccSrcDir, "include"),
 		filepath.Join(tc.tccSrcDir, "win32", "include"),
 	}
+}
