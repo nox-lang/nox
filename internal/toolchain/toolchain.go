@@ -62,3 +62,7 @@ func (tc *Toolchain) RuntimeSources() ([]string, error) {
 // directory, ready for EnsureNative / EnsureWindowsCross to build nox-tcc
 // into. Extraction itself needs no C compiler and always happens.
 func New() (*Toolchain, error) {
+	base, err := os.UserCacheDir()
+	if err != nil {
+		base = os.TempDir()
+	}
