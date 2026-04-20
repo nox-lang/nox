@@ -104,3 +104,7 @@ func extractOnce(dst, tag string, extract func(dst string) error) error {
 	return os.WriteFile(marker, []byte("ok\n"), 0644)
 }
 
+// hostCC finds a C compiler to bootstrap nox-tcc with. Any of these is
+// virtually always present on a machine that does any native development.
+func hostCC() (string, error) {
+	for _, cand := range []string{"cc", "gcc", "clang"} {
