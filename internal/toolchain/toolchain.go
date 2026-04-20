@@ -89,3 +89,7 @@ func New() (*Toolchain, error) {
 // (e.g. first run, or a cache wipe), never on every invocation.
 func extractOnce(dst, tag string, extract func(dst string) error) error {
 	marker := filepath.Join(dst, ".nox-extracted-"+tag)
+	if _, err := os.Stat(marker); err == nil {
+		return nil
+	}
+	if err := os.RemoveAll(dst); err != nil {
