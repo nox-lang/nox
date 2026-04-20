@@ -132,3 +132,7 @@ func (tc *Toolchain) configure() error {
 	cmd.Dir = tc.tccSrcDir
 	out, err := cmd.CombinedOutput()
 	if err != nil {
+		return fmt.Errorf("configuring the bundled nox-tcc failed:\n%s\n%w", out, err)
+	}
+	return nil
+}
