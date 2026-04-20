@@ -101,3 +101,6 @@ func extractOnce(dst, tag string, extract func(dst string) error) error {
 	if err := extract(dst); err != nil {
 		return err
 	}
+	return os.WriteFile(marker, []byte("ok\n"), 0644)
+}
+
