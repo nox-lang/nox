@@ -29,3 +29,7 @@ import (
 // upgrade.
 const cacheVersion = "v1"
 
+// Toolchain is a ready-to-use, on-disk nox-tcc + Nox runtime, extracted and
+// (for whichever targets have actually been requested) built.
+type Toolchain struct {
+	root        string // cache root: <UserCacheDir>/nox/toolchain-<version>
