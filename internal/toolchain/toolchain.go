@@ -128,3 +128,7 @@ func (tc *Toolchain) configure() error {
 	if err != nil {
 		return err
 	}
+	cmd := exec.Command("./configure", "--cc="+cc)
+	cmd.Dir = tc.tccSrcDir
+	out, err := cmd.CombinedOutput()
+	if err != nil {
