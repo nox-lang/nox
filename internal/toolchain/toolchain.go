@@ -33,3 +33,7 @@ const cacheVersion = "v1"
 // (for whichever targets have actually been requested) built.
 type Toolchain struct {
 	root        string // cache root: <UserCacheDir>/nox/toolchain-<version>
+	tccSrcDir   string // root/tcc — the vendored nox-tcc tree (also the native build dir)
+	runtimeDir  string // root/runtime — include/ + lib/
+	builtNative bool
+	builtWin32  bool
