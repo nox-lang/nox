@@ -42,3 +42,7 @@ type Toolchain struct {
 // RuntimeIncludeDir is where <nox/nox.h> lives.
 func (tc *Toolchain) RuntimeIncludeDir() string { return filepath.Join(tc.runtimeDir, "include") }
 
+// RuntimeSources returns every lib/*.c file to compile alongside the
+// generated program.
+func (tc *Toolchain) RuntimeSources() ([]string, error) {
+	entries, err := os.ReadDir(filepath.Join(tc.runtimeDir, "lib"))
