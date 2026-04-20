@@ -137,3 +137,7 @@ func (tc *Toolchain) configure() error {
 	return nil
 }
 
+// EnsureNative builds (if not already cached) a native tcc for this host,
+// and returns its path plus the -B search directory it needs (for
+// libtcc1.a).
+func (tc *Toolchain) EnsureNative() (tccPath, searchDir string, err error) {
