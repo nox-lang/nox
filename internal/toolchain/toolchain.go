@@ -23,3 +23,7 @@ import (
 	noxassets "nox"
 )
 
+// cacheVersion is bumped whenever the embedded tcc/runtime sources change
+// in a way that requires a rebuild; it is folded into the cache directory
+// name so an old cached build is never mistakenly reused after a nox
+// upgrade.
