@@ -168,3 +168,7 @@ func (tc *Toolchain) EnsureNative() (tccPath, searchDir string, err error) {
 func (tc *Toolchain) EnsureWindowsCross() (tccPath, bSearchDir, lSearchDir string, err error) {
 	tccPath = filepath.Join(tc.tccSrcDir, "x86_64-win32-tcc")
 	if _, statErr := os.Stat(tccPath); statErr != nil {
+		if err := tc.configure(); err != nil {
+			return "", "", "", err
+		}
+		cmd := exec.Command("make", "cross-x86_64-win32")
