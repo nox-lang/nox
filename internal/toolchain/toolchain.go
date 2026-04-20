@@ -149,3 +149,7 @@ func (tc *Toolchain) EnsureNative() (tccPath, searchDir string, err error) {
 		if err := tc.configure(); err != nil {
 			return "", "", err
 		}
+		cmd := exec.Command("make", "-j"+strconv.Itoa(runtime.NumCPU()))
+		cmd.Dir = tc.tccSrcDir
+		out, err := cmd.CombinedOutput()
+		if err != nil {
