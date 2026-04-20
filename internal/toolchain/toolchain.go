@@ -85,3 +85,7 @@ func New() (*Toolchain, error) {
 	return tc, nil
 }
 
+// marker-file based idempotency: re-extract only if the marker is missing
+// (e.g. first run, or a cache wipe), never on every invocation.
+func extractOnce(dst, tag string, extract func(dst string) error) error {
+	marker := filepath.Join(dst, ".nox-extracted-"+tag)
