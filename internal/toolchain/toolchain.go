@@ -50,3 +50,7 @@ func (tc *Toolchain) RuntimeSources() ([]string, error) {
 		return nil, err
 	}
 	var out []string
+	for _, e := range entries {
+		if !e.IsDir() && filepath.Ext(e.Name()) == ".c" {
+			out = append(out, filepath.Join(tc.runtimeDir, "lib", e.Name()))
+		}
