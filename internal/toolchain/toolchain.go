@@ -78,3 +78,7 @@ func New() (*Toolchain, error) {
 		return nil, fmt.Errorf("extracting the Nox runtime: %w", err)
 	}
 	if err := extractOnce(tc.tccSrcDir, "tcc-src", func(dst string) error {
+		return extractFSSub(noxassets.TCCSource, "tcc", dst)
+	}); err != nil {
+		return nil, fmt.Errorf("extracting the bundled nox-tcc source: %w", err)
+	}
