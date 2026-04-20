@@ -82,3 +82,6 @@ func New() (*Toolchain, error) {
 	}); err != nil {
 		return nil, fmt.Errorf("extracting the bundled nox-tcc source: %w", err)
 	}
+	return tc, nil
+}
+
