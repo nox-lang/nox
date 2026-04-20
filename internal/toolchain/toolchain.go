@@ -186,3 +186,7 @@ func (tc *Toolchain) EnsureWindowsCross() (tccPath, bSearchDir, lSearchDir strin
 // (stddef.h and friends) a cross build needs on its -I path; a native
 // build finds these on the host system instead and doesn't need them.
 func (tc *Toolchain) CrossIncludeDirs() []string {
+	return []string{
+		filepath.Join(tc.tccSrcDir, "include"),
+		filepath.Join(tc.tccSrcDir, "win32", "include"),
+	}
