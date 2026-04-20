@@ -108,3 +108,7 @@ func extractOnce(dst, tag string, extract func(dst string) error) error {
 // virtually always present on a machine that does any native development.
 func hostCC() (string, error) {
 	for _, cand := range []string{"cc", "gcc", "clang"} {
+		if p, err := exec.LookPath(cand); err == nil {
+			return p, nil
+		}
+	}
