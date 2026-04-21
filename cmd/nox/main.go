@@ -94,3 +94,7 @@ func cmdGet(args []string) error {
 	if !ok {
 		return fmt.Errorf("no nox.toml found (run this inside a package created with 'nox init')")
 	}
+	manifestPath := filepath.Join(root, "nox.toml")
+	m, err := pkgmgr.Load(manifestPath)
+	if err != nil {
+		return err
