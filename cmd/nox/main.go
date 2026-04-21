@@ -90,3 +90,7 @@ func cmdGet(args []string) error {
 	if len(args) != 1 {
 		return fmt.Errorf("usage: nox get <source>  (e.g. nox get github.com/user/repo)")
 	}
+	_, root, ok := pkgmgr.FindManifest(".")
+	if !ok {
+		return fmt.Errorf("no nox.toml found (run this inside a package created with 'nox init')")
+	}
