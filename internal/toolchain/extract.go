@@ -51,3 +51,7 @@ func extractFSSub(src fs.FS, prefix, dst string) error {
 		if d.IsDir() {
 			return os.MkdirAll(target, 0755)
 		}
+		data, err := fs.ReadFile(src, path)
+		if err != nil {
+			return err
+		}
