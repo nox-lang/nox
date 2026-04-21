@@ -30,3 +30,7 @@ func main() {
 	case "build":
 		err = cmdBuild(os.Args[2:])
 	case "get":
+		err = cmdGet(os.Args[2:])
+	case "version", "-v", "--version":
+		fmt.Println("nox version 0.2.0")
+		return
