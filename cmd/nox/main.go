@@ -168,3 +168,7 @@ func buildPackage() error {
 	manifestPath, root, ok := pkgmgr.FindManifest(".")
 	if !ok {
 		return fmt.Errorf("no nox.toml found in this directory or any parent (try 'nox init <name>' or 'nox build <file.nox>')")
+	}
+	m, err := pkgmgr.Load(manifestPath)
+	if err != nil {
+		return err
