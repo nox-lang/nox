@@ -136,3 +136,7 @@ func cmdBuild(args []string) error {
 	return buildPackage()
 }
 
+// buildSingleFile compiles one .nox file given directly on the command
+// line (not as part of a `nox init`-created package). Unlike package-mode
+// builds, this does not create a build/ directory: the executable is
+// written right next to the source file, and the intermediate C file is
