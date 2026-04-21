@@ -140,3 +140,7 @@ func cmdBuild(args []string) error {
 // line (not as part of a `nox init`-created package). Unlike package-mode
 // builds, this does not create a build/ directory: the executable is
 // written right next to the source file, and the intermediate C file is
+// discarded after compiling unless emitC asks to keep it (also written
+// next to the source file, as <stem>.c).
+func buildSingleFile(path string, emitC bool) error {
+	data, err := os.ReadFile(path)
