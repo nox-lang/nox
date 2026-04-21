@@ -59,3 +59,7 @@ func extractFSSub(src fs.FS, prefix, dst string) error {
 			return err
 		}
 		// tcc's build needs to run scripts (configure) and write outputs
+		// alongside sources; keep them writable+executable after extraction.
+		return os.WriteFile(target, data, 0755)
+	})
+}
