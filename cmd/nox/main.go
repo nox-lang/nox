@@ -172,3 +172,7 @@ func buildPackage() error {
 	m, err := pkgmgr.Load(manifestPath)
 	if err != nil {
 		return err
+	}
+	if err := pkgmgr.EnsureDeps(root, m); err != nil {
+		return err
+	}
