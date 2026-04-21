@@ -148,3 +148,7 @@ func buildSingleFile(path string, emitC bool) error {
 		return err
 	}
 	file, err := parser.Parse(string(data), path)
+	if err != nil {
+		return err
+	}
+	importRoot := filepath.Dir(path)
