@@ -11,3 +11,7 @@ import (
 	"runtime"
 	"strings"
 
+	"nox/internal/ast"
+	"nox/internal/codegen"
+	"nox/internal/parser"
+	"nox/internal/pkgmgr"
