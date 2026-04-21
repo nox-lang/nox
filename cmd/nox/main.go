@@ -42,3 +42,7 @@ func main() {
 		os.Exit(1)
 	}
 	if err != nil {
+		fmt.Fprintf(os.Stderr, "nox: %s\n", err)
+		os.Exit(1)
+	}
+}
