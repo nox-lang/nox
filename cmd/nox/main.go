@@ -80,3 +80,7 @@ func cmdInit(args []string) error {
 	if err := pkgmgr.Init(name, name); err != nil {
 		return err
 	}
+	fmt.Printf("Created Nox package '%s' in ./%s\n", name, name)
+	return nil
+}
+
