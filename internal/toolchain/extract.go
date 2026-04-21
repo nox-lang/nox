@@ -31,3 +31,7 @@ func extractFS(src fs.FS, dst string) error {
 	})
 }
 
+// extractFSSub is extractFS but strips a leading path prefix (e.g. "tcc/")
+// from every embedded path before writing it under dst, so the extracted
+// tree's own root lands directly at dst instead of at dst/<prefix>.
+func extractFSSub(src fs.FS, prefix, dst string) error {
