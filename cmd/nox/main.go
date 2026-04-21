@@ -86,3 +86,7 @@ func cmdInit(args []string) error {
 
 // ---------------- get ----------------
 
+func cmdGet(args []string) error {
+	if len(args) != 1 {
+		return fmt.Errorf("usage: nox get <source>  (e.g. nox get github.com/user/repo)")
+	}
