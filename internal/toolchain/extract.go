@@ -35,3 +35,7 @@ func extractFS(src fs.FS, dst string) error {
 // from every embedded path before writing it under dst, so the extracted
 // tree's own root lands directly at dst instead of at dst/<prefix>.
 func extractFSSub(src fs.FS, prefix, dst string) error {
+	return fs.WalkDir(src, ".", func(path string, d fs.DirEntry, err error) error {
+		if err != nil {
+			return err
+		}
