@@ -3,3 +3,7 @@
 // spec's package-management section.
 package main
 
+import (
+	"fmt"
+	"os"
+	"os/exec"
