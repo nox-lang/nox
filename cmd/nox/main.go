@@ -34,3 +34,7 @@ func main() {
 	case "version", "-v", "--version":
 		fmt.Println("nox version 0.2.0")
 		return
+	case "help", "-h", "--help":
+		printUsage()
+		return
+	default:
