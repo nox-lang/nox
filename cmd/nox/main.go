@@ -118,3 +118,7 @@ func cmdBuild(args []string) error {
 	emitC := false
 	var file string
 	for _, a := range args {
+		switch {
+		case a == "--emit-c" || a == "-c":
+			emitC = true
+		case strings.HasSuffix(a, ".nox"):
