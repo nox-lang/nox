@@ -59,3 +59,7 @@ Usage:
   nox get <source>         Declare a dependency (e.g. github.com/user/repo) in nox.toml;
                             it is fetched the next time 'nox build' runs, not immediately.
 
+nox bundles its own C compiler (nox-tcc) and standard library — no separately
+installed tcc is needed. The very first build on a machine builds and caches
+nox-tcc from source, which needs some C compiler already on the host (cc,
+gcc, or clang; nearly universal) just for that one bootstrap step.
