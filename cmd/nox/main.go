@@ -160,3 +160,7 @@ func buildSingleFile(path string, emitC bool) error {
 			}
 		}
 	}
+	stem := strings.TrimSuffix(filepath.Base(path), ".nox")
+	return compileAndLink(file, importRoot, stem, filepath.Dir(path), emitC)
+}
+
