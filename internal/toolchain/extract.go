@@ -39,3 +39,7 @@ func extractFSSub(src fs.FS, prefix, dst string) error {
 		if err != nil {
 			return err
 		}
+		rel := strings.TrimPrefix(path, prefix)
+		rel = strings.TrimPrefix(rel, "/")
+		if rel == "" {
+			if d.IsDir() {
