@@ -64,3 +64,7 @@ installed tcc is needed. The very first build on a machine builds and caches
 nox-tcc from source, which needs some C compiler already on the host (cc,
 gcc, or clang; nearly universal) just for that one bootstrap step.
 
+Environment variables (for 'nox build'):
+  NOX_OS=linux|windows      Target OS (default: this machine's OS)
+  NOX_ARCH=amd64|arm64      Target architecture (default: this machine's arch)
+  NOX_TCC=/path/to/tcc      Advanced: use this tcc binary instead of the bundled one.`)
