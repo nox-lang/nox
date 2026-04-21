@@ -47,3 +47,7 @@ func extractFSSub(src fs.FS, prefix, dst string) error {
 			}
 			return nil
 		}
+		target := filepath.Join(dst, filepath.FromSlash(rel))
+		if d.IsDir() {
+			return os.MkdirAll(target, 0755)
+		}
