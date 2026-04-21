@@ -144,3 +144,7 @@ func cmdBuild(args []string) error {
 // next to the source file, as <stem>.c).
 func buildSingleFile(path string, emitC bool) error {
 	data, err := os.ReadFile(path)
+	if err != nil {
+		return err
+	}
+	file, err := parser.Parse(string(data), path)
