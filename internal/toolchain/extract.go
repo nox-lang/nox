@@ -55,3 +55,7 @@ func extractFSSub(src fs.FS, prefix, dst string) error {
 		if err != nil {
 			return err
 		}
+		if err := os.MkdirAll(filepath.Dir(target), 0755); err != nil {
+			return err
+		}
+		// tcc's build needs to run scripts (configure) and write outputs
