@@ -23,3 +23,7 @@ func extractFS(src fs.FS, dst string) error {
 		data, err := fs.ReadFile(src, path)
 		if err != nil {
 			return err
+		}
+		if err := os.MkdirAll(filepath.Dir(target), 0755); err != nil {
+			return err
+		}
