@@ -26,3 +26,7 @@ func main() {
 	var err error
 	switch os.Args[1] {
 	case "init":
+		err = cmdInit(os.Args[2:])
+	case "build":
+		err = cmdBuild(os.Args[2:])
+	case "get":
