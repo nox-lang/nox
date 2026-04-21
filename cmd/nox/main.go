@@ -122,3 +122,7 @@ func cmdBuild(args []string) error {
 		case a == "--emit-c" || a == "-c":
 			emitC = true
 		case strings.HasSuffix(a, ".nox"):
+			if file != "" {
+				return fmt.Errorf("usage: nox build [--emit-c]  |  nox build <file.nox> [--emit-c]")
+			}
+			file = a
