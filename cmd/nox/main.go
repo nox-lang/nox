@@ -50,3 +50,7 @@ func main() {
 func printUsage() {
 	fmt.Println(`nox — the Nox language toolchain
 
+Usage:
+  nox init <name>          Scaffold a new Nox package in ./<name>
+  nox build                Build the package in the current directory (nox.toml + src/) -> build/<name>
+                            Dependencies declared in nox.toml (see 'nox get') are cloned here if missing.
