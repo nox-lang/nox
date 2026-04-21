@@ -164,3 +164,7 @@ func buildSingleFile(path string, emitC bool) error {
 	return compileAndLink(file, importRoot, stem, filepath.Dir(path), emitC)
 }
 
+func buildPackage() error {
+	manifestPath, root, ok := pkgmgr.FindManifest(".")
+	if !ok {
+		return fmt.Errorf("no nox.toml found in this directory or any parent (try 'nox init <name>' or 'nox build <file.nox>')")
