@@ -134,3 +134,5 @@ func cmdBuild(args []string) error {
 		return buildSingleFile(file, emitC)
 	}
 	return buildPackage()
+}
+
