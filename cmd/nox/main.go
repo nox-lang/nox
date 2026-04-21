@@ -58,3 +58,4 @@ Usage:
   nox build <file.nox> --emit-c   Same, and also keep the generated <file>.c next to it
   nox get <source>         Declare a dependency (e.g. github.com/user/repo) in nox.toml;
                             it is fetched the next time 'nox build' runs, not immediately.
+
