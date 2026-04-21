@@ -19,3 +19,7 @@ func extractFS(src fs.FS, dst string) error {
 		target := filepath.Join(dst, filepath.FromSlash(path))
 		if d.IsDir() {
 			return os.MkdirAll(target, 0755)
+		}
+		data, err := fs.ReadFile(src, path)
+		if err != nil {
+			return err
