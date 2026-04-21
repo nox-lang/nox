@@ -102,3 +102,7 @@ func cmdGet(args []string) error {
 	dest, err := pkgmgr.Get(root, args[0])
 	if err != nil {
 		return err
+	}
+	name := filepath.Base(args[0])
+	m.Dependencies[name] = args[0]
+	if err := m.Save(manifestPath); err != nil {
