@@ -176,3 +176,7 @@ func buildPackage() error {
 	if err := pkgmgr.EnsureDeps(root, m); err != nil {
 		return err
 	}
+	srcDir := filepath.Join(root, "src")
+	var noxFiles []string
+	err = filepath.Walk(srcDir, func(p string, info os.FileInfo, err error) error {
+		if err != nil {
