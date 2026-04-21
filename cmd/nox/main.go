@@ -72,3 +72,7 @@ Environment variables (for 'nox build'):
 
 // ---------------- init ----------------
 
+func cmdInit(args []string) error {
+	if len(args) != 1 {
+		return fmt.Errorf("usage: nox init <name>")
+	}
