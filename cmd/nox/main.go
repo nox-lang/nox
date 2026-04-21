@@ -126,3 +126,7 @@ func cmdBuild(args []string) error {
 				return fmt.Errorf("usage: nox build [--emit-c]  |  nox build <file.nox> [--emit-c]")
 			}
 			file = a
+		default:
+			return fmt.Errorf("usage: nox build [--emit-c]  |  nox build <file.nox> [--emit-c]")
+		}
+	}
