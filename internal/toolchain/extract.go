@@ -27,3 +27,7 @@ func extractFS(src fs.FS, dst string) error {
 		if err := os.MkdirAll(filepath.Dir(target), 0755); err != nil {
 			return err
 		}
+		return os.WriteFile(target, data, 0644)
+	})
+}
+
