@@ -38,3 +38,7 @@ func main() {
 		printUsage()
 		return
 	default:
+		printUsage()
+		os.Exit(1)
+	}
+	if err != nil {
