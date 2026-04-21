@@ -156,3 +156,7 @@ func buildSingleFile(path string, emitC bool) error {
 		importRoot = root // still honor a nox.toml above it for import() resolution
 		if m, err := pkgmgr.Load(manifestPath); err == nil {
 			if err := pkgmgr.EnsureDeps(root, m); err != nil {
+				return err
+			}
+		}
+	}
