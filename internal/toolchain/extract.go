@@ -43,3 +43,7 @@ func extractFSSub(src fs.FS, prefix, dst string) error {
 		rel = strings.TrimPrefix(rel, "/")
 		if rel == "" {
 			if d.IsDir() {
+				return os.MkdirAll(dst, 0755)
+			}
+			return nil
+		}
