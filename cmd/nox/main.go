@@ -98,3 +98,7 @@ func cmdGet(args []string) error {
 	m, err := pkgmgr.Load(manifestPath)
 	if err != nil {
 		return err
+	}
+	dest, err := pkgmgr.Get(root, args[0])
+	if err != nil {
+		return err
