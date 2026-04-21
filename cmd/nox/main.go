@@ -47,3 +47,6 @@ func main() {
 	}
 }
 
+func printUsage() {
+	fmt.Println(`nox — the Nox language toolchain
+
