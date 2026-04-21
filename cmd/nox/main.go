@@ -68,3 +68,5 @@ Environment variables (for 'nox build'):
   NOX_OS=linux|windows      Target OS (default: this machine's OS)
   NOX_ARCH=amd64|arm64      Target architecture (default: this machine's arch)
   NOX_TCC=/path/to/tcc      Advanced: use this tcc binary instead of the bundled one.`)
+}
+
