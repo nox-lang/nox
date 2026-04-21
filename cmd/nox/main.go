@@ -114,3 +114,7 @@ func cmdGet(args []string) error {
 
 // ---------------- build ----------------
 
+func cmdBuild(args []string) error {
+	emitC := false
+	var file string
+	for _, a := range args {
