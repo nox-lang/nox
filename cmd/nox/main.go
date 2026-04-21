@@ -63,3 +63,4 @@ nox bundles its own C compiler (nox-tcc) and standard library — no separately
 installed tcc is needed. The very first build on a machine builds and caches
 nox-tcc from source, which needs some C compiler already on the host (cc,
 gcc, or clang; nearly universal) just for that one bootstrap step.
+
