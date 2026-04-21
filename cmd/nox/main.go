@@ -106,3 +106,7 @@ func cmdGet(args []string) error {
 	name := filepath.Base(args[0])
 	m.Dependencies[name] = args[0]
 	if err := m.Save(manifestPath); err != nil {
+		return err
+	}
+	fmt.Printf("Added %s as a dependency (will be cloned to %s on the next 'nox build')\n", args[0], dest)
+	return nil
