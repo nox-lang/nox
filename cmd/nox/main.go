@@ -54,3 +54,7 @@ Usage:
   nox init <name>          Scaffold a new Nox package in ./<name>
   nox build                Build the package in the current directory (nox.toml + src/) -> build/<name>
                             Dependencies declared in nox.toml (see 'nox get') are cloned here if missing.
+  nox build <file.nox>     Build a single file -> an executable next to it (no build/ directory)
+  nox build <file.nox> --emit-c   Same, and also keep the generated <file>.c next to it
+  nox get <source>         Declare a dependency (e.g. github.com/user/repo) in nox.toml;
+                            it is fetched the next time 'nox build' runs, not immediately.
