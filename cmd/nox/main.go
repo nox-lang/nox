@@ -337,3 +337,7 @@ func envOr(key, fallback string) string {
 // crashes on tcc-compiled Windows binaries), and only POSIX targets need
 // -lpthread (Windows threading is native Win32 calls, no library needed).
 func buildCompileCommand(targetOS, cPath, outPath string) (cmd *exec.Cmd, describe string, err error) {
+	if override := os.Getenv("NOX_TCC"); override != "" {
+		cmd, err := assembleCmd(override, nil, nil, nil, targetOS, cPath, outPath)
+		return cmd, override + " (NOX_TCC override)", err
+	}
