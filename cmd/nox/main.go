@@ -293,3 +293,7 @@ func compileAndLink(file *ast.File, projectRoot, outName string, outputDir strin
 	targetOS := envOr("NOX_OS", runtime.GOOS)
 	targetArch := envOr("NOX_ARCH", runtime.GOARCH)
 
+	outPath := filepath.Join(outputDir, outName)
+	if targetOS == "windows" {
+		outPath += ".exe"
+	}
