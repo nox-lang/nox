@@ -26,3 +26,5 @@
   #define NOX_USE_GC 0
 #else
   #define NOX_USE_GC 1
+#endif
+
