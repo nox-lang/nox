@@ -255,3 +255,7 @@ func parseAndMerge(files []string) (*ast.File, error) {
 
 // ---------------- codegen -> C -> nox-tcc ----------------
 
+// compileAndLink generates C for file and compiles it with nox-tcc.
+// outputDir is where the binary (and, if keepC, the .c file) are written;
+// when !keepC, the C file is written to a temporary location and removed
+// once compilation finishes.
