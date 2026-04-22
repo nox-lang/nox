@@ -180,3 +180,7 @@ func buildPackage() error {
 	var noxFiles []string
 	err = filepath.Walk(srcDir, func(p string, info os.FileInfo, err error) error {
 		if err != nil {
+			return err
+		}
+		if !info.IsDir() && strings.HasSuffix(p, ".nox") {
+			noxFiles = append(noxFiles, p)
