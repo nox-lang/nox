@@ -52,3 +52,7 @@
   #include <windows.h>
   #define NOX_MKDIR(p) _mkdir(p)
 
+  typedef HANDLE nox_thread_t;
+  #define NOX_THREAD_FUNC DWORD WINAPI
+  typedef LPVOID nox_thread_arg_t;
+  #define NOX_THREAD_RETURN return 0
