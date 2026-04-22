@@ -265,3 +265,7 @@ func compileAndLink(file *ast.File, projectRoot, outName string, outputDir strin
 		return err
 	}
 
+	if err := os.MkdirAll(outputDir, 0755); err != nil {
+		return err
+	}
+
