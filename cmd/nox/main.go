@@ -374,3 +374,7 @@ func assembleCmd(tccPath string, includeDirs, extra []string, tc *toolchain.Tool
 	args = append(args, cPath)
 	if tc != nil {
 		srcs, err := tc.RuntimeSources()
+		if err != nil {
+			return nil, err
+		}
+		args = append(args, srcs...)
