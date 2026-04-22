@@ -358,3 +358,7 @@ func buildCompileCommand(targetOS, cPath, outPath string) (cmd *exec.Cmd, descri
 		return cmd, "bundled nox-tcc (Windows cross)", err
 	}
 
+	tccPath, bDir, err := tc.EnsureNative()
+	if err != nil {
+		return nil, "", err
+	}
