@@ -269,3 +269,7 @@ func compileAndLink(file *ast.File, projectRoot, outName string, outputDir strin
 		return err
 	}
 
+	var cPath string
+	if keepC {
+		cPath = filepath.Join(outputDir, outName+".c")
+		if err := os.WriteFile(cPath, []byte(cSource), 0644); err != nil {
