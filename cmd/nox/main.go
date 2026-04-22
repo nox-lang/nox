@@ -196,3 +196,7 @@ func buildPackage() error {
 	merged, err := parseAndMerge(noxFiles)
 	if err != nil {
 		return err
+	}
+	return compileAndLink(merged, root, m.Name, filepath.Join(root, "build"), true)
+}
+
