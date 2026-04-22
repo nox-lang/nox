@@ -310,3 +310,7 @@ func compileAndLink(file *ast.File, projectRoot, outName string, outputDir strin
 	if len(strings.TrimSpace(string(out))) > 0 {
 		fmt.Println(string(out))
 	}
+	if keepC {
+		fmt.Printf("built %s (C source: %s)\n", outPath, cPath)
+	} else {
+		fmt.Printf("built %s\n", outPath)
