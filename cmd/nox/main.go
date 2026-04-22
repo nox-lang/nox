@@ -204,3 +204,7 @@ func buildPackage() error {
 // into one ast.File, as if they were one source file (Go-package-style
 // multi-file compilation units), which is how the spec describes `nox
 // build` handling multiple files under src/.
+func parseAndMerge(files []string) (*ast.File, error) {
+	merged := &ast.File{Package: "main", Filename: files[0]}
+	seenFuncs := map[string]string{}
+	seenClasses := map[string]string{}
