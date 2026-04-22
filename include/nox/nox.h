@@ -6,3 +6,6 @@
  * and is compiled (by the bundled nox-tcc) together with the
  * implementation files in <nox root>/lib/*.c.
  * ============================================================ */
+#ifndef NOX_NOX_H
+#define NOX_NOX_H
+
