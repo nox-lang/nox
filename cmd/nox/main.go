@@ -248,3 +248,7 @@ func parseAndMerge(files []string) (*ast.File, error) {
 			seenTypes[td.Name] = f
 			merged.Types = append(merged.Types, td)
 		}
+		merged.Globals = append(merged.Globals, pf.Globals...)
+	}
+	return merged, nil
+}
