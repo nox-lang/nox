@@ -18,3 +18,7 @@
 #include <time.h>
 #include <errno.h>
 
+/* ---------------- memory management ----------------
+ * Native (non-Windows) builds use the Boehm collector. On Windows — and
+ * whenever NOX_NO_GC is defined — allocation is a plain zero-initialising
+ * calloc that is never freed: correct and thread-safe, just not collected. */
