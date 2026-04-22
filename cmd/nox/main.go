@@ -378,3 +378,7 @@ func assembleCmd(tccPath string, includeDirs, extra []string, tc *toolchain.Tool
 			return nil, err
 		}
 		args = append(args, srcs...)
+	}
+	args = append(args, extra...)
+	args = append(args, "-o", outPath)
+	if targetOS != "windows" {
