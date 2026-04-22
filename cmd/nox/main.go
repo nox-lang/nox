@@ -346,3 +346,4 @@ func buildCompileCommand(targetOS, cPath, outPath string) (cmd *exec.Cmd, descri
 	if err != nil {
 		return nil, "", err
 	}
+
