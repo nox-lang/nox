@@ -285,3 +285,7 @@ func compileAndLink(file *ast.File, projectRoot, outName string, outputDir strin
 		tmp.Close()
 		if writeErr != nil {
 			os.Remove(cPath)
+			return writeErr
+		}
+		defer os.Remove(cPath)
+	}
