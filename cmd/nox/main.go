@@ -184,3 +184,7 @@ func buildPackage() error {
 		}
 		if !info.IsDir() && strings.HasSuffix(p, ".nox") {
 			noxFiles = append(noxFiles, p)
+		}
+		return nil
+	})
+	if err != nil {
