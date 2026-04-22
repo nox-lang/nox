@@ -216,3 +216,7 @@ func parseAndMerge(files []string) (*ast.File, error) {
 		}
 		pf, err := parser.Parse(string(data), f)
 		if err != nil {
+			return nil, err
+		}
+		if pf.Package != "" && merged.Package == "main" {
+			merged.Package = pf.Package
