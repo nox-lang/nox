@@ -298,3 +298,7 @@ func compileAndLink(file *ast.File, projectRoot, outName string, outputDir strin
 		outPath += ".exe"
 	}
 
+	cmd, describe, err := buildCompileCommand(targetOS, cPath, outPath)
+	if err != nil {
+		return err
+	}
