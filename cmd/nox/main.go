@@ -297,3 +297,4 @@ func compileAndLink(file *ast.File, projectRoot, outName string, outputDir strin
 	if targetOS == "windows" {
 		outPath += ".exe"
 	}
+
