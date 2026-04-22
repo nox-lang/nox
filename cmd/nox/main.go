@@ -290,3 +290,6 @@ func compileAndLink(file *ast.File, projectRoot, outName string, outputDir strin
 		defer os.Remove(cPath)
 	}
 
+	targetOS := envOr("NOX_OS", runtime.GOOS)
+	targetArch := envOr("NOX_ARCH", runtime.GOARCH)
+
