@@ -40,3 +40,6 @@
   void *nox_calloc(size_t sz);
   #define NOX_ALLOC(sz) nox_calloc(sz)
   #define NOX_FREE(p) free(p)
+  #define NOX_GC_INIT() ((void)0)
+#endif
+
