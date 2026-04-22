@@ -36,3 +36,7 @@
   #define NOX_ALLOC(sz) GC_MALLOC(sz)
   #define NOX_FREE(p) GC_FREE(p)
   #define NOX_GC_INIT() GC_INIT()
+#else
+  void *nox_calloc(size_t sz);
+  #define NOX_ALLOC(sz) nox_calloc(sz)
+  #define NOX_FREE(p) free(p)
