@@ -9,3 +9,7 @@
 #ifndef NOX_NOX_H
 #define NOX_NOX_H
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
