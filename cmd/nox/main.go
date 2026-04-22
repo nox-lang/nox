@@ -224,3 +224,7 @@ func parseAndMerge(files []string) (*ast.File, error) {
 		for _, imp := range pf.Imports {
 			merged.Imports = append(merged.Imports, imp)
 		}
+		for _, inc := range pf.Includes {
+			merged.Includes = append(merged.Includes, inc)
+		}
+		for _, fn := range pf.Funcs {
