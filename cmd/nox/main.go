@@ -259,3 +259,7 @@ func parseAndMerge(files []string) (*ast.File, error) {
 // outputDir is where the binary (and, if keepC, the .c file) are written;
 // when !keepC, the C file is written to a temporary location and removed
 // once compilation finishes.
+func compileAndLink(file *ast.File, projectRoot, outName string, outputDir string, keepC bool) error {
+	cSource, err := codegen.Generate(file, projectRoot)
+	if err != nil {
+		return err
