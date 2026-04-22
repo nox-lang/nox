@@ -277,3 +277,7 @@ func compileAndLink(file *ast.File, projectRoot, outName string, outputDir strin
 		}
 	} else {
 		tmp, err := os.CreateTemp("", "nox-*.c")
+		if err != nil {
+			return err
+		}
+		cPath = tmp.Name()
