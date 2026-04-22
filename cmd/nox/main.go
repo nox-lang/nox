@@ -232,3 +232,7 @@ func parseAndMerge(files []string) (*ast.File, error) {
 				return nil, fmt.Errorf("function '%s' is defined in both %s and %s", fn.Name, prev, f)
 			}
 			seenFuncs[fn.Name] = f
+			merged.Funcs = append(merged.Funcs, fn)
+		}
+		for _, cl := range pf.Classes {
+			if prev, ok := seenClasses[cl.Name]; ok {
