@@ -362,3 +362,7 @@ func buildCompileCommand(targetOS, cPath, outPath string) (cmd *exec.Cmd, descri
 	if err != nil {
 		return nil, "", err
 	}
+	cmd, err = assembleCmd(tccPath, []string{tc.RuntimeIncludeDir()}, []string{"-B" + bDir}, tc, targetOS, cPath, outPath)
+	return cmd, "bundled nox-tcc", err
+}
+
