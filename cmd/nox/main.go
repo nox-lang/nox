@@ -220,3 +220,7 @@ func parseAndMerge(files []string) (*ast.File, error) {
 		}
 		if pf.Package != "" && merged.Package == "main" {
 			merged.Package = pf.Package
+		}
+		for _, imp := range pf.Imports {
+			merged.Imports = append(merged.Imports, imp)
+		}
