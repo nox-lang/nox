@@ -351,3 +351,7 @@ func buildCompileCommand(targetOS, cPath, outPath string) (cmd *exec.Cmd, descri
 		tccPath, bDir, lDir, err := tc.EnsureWindowsCross()
 		if err != nil {
 			return nil, "", err
+		}
+		runtimeInc := tc.RuntimeIncludeDir()
+		incDirs := append([]string{runtimeInc}, tc.CrossIncludeDirs()...)
+		cmd, err := assembleCmd(tccPath, incDirs, []string{"-B" + bDir, "-L" + lDir}, tc, targetOS, cPath, outPath)
