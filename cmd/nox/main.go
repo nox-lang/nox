@@ -228,3 +228,7 @@ func parseAndMerge(files []string) (*ast.File, error) {
 			merged.Includes = append(merged.Includes, inc)
 		}
 		for _, fn := range pf.Funcs {
+			if prev, ok := seenFuncs[fn.Name]; ok {
+				return nil, fmt.Errorf("function '%s' is defined in both %s and %s", fn.Name, prev, f)
+			}
+			seenFuncs[fn.Name] = f
