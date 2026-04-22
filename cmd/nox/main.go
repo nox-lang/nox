@@ -302,3 +302,7 @@ func compileAndLink(file *ast.File, projectRoot, outName string, outputDir strin
 	if err != nil {
 		return err
 	}
+	fmt.Printf("compiling -> %s (%s/%s) via %s\n", outPath, targetOS, targetArch, describe)
+	out, err := cmd.CombinedOutput()
+	if err != nil {
+		return fmt.Errorf("compilation failed:\n%s\n%v", string(out), err)
