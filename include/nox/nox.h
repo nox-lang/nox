@@ -32,3 +32,7 @@
   #ifndef GC_THREADS
   #define GC_THREADS 1
   #endif
+  #include <gc.h>
+  #define NOX_ALLOC(sz) GC_MALLOC(sz)
+  #define NOX_FREE(p) GC_FREE(p)
+  #define NOX_GC_INIT() GC_INIT()
