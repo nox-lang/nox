@@ -188,3 +188,7 @@ func buildPackage() error {
 		return nil
 	})
 	if err != nil {
+		return err
+	}
+	if len(noxFiles) == 0 {
+		return fmt.Errorf("no .nox files found under %s", srcDir)
