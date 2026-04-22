@@ -43,3 +43,7 @@
   #define NOX_GC_INIT() ((void)0)
 #endif
 
+/* ---------------- portable threading / thread-local storage / mutex ----------------
+ * Windows uses the native Win32 API (CreateThread / TlsAlloc /
+ * CRITICAL_SECTION); everything else uses POSIX pthreads. tcc has no
+ * `__thread`, so thread-local state goes through an explicit key API. */
