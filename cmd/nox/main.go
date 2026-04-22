@@ -333,3 +333,7 @@ func envOr(key, fallback string) string {
 //
 // Boehm GC is linked only for a build whose *target* is not Windows (see
 // include/nox/nox.h: a Windows build — native or cross — always uses the
+// non-collecting allocator instead, sidestepping known GC/thread-registration
+// crashes on tcc-compiled Windows binaries), and only POSIX targets need
+// -lpthread (Windows threading is native Win32 calls, no library needed).
+func buildCompileCommand(targetOS, cPath, outPath string) (cmd *exec.Cmd, describe string, err error) {
