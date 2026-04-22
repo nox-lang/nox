@@ -355,3 +355,6 @@ func buildCompileCommand(targetOS, cPath, outPath string) (cmd *exec.Cmd, descri
 		runtimeInc := tc.RuntimeIncludeDir()
 		incDirs := append([]string{runtimeInc}, tc.CrossIncludeDirs()...)
 		cmd, err := assembleCmd(tccPath, incDirs, []string{"-B" + bDir, "-L" + lDir}, tc, targetOS, cPath, outPath)
+		return cmd, "bundled nox-tcc (Windows cross)", err
+	}
+
