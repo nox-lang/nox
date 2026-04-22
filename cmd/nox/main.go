@@ -208,3 +208,7 @@ func parseAndMerge(files []string) (*ast.File, error) {
 	merged := &ast.File{Package: "main", Filename: files[0]}
 	seenFuncs := map[string]string{}
 	seenClasses := map[string]string{}
+	seenTypes := map[string]string{}
+	for _, f := range files {
+		data, err := os.ReadFile(f)
+		if err != nil {
