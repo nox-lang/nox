@@ -236,3 +236,7 @@ func parseAndMerge(files []string) (*ast.File, error) {
 		}
 		for _, cl := range pf.Classes {
 			if prev, ok := seenClasses[cl.Name]; ok {
+				return nil, fmt.Errorf("class '%s' is defined in both %s and %s", cl.Name, prev, f)
+			}
+			seenClasses[cl.Name] = f
+			merged.Classes = append(merged.Classes, cl)
