@@ -47,3 +47,7 @@
  * Windows uses the native Win32 API (CreateThread / TlsAlloc /
  * CRITICAL_SECTION); everything else uses POSIX pthreads. tcc has no
  * `__thread`, so thread-local state goes through an explicit key API. */
+#if defined(_WIN32)
+  #include <direct.h>
+  #include <windows.h>
+  #define NOX_MKDIR(p) _mkdir(p)
