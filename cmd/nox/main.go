@@ -200,3 +200,7 @@ func buildPackage() error {
 	return compileAndLink(merged, root, m.Name, filepath.Join(root, "build"), true)
 }
 
+// parseAndMerge parses every file and merges their top-level declarations
+// into one ast.File, as if they were one source file (Go-package-style
+// multi-file compilation units), which is how the spec describes `nox
+// build` handling multiple files under src/.
