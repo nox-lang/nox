@@ -366,3 +366,7 @@ func buildCompileCommand(targetOS, cPath, outPath string) (cmd *exec.Cmd, descri
 	return cmd, "bundled nox-tcc", err
 }
 
+func assembleCmd(tccPath string, includeDirs, extra []string, tc *toolchain.Toolchain, targetOS, cPath, outPath string) (*exec.Cmd, error) {
+	var args []string
+	for _, d := range includeDirs {
+		args = append(args, "-I"+d)
