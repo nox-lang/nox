@@ -329,3 +329,7 @@ func envOr(key, fallback string) string {
 // generated C (plus the Nox runtime's lib/*.c) into an executable for
 // targetOS. By default this is the bundled nox-tcc, built once and cached
 // by internal/toolchain — see that package's doc comment; NOX_TCC
+// overrides it with an external tcc binary for advanced/manual use.
+//
+// Boehm GC is linked only for a build whose *target* is not Windows (see
+// include/nox/nox.h: a Windows build — native or cross — always uses the
