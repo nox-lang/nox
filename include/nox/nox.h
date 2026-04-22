@@ -64,3 +64,7 @@
   #define NOX_TLS_GET(key) TlsGetValue(key)
   #define NOX_TLS_SET(key, val) TlsSetValue((key), (val))
 
+  typedef CRITICAL_SECTION nox_mutex_t;
+  #define NOX_MUTEX_INIT(m) InitializeCriticalSection(m)
+  #define NOX_MUTEX_LOCK(m) EnterCriticalSection(m)
+  #define NOX_MUTEX_UNLOCK(m) LeaveCriticalSection(m)
