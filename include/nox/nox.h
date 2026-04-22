@@ -63,3 +63,4 @@
   #define NOX_TLS_CREATE(keyptr) (*(keyptr) = TlsAlloc())
   #define NOX_TLS_GET(key) TlsGetValue(key)
   #define NOX_TLS_SET(key, val) TlsSetValue((key), (val))
+
