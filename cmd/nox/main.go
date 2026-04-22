@@ -192,3 +192,7 @@ func buildPackage() error {
 	}
 	if len(noxFiles) == 0 {
 		return fmt.Errorf("no .nox files found under %s", srcDir)
+	}
+	merged, err := parseAndMerge(noxFiles)
+	if err != nil {
+		return err
