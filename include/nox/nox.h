@@ -28,3 +28,7 @@
   #define NOX_USE_GC 1
 #endif
 
+#if NOX_USE_GC
+  #ifndef GC_THREADS
+  #define GC_THREADS 1
+  #endif
