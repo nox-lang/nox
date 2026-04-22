@@ -325,3 +325,7 @@ func envOr(key, fallback string) string {
 	return fallback
 }
 
+// buildCompileCommand assembles the nox-tcc invocation that turns the
+// generated C (plus the Nox runtime's lib/*.c) into an executable for
+// targetOS. By default this is the bundled nox-tcc, built once and cached
+// by internal/toolchain — see that package's doc comment; NOX_TCC
