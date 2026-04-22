@@ -306,3 +306,7 @@ func compileAndLink(file *ast.File, projectRoot, outName string, outputDir strin
 	out, err := cmd.CombinedOutput()
 	if err != nil {
 		return fmt.Errorf("compilation failed:\n%s\n%v", string(out), err)
+	}
+	if len(strings.TrimSpace(string(out))) > 0 {
+		fmt.Println(string(out))
+	}
