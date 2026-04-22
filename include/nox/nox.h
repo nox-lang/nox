@@ -76,3 +76,7 @@
   #include <unistd.h>
   #define NOX_MKDIR(p) mkdir(p, 0755)
 
+  typedef pthread_t nox_thread_t;
+  #define NOX_THREAD_FUNC void*
+  typedef void* nox_thread_arg_t;
+  #define NOX_THREAD_RETURN return NULL
