@@ -347,3 +347,7 @@ func buildCompileCommand(targetOS, cPath, outPath string) (cmd *exec.Cmd, descri
 		return nil, "", err
 	}
 
+	if targetOS == "windows" && runtime.GOOS != "windows" {
+		tccPath, bDir, lDir, err := tc.EnsureWindowsCross()
+		if err != nil {
+			return nil, "", err
