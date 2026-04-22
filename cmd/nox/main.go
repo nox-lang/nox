@@ -314,3 +314,7 @@ func compileAndLink(file *ast.File, projectRoot, outName string, outputDir strin
 		fmt.Printf("built %s (C source: %s)\n", outPath, cPath)
 	} else {
 		fmt.Printf("built %s\n", outPath)
+	}
+	return nil
+}
+
