@@ -263,3 +263,5 @@ func compileAndLink(file *ast.File, projectRoot, outName string, outputDir strin
 	cSource, err := codegen.Generate(file, projectRoot)
 	if err != nil {
 		return err
+	}
+
