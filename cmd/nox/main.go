@@ -341,3 +341,4 @@ func buildCompileCommand(targetOS, cPath, outPath string) (cmd *exec.Cmd, descri
 		cmd, err := assembleCmd(override, nil, nil, nil, targetOS, cPath, outPath)
 		return cmd, override + " (NOX_TCC override)", err
 	}
+
