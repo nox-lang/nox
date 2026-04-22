@@ -59,3 +59,7 @@
   #define NOX_THREAD_CREATE(thptr, fn, arg) (*(thptr) = CreateThread(NULL, 0, (fn), (arg), 0, NULL), (*(thptr) == NULL))
   #define NOX_THREAD_JOIN(th) (WaitForSingleObject((th), INFINITE), CloseHandle(th))
 
+  typedef DWORD nox_tls_key_t;
+  #define NOX_TLS_CREATE(keyptr) (*(keyptr) = TlsAlloc())
+  #define NOX_TLS_GET(key) TlsGetValue(key)
+  #define NOX_TLS_SET(key, val) TlsSetValue((key), (val))
