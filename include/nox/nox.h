@@ -22,3 +22,7 @@
  * Native (non-Windows) builds use the Boehm collector. On Windows — and
  * whenever NOX_NO_GC is defined — allocation is a plain zero-initialising
  * calloc that is never freed: correct and thread-safe, just not collected. */
+#if defined(NOX_NO_GC) || (defined(_WIN32) && !defined(NOX_WIN32_GC))
+  #define NOX_USE_GC 0
+#else
+  #define NOX_USE_GC 1
