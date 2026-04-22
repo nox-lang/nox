@@ -382,3 +382,7 @@ func assembleCmd(tccPath string, includeDirs, extra []string, tc *toolchain.Tool
 	args = append(args, extra...)
 	args = append(args, "-o", outPath)
 	if targetOS != "windows" {
+		args = append(args, "-lgc", "-lpthread", "-lm")
+	}
+	return exec.Command(tccPath, args...), nil
+}
