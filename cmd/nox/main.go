@@ -289,3 +289,4 @@ func compileAndLink(file *ast.File, projectRoot, outName string, outputDir strin
 		}
 		defer os.Remove(cPath)
 	}
+
