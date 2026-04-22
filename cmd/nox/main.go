@@ -212,3 +212,7 @@ func parseAndMerge(files []string) (*ast.File, error) {
 	for _, f := range files {
 		data, err := os.ReadFile(f)
 		if err != nil {
+			return nil, err
+		}
+		pf, err := parser.Parse(string(data), f)
+		if err != nil {
