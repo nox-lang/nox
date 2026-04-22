@@ -68,3 +68,7 @@
   #define NOX_MUTEX_INIT(m) InitializeCriticalSection(m)
   #define NOX_MUTEX_LOCK(m) EnterCriticalSection(m)
   #define NOX_MUTEX_UNLOCK(m) LeaveCriticalSection(m)
+#else
+  #include <pthread.h>
+  #include <sys/stat.h>
+  #include <sys/types.h>
