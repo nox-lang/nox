@@ -6,3 +6,7 @@
 void *nox_calloc(size_t sz) {
     void *p = calloc(1, sz ? sz : 1);
     if (!p) { fputs("nox: out of memory\n", stderr); exit(1); }
+    return p;
+}
+#endif
+
