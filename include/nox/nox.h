@@ -199,3 +199,7 @@ nox_string nox_path_ext(nox_string p);
 nox_string nox_path_stem(nox_string p);
 nox_string nox_path_absolute(nox_string p);
 int64_t nox_time_now(void);
+int64_t nox_time_unix(void);
+void nox_time_sleep(double seconds);
+double nox_time_clock(void);
+int64_t nox_time_year(int64_t t);
