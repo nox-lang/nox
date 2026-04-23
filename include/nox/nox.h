@@ -240,3 +240,4 @@ void nox_thread_start(nox_thread_obj *t);
 void nox_thread_join(nox_thread_obj *t);
 void nox_err_state_free(void);
 
+#endif /* NOX_NOX_H */
