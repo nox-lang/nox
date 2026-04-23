@@ -213,3 +213,7 @@ int64_t nox_time_second(int64_t t);
 nox_slice nox_slice_make(int64_t len, int64_t cap, int64_t elemsize);
 nox_slice nox_slice_slice(nox_slice s, int64_t lo, int64_t hi, int64_t elemsize);
 nox_slice nox_slice_from_raw(const void *data, int64_t len, int64_t elemsize);
+void nox_slice_shuffle_raw(nox_slice *a, int64_t elemsize);
+nox_slice nox_range(int64_t lo, int64_t hi, int64_t step);
+void nox_check_array_index(int64_t i, int64_t len);
+int64_t nox_slice_copy_raw(nox_slice dst, nox_slice src, int64_t elemsize);
