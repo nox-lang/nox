@@ -226,3 +226,7 @@ bool nox_map_remove(nox_map *m, const void *key);
 int64_t nox_map_len(nox_map *m);
 void nox_map_clear(nox_map *m);
 int64_t nox_map_used(nox_map *m);
+bool nox_map_entry(nox_map *m, int64_t i, void **key, void **val);
+nox_slice nox_map_keys(nox_map *m);
+nox_slice nox_map_values(nox_map *m);
+
