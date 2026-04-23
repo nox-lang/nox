@@ -209,3 +209,7 @@ int64_t nox_time_hour(int64_t t);
 int64_t nox_time_minute(int64_t t);
 int64_t nox_time_second(int64_t t);
 
+/* slices */
+nox_slice nox_slice_make(int64_t len, int64_t cap, int64_t elemsize);
+nox_slice nox_slice_slice(nox_slice s, int64_t lo, int64_t hi, int64_t elemsize);
+nox_slice nox_slice_from_raw(const void *data, int64_t len, int64_t elemsize);
