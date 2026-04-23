@@ -26,3 +26,7 @@ nox_err_state *nox_err_state_get(void) {
     nox_err_state *st = (nox_err_state *)NOX_TLS_GET(__nox_err_key);
     if (!st) {
         st = (nox_err_state *)calloc(1, sizeof(nox_err_state));
+        if (!st) { fputs("nox: out of memory\n", stderr); exit(1); }
+        NOX_TLS_SET(__nox_err_key, st);
+    }
+    return st;
