@@ -131,3 +131,7 @@ void nox_clear_error(void);
 void nox_set_error(const char *msg);
 void nox_panic(const char *msg);
 nox_string nox_string_from_bytes(const char *bytes, int64_t len);
+nox_string nox_string_from_cstr(const char *cstr);
+nox_string nox_string_concat(nox_string a, nox_string b);
+bool nox_string_eq(nox_string a, nox_string b);
+int nox_string_cmp(nox_string a, nox_string b);
