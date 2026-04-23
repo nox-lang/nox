@@ -135,3 +135,7 @@ nox_string nox_string_from_cstr(const char *cstr);
 nox_string nox_string_concat(nox_string a, nox_string b);
 bool nox_string_eq(nox_string a, nox_string b);
 int nox_string_cmp(nox_string a, nox_string b);
+bool nox_string_contains(nox_string s, nox_string sub);
+bool nox_string_starts_with(nox_string s, nox_string pre);
+bool nox_string_ends_with(nox_string s, nox_string suf);
+nox_string nox_string_substring(nox_string s, int64_t start, int64_t end);
