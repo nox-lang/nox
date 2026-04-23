@@ -155,3 +155,7 @@ nox_string nox_get_error_message(void);
 nox_slice nox_slice_new(void);
 void nox_slice_reserve(nox_slice *a, int64_t mincap, int64_t elemsize);
 void nox_slice_push_raw(nox_slice *a, const void *elem, int64_t elemsize);
+nox_slice nox_string_split_lines(nox_string s);
+void nox_slice_pop_raw(nox_slice *a, void *out, int64_t elemsize);
+void nox_slice_check_index(nox_slice *a, int64_t i);
+void nox_slice_insert_raw(nox_slice *a, int64_t idx, const void *elem, int64_t elemsize);
