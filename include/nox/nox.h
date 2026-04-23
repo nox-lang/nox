@@ -127,3 +127,7 @@ typedef void (*nox_body_fn)(void *arg, void *result);
 extern nox_slice nox_args_array;
 void __nox_err_key_make(void);
 nox_err_state *nox_err_state_get(void);
+void nox_clear_error(void);
+void nox_set_error(const char *msg);
+void nox_panic(const char *msg);
+nox_string nox_string_from_bytes(const char *bytes, int64_t len);
