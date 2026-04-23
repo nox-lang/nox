@@ -175,3 +175,7 @@ void nox_print_bool(bool v);
 void nox_print_string(nox_string v);
 void nox_print_raw_cstr(const char *s);
 nox_string nox_io_scanln(void);
+nox_string nox_io_scan(void);
+int64_t nox_math_abs_i(int64_t v);
+double nox_math_abs_f(double v);
+int64_t nox_math_min_i(int64_t a, int64_t b);
