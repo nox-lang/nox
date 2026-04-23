@@ -37,3 +37,7 @@ void nox_err_state_free(void) {
     if (st) { NOX_TLS_SET(__nox_err_key, NULL); free(st); }
 }
 
+void nox_clear_error(void) {
+    nox_err_state_get()->has_err = false;
+}
+
