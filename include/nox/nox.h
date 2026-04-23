@@ -167,3 +167,7 @@ void nox_slice_choice_raw(nox_slice *a, void *out, int64_t elemsize);
 int nox_cmp_int_asc(const void *pa, const void *pb);
 int nox_cmp_float_asc(const void *pa, const void *pb);
 int nox_cmp_string_asc(const void *pa, const void *pb);
+int nox_cmp_bool_asc(const void *pa, const void *pb);
+void nox_runtime_init(int argc, char **argv);
+void nox_print_int(int64_t v);
+void nox_print_float(double v);
