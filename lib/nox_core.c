@@ -49,3 +49,6 @@ void nox_set_error(const char *msg) {
         st->msg[sizeof(st->msg) - 1] = 0;
     } else {
         st->msg[0] = 0;
+    }
+}
+
