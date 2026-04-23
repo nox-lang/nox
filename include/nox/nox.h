@@ -151,3 +151,7 @@ bool nox_int_to_bool(int64_t v);
 bool nox_float_to_bool(double v);
 int64_t nox_bool_to_int(bool v);
 double nox_bool_to_float(bool v);
+nox_string nox_get_error_message(void);
+nox_slice nox_slice_new(void);
+void nox_slice_reserve(nox_slice *a, int64_t mincap, int64_t elemsize);
+void nox_slice_push_raw(nox_slice *a, const void *elem, int64_t elemsize);
