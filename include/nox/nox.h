@@ -222,3 +222,7 @@ int64_t nox_slice_copy_raw(nox_slice dst, nox_slice src, int64_t elemsize);
 nox_map *nox_map_new(int key_kind, int64_t ksize, int64_t vsize);
 void *nox_map_find(nox_map *m, const void *key);
 void *nox_map_put(nox_map *m, const void *key);
+bool nox_map_remove(nox_map *m, const void *key);
+int64_t nox_map_len(nox_map *m);
+void nox_map_clear(nox_map *m);
+int64_t nox_map_used(nox_map *m);
