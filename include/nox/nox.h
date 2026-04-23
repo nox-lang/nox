@@ -105,3 +105,7 @@ typedef struct {
     int64_t len;
 } nox_string;
 
+/* []T: a growable view over a run of elements (data/len/cap). */
+typedef struct {
+    void *data;
+    int64_t len;
