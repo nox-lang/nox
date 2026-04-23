@@ -32,3 +32,7 @@ nox_err_state *nox_err_state_get(void) {
     return st;
 }
 
+void nox_err_state_free(void) {
+    nox_err_state *st = (nox_err_state *)NOX_TLS_GET(__nox_err_key);
+    if (st) { NOX_TLS_SET(__nox_err_key, NULL); free(st); }
+}
