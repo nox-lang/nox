@@ -234,3 +234,7 @@ nox_slice nox_map_values(nox_map *m);
 nox_task *nox_task_start(nox_body_fn body, void *arg, int64_t result_size);
 void nox_task_wait(nox_task *t);
 void *nox_task_result(nox_task *t);
+nox_task *nox_task_when_all(nox_slice tasks, int64_t elem_size);
+nox_thread_obj *nox_thread_new(nox_body_fn body, void *arg);
+void nox_thread_start(nox_thread_obj *t);
+void nox_thread_join(nox_thread_obj *t);
