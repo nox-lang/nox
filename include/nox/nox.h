@@ -191,3 +191,7 @@ void nox_fs_rename(nox_string oldp, nox_string newp);
 void nox_fs_copy(nox_string src, nox_string dst);
 void nox_fs_mkdir(nox_string path);
 void nox_fs_rmdir(nox_string path);
+nox_slice nox_fs_list(nox_string path);
+nox_string nox_path_join2(nox_string a, nox_string b);
+nox_string nox_path_basename(nox_string p);
+nox_string nox_path_dirname(nox_string p);
