@@ -238,3 +238,5 @@ nox_task *nox_task_when_all(nox_slice tasks, int64_t elem_size);
 nox_thread_obj *nox_thread_new(nox_body_fn body, void *arg);
 void nox_thread_start(nox_thread_obj *t);
 void nox_thread_join(nox_thread_obj *t);
+void nox_err_state_free(void);
+
