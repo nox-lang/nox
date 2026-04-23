@@ -112,3 +112,7 @@ typedef struct {
     int64_t cap;
 } nox_slice;
 
+/* map<K, V>: insertion-ordered hash map (see nox_map.c). */
+typedef struct nox_map nox_map;
+enum { NOX_KEY_BYTES = 0, NOX_KEY_STRING = 1 };
+
