@@ -98,3 +98,5 @@
 typedef struct {
     bool has_err;
     char msg[1024];
+} nox_err_state;
+
