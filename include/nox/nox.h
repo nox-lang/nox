@@ -120,3 +120,4 @@ enum { NOX_KEY_BYTES = 0, NOX_KEY_STRING = 1 };
 typedef struct nox_worker nox_task;
 typedef struct nox_worker nox_thread_obj;
 typedef void (*nox_body_fn)(void *arg, void *result);
+
