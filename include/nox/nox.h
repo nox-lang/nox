@@ -171,3 +171,7 @@ int nox_cmp_bool_asc(const void *pa, const void *pb);
 void nox_runtime_init(int argc, char **argv);
 void nox_print_int(int64_t v);
 void nox_print_float(double v);
+void nox_print_bool(bool v);
+void nox_print_string(nox_string v);
+void nox_print_raw_cstr(const char *s);
+nox_string nox_io_scanln(void);
