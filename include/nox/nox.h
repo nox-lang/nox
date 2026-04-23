@@ -183,3 +183,7 @@ int64_t nox_math_max_i(int64_t a, int64_t b);
 double nox_math_min_f(double a, double b);
 double nox_math_max_f(double a, double b);
 nox_string nox_fs_read(nox_string path);
+void nox_fs_write(nox_string path, nox_string data);
+void nox_fs_append(nox_string path, nox_string data);
+bool nox_fs_exists(nox_string path);
+void nox_fs_remove(nox_string path);
