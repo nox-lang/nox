@@ -187,3 +187,7 @@ void nox_fs_write(nox_string path, nox_string data);
 void nox_fs_append(nox_string path, nox_string data);
 bool nox_fs_exists(nox_string path);
 void nox_fs_remove(nox_string path);
+void nox_fs_rename(nox_string oldp, nox_string newp);
+void nox_fs_copy(nox_string src, nox_string dst);
+void nox_fs_mkdir(nox_string path);
+void nox_fs_rmdir(nox_string path);
