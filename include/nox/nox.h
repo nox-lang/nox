@@ -121,3 +121,5 @@ typedef struct nox_worker nox_task;
 typedef struct nox_worker nox_thread_obj;
 typedef void (*nox_body_fn)(void *arg, void *result);
 
+#define NOX_HAS_ERR (nox_err_state_get()->has_err)
+
