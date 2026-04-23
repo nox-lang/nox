@@ -88,3 +88,7 @@
   #define NOX_TLS_GET(key) pthread_getspecific(key)
   #define NOX_TLS_SET(key, val) pthread_setspecific((key), (val))
 
+  typedef pthread_mutex_t nox_mutex_t;
+  #define NOX_MUTEX_INIT(m) pthread_mutex_init((m), NULL)
+  #define NOX_MUTEX_LOCK(m) pthread_mutex_lock(m)
+  #define NOX_MUTEX_UNLOCK(m) pthread_mutex_unlock(m)
