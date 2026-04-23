@@ -179,3 +179,7 @@ nox_string nox_io_scan(void);
 int64_t nox_math_abs_i(int64_t v);
 double nox_math_abs_f(double v);
 int64_t nox_math_min_i(int64_t a, int64_t b);
+int64_t nox_math_max_i(int64_t a, int64_t b);
+double nox_math_min_f(double a, double b);
+double nox_math_max_f(double a, double b);
+nox_string nox_fs_read(nox_string path);
