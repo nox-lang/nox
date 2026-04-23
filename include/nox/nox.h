@@ -92,3 +92,5 @@
   #define NOX_MUTEX_INIT(m) pthread_mutex_init((m), NULL)
   #define NOX_MUTEX_LOCK(m) pthread_mutex_lock(m)
   #define NOX_MUTEX_UNLOCK(m) pthread_mutex_unlock(m)
+#endif
+
