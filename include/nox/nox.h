@@ -109,3 +109,6 @@ typedef struct {
 typedef struct {
     void *data;
     int64_t len;
+    int64_t cap;
+} nox_slice;
+
