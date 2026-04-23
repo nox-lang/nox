@@ -207,3 +207,5 @@ int64_t nox_time_month(int64_t t);
 int64_t nox_time_day(int64_t t);
 int64_t nox_time_hour(int64_t t);
 int64_t nox_time_minute(int64_t t);
+int64_t nox_time_second(int64_t t);
+
