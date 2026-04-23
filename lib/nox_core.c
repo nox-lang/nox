@@ -22,3 +22,7 @@ void __nox_err_key_make(void) { NOX_TLS_CREATE(&__nox_err_key); }
  * which a conservative collector does not scan, so it must NOT live on the
  * collected heap. It is allocated with plain calloc and released by
  * nox_err_state_free() when a Nox worker thread ends. */
+nox_err_state *nox_err_state_get(void) {
+    nox_err_state *st = (nox_err_state *)NOX_TLS_GET(__nox_err_key);
+    if (!st) {
+        st = (nox_err_state *)calloc(1, sizeof(nox_err_state));
