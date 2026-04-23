@@ -18,3 +18,7 @@ static nox_tls_key_t __nox_err_key;
  * primitive (pthread_once has no simple portable equivalent on Windows). */
 void __nox_err_key_make(void) { NOX_TLS_CREATE(&__nox_err_key); }
 
+/* The per-thread error state is reachable only through thread-local storage,
+ * which a conservative collector does not scan, so it must NOT live on the
+ * collected heap. It is allocated with plain calloc and released by
+ * nox_err_state_free() when a Nox worker thread ends. */
