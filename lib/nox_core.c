@@ -10,3 +10,6 @@ void *nox_calloc(size_t sz) {
 }
 #endif
 
+/* ---------------- error propagation state (per-thread) ---------------- */
+static nox_tls_key_t __nox_err_key;
+
