@@ -87,3 +87,4 @@
   #define NOX_TLS_CREATE(keyptr) pthread_key_create((keyptr), NULL)
   #define NOX_TLS_GET(key) pthread_getspecific(key)
   #define NOX_TLS_SET(key, val) pthread_setspecific((key), (val))
+
