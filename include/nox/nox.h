@@ -195,3 +195,7 @@ nox_slice nox_fs_list(nox_string path);
 nox_string nox_path_join2(nox_string a, nox_string b);
 nox_string nox_path_basename(nox_string p);
 nox_string nox_path_dirname(nox_string p);
+nox_string nox_path_ext(nox_string p);
+nox_string nox_path_stem(nox_string p);
+nox_string nox_path_absolute(nox_string p);
+int64_t nox_time_now(void);
