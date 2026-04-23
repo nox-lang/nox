@@ -139,3 +139,7 @@ bool nox_string_contains(nox_string s, nox_string sub);
 bool nox_string_starts_with(nox_string s, nox_string pre);
 bool nox_string_ends_with(nox_string s, nox_string suf);
 nox_string nox_string_substring(nox_string s, int64_t start, int64_t end);
+nox_string nox_int_to_string(int64_t v);
+nox_string nox_float_to_string(double v);
+nox_string nox_bool_to_string(bool v);
+int64_t nox_string_to_int(nox_string s);
