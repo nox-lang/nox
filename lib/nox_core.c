@@ -17,3 +17,4 @@ static nox_tls_key_t __nox_err_key;
  * than the main one exists — this sidesteps needing a once-only-init
  * primitive (pthread_once has no simple portable equivalent on Windows). */
 void __nox_err_key_make(void) { NOX_TLS_CREATE(&__nox_err_key); }
+
