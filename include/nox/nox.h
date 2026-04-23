@@ -100,3 +100,7 @@ typedef struct {
     char msg[1024];
 } nox_err_state;
 
+typedef struct {
+    char *data;   /* always NUL-terminated for C interop convenience */
+    int64_t len;
+} nox_string;
