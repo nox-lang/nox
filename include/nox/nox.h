@@ -94,3 +94,7 @@
   #define NOX_MUTEX_UNLOCK(m) pthread_mutex_unlock(m)
 #endif
 
+/* ---------------- core types ---------------- */
+typedef struct {
+    bool has_err;
+    char msg[1024];
