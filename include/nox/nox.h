@@ -143,3 +143,7 @@ nox_string nox_int_to_string(int64_t v);
 nox_string nox_float_to_string(double v);
 nox_string nox_bool_to_string(bool v);
 int64_t nox_string_to_int(nox_string s);
+double nox_string_to_float(nox_string s);
+bool nox_string_to_bool(nox_string s);
+int64_t nox_float_to_int(double v);
+double nox_int_to_float(int64_t v);
