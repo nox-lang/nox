@@ -218,3 +218,7 @@ nox_slice nox_range(int64_t lo, int64_t hi, int64_t step);
 void nox_check_array_index(int64_t i, int64_t len);
 int64_t nox_slice_copy_raw(nox_slice dst, nox_slice src, int64_t elemsize);
 
+/* maps */
+nox_map *nox_map_new(int key_kind, int64_t ksize, int64_t vsize);
+void *nox_map_find(nox_map *m, const void *key);
+void *nox_map_put(nox_map *m, const void *key);
