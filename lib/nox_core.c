@@ -41,3 +41,7 @@ void nox_clear_error(void) {
     nox_err_state_get()->has_err = false;
 }
 
+void nox_set_error(const char *msg) {
+    nox_err_state *st = nox_err_state_get();
+    st->has_err = true;
+    if (msg) {
