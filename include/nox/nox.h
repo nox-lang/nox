@@ -123,3 +123,7 @@ typedef void (*nox_body_fn)(void *arg, void *result);
 
 #define NOX_HAS_ERR (nox_err_state_get()->has_err)
 
+/* ---------------- runtime API ---------------- */
+extern nox_slice nox_args_array;
+void __nox_err_key_make(void);
+nox_err_state *nox_err_state_get(void);
