@@ -230,3 +230,7 @@ bool nox_map_entry(nox_map *m, int64_t i, void **key, void **val);
 nox_slice nox_map_keys(nox_map *m);
 nox_slice nox_map_values(nox_map *m);
 
+/* tasks & threads */
+nox_task *nox_task_start(nox_body_fn body, void *arg, int64_t result_size);
+void nox_task_wait(nox_task *t);
+void *nox_task_result(nox_task *t);
