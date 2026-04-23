@@ -163,3 +163,7 @@ void nox_slice_remove_raw(nox_slice *a, int64_t idx, int64_t elemsize);
 void nox_slice_clear(nox_slice *a);
 nox_slice nox_slice_reverse_raw(nox_slice a, int64_t elemsize);
 
+void nox_slice_choice_raw(nox_slice *a, void *out, int64_t elemsize);
+int nox_cmp_int_asc(const void *pa, const void *pb);
+int nox_cmp_float_asc(const void *pa, const void *pb);
+int nox_cmp_string_asc(const void *pa, const void *pb);
