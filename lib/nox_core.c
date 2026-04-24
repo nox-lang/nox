@@ -116,3 +116,4 @@ bool nox_string_ends_with(nox_string s, nox_string suf) {
     if (suf.len > s.len) return false;
     return memcmp(s.data + (s.len - suf.len), suf.data, (size_t)suf.len) == 0;
 }
+
