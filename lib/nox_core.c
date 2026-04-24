@@ -96,3 +96,7 @@ int nox_string_cmp(nox_string a, nox_string b) {
     int64_t n = a.len < b.len ? a.len : b.len;
     int c = n > 0 ? memcmp(a.data, b.data, (size_t)n) : 0;
     if (c != 0) return c;
+    if (a.len < b.len) return -1;
+    if (a.len > b.len) return 1;
+    return 0;
+}
