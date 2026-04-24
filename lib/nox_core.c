@@ -66,3 +66,6 @@ nox_string nox_string_from_bytes(const char *bytes, int64_t len) {
     nox_string s;
     s.data = buf;
     s.len = len;
+    return s;
+}
+
