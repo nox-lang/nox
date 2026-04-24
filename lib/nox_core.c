@@ -251,3 +251,7 @@ void nox_slice_shuffle_raw(nox_slice *a, int64_t elemsize) {
     char *tmp = (char *)NOX_ALLOC(elemsize);
     char *base = (char *)a->data;
     for (int64_t i = a->len - 1; i > 0; i--) {
+        int64_t j = rand() % (i + 1);
+        memcpy(tmp, base + i * elemsize, (size_t)elemsize);
+        memcpy(base + i * elemsize, base + j * elemsize, (size_t)elemsize);
+        memcpy(base + j * elemsize, tmp, (size_t)elemsize);
