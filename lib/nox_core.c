@@ -159,3 +159,7 @@ nox_string nox_get_error_message(void) {
 }
 
 
+/* ---------------- dynamic array (type-erased; codegen supplies casts) ---------------- */
+nox_slice nox_slice_new(void) {
+    nox_slice a;
+    a.data = NULL;
