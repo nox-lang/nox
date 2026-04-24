@@ -124,3 +124,7 @@ nox_string nox_string_substring(nox_string s, int64_t start, int64_t end) {
     return nox_string_from_bytes(s.data + start, end - start);
 }
 
+/* conversions */
+nox_string nox_int_to_string(int64_t v) {
+    char buf[32];
+    int n = snprintf(buf, sizeof(buf), "%lld", (long long)v);
