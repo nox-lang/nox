@@ -82,3 +82,7 @@ nox_string nox_string_concat(nox_string a, nox_string b) {
     buf[n] = 0;
     nox_string s;
     s.data = buf;
+    s.len = n;
+    return s;
+}
+
