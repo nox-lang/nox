@@ -144,3 +144,7 @@ int64_t nox_string_to_int(nox_string s) {
 double nox_string_to_float(nox_string s) {
     return strtod(s.data, NULL);
 }
+bool nox_string_to_bool(nox_string s) {
+    return nox_string_eq(s, nox_string_from_cstr("true"));
+}
+int64_t nox_float_to_int(double v) { return (int64_t)v; }
