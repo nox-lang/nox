@@ -230,3 +230,6 @@ void nox_slice_remove_raw(nox_slice *a, int64_t idx, int64_t elemsize) {
     nox_slice_check_index(a, idx);
     char *base = (char *)a->data;
     memmove(base + idx * elemsize, base + (idx + 1) * elemsize, (size_t)((a->len - idx - 1) * elemsize));
+    a->len--;
+}
+
