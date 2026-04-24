@@ -258,3 +258,7 @@ void nox_slice_shuffle_raw(nox_slice *a, int64_t elemsize) {
     }
 }
 
+void nox_slice_choice_raw(nox_slice *a, void *out, int64_t elemsize) {
+    if (a->len == 0) nox_panic("choice on empty array");
+    int64_t i = rand() % a->len;
+    memcpy(out, (char *)a->data + i * elemsize, (size_t)elemsize);
