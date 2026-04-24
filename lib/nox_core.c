@@ -209,3 +209,7 @@ void nox_slice_pop_raw(nox_slice *a, void *out, int64_t elemsize) {
     memcpy(out, (char *)a->data + a->len * elemsize, (size_t)elemsize);
 }
 
+void nox_slice_check_index(nox_slice *a, int64_t i) {
+    if (i < 0 || i >= a->len) {
+        char buf[128];
+        snprintf(buf, sizeof(buf), "array index out of range: index %lld, length %lld", (long long)i, (long long)a->len);
