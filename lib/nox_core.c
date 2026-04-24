@@ -255,3 +255,6 @@ void nox_slice_shuffle_raw(nox_slice *a, int64_t elemsize) {
         memcpy(tmp, base + i * elemsize, (size_t)elemsize);
         memcpy(base + i * elemsize, base + j * elemsize, (size_t)elemsize);
         memcpy(base + j * elemsize, tmp, (size_t)elemsize);
+    }
+}
+
