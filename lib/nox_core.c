@@ -184,3 +184,7 @@ void nox_slice_push_raw(nox_slice *a, const void *elem, int64_t elemsize) {
     a->len++;
 }
 
+nox_slice nox_string_split_lines(nox_string s) {
+    nox_slice result = nox_slice_new();
+    int64_t start = 0;
+    for (int64_t i = 0; i < s.len; i++) {
