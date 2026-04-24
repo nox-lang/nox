@@ -74,3 +74,7 @@ nox_string nox_string_from_cstr(const char *cstr) {
     return nox_string_from_bytes(cstr, (int64_t)strlen(cstr));
 }
 
+nox_string nox_string_concat(nox_string a, nox_string b) {
+    int64_t n = a.len + b.len;
+    char *buf = (char *)NOX_ALLOC(n + 1);
+    if (a.len > 0) memcpy(buf, a.data, a.len);
