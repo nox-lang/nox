@@ -163,3 +163,7 @@ nox_string nox_get_error_message(void) {
 nox_slice nox_slice_new(void) {
     nox_slice a;
     a.data = NULL;
+    a.len = 0;
+    a.cap = 0;
+    return a;
+}
