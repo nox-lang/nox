@@ -247,3 +247,7 @@ nox_slice nox_slice_reverse_raw(nox_slice a, int64_t elemsize) {
     return r;
 }
 
+void nox_slice_shuffle_raw(nox_slice *a, int64_t elemsize) {
+    char *tmp = (char *)NOX_ALLOC(elemsize);
+    char *base = (char *)a->data;
+    for (int64_t i = a->len - 1; i > 0; i--) {
