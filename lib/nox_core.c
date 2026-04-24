@@ -73,3 +73,4 @@ nox_string nox_string_from_cstr(const char *cstr) {
     if (!cstr) return nox_string_from_bytes("", 0);
     return nox_string_from_bytes(cstr, (int64_t)strlen(cstr));
 }
+
