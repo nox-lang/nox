@@ -233,3 +233,7 @@ void nox_slice_remove_raw(nox_slice *a, int64_t idx, int64_t elemsize) {
     a->len--;
 }
 
+void nox_slice_clear(nox_slice *a) {
+    a->len = 0;
+}
+
