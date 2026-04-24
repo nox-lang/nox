@@ -148,3 +148,7 @@ bool nox_string_to_bool(nox_string s) {
     return nox_string_eq(s, nox_string_from_cstr("true"));
 }
 int64_t nox_float_to_int(double v) { return (int64_t)v; }
+double nox_int_to_float(int64_t v) { return (double)v; }
+bool nox_int_to_bool(int64_t v) { return v != 0; }
+bool nox_float_to_bool(double v) { return v != 0.0; }
+int64_t nox_bool_to_int(bool v) { return v ? 1 : 0; }
