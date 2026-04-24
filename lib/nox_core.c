@@ -264,3 +264,7 @@ void nox_slice_choice_raw(nox_slice *a, void *out, int64_t elemsize) {
     memcpy(out, (char *)a->data + i * elemsize, (size_t)elemsize);
 }
 
+/* default ascending comparators for sort() with no custom comparator */
+int nox_cmp_int_asc(const void *pa, const void *pb) {
+    int64_t a = *(const int64_t *)pa, b = *(const int64_t *)pb;
+    return (a > b) - (a < b);
