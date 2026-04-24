@@ -188,3 +188,7 @@ nox_slice nox_string_split_lines(nox_string s) {
     nox_slice result = nox_slice_new();
     int64_t start = 0;
     for (int64_t i = 0; i < s.len; i++) {
+        if (s.data[i] == '\n') {
+            int64_t end = i;
+            if (end > start && s.data[end - 1] == '\r') end--;
+            nox_string line = nox_string_from_bytes(s.data + start, end - start);
