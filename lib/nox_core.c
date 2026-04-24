@@ -196,3 +196,7 @@ nox_slice nox_string_split_lines(nox_string s) {
             start = i + 1;
         }
     }
+    if (start < s.len) {
+        nox_string line = nox_string_from_bytes(s.data + start, s.len - start);
+        nox_slice_push_raw(&result, &line, sizeof(nox_string));
+    }
