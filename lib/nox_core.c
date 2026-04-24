@@ -192,3 +192,7 @@ nox_slice nox_string_split_lines(nox_string s) {
             int64_t end = i;
             if (end > start && s.data[end - 1] == '\r') end--;
             nox_string line = nox_string_from_bytes(s.data + start, end - start);
+            nox_slice_push_raw(&result, &line, sizeof(nox_string));
+            start = i + 1;
+        }
+    }
