@@ -132,3 +132,7 @@ nox_string nox_int_to_string(int64_t v) {
 }
 nox_string nox_float_to_string(double v) {
     char buf[64];
+    int n = snprintf(buf, sizeof(buf), "%g", v);
+    return nox_string_from_bytes(buf, n);
+}
+nox_string nox_bool_to_string(bool v) {
