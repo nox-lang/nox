@@ -136,3 +136,7 @@ nox_string nox_float_to_string(double v) {
     return nox_string_from_bytes(buf, n);
 }
 nox_string nox_bool_to_string(bool v) {
+    return nox_string_from_cstr(v ? "true" : "false");
+}
+int64_t nox_string_to_int(nox_string s) {
+    return (int64_t)strtoll(s.data, NULL, 10);
