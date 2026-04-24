@@ -217,3 +217,7 @@ void nox_slice_check_index(nox_slice *a, int64_t i) {
     }
 }
 
+void nox_slice_insert_raw(nox_slice *a, int64_t idx, const void *elem, int64_t elemsize) {
+    if (idx < 0 || idx > a->len) nox_panic("array insert index out of range");
+    nox_slice_reserve(a, a->len + 1, elemsize);
+    char *base = (char *)a->data;
