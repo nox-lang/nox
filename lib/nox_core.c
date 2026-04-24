@@ -178,3 +178,7 @@ void nox_slice_reserve(nox_slice *a, int64_t mincap, int64_t elemsize) {
     a->cap = newcap;
 }
 
+void nox_slice_push_raw(nox_slice *a, const void *elem, int64_t elemsize) {
+    nox_slice_reserve(a, a->len + 1, elemsize);
+    memcpy((char *)a->data + a->len * elemsize, elem, (size_t)elemsize);
+    a->len++;
