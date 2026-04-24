@@ -105,3 +105,5 @@ bool nox_string_contains(nox_string s, nox_string sub) {
     if (sub.len == 0) return true;
     if (sub.len > s.len) return false;
     return strstr(s.data, sub.data) != NULL;
+}
+
