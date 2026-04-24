@@ -92,3 +92,7 @@ bool nox_string_eq(nox_string a, nox_string b) {
     return memcmp(a.data, b.data, (size_t)a.len) == 0;
 }
 
+int nox_string_cmp(nox_string a, nox_string b) {
+    int64_t n = a.len < b.len ? a.len : b.len;
+    int c = n > 0 ? memcmp(a.data, b.data, (size_t)n) : 0;
+    if (c != 0) return c;
