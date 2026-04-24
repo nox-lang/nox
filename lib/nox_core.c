@@ -245,3 +245,5 @@ nox_slice nox_slice_reverse_raw(nox_slice a, int64_t elemsize) {
     }
     r.len = a.len;
     return r;
+}
+
