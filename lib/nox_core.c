@@ -241,3 +241,7 @@ nox_slice nox_slice_reverse_raw(nox_slice a, int64_t elemsize) {
     nox_slice r = nox_slice_new();
     nox_slice_reserve(&r, a.len, elemsize);
     for (int64_t i = 0; i < a.len; i++) {
+        memcpy((char *)r.data + i * elemsize, (char *)a.data + (a.len - 1 - i) * elemsize, (size_t)elemsize);
+    }
+    r.len = a.len;
+    return r;
