@@ -158,3 +158,4 @@ nox_string nox_get_error_message(void) {
     return nox_string_from_cstr(nox_err_state_get()->msg);
 }
 
+
