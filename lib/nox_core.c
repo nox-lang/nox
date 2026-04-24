@@ -140,3 +140,7 @@ nox_string nox_bool_to_string(bool v) {
 }
 int64_t nox_string_to_int(nox_string s) {
     return (int64_t)strtoll(s.data, NULL, 10);
+}
+double nox_string_to_float(nox_string s) {
+    return strtod(s.data, NULL);
+}
