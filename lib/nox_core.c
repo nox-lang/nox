@@ -152,3 +152,5 @@ double nox_int_to_float(int64_t v) { return (double)v; }
 bool nox_int_to_bool(int64_t v) { return v != 0; }
 bool nox_float_to_bool(double v) { return v != 0.0; }
 int64_t nox_bool_to_int(bool v) { return v ? 1 : 0; }
+double nox_bool_to_float(bool v) { return v ? 1.0 : 0.0; }
+
