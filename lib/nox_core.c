@@ -168,3 +168,7 @@ nox_slice nox_slice_new(void) {
     return a;
 }
 
+void nox_slice_reserve(nox_slice *a, int64_t mincap, int64_t elemsize) {
+    if (a->cap >= mincap) return;
+    int64_t newcap = a->cap < 4 ? 4 : a->cap * 2;
+    if (newcap < mincap) newcap = mincap;
