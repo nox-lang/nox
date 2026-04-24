@@ -100,3 +100,4 @@ int nox_string_cmp(nox_string a, nox_string b) {
     if (a.len > b.len) return 1;
     return 0;
 }
+
