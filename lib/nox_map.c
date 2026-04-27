@@ -34,3 +34,6 @@ static uint64_t nox_hash_bytes(const void *p, size_t n) {
         h *= 1099511628211ULL;
     }
     h ^= h >> 32;
+    return h;
+}
+
