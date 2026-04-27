@@ -272,3 +272,7 @@ int nox_cmp_int_asc(const void *pa, const void *pb) {
 int nox_cmp_float_asc(const void *pa, const void *pb) {
     double a = *(const double *)pa, b = *(const double *)pb;
     return (a > b) - (a < b);
+}
+int nox_cmp_string_asc(const void *pa, const void *pb) {
+    return nox_string_cmp(*(const nox_string *)pa, *(const nox_string *)pb);
+}
