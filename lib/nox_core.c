@@ -326,3 +326,5 @@ nox_slice nox_slice_from_raw(const void *data, int64_t len, int64_t elemsize) {
     nox_slice s = nox_slice_make(len, len, elemsize);
     if (len > 0) memcpy(s.data, data, (size_t)(len * elemsize));
     return s;
+}
+
