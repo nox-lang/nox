@@ -305,3 +305,6 @@ nox_slice nox_slice_make(int64_t len, int64_t cap, int64_t elemsize) {
     s.data = cap > 0 ? NOX_ALLOC((size_t)(cap * elemsize)) : NULL;
     s.len = len;
     s.cap = cap;
+    return s;
+}
+
