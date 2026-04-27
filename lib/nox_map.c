@@ -83,3 +83,6 @@ static int64_t nox_map_lookup(nox_map *m, const void *key, uint64_t h) {
         if (e < 0) return -1;
         if (m->live[e] && (uint64_t)m->hashes[e] == h && nox_map_keyeq(m, m->keys + e * m->ksize, key)) return e;
         i = (i + 1) & m->mask;
+    }
+}
+
