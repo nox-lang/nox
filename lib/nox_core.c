@@ -308,3 +308,7 @@ nox_slice nox_slice_make(int64_t len, int64_t cap, int64_t elemsize) {
     return s;
 }
 
+/* s[lo:hi] — shares memory with s, exactly like a Go slice expression. */
+nox_slice nox_slice_slice(nox_slice s, int64_t lo, int64_t hi, int64_t elemsize) {
+    if (lo < 0 || hi < lo || hi > s.cap) {
+        char buf[128];
