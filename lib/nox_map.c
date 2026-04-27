@@ -45,3 +45,7 @@ static uint64_t nox_map_hash(nox_map *m, const void *key) {
     return nox_hash_bytes(key, (size_t)m->ksize);
 }
 
+static bool nox_map_keyeq(nox_map *m, const void *a, const void *b) {
+    if (m->key_kind == NOX_KEY_STRING) {
+        return nox_string_eq(*(const nox_string *)a, *(const nox_string *)b);
+    }
