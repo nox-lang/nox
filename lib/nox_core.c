@@ -285,3 +285,7 @@ int nox_cmp_bool_asc(const void *pa, const void *pb) {
 /* ---------------- runtime init ---------------- */
 nox_slice nox_args_array;
 
+void nox_runtime_init(int argc, char **argv) {
+    NOX_GC_INIT();
+    __nox_err_key_make();
+    srand((unsigned int)time(NULL));
