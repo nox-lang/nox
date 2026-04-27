@@ -328,3 +328,7 @@ nox_slice nox_slice_from_raw(const void *data, int64_t len, int64_t elemsize) {
     return s;
 }
 
+int64_t nox_slice_copy_raw(nox_slice dst, nox_slice src, int64_t elemsize) {
+    int64_t n = dst.len < src.len ? dst.len : src.len;
+    if (n > 0) memmove(dst.data, src.data, (size_t)(n * elemsize));
+    return n;
