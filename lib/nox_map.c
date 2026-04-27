@@ -108,3 +108,7 @@ static void nox_map_rebuild(nox_map *m, int64_t newcap) {
     }
 }
 
+void *nox_map_find(nox_map *m, const void *key) {
+    if (m->len == 0) return NULL;
+    int64_t e = nox_map_lookup(m, key, nox_map_hash(m, key));
+    return e < 0 ? NULL : m->vals + e * m->vsize;
