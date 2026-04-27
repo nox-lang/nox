@@ -15,3 +15,7 @@ struct nox_map {
     int key_kind;      /* NOX_KEY_BYTES or NOX_KEY_STRING */
     int64_t ksize;     /* sizeof(K) */
     int64_t vsize;     /* sizeof(V) */
+    char *keys;        /* entry keys, ksize bytes each */
+    char *vals;        /* entry values, vsize bytes each */
+    unsigned char *live; /* 1 = entry in use, 0 = deleted */
+    int64_t *hashes;   /* cached hash of each entry */
