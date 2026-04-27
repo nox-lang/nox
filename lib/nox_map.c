@@ -126,3 +126,7 @@ void *nox_map_put(nox_map *m, const void *key) {
     memcpy(m->keys + e * m->ksize, key, (size_t)m->ksize);
     memset(m->vals + e * m->vsize, 0, (size_t)m->vsize);
     m->live[e] = 1;
+    m->hashes[e] = (int64_t)h;
+    m->len++;
+    nox_map_index_insert(m, e);
+    return m->vals + e * m->vsize;
