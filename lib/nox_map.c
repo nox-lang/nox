@@ -75,3 +75,7 @@ nox_map *nox_map_new(int key_kind, int64_t ksize, int64_t vsize) {
     return m;
 }
 
+/* Find the entry number of `key`, or -1. */
+static int64_t nox_map_lookup(nox_map *m, const void *key, uint64_t h) {
+    int64_t i = (int64_t)(h & (uint64_t)m->mask);
+    for (;;) {
