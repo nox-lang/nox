@@ -297,3 +297,7 @@ void nox_runtime_init(int argc, char **argv) {
 }
 
 
+/* ---------------- slices: make / slice / range ---------------- */
+nox_slice nox_slice_make(int64_t len, int64_t cap, int64_t elemsize) {
+    if (len < 0) nox_panic("make: negative length");
+    if (cap < len) cap = len;
