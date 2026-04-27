@@ -19,3 +19,7 @@ struct nox_map {
     char *vals;        /* entry values, vsize bytes each */
     unsigned char *live; /* 1 = entry in use, 0 = deleted */
     int64_t *hashes;   /* cached hash of each entry */
+    int64_t used;      /* entry slots consumed so far (live + deleted) */
+    int64_t len;       /* live entries */
+    int64_t cap;       /* entry slots allocated (power of two) */
+    int64_t *index;    /* open-addressing table: entry number or -1 */
