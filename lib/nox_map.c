@@ -90,3 +90,5 @@ static void nox_map_index_insert(nox_map *m, int64_t e) {
     int64_t i = (int64_t)((uint64_t)m->hashes[e] & (uint64_t)m->mask);
     while (m->index[i] >= 0) i = (i + 1) & m->mask;
     m->index[i] = e;
+}
+
