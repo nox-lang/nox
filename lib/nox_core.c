@@ -334,3 +334,7 @@ int64_t nox_slice_copy_raw(nox_slice dst, nox_slice src, int64_t elemsize) {
     return n;
 }
 
+void nox_check_array_index(int64_t i, int64_t len) {
+    if (i < 0 || i >= len) {
+        char buf[128];
+        snprintf(buf, sizeof(buf), "array index out of range: index %lld, length %lld", (long long)i, (long long)len);
