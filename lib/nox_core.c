@@ -293,3 +293,6 @@ void nox_runtime_init(int argc, char **argv) {
     for (int i = 1; i < argc; i++) {
         nox_string s = nox_string_from_cstr(argv[i]);
         nox_slice_push_raw(&nox_args_array, &s, sizeof(nox_string));
+    }
+}
+
