@@ -49,3 +49,6 @@ static bool nox_map_keyeq(nox_map *m, const void *a, const void *b) {
     if (m->key_kind == NOX_KEY_STRING) {
         return nox_string_eq(*(const nox_string *)a, *(const nox_string *)b);
     }
+    return memcmp(a, b, (size_t)m->ksize) == 0;
+}
+
