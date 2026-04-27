@@ -92,3 +92,7 @@ static void nox_map_index_insert(nox_map *m, int64_t e) {
     m->index[i] = e;
 }
 
+/* Rebuild into fresh storage: compacts deleted entries and grows if needed. */
+static void nox_map_rebuild(nox_map *m, int64_t newcap) {
+    nox_map old = *m;
+    nox_map_alloc(m, newcap);
