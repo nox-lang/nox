@@ -268,3 +268,7 @@ void nox_slice_choice_raw(nox_slice *a, void *out, int64_t elemsize) {
 int nox_cmp_int_asc(const void *pa, const void *pb) {
     int64_t a = *(const int64_t *)pa, b = *(const int64_t *)pb;
     return (a > b) - (a < b);
+}
+int nox_cmp_float_asc(const void *pa, const void *pb) {
+    double a = *(const double *)pa, b = *(const double *)pb;
+    return (a > b) - (a < b);
