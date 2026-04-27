@@ -301,3 +301,7 @@ void nox_runtime_init(int argc, char **argv) {
 nox_slice nox_slice_make(int64_t len, int64_t cap, int64_t elemsize) {
     if (len < 0) nox_panic("make: negative length");
     if (cap < len) cap = len;
+    nox_slice s;
+    s.data = cap > 0 ? NOX_ALLOC((size_t)(cap * elemsize)) : NULL;
+    s.len = len;
+    s.cap = cap;
