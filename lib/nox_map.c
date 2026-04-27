@@ -70,3 +70,7 @@ nox_map *nox_map_new(int key_kind, int64_t ksize, int64_t vsize) {
     nox_map *m = (nox_map *)NOX_ALLOC(sizeof(nox_map));
     m->key_kind = key_kind;
     m->ksize = ksize;
+    m->vsize = vsize;
+    nox_map_alloc(m, 8);
+    return m;
+}
