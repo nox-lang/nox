@@ -64,3 +64,5 @@ static void nox_map_alloc(nox_map *m, int64_t cap) {
     m->mask = tsize - 1;
     m->used = 0;
     m->len = 0;
+}
+
