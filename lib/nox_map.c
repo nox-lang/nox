@@ -104,3 +104,7 @@ static void nox_map_rebuild(nox_map *m, int64_t newcap) {
         m->live[n] = 1;
         m->hashes[n] = old.hashes[e];
         m->len++;
+        nox_map_index_insert(m, n);
+    }
+}
+
