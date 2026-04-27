@@ -346,3 +346,7 @@ void nox_check_array_index(int64_t i, int64_t len) {
  * negative step) hi, as an []int. `for (i in range(...))` is compiled to a
  * plain counting loop instead of calling this. */
 nox_slice nox_range(int64_t lo, int64_t hi, int64_t step) {
+    if (step == 0) nox_panic("range: step must not be zero");
+    int64_t n = 0;
+    if (step > 0 && hi > lo) n = (hi - lo + step - 1) / step;
+    if (step < 0 && hi < lo) n = (lo - hi + (-step) - 1) / (-step);
