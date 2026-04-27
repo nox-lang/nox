@@ -96,3 +96,7 @@ static void nox_map_index_insert(nox_map *m, int64_t e) {
 static void nox_map_rebuild(nox_map *m, int64_t newcap) {
     nox_map old = *m;
     nox_map_alloc(m, newcap);
+    for (int64_t e = 0; e < old.used; e++) {
+        if (!old.live[e]) continue;
+        int64_t n = m->used++;
+        memcpy(m->keys + n * m->ksize, old.keys + e * m->ksize, (size_t)m->ksize);
