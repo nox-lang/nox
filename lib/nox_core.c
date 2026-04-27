@@ -312,3 +312,7 @@ nox_slice nox_slice_make(int64_t len, int64_t cap, int64_t elemsize) {
 nox_slice nox_slice_slice(nox_slice s, int64_t lo, int64_t hi, int64_t elemsize) {
     if (lo < 0 || hi < lo || hi > s.cap) {
         char buf[128];
+        snprintf(buf, sizeof(buf), "slice bounds out of range [%lld:%lld] with capacity %lld", (long long)lo, (long long)hi, (long long)s.cap);
+        nox_panic(buf);
+    }
+    nox_slice r;
