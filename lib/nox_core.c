@@ -289,3 +289,7 @@ void nox_runtime_init(int argc, char **argv) {
     NOX_GC_INIT();
     __nox_err_key_make();
     srand((unsigned int)time(NULL));
+    nox_args_array = nox_slice_new();
+    for (int i = 1; i < argc; i++) {
+        nox_string s = nox_string_from_cstr(argv[i]);
+        nox_slice_push_raw(&nox_args_array, &s, sizeof(nox_string));
