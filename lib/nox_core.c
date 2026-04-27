@@ -350,3 +350,7 @@ nox_slice nox_range(int64_t lo, int64_t hi, int64_t step) {
     int64_t n = 0;
     if (step > 0 && hi > lo) n = (hi - lo + step - 1) / step;
     if (step < 0 && hi < lo) n = (lo - hi + (-step) - 1) / (-step);
+    nox_slice s = nox_slice_make(n, n, sizeof(int64_t));
+    for (int64_t i = 0; i < n; i++) ((int64_t *)s.data)[i] = lo + i * step;
+    return s;
+}
