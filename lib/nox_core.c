@@ -320,3 +320,5 @@ nox_slice nox_slice_slice(nox_slice s, int64_t lo, int64_t hi, int64_t elemsize)
     r.len = hi - lo;
     r.cap = s.cap - lo;
     return r;
+}
+
