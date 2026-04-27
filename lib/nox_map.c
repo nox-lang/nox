@@ -100,3 +100,7 @@ static void nox_map_rebuild(nox_map *m, int64_t newcap) {
         if (!old.live[e]) continue;
         int64_t n = m->used++;
         memcpy(m->keys + n * m->ksize, old.keys + e * m->ksize, (size_t)m->ksize);
+        memcpy(m->vals + n * m->vsize, old.vals + e * m->vsize, (size_t)m->vsize);
+        m->live[n] = 1;
+        m->hashes[n] = old.hashes[e];
+        m->len++;
