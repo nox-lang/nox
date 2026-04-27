@@ -130,3 +130,5 @@ void *nox_map_put(nox_map *m, const void *key) {
     m->len++;
     nox_map_index_insert(m, e);
     return m->vals + e * m->vsize;
+}
+
