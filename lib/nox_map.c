@@ -79,3 +79,7 @@ nox_map *nox_map_new(int key_kind, int64_t ksize, int64_t vsize) {
 static int64_t nox_map_lookup(nox_map *m, const void *key, uint64_t h) {
     int64_t i = (int64_t)(h & (uint64_t)m->mask);
     for (;;) {
+        int64_t e = m->index[i];
+        if (e < 0) return -1;
+        if (m->live[e] && (uint64_t)m->hashes[e] == h && nox_map_keyeq(m, m->keys + e * m->ksize, key)) return e;
+        i = (i + 1) & m->mask;
