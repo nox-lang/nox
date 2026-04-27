@@ -23,3 +23,6 @@ struct nox_map {
     int64_t len;       /* live entries */
     int64_t cap;       /* entry slots allocated (power of two) */
     int64_t *index;    /* open-addressing table: entry number or -1 */
+    int64_t mask;      /* table size - 1 */
+};
+
