@@ -122,3 +122,7 @@ void *nox_map_put(nox_map *m, const void *key) {
     if (m->used == m->cap) {
         nox_map_rebuild(m, m->len * 2 > m->cap ? m->cap * 2 : m->cap);
     }
+    e = m->used++;
+    memcpy(m->keys + e * m->ksize, key, (size_t)m->ksize);
+    memset(m->vals + e * m->vsize, 0, (size_t)m->vsize);
+    m->live[e] = 1;
