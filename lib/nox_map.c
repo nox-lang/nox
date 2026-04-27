@@ -11,3 +11,7 @@
  */
 #include <nox/nox.h>
 
+struct nox_map {
+    int key_kind;      /* NOX_KEY_BYTES or NOX_KEY_STRING */
+    int64_t ksize;     /* sizeof(K) */
+    int64_t vsize;     /* sizeof(V) */
