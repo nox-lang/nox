@@ -60,3 +60,7 @@ static void nox_map_alloc(nox_map *m, int64_t cap) {
     m->hashes = (int64_t *)NOX_ALLOC((size_t)(cap * (int64_t)sizeof(int64_t)));
     int64_t tsize = cap * 2;
     m->index = (int64_t *)NOX_ALLOC((size_t)(tsize * (int64_t)sizeof(int64_t)));
+    for (int64_t i = 0; i < tsize; i++) m->index[i] = -1;
+    m->mask = tsize - 1;
+    m->used = 0;
+    m->len = 0;
