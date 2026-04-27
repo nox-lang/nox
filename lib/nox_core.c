@@ -316,3 +316,7 @@ nox_slice nox_slice_slice(nox_slice s, int64_t lo, int64_t hi, int64_t elemsize)
         nox_panic(buf);
     }
     nox_slice r;
+    r.data = s.data ? (char *)s.data + lo * elemsize : NULL;
+    r.len = hi - lo;
+    r.cap = s.cap - lo;
+    return r;
