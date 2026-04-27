@@ -281,3 +281,7 @@ int nox_cmp_bool_asc(const void *pa, const void *pb) {
     return (a ? 1 : 0) - (b ? 1 : 0);
 }
 
+
+/* ---------------- runtime init ---------------- */
+nox_slice nox_args_array;
+
