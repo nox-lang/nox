@@ -52,3 +52,7 @@ static bool nox_map_keyeq(nox_map *m, const void *a, const void *b) {
     return memcmp(a, b, (size_t)m->ksize) == 0;
 }
 
+static void nox_map_alloc(nox_map *m, int64_t cap) {
+    m->cap = cap;
+    m->keys = (char *)NOX_ALLOC((size_t)(cap * (m->ksize ? m->ksize : 1)));
+    m->vals = (char *)NOX_ALLOC((size_t)(cap * (m->vsize ? m->vsize : 1)));
