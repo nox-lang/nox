@@ -26,3 +26,7 @@ struct nox_map {
     int64_t mask;      /* table size - 1 */
 };
 
+static uint64_t nox_hash_bytes(const void *p, size_t n) {
+    const unsigned char *b = (const unsigned char *)p;
+    uint64_t h = 1469598103934665603ULL; /* FNV-1a */
+    for (size_t i = 0; i < n; i++) {
