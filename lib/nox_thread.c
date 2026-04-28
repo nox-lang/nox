@@ -22,3 +22,7 @@ struct nox_worker {
     char err[256];
 };
 
+static NOX_THREAD_FUNC nox_worker_main(nox_thread_arg_t raw) {
+    struct nox_worker *w = (struct nox_worker *)raw;
+    w->body(w->arg, w->result);
+    nox_err_state *st = nox_err_state_get();
