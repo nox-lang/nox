@@ -95,3 +95,7 @@ void *nox_task_result(nox_task *t) {
     return t ? t->result : NULL;
 }
 
+/* Task.WhenAll: a task that completes when every task in `tasks` (a slice of
+ * nox_task*) has, and whose result is a slice holding each result in order.
+ * elem_size == 0 means the tasks have no result (Task<void>). */
+typedef struct {
