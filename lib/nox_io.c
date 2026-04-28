@@ -10,3 +10,7 @@ void nox_print_string(nox_string v) { fwrite(v.data, 1, (size_t)v.len, stdout); 
 void nox_print_raw_cstr(const char *s) { fputs(s, stdout); }
 
 
+/* ---------------- reading ---------------- */
+nox_string nox_io_scanln(void) {
+    /* Implemented with fgetc() rather than POSIX getline(), which mingw's
+     * Windows C runtime does not provide. */
