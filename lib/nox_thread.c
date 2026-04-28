@@ -73,3 +73,6 @@ static void nox_worker_join(struct nox_worker *w) {
         nox_set_error("thread was never started");
         return;
     }
+    if (w->has_err) nox_set_error(w->err);
+}
+
