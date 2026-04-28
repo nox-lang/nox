@@ -83,3 +83,7 @@ nox_task *nox_task_start(nox_body_fn body, void *arg, int64_t result_size) {
     return w;
 }
 
+void nox_task_wait(nox_task *t) {
+    if (!t) { nox_set_error("wait on a task that does not exist"); return; }
+    nox_worker_join(t);
+}
