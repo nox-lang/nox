@@ -140,3 +140,6 @@ bool nox_map_remove(nox_map *m, const void *key) {
     memset(m->keys + e * m->ksize, 0, (size_t)m->ksize);
     memset(m->vals + e * m->vsize, 0, (size_t)m->vsize);
     m->len--;
+    return true;
+}
+
