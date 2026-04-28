@@ -69,3 +69,7 @@ static void nox_worker_join(struct nox_worker *w) {
     }
     int state = w->state;
     NOX_MUTEX_UNLOCK(&w->mu);
+    if (state == 0) {
+        nox_set_error("thread was never started");
+        return;
+    }
