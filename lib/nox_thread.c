@@ -99,3 +99,7 @@ void *nox_task_result(nox_task *t) {
  * nox_task*) has, and whose result is a slice holding each result in order.
  * elem_size == 0 means the tasks have no result (Task<void>). */
 typedef struct {
+    nox_slice tasks;
+    int64_t elem_size;
+} nox_when_all_args;
+
