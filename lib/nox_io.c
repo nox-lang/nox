@@ -9,3 +9,4 @@ void nox_print_bool(bool v) { printf("%s", v ? "true" : "false"); }
 void nox_print_string(nox_string v) { fwrite(v.data, 1, (size_t)v.len, stdout); }
 void nox_print_raw_cstr(const char *s) { fputs(s, stdout); }
 
+
