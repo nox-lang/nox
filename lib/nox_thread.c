@@ -122,3 +122,7 @@ nox_task *nox_task_when_all(nox_slice tasks, int64_t elem_size) {
     return nox_task_start(nox_when_all_body, a, elem_size > 0 ? (int64_t)sizeof(nox_slice) : 0);
 }
 
+/* ---- Thread ---- */
+nox_thread_obj *nox_thread_new(nox_body_fn body, void *arg) {
+    return nox_worker_new(body, arg, 0);
+}
