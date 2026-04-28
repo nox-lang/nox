@@ -88,3 +88,7 @@ void nox_task_wait(nox_task *t) {
     nox_worker_join(t);
 }
 
+/* Waits, then returns a pointer to the result slot (NULL if there is none
+ * or the task failed). */
+void *nox_task_result(nox_task *t) {
+    nox_task_wait(t);
