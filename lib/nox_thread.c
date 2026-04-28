@@ -126,3 +126,4 @@ nox_task *nox_task_when_all(nox_slice tasks, int64_t elem_size) {
 nox_thread_obj *nox_thread_new(nox_body_fn body, void *arg) {
     return nox_worker_new(body, arg, 0);
 }
+
