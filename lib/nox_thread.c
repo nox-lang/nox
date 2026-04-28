@@ -56,3 +56,7 @@ static bool nox_worker_start(struct nox_worker *w) {
         ok = false;
     } else {
         w->state = 1;
+    }
+    NOX_MUTEX_UNLOCK(&w->mu);
+    return ok;
+}
