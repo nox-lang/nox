@@ -18,3 +18,7 @@ nox_string nox_io_scanln(void) {
     size_t len = 0;
     char *buf = (char *)NOX_ALLOC(cap);
     int c;
+    bool any = false;
+    while ((c = fgetc(stdin)) != EOF) {
+        any = true;
+        if (c == '\n') break;
