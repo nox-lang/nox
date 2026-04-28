@@ -11,3 +11,7 @@
  */
 #include <nox/nox.h>
 
+struct nox_worker {
+    nox_thread_t th;
+    int state;          /* 0 = created, 1 = running, 2 = finished and joined */
+    nox_mutex_t mu;     /* serialises start / join */
