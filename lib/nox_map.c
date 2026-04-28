@@ -170,3 +170,7 @@ nox_slice nox_map_values(nox_map *m) {
     nox_slice s = nox_slice_make(m->len, m->len, m->vsize);
     int64_t n = 0;
     for (int64_t e = 0; e < m->used; e++) {
+        if (m->live[e]) memcpy((char *)s.data + (n++) * m->vsize, m->vals + e * m->vsize, (size_t)m->vsize);
+    }
+    return s;
+}
