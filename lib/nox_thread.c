@@ -131,3 +131,4 @@ void nox_thread_start(nox_thread_obj *t) {
     if (!t) { nox_set_error("Start on a thread that does not exist"); return; }
     nox_worker_start(t);
 }
+
