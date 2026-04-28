@@ -10,3 +10,7 @@ nox_string nox_fs_read(nox_string path) {
     long sz = ftell(f);
     fseek(f, 0, SEEK_SET);
     char *buf = (char *)NOX_ALLOC(sz + 1);
+    size_t rd = fread(buf, 1, (size_t)sz, f);
+    buf[rd] = 0;
+    fclose(f);
+    nox_string s;
