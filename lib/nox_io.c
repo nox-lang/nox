@@ -6,3 +6,6 @@
 void nox_print_int(int64_t v) { printf("%lld", (long long)v); }
 void nox_print_float(double v) { printf("%g", v); }
 void nox_print_bool(bool v) { printf("%s", v ? "true" : "false"); }
+void nox_print_string(nox_string v) { fwrite(v.data, 1, (size_t)v.len, stdout); }
+void nox_print_raw_cstr(const char *s) { fputs(s, stdout); }
+
