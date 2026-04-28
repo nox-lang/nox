@@ -150,3 +150,7 @@ void nox_map_clear(nox_map *m) { nox_map_alloc(m, 8); }
 /* Iteration: entries 0 .. nox_map_used()-1, skipping deleted ones. */
 int64_t nox_map_used(nox_map *m) { return m->used; }
 
+bool nox_map_entry(nox_map *m, int64_t i, void **key, void **val) {
+    if (i < 0 || i >= m->used || !m->live[i]) return false;
+    *key = m->keys + i * m->ksize;
+    *val = m->vals + i * m->vsize;
