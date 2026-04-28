@@ -22,3 +22,7 @@ nox_string nox_io_scanln(void) {
     while ((c = fgetc(stdin)) != EOF) {
         any = true;
         if (c == '\n') break;
+        if (len + 1 >= cap) {
+            size_t newcap = cap * 2;
+            char *nb = (char *)NOX_ALLOC(newcap);
+            memcpy(nb, buf, len);
