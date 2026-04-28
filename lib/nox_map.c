@@ -154,3 +154,6 @@ bool nox_map_entry(nox_map *m, int64_t i, void **key, void **val) {
     if (i < 0 || i >= m->used || !m->live[i]) return false;
     *key = m->keys + i * m->ksize;
     *val = m->vals + i * m->vsize;
+    return true;
+}
+
