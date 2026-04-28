@@ -132,3 +132,7 @@ void *nox_map_put(nox_map *m, const void *key) {
     return m->vals + e * m->vsize;
 }
 
+bool nox_map_remove(nox_map *m, const void *key) {
+    if (m->len == 0) return false;
+    int64_t e = nox_map_lookup(m, key, nox_map_hash(m, key));
+    if (e < 0) return false;
