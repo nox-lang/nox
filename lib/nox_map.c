@@ -147,3 +147,6 @@ int64_t nox_map_len(nox_map *m) { return m->len; }
 
 void nox_map_clear(nox_map *m) { nox_map_alloc(m, 8); }
 
+/* Iteration: entries 0 .. nox_map_used()-1, skipping deleted ones. */
+int64_t nox_map_used(nox_map *m) { return m->used; }
+
