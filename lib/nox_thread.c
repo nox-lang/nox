@@ -61,3 +61,7 @@ static bool nox_worker_start(struct nox_worker *w) {
     return ok;
 }
 
+static void nox_worker_join(struct nox_worker *w) {
+    NOX_MUTEX_LOCK(&w->mu);
+    if (w->state == 1) {
+        NOX_THREAD_JOIN(w->th);
