@@ -87,3 +87,4 @@ void nox_task_wait(nox_task *t) {
     if (!t) { nox_set_error("wait on a task that does not exist"); return; }
     nox_worker_join(t);
 }
+
