@@ -132,3 +132,7 @@ void nox_thread_start(nox_thread_obj *t) {
     nox_worker_start(t);
 }
 
+void nox_thread_join(nox_thread_obj *t) {
+    if (!t) { nox_set_error("Join on a thread that does not exist"); return; }
+    nox_worker_join(t);
+}
