@@ -76,3 +76,7 @@ static void nox_worker_join(struct nox_worker *w) {
     if (w->has_err) nox_set_error(w->err);
 }
 
+/* ---- Task<T> ---- */
+nox_task *nox_task_start(nox_body_fn body, void *arg, int64_t result_size) {
+    struct nox_worker *w = nox_worker_new(body, arg, result_size);
+    nox_worker_start(w);
