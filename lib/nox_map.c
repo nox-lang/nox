@@ -157,3 +157,7 @@ bool nox_map_entry(nox_map *m, int64_t i, void **key, void **val) {
     return true;
 }
 
+nox_slice nox_map_keys(nox_map *m) {
+    nox_slice s = nox_slice_make(m->len, m->len, m->ksize);
+    int64_t n = 0;
+    for (int64_t e = 0; e < m->used; e++) {
