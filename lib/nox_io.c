@@ -34,3 +34,5 @@ nox_string nox_io_scanln(void) {
     if (!any) return nox_string_from_cstr("");
     if (len > 0 && buf[len - 1] == '\r') len--;
     return nox_string_from_bytes(buf, (int64_t)len);
+}
+
