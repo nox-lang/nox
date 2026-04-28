@@ -119,3 +119,6 @@ nox_task *nox_task_when_all(nox_slice tasks, int64_t elem_size) {
     nox_when_all_args *a = (nox_when_all_args *)NOX_ALLOC(sizeof(nox_when_all_args));
     a->tasks = tasks;
     a->elem_size = elem_size;
+    return nox_task_start(nox_when_all_body, a, elem_size > 0 ? (int64_t)sizeof(nox_slice) : 0);
+}
+
