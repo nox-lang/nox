@@ -111,3 +111,7 @@ static void nox_when_all_body(void *argp, void *res) {
         nox_task_wait(t);
         if (NOX_HAS_ERR) return;     /* first failure wins; propagate it */
         if (a->elem_size > 0) memcpy((char *)out.data + i * a->elem_size, t->result, (size_t)a->elem_size);
+    }
+    if (res) *(nox_slice *)res = out;
+}
+
