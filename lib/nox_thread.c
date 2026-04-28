@@ -44,3 +44,7 @@ static struct nox_worker *nox_worker_new(nox_body_fn body, void *arg, int64_t re
     return w;
 }
 
+/* Returns true on success. */
+static bool nox_worker_start(struct nox_worker *w) {
+    bool ok = true;
+    NOX_MUTEX_LOCK(&w->mu);
