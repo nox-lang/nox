@@ -42,3 +42,4 @@ nox_string nox_io_scan(void) {
     return nox_string_from_cstr(buf);
 }
 
+
