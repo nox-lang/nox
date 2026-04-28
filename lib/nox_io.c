@@ -14,3 +14,7 @@ void nox_print_raw_cstr(const char *s) { fputs(s, stdout); }
 nox_string nox_io_scanln(void) {
     /* Implemented with fgetc() rather than POSIX getline(), which mingw's
      * Windows C runtime does not provide. */
+    size_t cap = 128;
+    size_t len = 0;
+    char *buf = (char *)NOX_ALLOC(cap);
+    int c;
