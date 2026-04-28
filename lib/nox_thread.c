@@ -30,3 +30,7 @@ static NOX_THREAD_FUNC nox_worker_main(nox_thread_arg_t raw) {
         w->has_err = true;
         strncpy(w->err, st->msg, sizeof(w->err) - 1);
         w->err[sizeof(w->err) - 1] = 0;
+    }
+    nox_err_state_free();
+    NOX_THREAD_RETURN;
+}
