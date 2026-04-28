@@ -26,3 +26,7 @@ nox_string nox_io_scanln(void) {
             size_t newcap = cap * 2;
             char *nb = (char *)NOX_ALLOC(newcap);
             memcpy(nb, buf, len);
+            buf = nb;
+            cap = newcap;
+        }
+        buf[len++] = (char)c;
