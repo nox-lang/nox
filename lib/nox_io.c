@@ -40,3 +40,5 @@ nox_string nox_io_scan(void) {
     char buf[4096];
     if (scanf("%4095s", buf) != 1) return nox_string_from_cstr("");
     return nox_string_from_cstr(buf);
+}
+
