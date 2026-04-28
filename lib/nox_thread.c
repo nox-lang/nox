@@ -19,3 +19,6 @@ struct nox_worker {
     void *arg;
     void *result;       /* result slot of `result_size` bytes, or NULL */
     bool has_err;
+    char err[256];
+};
+
