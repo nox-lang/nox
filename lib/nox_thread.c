@@ -107,3 +107,7 @@ static void nox_when_all_body(void *argp, void *res) {
     nox_when_all_args *a = (nox_when_all_args *)argp;
     nox_slice out = nox_slice_make(a->elem_size > 0 ? a->tasks.len : 0, a->tasks.len, a->elem_size > 0 ? a->elem_size : 1);
     for (int64_t i = 0; i < a->tasks.len; i++) {
+        nox_task *t = ((nox_task **)a->tasks.data)[i];
+        nox_task_wait(t);
+        if (NOX_HAS_ERR) return;     /* first failure wins; propagate it */
+        if (a->elem_size > 0) memcpy((char *)out.data + i * a->elem_size, t->result, (size_t)a->elem_size);
