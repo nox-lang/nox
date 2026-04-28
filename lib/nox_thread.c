@@ -15,3 +15,7 @@ struct nox_worker {
     nox_thread_t th;
     int state;          /* 0 = created, 1 = running, 2 = finished and joined */
     nox_mutex_t mu;     /* serialises start / join */
+    nox_body_fn body;
+    void *arg;
+    void *result;       /* result slot of `result_size` bytes, or NULL */
+    bool has_err;
