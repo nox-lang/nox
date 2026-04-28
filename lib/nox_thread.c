@@ -92,3 +92,6 @@ void nox_task_wait(nox_task *t) {
  * or the task failed). */
 void *nox_task_result(nox_task *t) {
     nox_task_wait(t);
+    return t ? t->result : NULL;
+}
+
