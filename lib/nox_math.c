@@ -10,3 +10,4 @@ int64_t nox_math_max_i(int64_t a, int64_t b) { return a > b ? a : b; }
 double nox_math_min_f(double a, double b) { return a < b ? a : b; }
 double nox_math_max_f(double a, double b) { return a > b ? a : b; }
 
+
