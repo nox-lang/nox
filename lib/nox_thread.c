@@ -43,3 +43,4 @@ static struct nox_worker *nox_worker_new(nox_body_fn body, void *arg, int64_t re
     w->result = result_size > 0 ? NOX_ALLOC((size_t)result_size) : NULL;
     return w;
 }
+
