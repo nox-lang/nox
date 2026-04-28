@@ -39,3 +39,7 @@ static struct nox_worker *nox_worker_new(nox_body_fn body, void *arg, int64_t re
     struct nox_worker *w = (struct nox_worker *)NOX_ALLOC(sizeof(struct nox_worker));
     NOX_MUTEX_INIT(&w->mu);
     w->body = body;
+    w->arg = arg;
+    w->result = result_size > 0 ? NOX_ALLOC((size_t)result_size) : NULL;
+    return w;
+}
