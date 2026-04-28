@@ -115,3 +115,7 @@ static void nox_when_all_body(void *argp, void *res) {
     if (res) *(nox_slice *)res = out;
 }
 
+nox_task *nox_task_when_all(nox_slice tasks, int64_t elem_size) {
+    nox_when_all_args *a = (nox_when_all_args *)NOX_ALLOC(sizeof(nox_when_all_args));
+    a->tasks = tasks;
+    a->elem_size = elem_size;
