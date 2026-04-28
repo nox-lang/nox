@@ -143,3 +143,7 @@ bool nox_map_remove(nox_map *m, const void *key) {
     return true;
 }
 
+int64_t nox_map_len(nox_map *m) { return m->len; }
+
+void nox_map_clear(nox_map *m) { nox_map_alloc(m, 8); }
+
