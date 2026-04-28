@@ -48,3 +48,7 @@ static struct nox_worker *nox_worker_new(nox_body_fn body, void *arg, int64_t re
 static bool nox_worker_start(struct nox_worker *w) {
     bool ok = true;
     NOX_MUTEX_LOCK(&w->mu);
+    if (w->state != 0) {
+        nox_set_error("thread already started");
+        ok = false;
+    } else if (NOX_THREAD_CREATE(&w->th, nox_worker_main, w)) {
