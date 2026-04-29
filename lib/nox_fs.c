@@ -83,3 +83,7 @@ nox_slice nox_fs_list(nox_string path) {
     snprintf(pattern, sizeof(pattern), "%s\\*", path.data);
     HANDLE h = FindFirstFileA(pattern, &fd);
     if (h == INVALID_HANDLE_VALUE) { nox_set_error("cannot list directory"); return result; }
+    do {
+        if (strcmp(fd.cFileName, ".") == 0 || strcmp(fd.cFileName, "..") == 0) continue;
+        nox_string s = nox_string_from_cstr(fd.cFileName);
+        nox_slice_push_raw(&result, &s, sizeof(nox_string));
