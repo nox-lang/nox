@@ -59,3 +59,7 @@ void nox_fs_copy(nox_string src, nox_string dst) {
     char buf[8192];
     size_t n;
     while ((n = fread(buf, 1, sizeof(buf), in)) > 0) fwrite(buf, 1, n, out);
+    fclose(in);
+    fclose(out);
+}
+
