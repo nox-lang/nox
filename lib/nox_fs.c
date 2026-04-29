@@ -37,3 +37,7 @@ bool nox_fs_exists(nox_string path) {
 #if defined(_WIN32)
     DWORD attr = GetFileAttributesA(path.data);
     return attr != INVALID_FILE_ATTRIBUTES;
+#else
+    struct stat st;
+    return stat(path.data, &st) == 0;
+#endif
