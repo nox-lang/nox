@@ -23,3 +23,4 @@ int64_t nox_time_hour(int64_t t) { time_t tt = (time_t)t; struct tm *lt = localt
 int64_t nox_time_minute(int64_t t) { time_t tt = (time_t)t; struct tm *lt = localtime(&tt); return lt->tm_min; }
 int64_t nox_time_second(int64_t t) { time_t tt = (time_t)t; struct tm *lt = localtime(&tt); return lt->tm_sec; }
 
+
