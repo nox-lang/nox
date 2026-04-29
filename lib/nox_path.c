@@ -62,3 +62,5 @@ nox_string nox_path_absolute(nox_string p) {
     if (realpath(p.data, buf) == NULL) return p;
 #endif
     return nox_string_from_cstr(buf);
+}
+
