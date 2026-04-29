@@ -91,3 +91,7 @@ nox_slice nox_fs_list(nox_string path) {
     FindClose(h);
 #else
     DIR *d = opendir(path.data);
+    if (!d) { nox_set_error(strerror(errno)); return result; }
+    struct dirent *ent;
+    while ((ent = readdir(d)) != NULL) {
+        if (strcmp(ent->d_name, ".") == 0 || strcmp(ent->d_name, "..") == 0) continue;
