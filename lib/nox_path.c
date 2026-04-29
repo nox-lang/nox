@@ -18,3 +18,7 @@ nox_string nox_path_join2(nox_string a, nox_string b) {
     int64_t off = a.len;
     if (need_sep) buf[off++] = sep;
     memcpy(buf + off, b.data, b.len);
+    buf[n] = 0;
+    nox_string s;
+    s.data = buf;
+    s.len = n;
