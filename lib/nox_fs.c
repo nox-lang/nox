@@ -75,3 +75,7 @@ void nox_fs_rmdir(nox_string path) {
 #endif
 }
 
+nox_slice nox_fs_list(nox_string path) {
+    nox_slice result = nox_slice_new();
+#if defined(_WIN32)
+    WIN32_FIND_DATAA fd;
