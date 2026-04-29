@@ -14,3 +14,7 @@ nox_string nox_fs_read(nox_string path) {
     buf[rd] = 0;
     fclose(f);
     nox_string s;
+    s.data = buf;
+    s.len = (int64_t)rd;
+    return s;
+}
