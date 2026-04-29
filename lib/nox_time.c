@@ -6,3 +6,7 @@
 int64_t nox_time_now(void) { return (int64_t)time(NULL); }
 int64_t nox_time_unix(void) { return (int64_t)time(NULL); }
 void nox_time_sleep(double seconds) {
+#if defined(_WIN32)
+    Sleep((DWORD)(seconds * 1000));
+#else
+    struct timespec ts;
