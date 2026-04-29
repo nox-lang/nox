@@ -79,3 +79,7 @@ nox_slice nox_fs_list(nox_string path) {
     nox_slice result = nox_slice_new();
 #if defined(_WIN32)
     WIN32_FIND_DATAA fd;
+    char pattern[1024];
+    snprintf(pattern, sizeof(pattern), "%s\\*", path.data);
+    HANDLE h = FindFirstFileA(pattern, &fd);
+    if (h == INVALID_HANDLE_VALUE) { nox_set_error("cannot list directory"); return result; }
