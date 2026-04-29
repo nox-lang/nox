@@ -14,3 +14,6 @@ func Main() {
     let z = add(x, y)
     io::Println(z.toString())
 
+    let f = add(1.5, 2.5)
+    io::Println(f.toString())
+
