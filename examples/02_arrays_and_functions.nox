@@ -34,3 +34,5 @@ func Main() {
         io::Print(n.toString())
         io::Print(" ")
     }
+    io::Println("")
+
