@@ -54,3 +54,7 @@ nox_string nox_path_stem(nox_string p) {
     return nox_string_from_bytes(base.data, i - 1);
 }
 
+nox_string nox_path_absolute(nox_string p) {
+    char buf[4096];
+#if defined(_WIN32)
+    if (_fullpath(buf, p.data, sizeof(buf)) == NULL) return p;
