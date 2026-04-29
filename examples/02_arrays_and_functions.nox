@@ -21,3 +21,7 @@ func Main() {
     let msg = "Hello, " + name + "!"
     io::Println(msg)
 
+    if (z > 25) {
+        io::Println("big")
+    } else {
+        io::Println("small")
