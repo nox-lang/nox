@@ -31,3 +31,7 @@ nox_string nox_path_basename(nox_string p) {
     return nox_string_from_bytes(p.data + i, p.len - i);
 }
 
+nox_string nox_path_dirname(nox_string p) {
+    int64_t i = p.len;
+    while (i > 0 && p.data[i - 1] != '/' && p.data[i - 1] != '\\') i--;
+    if (i == 0) return nox_string_from_cstr(".");
