@@ -47,3 +47,7 @@ void nox_fs_remove(nox_string path) {
     if (remove(path.data) != 0) nox_set_error(strerror(errno));
 }
 
+void nox_fs_rename(nox_string oldp, nox_string newp) {
+    if (rename(oldp.data, newp.data) != 0) nox_set_error(strerror(errno));
+}
+
