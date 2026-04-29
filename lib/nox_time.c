@@ -18,3 +18,7 @@ void nox_time_sleep(double seconds) {
 double nox_time_clock(void) { return (double)clock() / (double)CLOCKS_PER_SEC; }
 int64_t nox_time_year(int64_t t) { time_t tt = (time_t)t; struct tm *lt = localtime(&tt); return lt->tm_year + 1900; }
 int64_t nox_time_month(int64_t t) { time_t tt = (time_t)t; struct tm *lt = localtime(&tt); return lt->tm_mon + 1; }
+int64_t nox_time_day(int64_t t) { time_t tt = (time_t)t; struct tm *lt = localtime(&tt); return lt->tm_mday; }
+int64_t nox_time_hour(int64_t t) { time_t tt = (time_t)t; struct tm *lt = localtime(&tt); return lt->tm_hour; }
+int64_t nox_time_minute(int64_t t) { time_t tt = (time_t)t; struct tm *lt = localtime(&tt); return lt->tm_min; }
+int64_t nox_time_second(int64_t t) { time_t tt = (time_t)t; struct tm *lt = localtime(&tt); return lt->tm_sec; }
