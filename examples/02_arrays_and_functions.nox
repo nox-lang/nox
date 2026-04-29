@@ -17,3 +17,7 @@ func Main() {
     let f = add(1.5, 2.5)
     io::Println(f.toString())
 
+    let name = "World"
+    let msg = "Hello, " + name + "!"
+    io::Println(msg)
+
