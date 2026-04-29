@@ -51,3 +51,7 @@ void nox_fs_rename(nox_string oldp, nox_string newp) {
     if (rename(oldp.data, newp.data) != 0) nox_set_error(strerror(errno));
 }
 
+void nox_fs_copy(nox_string src, nox_string dst) {
+    FILE *in = fopen(src.data, "rb");
+    if (!in) { nox_set_error(strerror(errno)); return; }
+    FILE *out = fopen(dst.data, "wb");
