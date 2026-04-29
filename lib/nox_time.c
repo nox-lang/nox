@@ -14,3 +14,7 @@ void nox_time_sleep(double seconds) {
     ts.tv_nsec = (long)((seconds - (double)ts.tv_sec) * 1e9);
     nanosleep(&ts, NULL);
 #endif
+}
+double nox_time_clock(void) { return (double)clock() / (double)CLOCKS_PER_SEC; }
+int64_t nox_time_year(int64_t t) { time_t tt = (time_t)t; struct tm *lt = localtime(&tt); return lt->tm_year + 1900; }
+int64_t nox_time_month(int64_t t) { time_t tt = (time_t)t; struct tm *lt = localtime(&tt); return lt->tm_mon + 1; }
