@@ -55,3 +55,7 @@ void nox_fs_copy(nox_string src, nox_string dst) {
     FILE *in = fopen(src.data, "rb");
     if (!in) { nox_set_error(strerror(errno)); return; }
     FILE *out = fopen(dst.data, "wb");
+    if (!out) { nox_set_error(strerror(errno)); fclose(in); return; }
+    char buf[8192];
+    size_t n;
+    while ((n = fread(buf, 1, sizeof(buf), in)) > 0) fwrite(buf, 1, n, out);
