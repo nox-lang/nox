@@ -10,3 +10,7 @@ void nox_time_sleep(double seconds) {
     Sleep((DWORD)(seconds * 1000));
 #else
     struct timespec ts;
+    ts.tv_sec = (time_t)seconds;
+    ts.tv_nsec = (long)((seconds - (double)ts.tv_sec) * 1e9);
+    nanosleep(&ts, NULL);
+#endif
