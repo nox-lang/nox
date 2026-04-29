@@ -25,3 +25,5 @@ func Main() {
         io::Println("big")
     } else {
         io::Println("small")
+    }
+
