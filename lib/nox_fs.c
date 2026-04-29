@@ -95,3 +95,7 @@ nox_slice nox_fs_list(nox_string path) {
     struct dirent *ent;
     while ((ent = readdir(d)) != NULL) {
         if (strcmp(ent->d_name, ".") == 0 || strcmp(ent->d_name, "..") == 0) continue;
+        nox_string s = nox_string_from_cstr(ent->d_name);
+        nox_slice_push_raw(&result, &s, sizeof(nox_string));
+    }
+    closedir(d);
