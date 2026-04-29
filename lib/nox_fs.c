@@ -71,3 +71,7 @@ void nox_fs_rmdir(nox_string path) {
 #if defined(_WIN32)
     if (_rmdir(path.data) != 0) nox_set_error(strerror(errno));
 #else
+    if (rmdir(path.data) != 0) nox_set_error(strerror(errno));
+#endif
+}
+
