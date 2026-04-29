@@ -41,3 +41,5 @@ bool nox_fs_exists(nox_string path) {
     struct stat st;
     return stat(path.data, &st) == 0;
 #endif
+}
+
