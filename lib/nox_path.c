@@ -22,3 +22,6 @@ nox_string nox_path_join2(nox_string a, nox_string b) {
     nox_string s;
     s.data = buf;
     s.len = n;
+    return s;
+}
+
