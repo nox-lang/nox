@@ -99,3 +99,7 @@ nox_slice nox_fs_list(nox_string path) {
         nox_slice_push_raw(&result, &s, sizeof(nox_string));
     }
     closedir(d);
+#endif
+    return result;
+}
+
