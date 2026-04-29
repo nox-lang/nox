@@ -30,3 +30,7 @@ func Main() {
     let numbers = [1, 2, 3, 4, 5]
     io::Println(numbers.length.toString())
 
+    for (n in numbers) {
+        io::Print(n.toString())
+        io::Print(" ")
+    }
