@@ -18,3 +18,4 @@ nox_string nox_fs_read(nox_string path) {
     s.len = (int64_t)rd;
     return s;
 }
+
