@@ -4,3 +4,7 @@ import(
     "io"
 )
 
+class Dog {
+    let name
+    let Age
+
