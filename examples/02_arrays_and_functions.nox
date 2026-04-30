@@ -40,3 +40,7 @@ func Main() {
         io::Printfn("{}: {}", i, n)
     }
 
+    let doubled = numbers.map((x) {
+        yield x * 2
+    })
+    doubled.each((x) {
