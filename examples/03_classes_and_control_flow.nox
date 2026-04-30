@@ -13,3 +13,7 @@ class Dog {
         this.Age = age
     }
 
+    func Bark() {
+        io::Print(this.name)
+        io::Println(" says Woof!")
+    }
