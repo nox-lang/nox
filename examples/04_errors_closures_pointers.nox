@@ -32,3 +32,5 @@ func Main() {
     let double = (x: int) {
         return x * 2
     }
+    io::Println(double(21).toString())
+
