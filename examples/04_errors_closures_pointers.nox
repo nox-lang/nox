@@ -50,3 +50,5 @@ func Main() {
     let g = greet()
     io::Println(g)
     let g2 = greet("Nox")
+    io::Println(g2)
+
