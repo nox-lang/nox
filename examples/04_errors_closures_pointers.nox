@@ -9,3 +9,6 @@ func load(path) {
     return text
 }
 
+func Main() {
+    fs::Write("/tmp/noxtest_file.txt", "hello from nox")?
+
