@@ -27,3 +27,6 @@ func Main() {
     let dog = Dog.new("Pochi", 3)
     dog.Bark()
     io::Println(dog.Age.toString())
+    dog.Birthday()
+    io::Println(dog.Age.toString())
+
