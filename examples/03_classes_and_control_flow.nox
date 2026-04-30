@@ -63,3 +63,7 @@ func Main() {
         if (x > 2) {
             next x * 10
         }
+    }
+    collected.each((x) {
+        io::Print(x.toString())
+        io::Print(" ")
