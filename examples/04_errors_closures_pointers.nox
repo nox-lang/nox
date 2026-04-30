@@ -4,3 +4,7 @@ import(
     "io"
 )
 
+func load(path) {
+    let text = fs::Read(path)?
+    return text
+}
