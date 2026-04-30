@@ -40,3 +40,7 @@ func Main() {
     }
     io::Println(addN(5).toString())
 
+    // pointers
+    let value = 42
+    let p: pointer<int> = &value
+    let deref = *p
