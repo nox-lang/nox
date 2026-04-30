@@ -34,3 +34,7 @@ func Main() {
     }
     io::Println(double(21).toString())
 
+    let n = 100
+    let addN = (x: int) {
+        return x + n
+    }
