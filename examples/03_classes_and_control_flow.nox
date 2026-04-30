@@ -52,3 +52,7 @@ func Main() {
     }
     io::Println(label)
 
+    let found = for (x in [1, 2, 30, 4]) {
+        if (x > 10) {
+            break x
+        }
