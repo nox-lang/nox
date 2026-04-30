@@ -44,3 +44,5 @@ func Main() {
     let value = 42
     let p: pointer<int> = &value
     let deref = *p
+    io::Println(deref.toString())
+
