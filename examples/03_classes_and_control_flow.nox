@@ -8,3 +8,7 @@ class Dog {
     let name
     let Age
 
+    func init(name, age) {
+        this.name = name
+        this.Age = age
+    }
