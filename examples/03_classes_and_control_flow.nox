@@ -38,3 +38,7 @@ func Main() {
             io::Println("five or six")
         }
         default {
+            io::Println("other")
+        }
+    }
+
