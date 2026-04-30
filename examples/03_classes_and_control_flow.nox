@@ -30,3 +30,7 @@ func Main() {
     dog.Birthday()
     io::Println(dog.Age.toString())
 
+    switch (dog.Age) {
+        case 4 {
+            io::Println("four")
+        }
