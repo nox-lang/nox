@@ -46,3 +46,7 @@ func Main() {
         case 4 {
             break "young"
         }
+        default {
+            break "old"
+        }
+    }
