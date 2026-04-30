@@ -16,3 +16,7 @@ func Main() {
         let text = load("/tmp/noxtest_file.txt")
         io::Println(text)
     } catch (error) {
+        io::Println("unexpected error:")
+        io::Println(error)
+    }
+
