@@ -23,3 +23,7 @@ func Main() {
     let g = await slowGreeting()
     io::Println(g)
 
+    let results = await parallel {
+        fetchData(1)
+        fetchData(2)
+        fetchData(3)
