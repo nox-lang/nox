@@ -34,3 +34,7 @@ func Main() {
         case 4 {
             io::Println("four")
         }
+        case 5, 6 {
+            io::Println("five or six")
+        }
+        default {
