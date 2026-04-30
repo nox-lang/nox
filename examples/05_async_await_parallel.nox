@@ -20,3 +20,6 @@ func Main() {
     let result = await task
     io::Println(result.toString())
 
+    let g = await slowGreeting()
+    io::Println(g)
+
