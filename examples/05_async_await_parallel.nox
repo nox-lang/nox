@@ -15,3 +15,7 @@ async func slowGreeting() {
     return "hello async"
 }
 
+func Main() {
+    let task = fetchData(21)
+    let result = await task
+    io::Println(result.toString())
