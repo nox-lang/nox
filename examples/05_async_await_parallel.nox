@@ -9,3 +9,4 @@ async func fetchData(n) {
     time::Sleep(0.05)
     return n * 2
 }
+
