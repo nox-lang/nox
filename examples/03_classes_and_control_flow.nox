@@ -42,3 +42,7 @@ func Main() {
         }
     }
 
+    let label = switch (dog.Age) {
+        case 4 {
+            break "young"
+        }
