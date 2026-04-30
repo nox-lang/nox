@@ -38,3 +38,5 @@ func Main() {
     let addN = (x: int) {
         return x + n
     }
+    io::Println(addN(5).toString())
+
