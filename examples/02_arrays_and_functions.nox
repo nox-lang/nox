@@ -44,3 +44,7 @@ func Main() {
         yield x * 2
     })
     doubled.each((x) {
+        io::Print(x.toString())
+        io::Print(" ")
+    })
+    io::Println("")
