@@ -64,3 +64,6 @@ func sum(values...) {
     let total = 0
     for (v in values) {
         total += v
+    }
+    return total
+}
