@@ -17,3 +17,4 @@ class Dog {
         io::Print(this.name)
         io::Println(" says Woof!")
     }
+
