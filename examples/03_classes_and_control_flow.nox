@@ -18,3 +18,7 @@ class Dog {
         io::Println(" says Woof!")
     }
 
+    func Birthday() {
+        this.Age = this.Age + 1
+    }
+}
