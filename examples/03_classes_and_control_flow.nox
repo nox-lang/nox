@@ -70,3 +70,7 @@ func Main() {
     })
     io::Println("")
 
+    defer {
+        io::Println("cleanup 1")
+    }
+    defer {
