@@ -59,3 +59,7 @@ func Main() {
     }
     io::Println(found.toString())
 
+    let collected = for (x in [1, 2, 3, 4, 5]) {
+        if (x > 2) {
+            next x * 10
+        }
