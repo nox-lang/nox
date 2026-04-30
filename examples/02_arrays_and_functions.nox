@@ -64,3 +64,6 @@ func Main() {
     while (i < 3) {
         io::Print(i.toString())
         i += 1
+    }
+    io::Println("")
+}
