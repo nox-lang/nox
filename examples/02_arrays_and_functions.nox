@@ -54,3 +54,6 @@ func Main() {
     })
     io::Println(evens.length.toString())
 
+    numbers.push(6)
+    io::Println(numbers.length.toString())
+
