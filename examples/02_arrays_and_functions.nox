@@ -60,3 +60,7 @@ func Main() {
     let popped = numbers.pop()
     io::Println(popped.toString())
 
+    let i = 0
+    while (i < 3) {
+        io::Print(i.toString())
+        i += 1
