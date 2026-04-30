@@ -49,3 +49,7 @@ func Main() {
     })
     io::Println("")
 
+    let evens = numbers.filter((x) {
+        yield x % 2 == 0
+    })
+    io::Println(evens.length.toString())
