@@ -14,3 +14,4 @@ async func slowGreeting() {
     time::Sleep(0.02)
     return "hello async"
 }
+
