@@ -24,3 +24,7 @@ func Main() {
         let text = load("/tmp/does_not_exist_nox.txt")
         io::Println(text)
     } catch (error) {
+        io::Println("caught error:")
+        io::Println(error)
+    }
+
