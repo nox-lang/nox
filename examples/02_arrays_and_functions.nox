@@ -36,3 +36,7 @@ func Main() {
     }
     io::Println("")
 
+    for (i, n in numbers) {
+        io::Printfn("{}: {}", i, n)
+    }
+
