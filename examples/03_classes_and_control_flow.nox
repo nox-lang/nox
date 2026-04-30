@@ -50,3 +50,5 @@ func Main() {
             break "old"
         }
     }
+    io::Println(label)
+
