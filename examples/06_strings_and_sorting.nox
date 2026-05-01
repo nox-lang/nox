@@ -28,3 +28,7 @@ func Main() {
     let text = "Hello, Nox World"
     io::Println(text.contains("Nox").toString())
     io::Println(text.startsWith("Hello").toString())
+    io::Println(text.endsWith("World").toString())
+    io::Println(text.substring(7, 10))
+    io::Println(text.empty().toString())
+
