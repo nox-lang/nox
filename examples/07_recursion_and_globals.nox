@@ -29,3 +29,7 @@ func Main() {
     counter += 1
     io::Println(counter.toString())
 
+    let a = 7
+    let b = 2
+    io::Println((a / b).toString())
+    io::Println((a % b).toString())
