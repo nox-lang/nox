@@ -16,3 +16,5 @@ class Box {
     func Get() {
         return this.value
     }
+}
+
