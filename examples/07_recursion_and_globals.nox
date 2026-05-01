@@ -26,3 +26,6 @@ func Main() {
     io::Println(fib(10).toString())
     io::Println(fact(6).toString())
 
+    counter += 1
+    io::Println(counter.toString())
+
