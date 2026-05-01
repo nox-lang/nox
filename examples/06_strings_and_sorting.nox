@@ -55,3 +55,5 @@ func Main() {
         [1, 2],
         [3, 4]
     ]
+    io::Println(matrix[1][0].toString())
+
