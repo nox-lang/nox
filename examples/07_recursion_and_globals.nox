@@ -14,3 +14,7 @@ func fib(n) {
     return fib(n - 1) + fib(n - 2)
 }
 
+func fact(n): int {
+    if (n <= 1) {
+        return 1
+    }
