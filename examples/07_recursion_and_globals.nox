@@ -4,3 +4,6 @@ import(
     "io"
 )
 
+let counter = 0
+let appName = "NoxApp"
+
