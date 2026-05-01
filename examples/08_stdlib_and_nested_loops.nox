@@ -49,3 +49,7 @@ func Main() {
     let outerResult = for (i in [1, 2, 3]) {
         let innerFound = for (j in [10, 20, 30]) {
             if (j == 20) {
+                break j
+            }
+        }
+        next i * 100 + innerFound
