@@ -38,3 +38,4 @@ func Main() {
     io::Println(p)
     io::Println(path::Ext(p))
     io::Println(path::Stem(p))
+
