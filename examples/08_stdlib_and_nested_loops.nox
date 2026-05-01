@@ -18,3 +18,7 @@ class Box {
     }
 }
 
+func Main() {
+    let boxInt = Box.new(42)
+    let boxStr = Box.new("hello")
+    io::Println(boxInt.Get().toString())
