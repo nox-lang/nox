@@ -51,3 +51,7 @@ func Main() {
         io::Print(" ") })
     io::Println("")
 
+    let matrix = [
+        [1, 2],
+        [3, 4]
+    ]
