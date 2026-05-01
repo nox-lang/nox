@@ -28,3 +28,6 @@ func Main() {
     let s2 = "abc"
     let s3 = "abd"
     io::Println((s1 == s2).toString())
+    io::Println((s1 == s3).toString())
+    io::Println((s1 < s3).toString())
+
