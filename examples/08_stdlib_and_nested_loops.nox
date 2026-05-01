@@ -24,3 +24,7 @@ func Main() {
     io::Println(boxInt.Get().toString())
     io::Println(boxStr.Get())
 
+    let s1 = "abc"
+    let s2 = "abc"
+    let s3 = "abd"
+    io::Println((s1 == s2).toString())
