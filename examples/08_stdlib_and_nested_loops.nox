@@ -45,3 +45,7 @@ func Main() {
     io::Println(math::Sqrt(16).toString())
     io::Println(math::PI.toString())
 
+    // nested loops with break/collect
+    let outerResult = for (i in [1, 2, 3]) {
+        let innerFound = for (j in [10, 20, 30]) {
+            if (j == 20) {
