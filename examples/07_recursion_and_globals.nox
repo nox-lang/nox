@@ -25,3 +25,4 @@ func Main() {
     io::Println(appName)
     io::Println(fib(10).toString())
     io::Println(fact(6).toString())
+
