@@ -34,3 +34,7 @@ func Main() {
     let r = random::Rand(1, 10)
     io::Println((r >= 1 && r <= 10).toString())
 
+    let p = path::Join("a", "b", "c.txt")
+    io::Println(p)
+    io::Println(path::Ext(p))
+    io::Println(path::Stem(p))
