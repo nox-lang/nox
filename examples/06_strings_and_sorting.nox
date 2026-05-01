@@ -63,3 +63,5 @@ func Main() {
     c.Increment()
     io::Println(c.Value().toString())
 
+    stdio::printf("raw C printf: %d\n", 123)
+
