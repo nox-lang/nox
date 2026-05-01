@@ -15,3 +15,7 @@ class Counter {
         this.count = 0
     }
 
+    func Increment() {
+        this.count = this.count + 1
+    }
+
