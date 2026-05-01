@@ -27,3 +27,7 @@ func Main() {
         fetchData(1)
         fetchData(2)
         fetchData(3)
+    }
+    results.each((x) {
+        io::Print(x.toString())
+        io::Print(" ")
