@@ -39,3 +39,6 @@ func Main() {
     io::Println(path::Ext(p))
     io::Println(path::Stem(p))
 
+    let now = time::Now()
+    io::Println((now > 0).toString())
+
