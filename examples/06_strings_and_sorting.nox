@@ -24,3 +24,7 @@ class Counter {
     }
 }
 
+func Main() {
+    let text = "Hello, Nox World"
+    io::Println(text.contains("Nox").toString())
+    io::Println(text.startsWith("Hello").toString())
