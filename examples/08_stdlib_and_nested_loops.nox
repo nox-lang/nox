@@ -12,3 +12,7 @@ class Box {
     let value
     func init(value) {
         this.value = value
+    }
+    func Get() {
+        return this.value
+    }
