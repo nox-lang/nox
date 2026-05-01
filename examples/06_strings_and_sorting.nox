@@ -43,3 +43,7 @@ func Main() {
         io::Print(" ") })
     io::Println("")
 
+    let words = ["banana", "apple", "cherry"]
+    words.sort((a, b) {
+        return a < b
+    })
