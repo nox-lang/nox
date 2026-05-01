@@ -7,3 +7,7 @@ import(
 let counter = 0
 let appName = "NoxApp"
 
+func fib(n) {
+    if (n < 2) {
+        return n
+    }
