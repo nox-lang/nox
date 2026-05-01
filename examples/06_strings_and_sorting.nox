@@ -8,3 +8,6 @@ include(
     "stdio.h"
 )
 
+class Counter {
+    let count
+
