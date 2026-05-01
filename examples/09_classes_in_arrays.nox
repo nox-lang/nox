@@ -15,3 +15,5 @@ func Main() {
     let items = [Item.new("x"), Item.new("y"), Item.new("z")]
     io::Println(items.length.toString())
     io::Println(items[0].Label)
+    io::Println(items[2].Label)
+
