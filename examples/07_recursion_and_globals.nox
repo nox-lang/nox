@@ -21,3 +21,7 @@ func fact(n): int {
     return n * fact(n - 1)
 }
 
+func Main() {
+    io::Println(appName)
+    io::Println(fib(10).toString())
+    io::Println(fact(6).toString())
