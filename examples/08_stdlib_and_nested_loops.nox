@@ -31,3 +31,6 @@ func Main() {
     io::Println((s1 == s3).toString())
     io::Println((s1 < s3).toString())
 
+    let r = random::Rand(1, 10)
+    io::Println((r >= 1 && r <= 10).toString())
+
