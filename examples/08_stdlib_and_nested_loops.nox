@@ -57,3 +57,6 @@ func Main() {
     outerResult.each((x) {
         io::Print(x.toString())
         io::Print(" ")
+    })
+    io::Println("")
+}
