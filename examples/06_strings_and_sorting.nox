@@ -47,3 +47,7 @@ func Main() {
     words.sort((a, b) {
         return a < b
     })
+    words.each((x) { io::Print(x)
+        io::Print(" ") })
+    io::Println("")
+
