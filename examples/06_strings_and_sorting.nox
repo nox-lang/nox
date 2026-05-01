@@ -36,3 +36,4 @@ func Main() {
     multiline.eachLine((line) {
         io::Println(line)
     })
+
