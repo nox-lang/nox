@@ -53,3 +53,7 @@ func Main() {
             }
         }
         next i * 100 + innerFound
+    }
+    outerResult.each((x) {
+        io::Print(x.toString())
+        io::Print(" ")
