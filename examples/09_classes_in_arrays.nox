@@ -4,3 +4,7 @@ import(
     "io"
 )
 
+class Item {
+    let Label
+    func init(label) {
+        this.Label = label
