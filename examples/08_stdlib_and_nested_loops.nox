@@ -42,3 +42,6 @@ func Main() {
     let now = time::Now()
     io::Println((now > 0).toString())
 
+    io::Println(math::Sqrt(16).toString())
+    io::Println(math::PI.toString())
+
