@@ -8,3 +8,7 @@ import(
     "math"
 )
 
+class Box {
+    let value
+    func init(value) {
+        this.value = value
