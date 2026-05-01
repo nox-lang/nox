@@ -65,3 +65,6 @@ func Main() {
 
     stdio::printf("raw C printf: %d\n", 123)
 
+    let found = numbers.find((x) { yield x > 3 })
+    io::Println(found.toString())
+}
