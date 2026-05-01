@@ -22,3 +22,5 @@ func Main() {
     let boxInt = Box.new(42)
     let boxStr = Box.new("hello")
     io::Println(boxInt.Get().toString())
+    io::Println(boxStr.Get())
+
