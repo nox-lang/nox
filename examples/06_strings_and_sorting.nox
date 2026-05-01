@@ -57,3 +57,7 @@ func Main() {
     ]
     io::Println(matrix[1][0].toString())
 
+    let c = Counter.new()
+    c.Increment()
+    c.Increment()
+    c.Increment()
