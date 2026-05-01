@@ -11,3 +11,7 @@ include(
 class Counter {
     let count
 
+    func init() {
+        this.count = 0
+    }
+
