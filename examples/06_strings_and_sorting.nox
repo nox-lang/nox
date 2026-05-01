@@ -32,3 +32,7 @@ func Main() {
     io::Println(text.substring(7, 10))
     io::Println(text.empty().toString())
 
+    let multiline = "line1\nline2\nline3"
+    multiline.eachLine((line) {
+        io::Println(line)
+    })
