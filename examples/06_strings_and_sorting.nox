@@ -19,3 +19,7 @@ class Counter {
         this.count = this.count + 1
     }
 
+    func Value() {
+        return this.count
+    }
+}
