@@ -37,3 +37,7 @@ func Main() {
         io::Println(line)
     })
 
+    let numbers = [5, 3, 1, 4, 2]
+    numbers.sort()
+    numbers.each((x) { io::Print(x.toString())
+        io::Print(" ") })
