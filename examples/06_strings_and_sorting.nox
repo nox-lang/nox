@@ -61,3 +61,5 @@ func Main() {
     c.Increment()
     c.Increment()
     c.Increment()
+    io::Println(c.Value().toString())
+
