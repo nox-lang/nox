@@ -17,3 +17,6 @@ func Main() {
     io::Println(items[0].Label)
     io::Println(items[2].Label)
 
+    let notFound = items.find((i) { yield i.Label == "zzz" })
+    io::Println((notFound == null).toString())
+
