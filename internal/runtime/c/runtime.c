@@ -457,3 +457,7 @@ static void nox_fs_copy(nox_string src, nox_string dst) {
     fclose(out);
 }
 
+static void nox_fs_mkdir(nox_string path) {
+    if (NOX_MKDIR(path.data) != 0 && errno != EEXIST) nox_set_error(strerror(errno));
+}
+
