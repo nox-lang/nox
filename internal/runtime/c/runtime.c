@@ -413,3 +413,10 @@ static nox_string nox_fs_read(nox_string path) {
     return s;
 }
 
+static void nox_fs_write(nox_string path, nox_string data) {
+    FILE *f = fopen(path.data, "wb");
+    if (!f) { nox_set_error(strerror(errno)); return; }
+    fwrite(data.data, 1, (size_t)data.len, f);
+    fclose(f);
+}
+
