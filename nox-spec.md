@@ -674,3 +674,14 @@ fs::list(path)
 
 `fs::read()` の戻り値は `string` です。
 
+## 15.4 path
+
+```text
+path::join(...)
+path::basename(path)
+path::dirname(path)
+path::ext(path)
+path::stem(path)
+path::absolute(path)
+```
+
