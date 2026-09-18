@@ -150,3 +150,17 @@ Generated code (in `internal/codegen/async.go` and `closures.go`) only ever
 emits the portable macro names, never a platform-specific call directly, so
 the same generated `.c` file is what's compiled for every target.
 
+## Repository layout
+
+```
+cmd/nox/                 CLI entry point (init/build/get, the tcc invocation)
+internal/token/          Lexer token kinds
+internal/lexer/          Hand-written lexer
+internal/ast/            AST node definitions
+internal/parser/         Recursive-descent parser
+internal/codegen/        The compiler proper (AST -> C); see below
+internal/runtime/c/      The C runtime prelude, embedded into every build
+internal/pkgmgr/         nox.toml + `nox init`/`nox get`
+examples/                Sample programs (see "What's been tested")
+```
+
