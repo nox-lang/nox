@@ -520,3 +520,9 @@ static nox_string nox_path_join2(nox_string a, nox_string b) {
     return s;
 }
 
+static nox_string nox_path_basename(nox_string p) {
+    int64_t i = p.len;
+    while (i > 0 && p.data[i - 1] != '/' && p.data[i - 1] != '\\') i--;
+    return nox_string_from_bytes(p.data + i, p.len - i);
+}
+
