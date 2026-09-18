@@ -49,3 +49,14 @@ cross-compilation. It's been exercised with the programs under `examples/`
 **not** had long-term, adversarial testing — a solid, working first version,
 not a hardened toolchain.
 
+## Building the compiler itself
+
+Requires Go 1.22+. No external Go modules are used (everything is standard
+library), so it builds offline:
+
+```
+go build -o nox ./cmd/nox
+```
+
+Put the resulting `nox` binary on your `PATH`.
+
