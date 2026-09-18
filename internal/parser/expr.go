@@ -81,3 +81,13 @@ func (p *Parser) parseEquality() ast.Expr {
 	return x
 }
 
+func (p *Parser) parseRelational() ast.Expr {
+	x := p.parseAdditive()
+	for p.at(token.LT) || p.at(token.GT) || p.at(token.LE) || p.at(token.GE) {
+		t := p.advance()
+		y := p.parseAdditive()
+		x = &ast.BinaryExpr{Base: ast.NewBase(t.Line, t.Col), Op: t.Kind, X: x, Y: y}
+	}
+	return x
+}
+
