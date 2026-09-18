@@ -993,3 +993,11 @@ build/
 └── hello.exe
 ```
 
+## 25.2 ファイル単体
+
+```text
+nox build hello.nox
+```
+
+とした場合は `hello.nox` 単体をビルドします。
+
