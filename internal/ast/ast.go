@@ -90,3 +90,5 @@ type ClassDecl struct {
 	IsPrivate bool
 }
 
+// ---------- Statements ----------
+
