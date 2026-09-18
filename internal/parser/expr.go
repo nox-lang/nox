@@ -308,3 +308,14 @@ func (p *Parser) parseArrayLit() ast.Expr {
 	return al
 }
 
+// parseParallelExpr parses `Parallel { call() call() ... }`.
+func (p *Parser) parseParallelExpr() ast.Expr {
+	pt := p.expect(token.PARALLEL)
+	p.expect(token.LBRACE)
+	pe := &ast.ParallelExpr{Base: ast.NewBase(pt.Line, pt.Col)}
+	for !p.at(token.RBRACE) {
+		pe.Calls = append(pe.Calls, p.parseExpr())
+	}
+	p.expect(token.RBRACE)
+	return pe
+}
