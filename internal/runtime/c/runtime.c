@@ -187,3 +187,33 @@ static nox_string nox_string_substring(nox_string s, int64_t start, int64_t end)
     return nox_string_from_bytes(s.data + start, end - start);
 }
 
+/* conversions */
+static nox_string nox_int_to_string(int64_t v) {
+    char buf[32];
+    int n = snprintf(buf, sizeof(buf), "%lld", (long long)v);
+    return nox_string_from_bytes(buf, n);
+}
+static nox_string nox_float_to_string(double v) {
+    char buf[64];
+    int n = snprintf(buf, sizeof(buf), "%g", v);
+    return nox_string_from_bytes(buf, n);
+}
+static nox_string nox_bool_to_string(bool v) {
+    return nox_string_from_cstr(v ? "true" : "false");
+}
+static int64_t nox_string_to_int(nox_string s) {
+    return (int64_t)strtoll(s.data, NULL, 10);
+}
+static double nox_string_to_float(nox_string s) {
+    return strtod(s.data, NULL);
+}
+static bool nox_string_to_bool(nox_string s) {
+    return nox_string_eq(s, nox_string_from_cstr("true"));
+}
+static int64_t nox_float_to_int(double v) { return (int64_t)v; }
+static double nox_int_to_float(int64_t v) { return (double)v; }
+static bool nox_int_to_bool(int64_t v) { return v != 0; }
+static bool nox_float_to_bool(double v) { return v != 0.0; }
+static int64_t nox_bool_to_int(bool v) { return v ? 1 : 0; }
+static double nox_bool_to_float(bool v) { return v ? 1.0 : 0.0; }
+
