@@ -5,3 +5,5 @@ package runtime
 
 import _ "embed"
 
+//go:embed c/runtime.c
+var Prelude string
