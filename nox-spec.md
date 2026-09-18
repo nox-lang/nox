@@ -528,3 +528,40 @@ let result = switch (value) {
 }
 ```
 
+# 13. クラス
+
+クラスは `class` で定義します。
+
+```text
+class Dog {
+    let name
+    let age
+
+    func init(name, age) {
+        this.name = name
+        this.age = age
+    }
+
+    func bark() {
+        io::Println("Woof!")
+    }
+}
+```
+
+インスタンス生成には `.new()` を使用します。
+
+```text
+let dog = Dog.new("Pochi", 3)
+```
+
+`.new()` に渡された引数は `init` に渡されます。
+
+メンバーアクセスには `.` を使用します。
+
+```text
+dog.bark()
+dog.name
+```
+
+`this` が現在のインスタンスを表します。
+
