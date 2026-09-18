@@ -32,3 +32,9 @@ const (
 	NSUser
 )
 
+// Scope is a lexical block scope mapping Nox variable names to their type.
+type Scope struct {
+	vars   map[string]Type
+	parent *Scope
+}
+
