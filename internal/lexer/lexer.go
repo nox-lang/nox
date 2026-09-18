@@ -306,3 +306,40 @@ func (l *Lexer) lexIdent(line, col int) token.Token {
 	return token.Token{Kind: token.Lookup(s), Literal: s, Line: line, Col: col}
 }
 
+func (l *Lexer) lexString(line, col int) token.Token {
+	l.advance() // opening quote
+	var sb strings.Builder
+	for {
+		c := l.peekCh()
+		if c == 0 {
+			l.errorf("unterminated string literal")
+		}
+		if c == '"' {
+			l.advance()
+			break
+		}
+		if c == '\\' {
+			l.advance()
+			e := l.advance()
+			switch e {
+			case 'n':
+				sb.WriteRune('\n')
+			case 't':
+				sb.WriteRune('\t')
+			case 'r':
+				sb.WriteRune('\r')
+			case '"':
+				sb.WriteRune('"')
+			case '\\':
+				sb.WriteRune('\\')
+			case '0':
+				sb.WriteRune(0)
+			default:
+				sb.WriteRune(e)
+			}
+			continue
+		}
+		sb.WriteRune(l.advance())
+	}
+	return token.Token{Kind: token.STRING, Literal: sb.String(), Line: line, Col: col}
+}
