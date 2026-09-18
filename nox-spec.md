@@ -274,3 +274,17 @@ let result = numbers.find((x) {
 
 見つからなかった場合の詳細な仕様は今後決定します。
 
+## 6.8 sort
+
+```text
+numbers.sort()
+```
+
+比較処理を指定する形式も用意できます。
+
+```text
+numbers.sort((a, b) {
+    return a < b
+})
+```
+
