@@ -44,3 +44,18 @@ const (
 	CATCH
 	DEFER
 
+	// Punctuation
+	LPAREN   // (
+	RPAREN   // )
+	LBRACE   // {
+	RBRACE   // }
+	LBRACKET // [
+	RBRACKET // ]
+	COMMA    // ,
+	COLON    // :
+	SEMI     // ; (implicit, not usually written)
+	DOT      // .
+	DCOLON   // ::
+	ELLIPSIS // ...
+	QUESTION // ?
+
