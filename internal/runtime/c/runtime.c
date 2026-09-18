@@ -122,3 +122,13 @@ typedef struct {
     int64_t len;
 } nox_string;
 
+static nox_string nox_string_from_bytes(const char *bytes, int64_t len) {
+    char *buf = (char *)GC_MALLOC(len + 1);
+    if (len > 0) memcpy(buf, bytes, len);
+    buf[len] = 0;
+    nox_string s;
+    s.data = buf;
+    s.len = len;
+    return s;
+}
+
