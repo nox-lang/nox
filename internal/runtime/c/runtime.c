@@ -305,3 +305,13 @@ static void nox_array_clear(nox_array *a) {
     a->len = 0;
 }
 
+static nox_array nox_array_reverse_raw(nox_array a, int64_t elemsize) {
+    nox_array r = nox_array_new();
+    nox_array_reserve(&r, a.len, elemsize);
+    for (int64_t i = 0; i < a.len; i++) {
+        memcpy((char *)r.data + i * elemsize, (char *)a.data + (a.len - 1 - i) * elemsize, (size_t)elemsize);
+    }
+    r.len = a.len;
+    return r;
+}
+
