@@ -30,3 +30,5 @@ func fieldIsPrivate(decl *ast.ClassDecl, name string) bool {
 	return f != nil && f.IsPrivate
 }
 
+func classCacheKey(className, argsKey string) string { return className + "#" + argsKey }
+
