@@ -183,3 +183,11 @@ type NextStmt struct {
 
 func (*NextStmt) stmtNode() {}
 
+// YieldStmt produces a value from within a `.each`/`.map`/`.filter`/`.find`
+// callback (or a `.sort` comparator) for the current element; unlike
+// `return`, it does not exit the enclosing function. Value is required.
+type YieldStmt struct {
+	Base
+	Value Expr
+}
+
