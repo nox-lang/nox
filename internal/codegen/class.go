@@ -175,3 +175,47 @@ func (cg *Codegen) instantiateClass(className string, decl *ast.ClassDecl, initD
 	return ci
 }
 
+// genMethodCall compiles `recv.methodName(args...)` where recv is a class
+// value, monomorphizing the method for these argument types on first use.
+func (fb *funcBuilder) genMethodCall(c *ctx, recvCode string, recvType Type, methodName string, args []ast.Expr) (string, Type) {
+	ci := fb.cg.classInstances[recvType.ClassKey]
+	if methodName == "init" {
+		panic(fmt.Sprintf("nox: %s: 'init' cannot be called directly; use %s.new(...)", fb.fname, ci.ClassName))
+	}
+	mdecl := findMethod(ci.Decl, methodName)
+	if mdecl == nil {
+		panic(fmt.Sprintf("nox: %s: class '%s' has no method '%s'", fb.fname, ci.ClassName, methodName))
+	}
+	if mdecl.IsPrivate && fb.currentClassKey != recvType.ClassKey {
+		panic(fmt.Sprintf("nox: %s: '%s' is a private method of class '%s'", fb.fname, methodName, ci.ClassName))
+	}
+
+	recvTmp := fb.cg.freshTmp("recv")
+	c.emit(compilef("%s %s = %s;", fb.cg.ctype(recvType), recvTmp, recvCode))
+	argCodes, argTypes := fb.resolveCallArgs(c, ci.ClassName+"."+methodName, mdecl.Params, args, fb.cg.globalScope)
+
+	mkey := methodName + "#" + mangleList(argTypes)
+	fi, ok := ci.Methods[mkey]
+	if !ok {
+		mangled := fb.cg.freshName(ci.ClassKey + "_" + sanitizeIdent(methodName))
+		fi = &FuncInstance{MangledName: mangled, Decl: mdecl, ParamTypes: argTypes, IsAsync: mdecl.IsAsync}
+		if mdecl.ReturnType != nil {
+			fi.RetType = fb.cg.resolveTypeExpr(mdecl.ReturnType)
+			fi.RetTypeKnown = true
+		}
+		ci.Methods[mkey] = fi // register before generating, for recursive self-calls
+		thisType := Type{Kind: KClass, ClassName: ci.ClassName, ClassKey: ci.ClassKey}
+		if mdecl.IsAsync {
+			fb.cg.emitAsyncFunc(fi, mdecl, argTypes, &thisType)
+		} else {
+			fb.cg.emitSyncFuncWithClass(fi, mdecl, argTypes, thisType, ci.ClassKey)
+		}
+	}
+	callArgs := append([]string{recvTmp}, argCodes...)
+	call := fmt.Sprintf("%s(%s)", fi.MangledName, strings.Join(callArgs, ", "))
+	if fi.IsAsync {
+		return call, TTask(fi.RetType)
+	}
+	return call, fi.RetType
+}
+
