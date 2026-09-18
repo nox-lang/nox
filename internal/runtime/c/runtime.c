@@ -356,3 +356,29 @@ static void nox_print_bool(bool v) { printf("%s", v ? "true" : "false"); }
 static void nox_print_string(nox_string v) { fwrite(v.data, 1, (size_t)v.len, stdout); }
 static void nox_print_raw_cstr(const char *s) { fputs(s, stdout); }
 
+/* ---------------- reading ---------------- */
+static nox_string nox_io_scanln(void) {
+    /* Implemented with fgetc() rather than POSIX getline(), which mingw's
+     * Windows C runtime does not provide. */
+    size_t cap = 128;
+    size_t len = 0;
+    char *buf = (char *)GC_MALLOC(cap);
+    int c;
+    bool any = false;
+    while ((c = fgetc(stdin)) != EOF) {
+        any = true;
+        if (c == '\n') break;
+        if (len + 1 >= cap) {
+            size_t newcap = cap * 2;
+            char *nb = (char *)GC_MALLOC(newcap);
+            memcpy(nb, buf, len);
+            buf = nb;
+            cap = newcap;
+        }
+        buf[len++] = (char)c;
+    }
+    if (!any) return nox_string_from_cstr("");
+    if (len > 0 && buf[len - 1] == '\r') len--;
+    return nox_string_from_bytes(buf, (int64_t)len);
+}
+
