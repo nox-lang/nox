@@ -290,3 +290,5 @@ type ArrayLit struct {
 	Elems []Expr
 }
 
+func (*ArrayLit) exprNode() {}
+
