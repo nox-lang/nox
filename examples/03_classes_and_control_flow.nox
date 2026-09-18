@@ -1,0 +1,80 @@
+package main
+
+import(
+    "io"
+)
+
+class Dog {
+    let name
+    let age
+
+    func init(name, age) {
+        this.name = name
+        this.age = age
+    }
+
+    func bark() {
+        io::print(this.name)
+        io::println(" says Woof!")
+    }
+
+    func birthday() {
+        this.age = this.age + 1
+    }
+}
+
+func main() {
+    let dog = Dog.new("Pochi", 3)
+    dog.bark()
+    io::println(dog.age.toString())
+    dog.birthday()
+    io::println(dog.age.toString())
+
+    switch (dog.age) {
+        case 4 {
+            io::println("four")
+        }
+        case 5, 6 {
+            io::println("five or six")
+        }
+        default {
+            io::println("other")
+        }
+    }
+
+    let label = switch (dog.age) {
+        case 4 {
+            break "young"
+        }
+        default {
+            break "old"
+        }
+    }
+    io::println(label)
+
+    let found = for (x in [1, 2, 30, 4]) {
+        if (x > 10) {
+            break x
+        }
+    }
+    io::println(found.toString())
+
+    let collected = for (x in [1, 2, 3, 4, 5]) {
+        if (x > 2) {
+            next x * 10
+        }
+    }
+    collected.each((x) {
+        io::print(x.toString())
+        io::print(" ")
+    })
+    io::println("")
+
+    defer {
+        io::println("cleanup 1")
+    }
+    defer {
+        io::println("cleanup 2")
+    }
+    io::println("main body done")
+}

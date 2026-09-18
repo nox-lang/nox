@@ -1,0 +1,30 @@
+/build/
+/dist/
+*.o
+*.out
+*.exe
+/cmd/dumpast/
+nox.bin
+
+# `nox build <file.nox>` (single-file mode) writes the executable, and
+# optionally the .c source with --emit-c, right next to the source file
+# rather than into a build/ directory -- so example binaries land directly
+# in examples/ with no extension to glob on. Ignore each by name instead.
+/examples/01_hello
+/examples/01_hello.c
+/examples/02_arrays_and_functions
+/examples/02_arrays_and_functions.c
+/examples/03_classes_and_control_flow
+/examples/03_classes_and_control_flow.c
+/examples/04_errors_closures_pointers
+/examples/04_errors_closures_pointers.c
+/examples/05_async_await_parallel
+/examples/05_async_await_parallel.c
+/examples/06_strings_and_sorting
+/examples/06_strings_and_sorting.c
+/examples/07_recursion_and_globals
+/examples/07_recursion_and_globals.c
+/examples/08_stdlib_and_nested_loops
+/examples/08_stdlib_and_nested_loops.c
+/examples/09_classes_in_arrays
+/examples/09_classes_in_arrays.c

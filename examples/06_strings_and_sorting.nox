@@ -1,0 +1,70 @@
+package main
+
+import(
+    "io"
+)
+
+include(
+    "stdio.h"
+)
+
+class Counter {
+    private let count
+
+    func init() {
+        this.count = 0
+    }
+
+    func increment() {
+        this.count = this.count + 1
+    }
+
+    func value() {
+        return this.count
+    }
+}
+
+func main() {
+    let text = "Hello, Nox World"
+    io::println(text.contains("Nox").toString())
+    io::println(text.startsWith("Hello").toString())
+    io::println(text.endsWith("World").toString())
+    io::println(text.substring(7, 10))
+    io::println(text.empty().toString())
+
+    let multiline = "line1\nline2\nline3"
+    multiline.eachLine((line) {
+        io::println(line)
+    })
+
+    let numbers = [5, 3, 1, 4, 2]
+    numbers.sort()
+    numbers.each((x) { io::print(x.toString())
+        io::print(" ") })
+    io::println("")
+
+    let words = ["banana", "apple", "cherry"]
+    words.sort((a, b) {
+        return a < b
+    })
+    words.each((x) { io::print(x)
+        io::print(" ") })
+    io::println("")
+
+    let matrix = [
+        [1, 2],
+        [3, 4]
+    ]
+    io::println(matrix[1][0].toString())
+
+    let c = Counter.new()
+    c.increment()
+    c.increment()
+    c.increment()
+    io::println(c.value().toString())
+
+    stdio::printf("raw C printf: %d\n", 123)
+
+    let found = numbers.find((x) { yield x > 3 })
+    io::println(found.toString())
+}

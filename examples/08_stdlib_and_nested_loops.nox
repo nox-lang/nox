@@ -1,0 +1,62 @@
+package main
+
+import(
+    "io",
+    "random",
+    "path",
+    "time",
+    "math"
+)
+
+class Box {
+    let value
+    func init(value) {
+        this.value = value
+    }
+    func get() {
+        return this.value
+    }
+}
+
+func main() {
+    let boxInt = Box.new(42)
+    let boxStr = Box.new("hello")
+    io::println(boxInt.get().toString())
+    io::println(boxStr.get())
+
+    let s1 = "abc"
+    let s2 = "abc"
+    let s3 = "abd"
+    io::println((s1 == s2).toString())
+    io::println((s1 == s3).toString())
+    io::println((s1 < s3).toString())
+
+    let r = random::rand(1, 10)
+    io::println((r >= 1 && r <= 10).toString())
+
+    let p = path::join("a", "b", "c.txt")
+    io::println(p)
+    io::println(path::ext(p))
+    io::println(path::stem(p))
+
+    let now = time::now()
+    io::println((now > 0).toString())
+
+    io::println(math::sqrt(16).toString())
+    io::println(math::PI.toString())
+
+    // nested loops with break/collect
+    let outerResult = for (i in [1, 2, 3]) {
+        let innerFound = for (j in [10, 20, 30]) {
+            if (j == 20) {
+                break j
+            }
+        }
+        next i * 100 + innerFound
+    }
+    outerResult.each((x) {
+        io::print(x.toString())
+        io::print(" ")
+    })
+    io::println("")
+}

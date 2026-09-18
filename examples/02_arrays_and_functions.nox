@@ -1,0 +1,69 @@
+package main
+
+import(
+    "io"
+)
+
+func add(a, b) {
+    return a + b
+}
+
+func main() {
+    let x = 10
+    let y = 20
+    let z = add(x, y)
+    io::println(z.toString())
+
+    let f = add(1.5, 2.5)
+    io::println(f.toString())
+
+    let name = "World"
+    let msg = "Hello, " + name + "!"
+    io::println(msg)
+
+    if (z > 25) {
+        io::println("big")
+    } else {
+        io::println("small")
+    }
+
+    let numbers = [1, 2, 3, 4, 5]
+    io::println(numbers.length.toString())
+
+    for (n in numbers) {
+        io::print(n.toString())
+        io::print(" ")
+    }
+    io::println("")
+
+    for (i, n in numbers) {
+        io::printfn("{}: {}", i, n)
+    }
+
+    let doubled = numbers.map((x) {
+        yield x * 2
+    })
+    doubled.each((x) {
+        io::print(x.toString())
+        io::print(" ")
+    })
+    io::println("")
+
+    let evens = numbers.filter((x) {
+        yield x % 2 == 0
+    })
+    io::println(evens.length.toString())
+
+    numbers.push(6)
+    io::println(numbers.length.toString())
+
+    let popped = numbers.pop()
+    io::println(popped.toString())
+
+    let i = 0
+    while (i < 3) {
+        io::print(i.toString())
+        i += 1
+    }
+    io::println("")
+}

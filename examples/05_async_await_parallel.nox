@@ -1,0 +1,36 @@
+package main
+
+import(
+    "io",
+    "time"
+)
+
+async func fetchData(n) {
+    time::sleep(0.05)
+    return n * 2
+}
+
+async func slowGreeting() {
+    time::sleep(0.02)
+    return "hello async"
+}
+
+func main() {
+    let task = fetchData(21)
+    let result = await task
+    io::println(result.toString())
+
+    let g = await slowGreeting()
+    io::println(g)
+
+    let results = await parallel {
+        fetchData(1)
+        fetchData(2)
+        fetchData(3)
+    }
+    results.each((x) {
+        io::print(x.toString())
+        io::print(" ")
+    })
+    io::println("")
+}

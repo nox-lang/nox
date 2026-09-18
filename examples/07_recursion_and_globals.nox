@@ -1,0 +1,40 @@
+package main
+
+import(
+    "io"
+)
+
+let counter = 0
+let appName = "NoxApp"
+
+func fib(n) {
+    if (n < 2) {
+        return n
+    }
+    return fib(n - 1) + fib(n - 2)
+}
+
+func fact(n): int {
+    if (n <= 1) {
+        return 1
+    }
+    return n * fact(n - 1)
+}
+
+func main() {
+    io::println(appName)
+    io::println(fib(10).toString())
+    io::println(fact(6).toString())
+
+    counter += 1
+    io::println(counter.toString())
+
+    let a = 7
+    let b = 2
+    io::println((a / b).toString())
+    io::println((a % b).toString())
+
+    let af = 7.0
+    let bf = 2.0
+    io::println((af / bf).toString())
+}

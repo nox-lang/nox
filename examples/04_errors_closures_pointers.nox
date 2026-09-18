@@ -1,0 +1,69 @@
+package main
+
+import(
+    "io"
+)
+
+func load(path) {
+    let text = fs::read(path)?
+    return text
+}
+
+func main() {
+    fs::write("/tmp/noxtest_file.txt", "hello from nox")?
+
+    try {
+        let text = load("/tmp/noxtest_file.txt")
+        io::println(text)
+    } catch (error) {
+        io::println("unexpected error:")
+        io::println(error)
+    }
+
+    try {
+        let text = load("/tmp/does_not_exist_nox.txt")
+        io::println(text)
+    } catch (error) {
+        io::println("caught error:")
+        io::println(error)
+    }
+
+    // closures
+    let double = (x: int) {
+        return x * 2
+    }
+    io::println(double(21).toString())
+
+    let n = 100
+    let addN = (x: int) {
+        return x + n
+    }
+    io::println(addN(5).toString())
+
+    // pointers
+    let value = 42
+    let p: pointer<int> = &value
+    let deref = *p
+    io::println(deref.toString())
+
+    // default args + variadic
+    let g = greet()
+    io::println(g)
+    let g2 = greet("Nox")
+    io::println(g2)
+
+    let s = sum(1, 2, 3, 4)
+    io::println(s.toString())
+}
+
+func greet(name = "World") {
+    return "Hello, " + name
+}
+
+func sum(values...) {
+    let total = 0
+    for (v in values) {
+        total += v
+    }
+    return total
+}

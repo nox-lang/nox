@@ -1,0 +1,26 @@
+package main
+
+import(
+    "io"
+)
+
+class Item {
+    let label
+    func init(label) {
+        this.label = label
+    }
+}
+
+func main() {
+    let items = [Item.new("x"), Item.new("y"), Item.new("z")]
+    io::println(items.length.toString())
+    io::println(items[0].label)
+    io::println(items[2].label)
+
+    let notFound = items.find((i) { yield i.label == "zzz" })
+    io::println((notFound == null).toString())
+
+    items.each((i) {
+        io::println(i.label)
+    })
+}
