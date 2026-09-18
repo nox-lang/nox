@@ -198,3 +198,5 @@ type ReturnStmt struct {
 	Value Expr // nil if bare `return`
 }
 
+func (*ReturnStmt) stmtNode() {}
+
