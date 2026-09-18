@@ -73,3 +73,16 @@ type FuncInstance struct {
 	AsyncThreadName string
 }
 
+// ClassInstance is one monomorphized specialization of a Nox class.
+type ClassInstance struct {
+	ClassKey      string
+	ClassName     string
+	Decl          *ast.ClassDecl
+	FieldTypes    map[string]Type
+	FieldOrder    []string
+	StructEmitted bool
+	StructC       string
+	NewFuncName   string
+	Methods       map[string]*FuncInstance // key: methodName + "#" + arg-type mangle
+}
+
