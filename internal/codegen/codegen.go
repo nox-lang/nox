@@ -127,3 +127,40 @@ type Codegen struct {
 	warnings []string
 }
 
+func NewCodegen(file *ast.File) *Codegen {
+	cg := &Codegen{
+		file:           file,
+		funcsByName:    map[string]*ast.FuncDecl{},
+		classesByName:  map[string]*ast.ClassDecl{},
+		globalDecls:    map[string]*ast.LetStmt{},
+		namespaces:     map[string]*Namespace{},
+		funcInstances:  map[string]*FuncInstance{},
+		instCache:      map[funcKey]*FuncInstance{},
+		classInstances: map[string]*ClassInstance{},
+		classCache:     map[string]*ClassInstance{},
+		closureTypes:   map[string]bool{},
+		taskTypes:      map[string]bool{},
+		includeSeen:    map[string]bool{},
+	}
+	cg.globalScope = newScope(nil)
+	for _, fn := range file.Funcs {
+		cg.funcsByName[fn.Name] = fn
+	}
+	for _, c := range file.Classes {
+		cg.classesByName[c.Name] = c
+	}
+	for _, g := range file.Globals {
+		cg.globalDecls[g.Name] = g
+	}
+	cg.registerStdlibNamespaces()
+	for _, inc := range file.Includes {
+		alias := inc.Alias
+		if alias == "" {
+			alias = headerStem(inc.Header)
+		}
+		cg.includeHeaderNamed(inc.Header)
+		cg.namespaces[alias] = &Namespace{Kind: NSInclude}
+	}
+	return cg
+}
+
