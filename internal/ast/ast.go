@@ -213,3 +213,6 @@ type SwitchStmt struct {
 	Default *BlockStmt // nil if no default
 }
 
+func (*SwitchStmt) stmtNode() {}
+func (*SwitchStmt) exprNode() {}
+
