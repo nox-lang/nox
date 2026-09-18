@@ -231,3 +231,35 @@ func (fb *funcBuilder) genFsCall(c *ctx, sym string, args []ast.Expr) (string, T
 
 // ---------------- path ----------------
 
+func (fb *funcBuilder) genPathCall(c *ctx, sym string, args []ast.Expr) (string, Type) {
+	strArg := func(i int) string {
+		code, t := fb.genExpr(c, args[i])
+		if t.Kind != KString {
+			panic(fmt.Sprintf("nox: %s: path::%s expects a string argument", fb.fname, sym))
+		}
+		return code
+	}
+	switch sym {
+	case "join":
+		if len(args) < 2 {
+			panic(fmt.Sprintf("nox: %s: path::join(...) takes at least two arguments", fb.fname))
+		}
+		acc := strArg(0)
+		for i := 1; i < len(args); i++ {
+			acc = fmt.Sprintf("nox_path_join2(%s, %s)", acc, strArg(i))
+		}
+		return acc, TString()
+	case "basename":
+		return fmt.Sprintf("nox_path_basename(%s)", strArg(0)), TString()
+	case "dirname":
+		return fmt.Sprintf("nox_path_dirname(%s)", strArg(0)), TString()
+	case "ext":
+		return fmt.Sprintf("nox_path_ext(%s)", strArg(0)), TString()
+	case "stem":
+		return fmt.Sprintf("nox_path_stem(%s)", strArg(0)), TString()
+	case "absolute":
+		return fmt.Sprintf("nox_path_absolute(%s)", strArg(0)), TString()
+	}
+	panic(fmt.Sprintf("nox: %s: path has no function '%s'", fb.fname, sym))
+}
+
