@@ -149,3 +149,29 @@ func (p *Parser) parseWhileStmt() ast.Stmt {
 	return &ast.WhileStmt{Base: ast.NewBase(wt.Line, wt.Col), Cond: cond, Body: body}
 }
 
+func (p *Parser) parseSwitchStmt() ast.Stmt {
+	st := p.expect(token.SWITCH)
+	p.expect(token.LPAREN)
+	subj := p.parseExpr()
+	p.expect(token.RPAREN)
+	p.expect(token.LBRACE)
+	ss := &ast.SwitchStmt{Base: ast.NewBase(st.Line, st.Col), Subject: subj}
+	for !p.at(token.RBRACE) {
+		if p.accept(token.CASE) {
+			sc := &ast.SwitchCase{Base: ast.NewBase(p.cur().Line, p.cur().Col)}
+			sc.Values = append(sc.Values, p.parseExpr())
+			for p.accept(token.COMMA) {
+				sc.Values = append(sc.Values, p.parseExpr())
+			}
+			sc.Body = p.parseBlock()
+			ss.Cases = append(ss.Cases, sc)
+		} else if p.accept(token.DEFAULT) {
+			ss.Default = p.parseBlock()
+		} else {
+			p.errorf("expected 'case' or 'default' in switch body")
+		}
+	}
+	p.expect(token.RBRACE)
+	return ss
+}
+
