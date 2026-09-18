@@ -279,3 +279,5 @@ type BoolLit struct {
 	Value bool
 }
 
+func (*BoolLit) exprNode() {}
+
