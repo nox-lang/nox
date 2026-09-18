@@ -64,3 +64,13 @@ type Param struct {
 	Variadic bool
 }
 
+type FuncDecl struct {
+	Base
+	Name       string
+	Params     []*Param
+	ReturnType *TypeExpr // nil if inferred
+	Body       *BlockStmt
+	IsPrivate  bool
+	IsAsync    bool
+}
+
