@@ -175,3 +175,14 @@ func (p *Parser) parseSwitchStmt() ast.Stmt {
 	return ss
 }
 
+func (p *Parser) parseTryStmt() ast.Stmt {
+	tt := p.expect(token.TRY)
+	body := p.parseBlock()
+	p.expect(token.CATCH)
+	p.expect(token.LPAREN)
+	name := p.expect(token.IDENT)
+	p.expect(token.RPAREN)
+	catchBody := p.parseBlock()
+	return &ast.TryStmt{Base: ast.NewBase(tt.Line, tt.Col), Body: body, CatchVar: name.Literal, CatchBody: catchBody}
+}
+
