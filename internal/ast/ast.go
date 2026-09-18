@@ -15,3 +15,5 @@ type Stmt interface {
 	stmtNode()
 }
 
+type Base struct{ Line, Col int }
+
