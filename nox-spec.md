@@ -315,3 +315,21 @@ text.substring(0, 5)
 let message = "Hello, " + name
 ```
 
+# 8. 関数
+
+関数は `func` で定義します。
+
+```text
+func add(a, b) {
+    return a + b
+}
+```
+
+型を明示することもできます。
+
+```text
+func add(a: int, b: int): int {
+    return a + b
+}
+```
+
