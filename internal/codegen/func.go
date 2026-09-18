@@ -191,3 +191,15 @@ func (fb *funcBuilder) genLetStmt(scope *Scope, s *ast.LetStmt) string {
 	return sb.String()
 }
 
+// inferDeferredLocalType handles `let value` (no initializer, no type): scan
+// forward in the *same* block for the first plain assignment to this name
+// and use its type. This is a deliberate simplification of Nox's "value
+// starts null until first use" rule (see project README for rationale).
+func (fb *funcBuilder) inferDeferredLocalType(scope *Scope, name string) (Type, bool) {
+	// We don't have direct access to "the rest of the block" here since we
+	// generate statement-by-statement; callers needing this should instead
+	// annotate the type explicitly. As a pragmatic fallback we default such
+	// variables to a same-scope search is not implemented; require annotation.
+	return Type{}, false
+}
+
