@@ -191,3 +191,5 @@ type YieldStmt struct {
 	Value Expr
 }
 
+func (*YieldStmt) stmtNode() {}
+
