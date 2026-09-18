@@ -109,3 +109,25 @@ func cmdGet(args []string) error {
 
 // ---------------- build ----------------
 
+func cmdBuild(args []string) error {
+	emitC := false
+	var file string
+	for _, a := range args {
+		switch {
+		case a == "--emit-c" || a == "-c":
+			emitC = true
+		case strings.HasSuffix(a, ".nox"):
+			if file != "" {
+				return fmt.Errorf("usage: nox build [--emit-c]  |  nox build <file.nox> [--emit-c]")
+			}
+			file = a
+		default:
+			return fmt.Errorf("usage: nox build [--emit-c]  |  nox build <file.nox> [--emit-c]")
+		}
+	}
+	if file != "" {
+		return buildSingleFile(file, emitC)
+	}
+	return buildPackage()
+}
+
