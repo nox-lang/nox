@@ -20,3 +20,21 @@ Noxでは、基本的にNox自身の機能やNoxパッケージを使用し、�
 
 # 2. 基本構文
 
+## 2.1 package
+
+`package` はファイルの名前空間を定義します。
+
+ファイル全体を `{}` で囲む必要はありません。
+
+```text
+package main
+
+import(
+    "io"
+)
+
+func main() {
+    io::Println("Hello, World!")
+}
+```
+
