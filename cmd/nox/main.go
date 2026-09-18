@@ -232,3 +232,5 @@ func parseAndMerge(files []string) (*ast.File, error) {
 	return merged, nil
 }
 
+// ---------------- codegen -> C -> tcc ----------------
+
