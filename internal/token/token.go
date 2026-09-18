@@ -119,3 +119,10 @@ var keywords = map[string]Kind{
 	"defer":    DEFER,
 }
 
+func Lookup(ident string) Kind {
+	if k, ok := keywords[ident]; ok {
+		return k
+	}
+	return IDENT
+}
+
