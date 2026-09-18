@@ -28,3 +28,45 @@ func DefaultManifest(name string) *Manifest {
 	return &Manifest{Name: name, Version: "0.1.0", Dependencies: map[string]string{}}
 }
 
+// Load reads and parses a nox.toml file.
+func Load(path string) (*Manifest, error) {
+	data, err := os.ReadFile(path)
+	if err != nil {
+		return nil, err
+	}
+	m := &Manifest{Dependencies: map[string]string{}}
+	section := ""
+	for _, rawLine := range strings.Split(string(data), "\n") {
+		line := strings.TrimSpace(rawLine)
+		if line == "" || strings.HasPrefix(line, "#") {
+			continue
+		}
+		if strings.HasPrefix(line, "[") && strings.HasSuffix(line, "]") {
+			section = strings.TrimSpace(line[1 : len(line)-1])
+			continue
+		}
+		eq := strings.Index(line, "=")
+		if eq < 0 {
+			continue
+		}
+		key := strings.TrimSpace(line[:eq])
+		val := strings.TrimSpace(line[eq+1:])
+		val = strings.Trim(val, `"`)
+		switch section {
+		case "package":
+			switch key {
+			case "name":
+				m.Name = val
+			case "version":
+				m.Version = val
+			}
+		case "dependencies":
+			m.Dependencies[key] = val
+		}
+	}
+	if m.Name == "" {
+		return nil, fmt.Errorf("nox.toml: missing [package] name")
+	}
+	return m, nil
+}
+
