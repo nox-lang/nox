@@ -115,3 +115,42 @@ func (fb *funcBuilder) genConversion(recv string, t Type, method string) (string
 
 // ---------------- string methods ----------------
 
+func (fb *funcBuilder) genStringMethod(c *ctx, recv string, method string, args []ast.Expr) (string, Type) {
+	switch method {
+	case "empty":
+		if len(args) != 0 {
+			panic(fmt.Sprintf("nox: %s: '.empty()' takes no arguments", fb.fname))
+		}
+		return fmt.Sprintf("((%s).len == 0)", recv), TBool()
+	case "contains", "startsWith", "endsWith":
+		if len(args) != 1 {
+			panic(fmt.Sprintf("nox: %s: '.%s(...)' takes exactly one argument", fb.fname, method))
+		}
+		argCode, argType := fb.genExpr(c, args[0])
+		if argType.Kind != KString {
+			panic(fmt.Sprintf("nox: %s: '.%s(...)' expects a string argument", fb.fname, method))
+		}
+		fn := map[string]string{"contains": "nox_string_contains", "startsWith": "nox_string_starts_with", "endsWith": "nox_string_ends_with"}[method]
+		return fmt.Sprintf("%s(%s, %s)", fn, recv, argCode), TBool()
+	case "substring":
+		if len(args) != 2 {
+			panic(fmt.Sprintf("nox: %s: '.substring(start, end)' takes exactly two arguments", fb.fname))
+		}
+		a0, t0 := fb.genExpr(c, args[0])
+		a1, t1 := fb.genExpr(c, args[1])
+		if t0.Kind != KInt || t1.Kind != KInt {
+			panic(fmt.Sprintf("nox: %s: '.substring(start, end)' expects int arguments", fb.fname))
+		}
+		return fmt.Sprintf("nox_string_substring(%s, %s, %s)", recv, a0, a1), TString()
+	case "eachLine":
+		if len(args) != 1 {
+			panic(fmt.Sprintf("nox: %s: '.eachLine(...)' takes exactly one argument", fb.fname))
+		}
+		fl := fb.requireFuncLit(args[0], "eachLine")
+		linesTmp := fb.cg.freshTmp("lines")
+		c.emit(compilef("nox_array %s = nox_string_split_lines(%s);", linesTmp, recv))
+		return fb.genEachLoop(c, linesTmp, TString(), fl, false)
+	}
+	panic(fmt.Sprintf("nox: %s: string has no method '.%s(...)'", fb.fname, method))
+}
+
