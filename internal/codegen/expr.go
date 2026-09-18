@@ -128,3 +128,5 @@ func (fb *funcBuilder) genIdent(c *ctx, x *ast.Ident) (string, Type) {
 	panic(fmt.Sprintf("nox: %s: undefined name '%s'", fb.fname, x.Name))
 }
 
+// ---------------- arrays ----------------
+
