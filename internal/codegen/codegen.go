@@ -44,3 +44,12 @@ func newScope(parent *Scope) *Scope {
 
 func (s *Scope) define(name string, t Type) { s.vars[name] = t }
 
+func (s *Scope) lookup(name string) (Type, bool) {
+	for cur := s; cur != nil; cur = cur.parent {
+		if t, ok := cur.vars[name]; ok {
+			return t, true
+		}
+	}
+	return Type{}, false
+}
+
