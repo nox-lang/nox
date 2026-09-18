@@ -437,3 +437,7 @@ static bool nox_fs_exists(nox_string path) {
 #endif
 }
 
+static void nox_fs_remove(nox_string path) {
+    if (remove(path.data) != 0) nox_set_error(strerror(errno));
+}
+
