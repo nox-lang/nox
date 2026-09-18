@@ -131,3 +131,26 @@ func cmdBuild(args []string) error {
 	return buildPackage()
 }
 
+// buildSingleFile compiles one .nox file given directly on the command
+// line (not as part of a `nox init`-created package). Unlike package-mode
+// builds, this does not create a build/ directory: the executable is
+// written right next to the source file, and the intermediate C file is
+// discarded after compiling unless emitC asks to keep it (also written
+// next to the source file, as <stem>.c).
+func buildSingleFile(path string, emitC bool) error {
+	data, err := os.ReadFile(path)
+	if err != nil {
+		return err
+	}
+	file, err := parser.Parse(string(data), path)
+	if err != nil {
+		return err
+	}
+	importRoot := filepath.Dir(path)
+	if _, root, ok := pkgmgr.FindManifest(importRoot); ok {
+		importRoot = root // still honor a nox.toml above it for import() resolution
+	}
+	stem := strings.TrimSuffix(filepath.Base(path), ".nox")
+	return compileAndLink(file, importRoot, stem, filepath.Dir(path), emitC)
+}
+
