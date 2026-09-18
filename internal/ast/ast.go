@@ -324,3 +324,9 @@ type IndexExpr struct {
 
 func (*IndexExpr) exprNode() {}
 
+type MemberExpr struct {
+	Base
+	X    Expr
+	Name string
+}
+
