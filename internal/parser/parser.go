@@ -177,3 +177,16 @@ func (p *Parser) parseInclude() []*ast.IncludeSpec {
 
 // ---------------- Types ----------------
 
+func (p *Parser) parseType() *ast.TypeExpr {
+	t := p.expect(token.IDENT)
+	te := &ast.TypeExpr{Base: ast.NewBase(t.Line, t.Col), Name: t.Literal}
+	if p.accept(token.LT) {
+		te.Elem = p.parseType()
+		if !p.accept(token.GT) {
+			// support ">>"? not lexed as such; require GT
+			p.expect(token.GT)
+		}
+	}
+	return te
+}
+
