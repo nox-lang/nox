@@ -74,3 +74,36 @@ func isAlpha(c rune) bool {
 }
 func isAlnum(c rune) bool { return isAlpha(c) || isDigit(c) }
 
+func (l *Lexer) skipWhitespaceAndComments() {
+	for {
+		c := l.peekCh()
+		if c == ' ' || c == '\t' || c == '\r' || c == '\n' {
+			l.advance()
+			continue
+		}
+		if c == '/' && l.peekAt(1) == '/' {
+			for l.peekCh() != '\n' && l.peekCh() != 0 {
+				l.advance()
+			}
+			continue
+		}
+		if c == '/' && l.peekAt(1) == '*' {
+			l.advance()
+			l.advance()
+			for {
+				if l.peekCh() == 0 {
+					l.errorf("unterminated block comment")
+				}
+				if l.peekCh() == '*' && l.peekAt(1) == '/' {
+					l.advance()
+					l.advance()
+					break
+				}
+				l.advance()
+			}
+			continue
+		}
+		break
+	}
+}
+
