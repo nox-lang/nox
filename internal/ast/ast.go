@@ -142,3 +142,6 @@ type ForCondStmt struct {
 	Body *BlockStmt
 }
 
+func (*ForCondStmt) stmtNode() {}
+func (*ForCondStmt) exprNode() {}
+
