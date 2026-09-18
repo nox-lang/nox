@@ -5,3 +5,12 @@
 // this one file shape — it is not a general TOML parser.
 package pkgmgr
 
+import (
+	"fmt"
+	"os"
+	"os/exec"
+	"path/filepath"
+	"sort"
+	"strings"
+)
+
