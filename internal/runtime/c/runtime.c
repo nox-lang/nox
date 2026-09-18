@@ -246,3 +246,9 @@ static void nox_array_reserve(nox_array *a, int64_t mincap, int64_t elemsize) {
     a->cap = newcap;
 }
 
+static void nox_array_push_raw(nox_array *a, const void *elem, int64_t elemsize) {
+    nox_array_reserve(a, a->len + 1, elemsize);
+    memcpy((char *)a->data + a->len * elemsize, elem, (size_t)elemsize);
+    a->len++;
+}
+
