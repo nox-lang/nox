@@ -396,3 +396,20 @@ static int64_t nox_math_max_i(int64_t a, int64_t b) { return a > b ? a : b; }
 static double nox_math_min_f(double a, double b) { return a < b ? a : b; }
 static double nox_math_max_f(double a, double b) { return a > b ? a : b; }
 
+/* ---------------- filesystem ---------------- */
+static nox_string nox_fs_read(nox_string path) {
+    FILE *f = fopen(path.data, "rb");
+    if (!f) { nox_set_error(strerror(errno)); return nox_string_from_cstr(""); }
+    fseek(f, 0, SEEK_END);
+    long sz = ftell(f);
+    fseek(f, 0, SEEK_SET);
+    char *buf = (char *)GC_MALLOC(sz + 1);
+    size_t rd = fread(buf, 1, (size_t)sz, f);
+    buf[rd] = 0;
+    fclose(f);
+    nox_string s;
+    s.data = buf;
+    s.len = (int64_t)rd;
+    return s;
+}
+
