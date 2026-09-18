@@ -229,3 +229,5 @@ func (fb *funcBuilder) genFsCall(c *ctx, sym string, args []ast.Expr) (string, T
 	panic(fmt.Sprintf("nox: %s: fs has no function '%s'", fb.fname, sym))
 }
 
+// ---------------- path ----------------
+
