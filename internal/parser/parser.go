@@ -192,3 +192,27 @@ func (p *Parser) parseType() *ast.TypeExpr {
 
 // ---------------- Declarations ----------------
 
+func (p *Parser) parseParamList() []*ast.Param {
+	var params []*ast.Param
+	p.expect(token.LPAREN)
+	for !p.at(token.RPAREN) {
+		nt := p.expect(token.IDENT)
+		param := &ast.Param{Base: ast.NewBase(nt.Line, nt.Col), Name: nt.Literal}
+		if p.accept(token.COLON) {
+			param.Type = p.parseType()
+		}
+		if p.accept(token.ELLIPSIS) {
+			param.Variadic = true
+		}
+		if p.accept(token.ASSIGN) {
+			param.Default = p.parseExpr()
+		}
+		params = append(params, param)
+		if !p.accept(token.COMMA) {
+			break
+		}
+	}
+	p.expect(token.RPAREN)
+	return params
+}
+
