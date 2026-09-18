@@ -174,3 +174,58 @@ func (fb *funcBuilder) genRandomCall(c *ctx, sym string, args []ast.Expr) (strin
 
 // ---------------- fs ----------------
 
+func (fb *funcBuilder) genFsCall(c *ctx, sym string, args []ast.Expr) (string, Type) {
+	strArg := func(i int) string {
+		code, t := fb.genExpr(c, args[i])
+		if t.Kind != KString {
+			panic(fmt.Sprintf("nox: %s: fs::%s expects a string argument", fb.fname, sym))
+		}
+		return code
+	}
+	need := func(n int) {
+		if len(args) != n {
+			panic(fmt.Sprintf("nox: %s: fs::%s takes exactly %d argument(s)", fb.fname, sym, n))
+		}
+	}
+	switch sym {
+	case "read":
+		need(1)
+		return fmt.Sprintf("nox_fs_read(%s)", strArg(0)), TString()
+	case "write":
+		need(2)
+		c.emit(compilef("nox_fs_write(%s, %s);", strArg(0), strArg(1)))
+		return "", TVoid()
+	case "append":
+		need(2)
+		c.emit(compilef("nox_fs_append(%s, %s);", strArg(0), strArg(1)))
+		return "", TVoid()
+	case "exists":
+		need(1)
+		return fmt.Sprintf("nox_fs_exists(%s)", strArg(0)), TBool()
+	case "remove":
+		need(1)
+		c.emit(compilef("nox_fs_remove(%s);", strArg(0)))
+		return "", TVoid()
+	case "rename":
+		need(2)
+		c.emit(compilef("nox_fs_rename(%s, %s);", strArg(0), strArg(1)))
+		return "", TVoid()
+	case "copy":
+		need(2)
+		c.emit(compilef("nox_fs_copy(%s, %s);", strArg(0), strArg(1)))
+		return "", TVoid()
+	case "mkdir":
+		need(1)
+		c.emit(compilef("nox_fs_mkdir(%s);", strArg(0)))
+		return "", TVoid()
+	case "rmdir":
+		need(1)
+		c.emit(compilef("nox_fs_rmdir(%s);", strArg(0)))
+		return "", TVoid()
+	case "list":
+		need(1)
+		return fmt.Sprintf("nox_fs_list(%s)", strArg(0)), TArray(TString())
+	}
+	panic(fmt.Sprintf("nox: %s: fs has no function '%s'", fb.fname, sym))
+}
+
