@@ -27,3 +27,10 @@ func (l *Lexer) peekCh() rune {
 	return l.src[l.pos]
 }
 
+func (l *Lexer) peekAt(off int) rune {
+	if l.pos+off >= len(l.src) {
+		return 0
+	}
+	return l.src[l.pos+off]
+}
+
