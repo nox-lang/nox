@@ -653,3 +653,39 @@ func (fb *funcBuilder) genWhile(scope *Scope, s *ast.WhileStmt, isExprCtx bool) 
 	return fb.assembleLoop(lc, "for (;;)", innerSB.String(), isExprCtx)
 }
 
+func (fb *funcBuilder) genForIn(scope *Scope, s *ast.ForInStmt, isExprCtx bool) (string, Type, string) {
+	c, pre := newCtx(scope)
+	arrCode, arrType := fb.genExpr(c, s.Array)
+	if arrType.Kind != KArray {
+		panic(fmt.Sprintf("nox: %s: 'for (... in ...)' requires an array, got %s", fb.fname, arrType.String()))
+	}
+	elemType := *arrType.Elem
+	var preSB strings.Builder
+	for _, p := range *pre {
+		preSB.WriteString(p)
+	}
+	arrTmp := fb.cg.freshTmp("arr")
+	preSB.WriteString(compilef("nox_array %s = %s;", arrTmp, arrCode))
+
+	inner := newScope(scope)
+	idxVar := fb.cg.freshTmp("i")
+	if s.IndexName != "" {
+		inner.define(s.IndexName, TInt())
+	}
+	inner.define(s.ValueName, elemType)
+
+	lc := fb.beginLoop(s.Body)
+	var bodySB strings.Builder
+	bodySB.WriteString(compilef("%s %s = ((%s*)%s.data)[%s];", fb.cg.ctype(elemType), cIdent(s.ValueName), fb.cg.ctype(elemType), arrTmp, idxVar))
+	if s.IndexName != "" {
+		bodySB.WriteString(compilef("%s %s = %s;", fb.cg.ctype(TInt()), cIdent(s.IndexName), idxVar))
+	}
+	bodySB.WriteString(fb.genBlock(inner, s.Body))
+	bodySB.WriteString(compilef("%s: ;", lc.continueLabel))
+	fb.endLoop()
+
+	header := fmt.Sprintf("for (int64_t %s = 0; %s < %s.len; %s++)", idxVar, idxVar, arrTmp, idxVar)
+	loopCode, rt, vv := fb.assembleLoop(lc, header, bodySB.String(), isExprCtx)
+	return preSB.String() + loopCode, rt, vv
+}
+
