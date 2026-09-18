@@ -246,3 +246,18 @@ func (fb *funcBuilder) genFuncLitValue(c *ctx, x *ast.FuncLit) (string, Type) {
 
 // ---------------- ? / await / Parallel ----------------
 
+func (fb *funcBuilder) genPropagateExpr(c *ctx, x *ast.PropagateExpr) (string, Type) {
+	code, t := fb.genExpr(c, x.X)
+	if t.Kind == KVoid {
+		if code != "" {
+			c.emit(compilef("%s;", code))
+		}
+		c.emit(compilef("if (NOX_HAS_ERR) { %s }", fb.errorJumpCode()))
+		return "", TVoid()
+	}
+	tmp := fb.cg.freshTmp("prop")
+	c.emit(compilef("%s %s = %s;", fb.cg.ctype(t), tmp, code))
+	c.emit(compilef("if (NOX_HAS_ERR) { %s }", fb.errorJumpCode()))
+	return tmp, t
+}
+
