@@ -200,3 +200,9 @@ type ReturnStmt struct {
 
 func (*ReturnStmt) stmtNode() {}
 
+type SwitchCase struct {
+	Base
+	Values []Expr // empty for default
+	Body   *BlockStmt
+}
+
