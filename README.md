@@ -60,3 +60,20 @@ go build -o nox ./cmd/nox
 
 Put the resulting `nox` binary on your `PATH`.
 
+### Runtime toolchain requirements
+
+- **[tcc](https://bellard.org/tcc/)** is the *only* C compiler this tool
+  ever invokes — for every build, native or cross. `apt install tcc` on
+  Debian/Ubuntu. See "Cross-compilation" below for targeting a different
+  OS/architecture.
+- **[Boehm GC](https://www.hboehm.info/gc/)** (`libgc`) — Nox's automatic
+  memory management, for native builds. `apt install libtcc-dev libgc-dev`.
+- **pthreads** — used for `async`/`await`/`parallel`, for native
+  **non-Windows** builds only. On Windows, threading uses the Win32 API
+  (`CreateThread`/`WaitForSingleObject`) directly — see "Threading and
+  thread-local storage" below — so there is no pthread dependency there at
+  all, not even indirectly through a pthreads-for-Windows shim.
+
+`-lm` is always linked; `-lgc`/`-lpthread` are added only for a native
+build (see `buildCompileCommand` in `cmd/nox/main.go`).
+
