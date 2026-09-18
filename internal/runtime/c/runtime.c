@@ -221,3 +221,10 @@ static nox_string nox_get_error_message(void) {
     return nox_string_from_cstr(nox_err_state_get()->msg);
 }
 
+/* ---------------- dynamic array (type-erased; codegen supplies casts) ---------------- */
+typedef struct {
+    void *data;
+    int64_t len;
+    int64_t cap;
+} nox_array;
+
