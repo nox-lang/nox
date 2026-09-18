@@ -173,3 +173,11 @@ type BreakStmt struct {
 
 func (*BreakStmt) stmtNode() {}
 
+// NextStmt is a loop's `next` / `next value` (like C's `continue`, and able
+// to carry a value into the loop's collected result — see its use in
+// codegen). Value is nil for a bare `next`.
+type NextStmt struct {
+	Base
+	Value Expr
+}
+
