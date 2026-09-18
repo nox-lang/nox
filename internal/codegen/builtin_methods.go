@@ -156,3 +156,102 @@ func (fb *funcBuilder) genStringMethod(c *ctx, recv string, method string, args 
 
 // ---------------- array methods ----------------
 
+func (fb *funcBuilder) genArrayMethod(c *ctx, recv string, recvType Type, method string, args []ast.Expr) (string, Type) {
+	elemType := *recvType.Elem
+	elemC := fb.cg.ctype(elemType)
+	switch method {
+	case "push":
+		if len(args) != 1 {
+			panic(fmt.Sprintf("nox: %s: '.push(...)' takes exactly one argument", fb.fname))
+		}
+		code, t := fb.genExpr(c, args[0])
+		if !t.Equals(elemType) {
+			panic(fmt.Sprintf("nox: %s: '.push(...)': expected %s, got %s", fb.fname, elemType.String(), t.String()))
+		}
+		etmp := fb.cg.freshTmp("e")
+		c.emit(compilef("%s %s = %s;", elemC, etmp, code))
+		c.emit(compilef("nox_array_push_raw(&%s, &%s, sizeof(%s));", recv, etmp, elemC))
+		return "", TVoid()
+	case "pop":
+		if len(args) != 0 {
+			panic(fmt.Sprintf("nox: %s: '.pop()' takes no arguments", fb.fname))
+		}
+		tmp := fb.cg.freshTmp("popped")
+		c.emit(compilef("%s %s;", elemC, tmp))
+		c.emit(compilef("nox_array_pop_raw(&%s, &%s, sizeof(%s));", recv, tmp, elemC))
+		return tmp, elemType
+	case "insert":
+		if len(args) != 2 {
+			panic(fmt.Sprintf("nox: %s: '.insert(index, value)' takes exactly two arguments", fb.fname))
+		}
+		idxCode, idxT := fb.genExpr(c, args[0])
+		if idxT.Kind != KInt {
+			panic(fmt.Sprintf("nox: %s: '.insert(index, value)': index must be int", fb.fname))
+		}
+		valCode, valT := fb.genExpr(c, args[1])
+		if !valT.Equals(elemType) {
+			panic(fmt.Sprintf("nox: %s: '.insert(index, value)': expected %s, got %s", fb.fname, elemType.String(), valT.String()))
+		}
+		etmp := fb.cg.freshTmp("e")
+		c.emit(compilef("%s %s = %s;", elemC, etmp, valCode))
+		c.emit(compilef("nox_array_insert_raw(&%s, %s, &%s, sizeof(%s));", recv, idxCode, etmp, elemC))
+		return "", TVoid()
+	case "remove":
+		if len(args) != 1 {
+			panic(fmt.Sprintf("nox: %s: '.remove(index)' takes exactly one argument", fb.fname))
+		}
+		idxCode, idxT := fb.genExpr(c, args[0])
+		if idxT.Kind != KInt {
+			panic(fmt.Sprintf("nox: %s: '.remove(index)': index must be int", fb.fname))
+		}
+		c.emit(compilef("nox_array_remove_raw(&%s, %s, sizeof(%s));", recv, idxCode, elemC))
+		return "", TVoid()
+	case "clear":
+		if len(args) != 0 {
+			panic(fmt.Sprintf("nox: %s: '.clear()' takes no arguments", fb.fname))
+		}
+		c.emit(compilef("nox_array_clear(&%s);", recv))
+		return "", TVoid()
+	case "reverse":
+		if len(args) != 0 {
+			panic(fmt.Sprintf("nox: %s: '.reverse()' takes no arguments", fb.fname))
+		}
+		tmp := fb.cg.freshTmp("rev")
+		c.emit(compilef("nox_array %s = nox_array_reverse_raw(%s, sizeof(%s));", tmp, recv, elemC))
+		return tmp, recvType
+	case "each":
+		if len(args) != 1 {
+			panic(fmt.Sprintf("nox: %s: '.each(...)' takes exactly one argument", fb.fname))
+		}
+		fl := fb.requireFuncLit(args[0], "each")
+		return fb.genEachLoop(c, recv, elemType, fl, false)
+	case "eachIndex":
+		if len(args) != 1 {
+			panic(fmt.Sprintf("nox: %s: '.eachIndex(...)' takes exactly one argument", fb.fname))
+		}
+		fl := fb.requireFuncLit(args[0], "eachIndex")
+		return fb.genEachLoop(c, recv, elemType, fl, true)
+	case "map":
+		if len(args) != 1 {
+			panic(fmt.Sprintf("nox: %s: '.map(...)' takes exactly one argument", fb.fname))
+		}
+		fl := fb.requireFuncLit(args[0], "map")
+		return fb.genMapLoop(c, recv, elemType, fl)
+	case "filter":
+		if len(args) != 1 {
+			panic(fmt.Sprintf("nox: %s: '.filter(...)' takes exactly one argument", fb.fname))
+		}
+		fl := fb.requireFuncLit(args[0], "filter")
+		return fb.genFilterLoop(c, recv, elemType, fl)
+	case "find":
+		if len(args) != 1 {
+			panic(fmt.Sprintf("nox: %s: '.find(...)' takes exactly one argument", fb.fname))
+		}
+		fl := fb.requireFuncLit(args[0], "find")
+		return fb.genFindLoop(c, recv, elemType, fl)
+	case "sort":
+		return fb.genSort(c, recv, elemType, args)
+	}
+	panic(fmt.Sprintf("nox: %s: array has no method '.%s(...)'", fb.fname, method))
+}
+
