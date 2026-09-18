@@ -65,3 +65,5 @@ Environment variables (for 'nox build'):
                             cross-compile (e.g. a Windows-target tcc).`)
 }
 
+// ---------------- init ----------------
+
