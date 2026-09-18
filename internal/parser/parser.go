@@ -190,3 +190,5 @@ func (p *Parser) parseType() *ast.TypeExpr {
 	return te
 }
 
+// ---------------- Declarations ----------------
+
