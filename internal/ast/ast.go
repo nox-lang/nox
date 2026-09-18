@@ -241,3 +241,9 @@ type Ident struct {
 
 func (*Ident) exprNode() {}
 
+// QualIdent is a `::`-separated path such as `math::sqrt` or `libs::math::add`.
+type QualIdent struct {
+	Base
+	Parts []string
+}
+
