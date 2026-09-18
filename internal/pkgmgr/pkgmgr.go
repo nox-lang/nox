@@ -70,3 +70,21 @@ func Load(path string) (*Manifest, error) {
 	return m, nil
 }
 
+// Save writes the manifest back out in the canonical layout.
+func (m *Manifest) Save(path string) error {
+	var sb strings.Builder
+	sb.WriteString("[package]\n")
+	fmt.Fprintf(&sb, "name = %q\n", m.Name)
+	fmt.Fprintf(&sb, "version = %q\n", m.Version)
+	sb.WriteString("\n[dependencies]\n")
+	var names []string
+	for k := range m.Dependencies {
+		names = append(names, k)
+	}
+	sort.Strings(names)
+	for _, k := range names {
+		fmt.Fprintf(&sb, "%s = %q\n", k, m.Dependencies[k])
+	}
+	return os.WriteFile(path, []byte(sb.String()), 0644)
+}
+
