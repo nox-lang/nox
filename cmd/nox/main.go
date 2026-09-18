@@ -81,3 +81,29 @@ func cmdInit(args []string) error {
 
 // ---------------- get ----------------
 
+func cmdGet(args []string) error {
+	if len(args) != 1 {
+		return fmt.Errorf("usage: nox get <source>  (e.g. nox get github.com/user/repo)")
+	}
+	_, root, ok := pkgmgr.FindManifest(".")
+	if !ok {
+		return fmt.Errorf("no nox.toml found (run this inside a package created with 'nox init')")
+	}
+	manifestPath := filepath.Join(root, "nox.toml")
+	m, err := pkgmgr.Load(manifestPath)
+	if err != nil {
+		return err
+	}
+	dest, err := pkgmgr.Get(root, args[0])
+	if err != nil {
+		return err
+	}
+	name := filepath.Base(args[0])
+	m.Dependencies[name] = args[0]
+	if err := m.Save(manifestPath); err != nil {
+		return err
+	}
+	fmt.Printf("Fetched %s -> %s\n", args[0], dest)
+	return nil
+}
+
