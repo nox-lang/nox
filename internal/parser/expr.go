@@ -19,3 +19,5 @@ import (
 //   postfix . () [] ?
 //   primary
 
+func (p *Parser) parseExpr() ast.Expr { return p.parseOr() }
+
