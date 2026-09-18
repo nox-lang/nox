@@ -215,3 +215,28 @@ func (cg *Codegen) ctype(t Type) string {
 	panic(fmt.Sprintf("ctype: unhandled kind %v", t.Kind))
 }
 
+// zeroValueC returns a C expression producing the zero/default value of t.
+func (cg *Codegen) zeroValueC(t Type) string {
+	switch t.Kind {
+	case KInt:
+		return "0"
+	case KFloat:
+		return "0.0"
+	case KBool:
+		return "false"
+	case KString:
+		return `nox_string_from_cstr("")`
+	case KArray:
+		return "nox_array_new()"
+	case KPointer, KClass:
+		return "NULL"
+	case KVoid:
+		return ""
+	case KFunc:
+		return "(" + cg.ctype(t) + "){0}"
+	case KTask:
+		return "(" + cg.ctype(t) + "){0}"
+	}
+	return "0"
+}
+
