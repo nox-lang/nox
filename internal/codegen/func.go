@@ -63,3 +63,11 @@ func newCtx(scope *Scope) (*ctx, *[]string) {
 
 func (c *ctx) emit(line string) { *c.pre = append(*c.pre, line) }
 
+func compilef(format string, args ...interface{}) string {
+	s := fmt.Sprintf(format, args...)
+	if !strings.HasSuffix(s, "\n") {
+		s += "\n"
+	}
+	return s
+}
+
