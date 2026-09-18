@@ -180,3 +180,10 @@ static bool nox_string_ends_with(nox_string s, nox_string suf) {
     return memcmp(s.data + (s.len - suf.len), suf.data, (size_t)suf.len) == 0;
 }
 
+static nox_string nox_string_substring(nox_string s, int64_t start, int64_t end) {
+    if (start < 0) start = 0;
+    if (end > s.len) end = s.len;
+    if (end < start) end = start;
+    return nox_string_from_bytes(s.data + start, end - start);
+}
+
