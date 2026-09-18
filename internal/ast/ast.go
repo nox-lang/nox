@@ -298,3 +298,5 @@ type BinaryExpr struct {
 	X, Y Expr
 }
 
+func (*BinaryExpr) exprNode() {}
+
