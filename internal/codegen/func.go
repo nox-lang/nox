@@ -132,3 +132,19 @@ func (fb *funcBuilder) genStmt(scope *Scope, st ast.Stmt) string {
 	panic(fmt.Sprintf("codegen: unhandled statement %T", st))
 }
 
+// errorCheckSnippet is appended after any statement that might have executed
+// a fallible call (we conservatively add it after every simple statement).
+// If an unhandled Nox error is pending: inside a try, jump to its catch
+// block; otherwise propagate by returning from the function immediately
+// (after running defers), like an unwinding exception.
+// errorJumpCode returns the C control transfer to perform when an unhandled
+// Nox error is detected: jump to the nearest enclosing try's catch handler,
+// or (if none) store the zero return value and jump to the function's exit.
+func (fb *funcBuilder) errorJumpCode() string {
+	if len(fb.tryStack) > 0 {
+		top := fb.tryStack[len(fb.tryStack)-1]
+		return fmt.Sprintf("goto %s;", top.catchLabel)
+	}
+	return "%%RETZERO%% goto __nox_exit;"
+}
+
