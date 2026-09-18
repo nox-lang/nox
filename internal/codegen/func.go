@@ -487,3 +487,43 @@ func scanLoopBody(b *ast.BlockStmt) (hasNext, hasBreakValue bool) {
 	return
 }
 
+// scanSwitchBody determines whether this switch's own cases (not crossing
+// into a nested loop, function literal, or nested switch) contain a
+// `break value`.
+func scanSwitchBody(cases []*ast.SwitchCase, def *ast.BlockStmt) (hasBreakValue bool) {
+	var walkStmts func([]ast.Stmt)
+	var walkStmt func(ast.Stmt)
+	walkStmt = func(st ast.Stmt) {
+		switch s := st.(type) {
+		case *ast.BreakStmt:
+			if s.Value != nil {
+				hasBreakValue = true
+			}
+		case *ast.IfStmt:
+			walkStmts(s.Then.Stmts)
+			if s.Else != nil {
+				walkStmt(s.Else)
+			}
+		case *ast.BlockStmt:
+			walkStmts(s.Stmts)
+		case *ast.TryStmt:
+			walkStmts(s.Body.Stmts)
+			walkStmts(s.CatchBody.Stmts)
+		case *ast.SwitchStmt, *ast.ForCondStmt, *ast.ForInStmt, *ast.WhileStmt:
+			return
+		}
+	}
+	walkStmts = func(stmts []ast.Stmt) {
+		for _, st := range stmts {
+			walkStmt(st)
+		}
+	}
+	for _, c := range cases {
+		walkStmts(c.Body.Stmts)
+	}
+	if def != nil {
+		walkStmts(def.Stmts)
+	}
+	return
+}
+
