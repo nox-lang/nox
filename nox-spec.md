@@ -510,3 +510,21 @@ switch (value) {
 
 caseは自動的に終了します。
 
+## 12.1 switchの戻り値
+
+`break value` を使用して値を返します。
+
+```text
+let result = switch (value) {
+    case 1 {
+        break "one"
+    }
+    case 2 {
+        break "two"
+    }
+    default {
+        break "other"
+    }
+}
+```
+
