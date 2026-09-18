@@ -21,3 +21,11 @@ func (b Base) Pos() (int, int) { return b.Line, b.Col }
 
 // ---------- Type expressions ----------
 
+// TypeExpr is a parsed (unresolved) type annotation, e.g. `int`, `array<string>`,
+// `pointer<int>`, or a class name.
+type TypeExpr struct {
+	Base
+	Name string    // "int", "float", "bool", "string", "array", "pointer", or a class/user name
+	Elem *TypeExpr // element type for array<T> / pointer<T>
+}
+
