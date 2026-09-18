@@ -116,3 +116,9 @@ static void nox_panic(const char *msg) {
     exit(1);
 }
 
+/* ---------------- string ---------------- */
+typedef struct {
+    char *data;   /* not necessarily NUL free of interior bytes, but we NUL-terminate for C interop convenience */
+    int64_t len;
+} nox_string;
+
