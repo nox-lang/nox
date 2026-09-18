@@ -96,3 +96,20 @@ cstdio::printf("Hello\n")
 
 `import` はNoxパッケージ、`include` はCヘッダという明確な役割分担になっています。
 
+# 3. 名前空間とメンバーアクセス
+
+`::` は名前空間・パッケージ・ライブラリへのアクセスに使用します。
+
+```text
+io::Println("Hello")
+math::sqrt(16)
+```
+
+`.` はオブジェクトや値のメンバーアクセスに使用します。
+
+```text
+dog.bark()
+numbers.length
+text.substring(0, 5)
+```
+
