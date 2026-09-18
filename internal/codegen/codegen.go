@@ -185,3 +185,8 @@ func (cg *Codegen) freshTmp(prefix string) string {
 	return fmt.Sprintf("__%s%d", prefix, cg.tmpCounter)
 }
 
+func (cg *Codegen) freshName(prefix string) string {
+	cg.nameCounter++
+	return fmt.Sprintf("%s_%d", prefix, cg.nameCounter)
+}
+
