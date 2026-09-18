@@ -21,3 +21,13 @@ import (
 
 func (p *Parser) parseExpr() ast.Expr { return p.parseOr() }
 
+func (p *Parser) parseOr() ast.Expr {
+	x := p.parseAnd()
+	for p.at(token.OR) {
+		t := p.advance()
+		y := p.parseAnd()
+		x = &ast.BinaryExpr{Base: ast.NewBase(t.Line, t.Col), Op: token.OR, X: x, Y: y}
+	}
+	return x
+}
+
