@@ -146,3 +146,32 @@ value = null
 
 これは禁止されます。
 
+# 5. 型
+
+基本型として以下を持ちます。
+
+```text
+int
+float
+bool
+string
+```
+
+配列型にはジェネリック形式を使用します。
+
+```text
+array<int>
+array<string>
+```
+
+Noxでは暗黙の型変換を行いません。
+
+必要な場合は明示的な変換を行います。
+
+```text
+value.toInt()
+value.toFloat()
+value.toString()
+value.toBool()
+```
+
