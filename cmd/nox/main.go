@@ -187,3 +187,48 @@ func buildPackage() error {
 	return compileAndLink(merged, root, m.Name, filepath.Join(root, "build"), true)
 }
 
+// parseAndMerge parses every file and merges their top-level declarations
+// into one ast.File, as if they were one source file (Go-package-style
+// multi-file compilation units), which is how the spec describes `nox
+// build` handling multiple files under src/.
+func parseAndMerge(files []string) (*ast.File, error) {
+	merged := &ast.File{Package: "main", Filename: files[0]}
+	seenFuncs := map[string]string{}
+	seenClasses := map[string]string{}
+	for _, f := range files {
+		data, err := os.ReadFile(f)
+		if err != nil {
+			return nil, err
+		}
+		pf, err := parser.Parse(string(data), f)
+		if err != nil {
+			return nil, err
+		}
+		if pf.Package != "" && merged.Package == "main" {
+			merged.Package = pf.Package
+		}
+		for _, imp := range pf.Imports {
+			merged.Imports = append(merged.Imports, imp)
+		}
+		for _, inc := range pf.Includes {
+			merged.Includes = append(merged.Includes, inc)
+		}
+		for _, fn := range pf.Funcs {
+			if prev, ok := seenFuncs[fn.Name]; ok {
+				return nil, fmt.Errorf("function '%s' is defined in both %s and %s", fn.Name, prev, f)
+			}
+			seenFuncs[fn.Name] = f
+			merged.Funcs = append(merged.Funcs, fn)
+		}
+		for _, cl := range pf.Classes {
+			if prev, ok := seenClasses[cl.Name]; ok {
+				return nil, fmt.Errorf("class '%s' is defined in both %s and %s", cl.Name, prev, f)
+			}
+			seenClasses[cl.Name] = f
+			merged.Classes = append(merged.Classes, cl)
+		}
+		merged.Globals = append(merged.Globals, pf.Globals...)
+	}
+	return merged, nil
+}
+
