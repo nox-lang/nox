@@ -50,3 +50,33 @@ func tokDesc(t token.Token) string {
 	return t.Kind.String()
 }
 
+func (p *Parser) cur() token.Token { return p.toks[p.pos] }
+func (p *Parser) peek(n int) token.Token {
+	i := p.pos + n
+	if i >= len(p.toks) {
+		return p.toks[len(p.toks)-1]
+	}
+	return p.toks[i]
+}
+func (p *Parser) at(k token.Kind) bool { return p.cur().Kind == k }
+func (p *Parser) advance() token.Token {
+	t := p.cur()
+	if p.pos < len(p.toks)-1 {
+		p.pos++
+	}
+	return t
+}
+func (p *Parser) expect(k token.Kind) token.Token {
+	if !p.at(k) {
+		p.errorf("expected %s", k.String())
+	}
+	return p.advance()
+}
+func (p *Parser) accept(k token.Kind) bool {
+	if p.at(k) {
+		p.advance()
+		return true
+	}
+	return false
+}
+
