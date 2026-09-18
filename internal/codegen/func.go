@@ -701,3 +701,351 @@ func eqExprC(aC string, aT Type, bC string, bT Type) string {
 	return fmt.Sprintf("(%s == %s)", aC, bC)
 }
 
+func (fb *funcBuilder) genSwitch(scope *Scope, s *ast.SwitchStmt, isExprCtx bool) (string, Type, string) {
+	c, pre := newCtx(scope)
+	subjCode, subjType := fb.genExpr(c, s.Subject)
+	var preSB strings.Builder
+	for _, p := range *pre {
+		preSB.WriteString(p)
+	}
+	subjTmp := fb.cg.freshTmp("switchval")
+	preSB.WriteString(compilef("%s %s = %s;", fb.cg.ctype(subjType), subjTmp, subjCode))
+
+	hasBreakValue := scanSwitchBody(s.Cases, s.Default)
+	lc := &loopCtx{mode: "plain", isSwitch: true}
+	if hasBreakValue {
+		lc.mode = "breakvalue"
+		lc.resultVar = fb.cg.freshTmp("result")
+		lc.brokeVar = fb.cg.freshTmp("broke")
+	}
+	fb.loopStack = append(fb.loopStack, lc)
+
+	var bodySB strings.Builder
+	first := true
+	for _, cs := range s.Cases {
+		var conds []string
+		for _, v := range cs.Values {
+			c2, pre2 := newCtx(scope)
+			code, t := fb.genExpr(c2, v)
+			if len(*pre2) > 0 {
+				panic(fmt.Sprintf("nox: %s: switch 'case' values must be simple expressions", fb.fname))
+			}
+			conds = append(conds, eqExprC(subjTmp, subjType, code, t))
+		}
+		condC := strings.Join(conds, " || ")
+		if first {
+			bodySB.WriteString(compilef("if (%s) {", condC))
+			first = false
+		} else {
+			bodySB.WriteString(compilef("} else if (%s) {", condC))
+		}
+		bodySB.WriteString(indent(fb.genBlock(scope, cs.Body), "    "))
+	}
+	if s.Default != nil {
+		if first {
+			bodySB.WriteString("{\n")
+			first = false
+		} else {
+			bodySB.WriteString("} else {\n")
+		}
+		bodySB.WriteString(indent(fb.genBlock(scope, s.Default), "    "))
+	}
+	if !first {
+		bodySB.WriteString("}\n")
+	}
+	fb.loopStack = fb.loopStack[:len(fb.loopStack)-1]
+
+	fullBody := bodySB.String() + "break;\n"
+	loopCode, rt, vv := fb.assembleLoop(lc, "for (;;)", fullBody, isExprCtx)
+	return preSB.String() + loopCode, rt, vv
+}
+
+func (fb *funcBuilder) genBreakStmt(scope *Scope, s *ast.BreakStmt) string {
+	if len(fb.loopStack) == 0 {
+		panic(fmt.Sprintf("nox: %s: 'break' used outside of a loop", fb.fname))
+	}
+	lc := fb.loopStack[len(fb.loopStack)-1]
+	if s.Value == nil {
+		return "break;\n"
+	}
+	c, pre := newCtx(scope)
+	code, t := fb.genExpr(c, s.Value)
+	if lc.mode != "breakvalue" {
+		panic(fmt.Sprintf("nox: %s: 'break <value>' is not valid here", fb.fname))
+	}
+	if lc.resultType == nil {
+		rt := t
+		lc.resultType = &rt
+	} else if !lc.resultType.Equals(t) {
+		panic(fmt.Sprintf("nox: %s: inconsistent 'break' value types in the same loop (%s vs %s)", fb.fname, lc.resultType.String(), t.String()))
+	}
+	var sb strings.Builder
+	for _, p := range *pre {
+		sb.WriteString(p)
+	}
+	sb.WriteString(compilef("%s = %s; %s = true; break;", lc.resultVar, code, lc.brokeVar))
+	return sb.String()
+}
+
+// genNextStmt implements a loop's `next` (like C's `continue`) and
+// `next value` (continue, but first collect `value` into the loop's result
+// array — this is what used to be spelled `return value` inside a loop).
+// It always jumps via each real loop's own continueLabel (see beginLoop)
+// rather than emitting a bare C `continue`, so it behaves correctly even
+// when reached through an intervening `switch` (which is internally
+// implemented as its own tiny loop-like construct that a raw `continue`
+// would incorrectly target instead of the real outer loop).
+func (fb *funcBuilder) genNextStmt(scope *Scope, s *ast.NextStmt) string {
+	var lc *loopCtx
+	for i := len(fb.loopStack) - 1; i >= 0; i-- {
+		if !fb.loopStack[i].isSwitch {
+			lc = fb.loopStack[i]
+			break
+		}
+	}
+	if lc == nil {
+		panic(fmt.Sprintf("nox: %s: 'next' used outside of a loop", fb.fname))
+	}
+	if s.Value == nil {
+		return compilef("goto %s;", lc.continueLabel)
+	}
+	if lc.mode != "collect" {
+		panic(fmt.Sprintf("nox: %s: 'next <value>' is not valid here (this loop was not detected as collecting; move any other 'next <value>'/'break <value>' consistently within it)", fb.fname))
+	}
+	c, pre := newCtx(scope)
+	code, t := fb.genExpr(c, s.Value)
+	if lc.elemType == nil {
+		et := t
+		lc.elemType = &et
+	} else if !lc.elemType.Equals(t) {
+		panic(fmt.Sprintf("nox: %s: inconsistent collected 'next' value types in the same loop (%s vs %s)", fb.fname, lc.elemType.String(), t.String()))
+	}
+	var sb strings.Builder
+	for _, p := range *pre {
+		sb.WriteString(p)
+	}
+	tmp := fb.cg.freshTmp("nv")
+	sb.WriteString(compilef("%s %s = %s;", fb.cg.ctype(t), tmp, code))
+	sb.WriteString(compilef("nox_array_push_raw(&%s, &%s, sizeof(%s));", lc.collectVar, tmp, fb.cg.ctype(t)))
+	sb.WriteString(compilef("goto %s;", lc.continueLabel))
+	return sb.String()
+}
+
+// genYieldStmt implements `yield value` inside an
+// each/eachIndex/map/filter/find callback or a sort comparator: it supplies
+// this invocation's result without exiting the enclosing Nox function
+// (unlike `return`, which — uniformly, everywhere — always does).
+func (fb *funcBuilder) genYieldStmt(scope *Scope, s *ast.YieldStmt) string {
+	var lc *loopCtx
+	for i := len(fb.loopStack) - 1; i >= 0; i-- {
+		if !fb.loopStack[i].isSwitch {
+			lc = fb.loopStack[i]
+			break
+		}
+	}
+	if lc == nil || lc.mode != "hofvalue" {
+		panic(fmt.Sprintf("nox: %s: 'yield' used outside of an each/map/filter/find callback or a sort comparator", fb.fname))
+	}
+	c, pre := newCtx(scope)
+	code, t := fb.genExpr(c, s.Value)
+	if lc.resultType == nil {
+		et := t
+		lc.resultType = &et
+	} else if !lc.resultType.Equals(t) {
+		panic(fmt.Sprintf("nox: %s: inconsistent 'yield' value types in the same callback (%s vs %s)", fb.fname, lc.resultType.String(), t.String()))
+	}
+	var sb strings.Builder
+	for _, p := range *pre {
+		sb.WriteString(p)
+	}
+	sb.WriteString(compilef("%s = %s;", lc.resultVar, code))
+	sb.WriteString(compilef("goto %s;", lc.hofLabel))
+	return sb.String()
+}
+
+// emitReturn generates a real function-level return: store the value (if
+// any) into the function's single return slot and jump to the function's
+// single exit point, where defers run exactly once.
+func (fb *funcBuilder) emitReturn(scope *Scope, valueExpr ast.Expr) string {
+	var sb strings.Builder
+	if valueExpr != nil {
+		c, pre := newCtx(scope)
+		code, t := fb.genExpr(c, valueExpr)
+		for _, p := range *pre {
+			sb.WriteString(p)
+		}
+		if !fb.retTypeKnown {
+			fb.retType = t
+			fb.retTypeKnown = true
+			if fb.selfInstance != nil {
+				fb.selfInstance.RetType = t
+				fb.selfInstance.RetTypeKnown = true
+			}
+		} else if !fb.retType.Equals(t) {
+			panic(fmt.Sprintf("nox: %s: inconsistent return types (%s vs %s)", fb.fname, fb.retType.String(), t.String()))
+		}
+		sb.WriteString(compilef("__ret = %s;", code))
+	} else {
+		if !fb.retTypeKnown {
+			fb.retType = TVoid()
+			fb.retTypeKnown = true
+			if fb.selfInstance != nil {
+				fb.selfInstance.RetType = TVoid()
+				fb.selfInstance.RetTypeKnown = true
+			}
+		} else if fb.retType.Kind != KVoid {
+			panic(fmt.Sprintf("nox: %s: bare 'return' in a function that returns %s", fb.fname, fb.retType.String()))
+		}
+	}
+	sb.WriteString("goto __nox_exit;\n")
+	return sb.String()
+}
+
+func (fb *funcBuilder) deferPrologue() string {
+	var sb strings.Builder
+	for i := len(fb.defers) - 1; i >= 0; i-- {
+		d := fb.defers[i]
+		sb.WriteString(compilef("if (%s) {", d.flagVar))
+		sb.WriteString(indent(d.bodyC, "    "))
+		sb.WriteString("}\n")
+	}
+	return sb.String()
+}
+
+// buildFunctionBody generates the full `{ ... }` contents for a function:
+// defer-flag declarations, the body itself, and a single exit point that
+// runs armed defers and returns. It resolves the deferred %%RETDECL%% /
+// %%RETZERO%% / %%RETFINAL%% placeholders once the return type is known
+// (which may only become known partway through generating the body itself,
+// e.g. when the type is inferred from the function's own return statements).
+func (fb *funcBuilder) buildFunctionBody(scope *Scope, body *ast.BlockStmt, retFinalOverride string) string {
+	declFlags := fb.prepareDefers(body)
+	bodyC := fb.genBlock(scope, body)
+
+	var sb strings.Builder
+	sb.WriteString("%%RETDECL%%\n")
+	sb.WriteString(declFlags)
+	sb.WriteString(bodyC)
+	sb.WriteString("__nox_exit: ;\n")
+	sb.WriteString(fb.deferPrologue())
+	sb.WriteString("%%RETFINAL%%\n")
+
+	if !fb.retTypeKnown {
+		fb.retType = TVoid()
+		fb.retTypeKnown = true
+	}
+	retDecl := ""
+	retZero := ""
+	retFinal := "return;"
+	if fb.retType.Kind != KVoid {
+		retDecl = fmt.Sprintf("%s __ret = %s;", fb.cg.ctype(fb.retType), fb.cg.zeroValueC(fb.retType))
+		retZero = fmt.Sprintf("__ret = %s;", fb.cg.zeroValueC(fb.retType))
+		retFinal = "return __ret;"
+	}
+	if retFinalOverride != "" {
+		retFinal = retFinalOverride
+	}
+	out := strings.ReplaceAll(sb.String(), "%%RETDECL%%", retDecl)
+	out = strings.ReplaceAll(out, "%%RETZERO%%", retZero)
+	out = strings.ReplaceAll(out, "%%RETFINAL%%", retFinal)
+	return out
+}
+
+func (fb *funcBuilder) genTryStmt(scope *Scope, s *ast.TryStmt) string {
+	catchLabel := fb.cg.freshTmp("catch")
+	endLabel := fb.cg.freshTmp("tryend")
+	fb.tryStack = append(fb.tryStack, &tryCtx{catchLabel: catchLabel})
+	bodyC := fb.genBlock(scope, s.Body)
+	fb.tryStack = fb.tryStack[:len(fb.tryStack)-1]
+
+	catchScope := newScope(scope)
+	catchScope.define(s.CatchVar, TString())
+	var catchBodySB strings.Builder
+	catchBodySB.WriteString(compilef("nox_string %s = nox_get_error_message();", cIdent(s.CatchVar)))
+	catchBodySB.WriteString("nox_clear_error();\n")
+	catchBodySB.WriteString(fb.genBlock(catchScope, s.CatchBody))
+
+	var sb strings.Builder
+	sb.WriteString("{\n")
+	sb.WriteString(indent(bodyC, "    "))
+	sb.WriteString(compilef("    goto %s;", endLabel))
+	sb.WriteString("}\n")
+	sb.WriteString(compilef("%s: ;", catchLabel))
+	sb.WriteString("{\n")
+	sb.WriteString(indent(catchBodySB.String(), "    "))
+	sb.WriteString("}\n")
+	sb.WriteString(compilef("%s: ;", endLabel))
+	return sb.String()
+}
+
+// ---------------- defer ----------------
+
+// scanDefers counts `defer` statements belonging to this function's own
+// scope (i.e. not inside a nested FuncLit, which is never reached by this
+// walk since FuncLit only ever appears inside expressions).
+func scanDefers(b *ast.BlockStmt) int {
+	count := 0
+	var walkStmts func([]ast.Stmt)
+	var walkStmt func(ast.Stmt)
+	walkStmt = func(st ast.Stmt) {
+		switch s := st.(type) {
+		case *ast.DeferStmt:
+			count++
+		case *ast.IfStmt:
+			walkStmts(s.Then.Stmts)
+			if s.Else != nil {
+				walkStmt(s.Else)
+			}
+		case *ast.BlockStmt:
+			walkStmts(s.Stmts)
+		case *ast.ForCondStmt:
+			walkStmts(s.Body.Stmts)
+		case *ast.ForInStmt:
+			walkStmts(s.Body.Stmts)
+		case *ast.WhileStmt:
+			walkStmts(s.Body.Stmts)
+		case *ast.SwitchStmt:
+			for _, c := range s.Cases {
+				walkStmts(c.Body.Stmts)
+			}
+			if s.Default != nil {
+				walkStmts(s.Default.Stmts)
+			}
+		case *ast.TryStmt:
+			walkStmts(s.Body.Stmts)
+			walkStmts(s.CatchBody.Stmts)
+		}
+	}
+	walkStmts = func(stmts []ast.Stmt) {
+		for _, st := range stmts {
+			walkStmt(st)
+		}
+	}
+	walkStmts(b.Stmts)
+	return count
+}
+
+// prepareDefers must be called once, before generating a function's top
+// level body, so that all defer-armed flags exist (declared false) before
+// any code that might reference them in a return's defer-prologue.
+func (fb *funcBuilder) prepareDefers(body *ast.BlockStmt) string {
+	n := scanDefers(body)
+	var sb strings.Builder
+	for i := 0; i < n; i++ {
+		name := fb.cg.freshTmp("defer_armed")
+		fb.deferFlagQueue = append(fb.deferFlagQueue, name)
+		sb.WriteString(compilef("bool %s = false;", name))
+	}
+	return sb.String()
+}
+
+func (fb *funcBuilder) genDeferStmt(scope *Scope, s *ast.DeferStmt) string {
+	if fb.deferFlagIdx >= len(fb.deferFlagQueue) {
+		panic("nox: internal error: defer flag queue exhausted")
+	}
+	flagVar := fb.deferFlagQueue[fb.deferFlagIdx]
+	fb.deferFlagIdx++
+	bodyC := fb.genBlock(scope, s.Body)
+	fb.defers = append(fb.defers, &deferEntry{flagVar: flagVar, bodyC: bodyC})
+	return compilef("%s = true;", flagVar)
+}
