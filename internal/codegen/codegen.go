@@ -24,3 +24,5 @@ type Namespace struct {
 	namespaceKeyPrefix string
 }
 
+type NamespaceKind int
+
