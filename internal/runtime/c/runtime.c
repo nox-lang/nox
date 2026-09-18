@@ -111,3 +111,8 @@ static void nox_set_error(const char *msg) {
     }
 }
 
+static void nox_panic(const char *msg) {
+    fprintf(stderr, "nox: runtime error: %s\n", msg);
+    exit(1);
+}
+
