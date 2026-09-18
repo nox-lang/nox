@@ -68,3 +68,9 @@ func Tokenize(src, filename string) []token.Token {
 	return toks
 }
 
+func isDigit(c rune) bool { return c >= '0' && c <= '9' }
+func isAlpha(c rune) bool {
+	return c == '_' || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c > 127
+}
+func isAlnum(c rune) bool { return isAlpha(c) || isDigit(c) }
+
