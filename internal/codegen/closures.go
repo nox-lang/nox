@@ -300,3 +300,34 @@ func (fb *funcBuilder) genAwaitExpr(c *ctx, x *ast.AwaitExpr) (string, Type) {
 	return fmt.Sprintf("(*%s.result)", tmp), *t.Elem
 }
 
+// genParallelExpr spawns every call in the block (each must be a call to an
+// async function, which — per emitAsyncFunc — already starts running on its
+// own thread as soon as it's called) and yields an array of their Task
+// handles, in call order. It does not itself join them: `Parallel { ... }`
+// is always written as `await parallel { ... }` in Nox, and genAwaitExpr
+// knows how to await a whole array of tasks at once.
+func (fb *funcBuilder) genParallelExpr(c *ctx, x *ast.ParallelExpr) (string, Type) {
+	if len(x.Calls) == 0 {
+		panic(fmt.Sprintf("nox: %s: 'parallel { }' must contain at least one call", fb.fname))
+	}
+	var taskType *Type
+	tasksTmp := fb.cg.freshTmp("ptasks")
+	c.emit(compilef("nox_array %s = nox_array_new();", tasksTmp))
+	for _, call := range x.Calls {
+		code, t := fb.genExpr(c, call)
+		if t.Kind != KTask {
+			panic(fmt.Sprintf("nox: %s: 'parallel { }' may only contain calls to async functions", fb.fname))
+		}
+		if taskType == nil {
+			tt := t
+			taskType = &tt
+		} else if !taskType.Equals(t) {
+			panic(fmt.Sprintf("nox: %s: 'parallel { }': all calls must return the same type", fb.fname))
+		}
+		taskC := fb.cg.ctype(t)
+		tmp := fb.cg.freshTmp("ptask")
+		c.emit(compilef("%s %s = %s;", taskC, tmp, code))
+		c.emit(compilef("nox_array_push_raw(&%s, &%s, sizeof(%s));", tasksTmp, tmp, taskC))
+	}
+	return tasksTmp, TArray(*taskType)
+}
