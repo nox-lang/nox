@@ -18,3 +18,9 @@ func gitCloneCmd(url, dest string) *exec.Cmd {
 	return exec.Command("git", "clone", "--depth", "1", url, dest)
 }
 
+type Manifest struct {
+	Name         string
+	Version      string
+	Dependencies map[string]string // name -> source (e.g. "github.com/user/repo")
+}
+
