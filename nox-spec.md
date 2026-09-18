@@ -393,3 +393,19 @@ for (condition) {
 }
 ```
 
+## 10.2 配列for
+
+```text
+for (value in array) {
+    ...
+}
+```
+
+インデックスと値を同時に取得することもできます。
+
+```text
+for (index, value in numbers) {
+    ...
+}
+```
+
