@@ -223,3 +223,10 @@ type DeferStmt struct {
 
 func (*DeferStmt) stmtNode() {}
 
+type TryStmt struct {
+	Base
+	Body      *BlockStmt
+	CatchVar  string
+	CatchBody *BlockStmt
+}
+
