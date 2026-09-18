@@ -260,3 +260,8 @@ type IntLit struct {
 
 func (*IntLit) exprNode() {}
 
+type FloatLit struct {
+	Base
+	Value float64
+}
+
