@@ -102,3 +102,28 @@ for `nox build <file.nox>`), as either `some/path.nox` or a directory
 `::`-namespace (`import("libs/math")` → `libs::math::add(...)`); an alias
 shortens it (`import("libs/math") as m` → `m::add(...)`).
 
+### Cross-compilation
+
+```
+NOX_OS=windows NOX_ARCH=amd64 NOX_TCC=/path/to/windows-tcc nox build
+```
+
+Every build — native or cross — runs through tcc, selected by `NOX_TCC`
+(default: `tcc` on `PATH`). There is no fallback to any other compiler,
+ever. To cross-compile, point `NOX_TCC` at a tcc *build for that target* —
+tcc's own project distributes separate cross-compiling builds (e.g. a
+Windows-target tcc) distinct from the native Linux one `apt` installs; that
+separate binary is what `NOX_TCC` should name. A cross build always compiles
+with `-DNOX_NO_GC` (see "Threading and thread-local storage" / `runtime.c`)
+since a target-matching build of Boehm GC isn't something this tool bundles
+or can assume exists — this sandbox had no such Windows-target tcc binary
+available to test that exact "point NOX_TCC at it" path end-to-end, so
+treat cross-compilation as implemented-and-reasoned-through rather than
+verified. What *was* verified in this environment: the generated C's
+Windows-specific runtime code (the `#if defined(_WIN32)` branch in
+`runtime.c` — Win32 threads, `TlsAlloc`-based TLS, `_mkdir`, etc.) compiles
+cleanly and runs correctly under Wine when built with a Windows-target C
+compiler by hand, confirming the *generated code itself* is genuinely
+Windows-portable and pthread-free — independent of which specific compiler
+binary ends up invoking it.
+
