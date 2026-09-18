@@ -260,3 +260,11 @@ func (cg *Codegen) ensureClosureType(t Type) string {
 	return name
 }
 
+// Ret2 normalizes a nil Ret into TVoid for mangling purposes.
+func (t Type) Ret2() Type {
+	if t.Ret == nil {
+		return TVoid()
+	}
+	return *t.Ret
+}
+
