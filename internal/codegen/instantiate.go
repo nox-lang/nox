@@ -106,3 +106,50 @@ func (fb *funcBuilder) callUserFunc(c *ctx, name string, callArgs []ast.Expr) (s
 	return call, fi.RetType
 }
 
+// getOrInstantiateFunc returns the (possibly newly generated) monomorphized
+// instance of decl for the given concrete argument types.
+func (cg *Codegen) getOrInstantiateFunc(name string, decl *ast.FuncDecl, argTypes []Type) *FuncInstance {
+	key := funcKey{name: name, argsKey: mangleList(argTypes)}
+	if fi, ok := cg.instCache[key]; ok {
+		if fi.Emitting && !fi.RetTypeKnown {
+			panic(fmt.Sprintf("nox: recursive call to '%s' before its return type could be inferred; add an explicit return type annotation (func %s(...): TYPE)", name, name))
+		}
+		return fi
+	}
+
+	// Check parameter type compatibility for explicitly-typed parameters.
+	for i, p := range decl.Params {
+		if i >= len(argTypes) {
+			break
+		}
+		if argTypes[i].ContainsUnknown() {
+			panic(fmt.Sprintf("nox: call to '%s': cannot pass an empty array literal '[]' for argument '%s' without an explicit type; write it as e.g. (an array<TYPE>) or add a type to '%s's parameter", name, p.Name, name))
+		}
+		if p.Type != nil {
+			want := cg.resolveTypeExpr(p.Type)
+			if !want.Equals(argTypes[i]) {
+				panic(fmt.Sprintf("nox: call to '%s': argument '%s' expects %s, got %s", name, p.Name, want.String(), argTypes[i].String()))
+			}
+		}
+	}
+
+	mangled := cg.freshName("nox_fn_" + sanitizeIdent(name))
+	fi := &FuncInstance{MangledName: mangled, Decl: decl, ParamTypes: argTypes, IsAsync: decl.IsAsync}
+	if decl.ReturnType != nil {
+		fi.RetType = cg.resolveTypeExpr(decl.ReturnType)
+		fi.RetTypeKnown = true
+	}
+	fi.Emitting = true
+	cg.instCache[key] = fi
+	cg.funcInstances[mangled] = fi
+	cg.funcOrder = append(cg.funcOrder, mangled)
+
+	if decl.IsAsync {
+		cg.emitAsyncFunc(fi, decl, argTypes, nil)
+	} else {
+		cg.emitSyncFunc(fi, decl, argTypes, "this", nil)
+	}
+	fi.Emitting = false
+	return fi
+}
+
