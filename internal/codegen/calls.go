@@ -80,3 +80,28 @@ func (fb *funcBuilder) genDeleteMethod(c *ctx, recv string, recvType Type, args 
 	return "", TVoid()
 }
 
+// genClosureCall invokes a first-class function value through its
+// {fn, env} fat-pointer representation.
+func (fb *funcBuilder) genClosureCall(c *ctx, closureCode string, t Type, args []ast.Expr) (string, Type) {
+	if len(args) != len(t.Params) {
+		panic(fmt.Sprintf("nox: %s: closure call expects %d argument(s), got %d", fb.fname, len(t.Params), len(args)))
+	}
+	tmp := fb.cg.freshTmp("cloval")
+	c.emit(compilef("%s %s = %s;", fb.cg.ctype(t), tmp, closureCode))
+	var argCodes []string
+	for i, a := range args {
+		code, at := fb.genExpr(c, a)
+		if !at.Equals(t.Params[i]) {
+			panic(fmt.Sprintf("nox: %s: closure argument %d: expected %s, got %s", fb.fname, i+1, t.Params[i].String(), at.String()))
+		}
+		argCodes = append(argCodes, code)
+	}
+	callArgs := append([]string{tmp + ".env"}, argCodes...)
+	call := fmt.Sprintf("%s.fn(%s)", tmp, strings.Join(callArgs, ", "))
+	ret := TVoid()
+	if t.Ret != nil {
+		ret = *t.Ret
+	}
+	return call, ret
+}
+
