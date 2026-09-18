@@ -33,3 +33,8 @@ type tryCtx struct {
 	catchLabel string
 }
 
+type deferEntry struct {
+	flagVar string
+	bodyC   string
+}
+
