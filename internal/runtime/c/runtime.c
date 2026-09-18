@@ -349,3 +349,10 @@ static int nox_cmp_bool_asc(const void *pa, const void *pb) {
     return (a ? 1 : 0) - (b ? 1 : 0);
 }
 
+/* ---------------- printing ---------------- */
+static void nox_print_int(int64_t v) { printf("%lld", (long long)v); }
+static void nox_print_float(double v) { printf("%g", v); }
+static void nox_print_bool(bool v) { printf("%s", v ? "true" : "false"); }
+static void nox_print_string(nox_string v) { fwrite(v.data, 1, (size_t)v.len, stdout); }
+static void nox_print_raw_cstr(const char *s) { fputs(s, stdout); }
+
