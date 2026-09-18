@@ -53,3 +53,23 @@ func (s *Scope) lookup(name string) (Type, bool) {
 	return Type{}, false
 }
 
+// FuncInstance is one monomorphized specialization of a Nox function.
+type FuncInstance struct {
+	MangledName  string
+	Decl         *ast.FuncDecl
+	ParamTypes   []Type
+	RetType      Type
+	RetTypeKnown bool
+	IsAsync      bool
+	Emitting     bool // guards against infinite recursion while generating
+	Emitted      bool
+	Forward      string // forward declaration line
+	Body         string // full definition (emitted once ready)
+
+	// Async-only: names of the auxiliary synchronous body function and the
+	// pthread trampoline generated alongside the public task-returning entry
+	// point (see emitAsyncFunc).
+	AsyncBodyName   string
+	AsyncThreadName string
+}
+
