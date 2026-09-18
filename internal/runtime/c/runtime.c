@@ -228,3 +228,11 @@ typedef struct {
     int64_t cap;
 } nox_array;
 
+static nox_array nox_array_new(void) {
+    nox_array a;
+    a.data = NULL;
+    a.len = 0;
+    a.cap = 0;
+    return a;
+}
+
