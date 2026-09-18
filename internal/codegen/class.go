@@ -16,3 +16,12 @@ func findMethod(decl *ast.ClassDecl, name string) *ast.FuncDecl {
 	return nil
 }
 
+func fieldDecl(decl *ast.ClassDecl, name string) *ast.FieldDecl {
+	for _, f := range decl.Fields {
+		if f.Name == name {
+			return f
+		}
+	}
+	return nil
+}
+
