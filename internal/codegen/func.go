@@ -691,3 +691,13 @@ func (fb *funcBuilder) genForIn(scope *Scope, s *ast.ForInStmt, isExprCtx bool) 
 
 // ---------------- switch ----------------
 
+func eqExprC(aC string, aT Type, bC string, bT Type) string {
+	if !aT.Equals(bT) {
+		panic(fmt.Sprintf("nox: switch: case value type %s does not match subject type %s", bT.String(), aT.String()))
+	}
+	if aT.Kind == KString {
+		return fmt.Sprintf("nox_string_eq(%s, %s)", aC, bC)
+	}
+	return fmt.Sprintf("(%s == %s)", aC, bC)
+}
+
