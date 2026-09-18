@@ -31,3 +31,9 @@ type TypeExpr struct {
 
 // ---------- File ----------
 
+type ImportSpec struct {
+	Base
+	Path  string
+	Alias string // "" if none given (defaults to path)
+}
+
