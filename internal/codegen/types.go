@@ -7,3 +7,5 @@ import (
 	"strings"
 )
 
+type Kind int
+
