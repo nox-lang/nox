@@ -130,3 +130,25 @@ func (fb *funcBuilder) genIdent(c *ctx, x *ast.Ident) (string, Type) {
 
 // ---------------- arrays ----------------
 
+func (fb *funcBuilder) genArrayLit(c *ctx, x *ast.ArrayLit) (string, Type) {
+	tmp := fb.cg.freshTmp("arr")
+	c.emit(compilef("nox_array %s = nox_array_new();", tmp))
+	var elemType *Type
+	for _, el := range x.Elems {
+		code, t := fb.genExpr(c, el)
+		if elemType == nil {
+			et := t
+			elemType = &et
+		} else if !elemType.Equals(t) {
+			panic(fmt.Sprintf("nox: %s: array literal has mixed element types (%s vs %s)", fb.fname, elemType.String(), t.String()))
+		}
+		etmp := fb.cg.freshTmp("elem")
+		c.emit(compilef("%s %s = %s;", fb.cg.ctype(t), etmp, code))
+		c.emit(compilef("nox_array_push_raw(&%s, &%s, sizeof(%s));", tmp, etmp, fb.cg.ctype(t)))
+	}
+	if elemType == nil {
+		return tmp, TArray(Type{Kind: KUnknown})
+	}
+	return tmp, TArray(*elemType)
+}
+
