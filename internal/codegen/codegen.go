@@ -337,3 +337,18 @@ func sortedMethodKeys(m map[string]*FuncInstance) []string {
 	return ks
 }
 
+func indent(s, pre string) string {
+	lines := strings.Split(strings.TrimRight(s, "\n"), "\n")
+	var sb strings.Builder
+	for _, l := range lines {
+		if l == "" {
+			sb.WriteString("\n")
+			continue
+		}
+		sb.WriteString(pre)
+		sb.WriteString(l)
+		sb.WriteString("\n")
+	}
+	return sb.String()
+}
+
