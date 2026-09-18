@@ -281,3 +281,5 @@ type BoolLit struct {
 
 func (*BoolLit) exprNode() {}
 
+type NullLit struct{ Base }
+
