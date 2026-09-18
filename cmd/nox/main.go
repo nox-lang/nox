@@ -67,3 +67,15 @@ Environment variables (for 'nox build'):
 
 // ---------------- init ----------------
 
+func cmdInit(args []string) error {
+	if len(args) != 1 {
+		return fmt.Errorf("usage: nox init <name>")
+	}
+	name := args[0]
+	if err := pkgmgr.Init(name, name); err != nil {
+		return err
+	}
+	fmt.Printf("Created Nox package '%s' in ./%s\n", name, name)
+	return nil
+}
+
