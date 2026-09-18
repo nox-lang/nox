@@ -252,3 +252,22 @@ static void nox_array_push_raw(nox_array *a, const void *elem, int64_t elemsize)
     a->len++;
 }
 
+static nox_array nox_string_split_lines(nox_string s) {
+    nox_array result = nox_array_new();
+    int64_t start = 0;
+    for (int64_t i = 0; i < s.len; i++) {
+        if (s.data[i] == '\n') {
+            int64_t end = i;
+            if (end > start && s.data[end - 1] == '\r') end--;
+            nox_string line = nox_string_from_bytes(s.data + start, end - start);
+            nox_array_push_raw(&result, &line, sizeof(nox_string));
+            start = i + 1;
+        }
+    }
+    if (start < s.len) {
+        nox_string line = nox_string_from_bytes(s.data + start, s.len - start);
+        nox_array_push_raw(&result, &line, sizeof(nox_string));
+    }
+    return result;
+}
+
