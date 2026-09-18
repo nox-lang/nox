@@ -157,3 +157,9 @@ type ForInStmt struct {
 func (*ForInStmt) stmtNode() {}
 func (*ForInStmt) exprNode() {}
 
+type WhileStmt struct {
+	Base
+	Cond Expr
+	Body *BlockStmt
+}
+
