@@ -149,3 +149,9 @@ static nox_string nox_string_concat(nox_string a, nox_string b) {
     return s;
 }
 
+static bool nox_string_eq(nox_string a, nox_string b) {
+    if (a.len != b.len) return false;
+    if (a.len == 0) return true;
+    return memcmp(a.data, b.data, (size_t)a.len) == 0;
+}
+
