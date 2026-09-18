@@ -127,3 +127,26 @@ compiler by hand, confirming the *generated code itself* is genuinely
 Windows-portable and pthread-free — independent of which specific compiler
 binary ends up invoking it.
 
+## Threading and thread-local storage
+
+`async`/`await`/`parallel` and the per-thread error-propagation state (see
+"Error handling" below) both need threads and thread-local storage.
+`runtime.c` abstracts both behind small macros
+(`NOX_THREAD_CREATE`/`NOX_THREAD_JOIN`/`NOX_TLS_*`) with two implementations
+selected by `#if defined(_WIN32)`:
+
+- **Windows**: native Win32 — `CreateThread`/`WaitForSingleObject` for
+  threads, `TlsAlloc`/`TlsGetValue`/`TlsSetValue` for thread-local storage.
+  `<pthread.h>` is never included on this path, and no pthreads
+  implementation (bundled, static, or DLL) is a dependency of a Windows
+  build at all.
+- **Everywhere else**: plain POSIX pthreads (`pthread_create`/`pthread_join`,
+  `pthread_key_t`). tcc does not support the `__thread` storage-class
+  keyword, which is why thread-local storage goes through an explicit
+  key/slot API on this path too, rather than a compiler-level thread-local
+  variable.
+
+Generated code (in `internal/codegen/async.go` and `closures.go`) only ever
+emits the portable macro names, never a platform-specific call directly, so
+the same generated `.c` file is what's compiled for every target.
+
