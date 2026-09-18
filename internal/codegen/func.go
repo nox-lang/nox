@@ -433,3 +433,57 @@ func (fb *funcBuilder) genBranchExpr(parentScope *Scope, block *ast.BlockStmt, r
 
 // ---------------- loops ----------------
 
+// scanLoopBody determines whether the loop body (not crossing into a nested
+// loop or function literal) contains a `next value` (collect mode) and/or a
+// `break value` (break-with-value mode). A `break value` (or `next value`)
+// found inside a nested `switch` belongs to that switch (or, for `next`,
+// still targets the outer loop — but doesn't change *this* loop's own
+// collect-mode determination the way a directly-nested one would... in
+// fact it does, since `next` always targets the nearest real loop even
+// through a switch — see genNextStmt), so both are scanned through nested
+// switches the same way `next`'s own runtime targeting works.
+func scanLoopBody(b *ast.BlockStmt) (hasNext, hasBreakValue bool) {
+	var walkStmts func(stmts []ast.Stmt, inSwitch bool)
+	var walkStmt func(st ast.Stmt, inSwitch bool)
+	walkStmt = func(st ast.Stmt, inSwitch bool) {
+		switch s := st.(type) {
+		case *ast.NextStmt:
+			if s.Value != nil {
+				hasNext = true
+			}
+		case *ast.BreakStmt:
+			if s.Value != nil && !inSwitch {
+				hasBreakValue = true
+			}
+		case *ast.IfStmt:
+			walkStmts(s.Then.Stmts, inSwitch)
+			if s.Else != nil {
+				walkStmt(s.Else, inSwitch)
+			}
+		case *ast.BlockStmt:
+			walkStmts(s.Stmts, inSwitch)
+		case *ast.SwitchStmt:
+			for _, c := range s.Cases {
+				walkStmts(c.Body.Stmts, true)
+			}
+			if s.Default != nil {
+				walkStmts(s.Default.Stmts, true)
+			}
+		case *ast.TryStmt:
+			walkStmts(s.Body.Stmts, inSwitch)
+			walkStmts(s.CatchBody.Stmts, inSwitch)
+		// Nested loops and function literals establish a new boundary: a
+		// `next`/`break value` inside them belongs to *that* construct.
+		case *ast.ForCondStmt, *ast.ForInStmt, *ast.WhileStmt:
+			return
+		}
+	}
+	walkStmts = func(stmts []ast.Stmt, inSwitch bool) {
+		for _, st := range stmts {
+			walkStmt(st, inSwitch)
+		}
+	}
+	walkStmts(b.Stmts, false)
+	return
+}
+
