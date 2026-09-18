@@ -762,3 +762,29 @@ let resultA = await a
 let resultB = await b
 ```
 
+# 17. Parallel
+
+複数の非同期処理を並列に実行するための組み込み機能として `Parallel` を持ちます。
+
+基本形は、
+
+```text
+let results = await Parallel {
+    fetchA()
+    fetchB()
+    fetchC()
+}
+```
+
+です。
+
+結果は処理順を維持した配列として取得します。
+
+```text
+let a = results[0]
+let b = results[1]
+let c = results[2]
+```
+
+詳細な仕様は今後調整します。
+
