@@ -126,3 +126,10 @@ func Lookup(ident string) Kind {
 	return IDENT
 }
 
+type Token struct {
+	Kind    Kind
+	Literal string
+	Line    int
+	Col     int
+}
+
