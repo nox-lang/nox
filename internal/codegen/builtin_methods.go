@@ -255,3 +255,11 @@ func (fb *funcBuilder) genArrayMethod(c *ctx, recv string, recvType Type, method
 	panic(fmt.Sprintf("nox: %s: array has no method '.%s(...)'", fb.fname, method))
 }
 
+func (fb *funcBuilder) requireFuncLit(argExpr ast.Expr, methodName string) *ast.FuncLit {
+	fl, ok := argExpr.(*ast.FuncLit)
+	if !ok {
+		panic(fmt.Sprintf("nox: %s: the callback passed to '.%s(...)' must be a literal anonymous function, e.g. arr.%s((x) { ... })", fb.fname, methodName, methodName))
+	}
+	return fl
+}
+
