@@ -347,3 +347,28 @@ func (fb *funcBuilder) genIfStmt(scope *Scope, s *ast.IfStmt) string {
 	return sb.String()
 }
 
+// ---------------- if, as an expression ----------------
+//
+// `if` used as a plain statement (genIfStmt, above) is unchanged: no `else`
+// is required, and its branches are ordinary statement lists. `if` used as
+// an *expression* (e.g. `let x = if (c) { a } else { b }`) is a distinct,
+// stricter form: every branch must be present (an `else` is mandatory) and
+// each branch's final statement must be a bare value expression, which
+// becomes that branch's contribution to the overall result — there is no
+// `break`/`next`/`yield` involved, deliberately, so that `break`/`next`
+// written inside an if used as a plain statement (overwhelmingly the more
+// common case, e.g. `if (x) { break }` inside a loop) keep meaning exactly
+// what they already mean and keep targeting the enclosing loop, not this
+// `if`.
+func (fb *funcBuilder) genIfExpr(c *ctx, s *ast.IfStmt) (string, Type) {
+	resultVar := fb.cg.freshTmp("ifresult")
+	var resultType *Type
+	body := fb.genIfChainExpr(c.scope, s, resultVar, &resultType)
+	if resultType == nil {
+		panic(fmt.Sprintf("nox: %s: if-expression: could not determine a result type", fb.fname))
+	}
+	c.emit(compilef("%s %s;", fb.cg.ctype(*resultType), resultVar))
+	c.emit(body)
+	return resultVar, *resultType
+}
+
