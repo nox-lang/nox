@@ -362,3 +362,5 @@ type ParallelExpr struct {
 
 func (*ParallelExpr) exprNode() {}
 
+// Helper constructors used by the parser to stamp position info concisely.
+func NewBase(line, col int) Base { return Base{Line: line, Col: col} }
