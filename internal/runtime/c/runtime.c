@@ -83,3 +83,14 @@ static nox_tls_key_t __nox_err_key;
  * primitive (pthread_once has no simple portable equivalent on Windows). */
 static void __nox_err_key_make(void) { NOX_TLS_CREATE(&__nox_err_key); }
 
+static nox_err_state *nox_err_state_get(void) {
+    nox_err_state *st = (nox_err_state *)NOX_TLS_GET(__nox_err_key);
+    if (!st) {
+        st = (nox_err_state *)GC_MALLOC(sizeof(nox_err_state));
+        st->has_err = false;
+        st->msg[0] = 0;
+        NOX_TLS_SET(__nox_err_key, st);
+    }
+    return st;
+}
+
