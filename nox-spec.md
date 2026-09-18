@@ -805,3 +805,16 @@ func load(): string {
 }
 ```
 
+## 18.2 try / catch
+
+エラーを処理する場合は `try / catch` を使用します。
+
+```text
+try {
+    let text = load()
+    io::Println(text)
+} catch (error) {
+    io::Println(error)
+}
+```
+
