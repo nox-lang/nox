@@ -170,3 +170,8 @@ static bool nox_string_contains(nox_string s, nox_string sub) {
     return strstr(s.data, sub.data) != NULL;
 }
 
+static bool nox_string_starts_with(nox_string s, nox_string pre) {
+    if (pre.len > s.len) return false;
+    return memcmp(s.data, pre.data, (size_t)pre.len) == 0;
+}
+
