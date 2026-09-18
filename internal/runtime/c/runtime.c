@@ -78,3 +78,8 @@ typedef struct {
 
 static nox_tls_key_t __nox_err_key;
 
+/* Created once, eagerly, from nox_runtime_init() before any thread other
+ * than the main one exists — this sidesteps needing a once-only-init
+ * primitive (pthread_once has no simple portable equivalent on Windows). */
+static void __nox_err_key_make(void) { NOX_TLS_CREATE(&__nox_err_key); }
+
