@@ -92,3 +92,38 @@ type funcKey struct {
 	argsKey string
 }
 
+type Codegen struct {
+	file *ast.File
+
+	funcsByName   map[string]*ast.FuncDecl
+	classesByName map[string]*ast.ClassDecl
+	globalDecls   map[string]*ast.LetStmt
+
+	namespaces map[string]*Namespace // key: joined "::" path, e.g. "io", "libs::math"
+
+	globalScope *Scope
+	globalInitC []string // statements to run in nox_init_globals()
+
+	funcInstances map[string]*FuncInstance // key: mangled name
+	funcOrder     []string
+	instCache     map[funcKey]*FuncInstance
+
+	classInstances map[string]*ClassInstance // key: ClassKey
+	classOrder     []string
+	classCache     map[string]*ClassInstance // key: className + argsKey
+
+	closureTypes map[string]bool
+	taskTypes    map[string]bool
+	typeDefs     []string
+
+	includeHeaders []string // "stdio.h" etc, deduped
+	includeSeen    map[string]bool
+
+	tmpCounter  int
+	nameCounter int
+
+	errStack int // nesting depth counter for generating unique labels (not currently required, reserved)
+
+	warnings []string
+}
+
