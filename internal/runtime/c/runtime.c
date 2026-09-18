@@ -541,3 +541,11 @@ static nox_string nox_path_ext(nox_string p) {
     return nox_string_from_bytes(p.data + i - 1, p.len - i + 1);
 }
 
+static nox_string nox_path_stem(nox_string p) {
+    nox_string base = nox_path_basename(p);
+    int64_t i = base.len;
+    while (i > 0 && base.data[i - 1] != '.') i--;
+    if (i <= 1) return base;
+    return nox_string_from_bytes(base.data, i - 1);
+}
+
