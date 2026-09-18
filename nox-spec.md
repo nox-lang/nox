@@ -794,3 +794,14 @@ Nox内部には `Result` の仕組みがあります。
 
 ただし、Rustのように常に `Result<T, E>` を明示する必要はありません。
 
+## 18.1 `?`
+
+`?` はエラーを呼び出し元へ伝播させます。
+
+```text
+func load(): string {
+    let text = fs::read("hello.txt")?
+    return text
+}
+```
+
