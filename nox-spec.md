@@ -435,3 +435,47 @@ let result = for (x in numbers) {
 }
 ```
 
+## 11.1 ループ内のreturn
+
+ループ内の `return value` はループを終了しません。
+
+値を集め、ループ終了時に配列として結果を返します。
+
+```text
+let results = for (x in numbers) {
+    if (x > 10) {
+        return x
+    }
+}
+```
+
+例えば、
+
+```text
+[5, 12, 20, 30]
+```
+
+から実行すると、
+
+```text
+[12, 20, 30]
+```
+
+になります。
+
+つまり、
+
+```text
+break value
+```
+
+は「ループを終了して1つの値を返す」、
+
+```text
+return value
+```
+
+は「ループを継続しながら値を収集する」
+
+という違いがあります。
+
