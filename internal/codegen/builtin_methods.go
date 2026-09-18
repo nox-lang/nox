@@ -347,3 +347,25 @@ func (fb *funcBuilder) genMapLoop(c *ctx, recv string, elemType Type, fl *ast.Fu
 	return outTmp, TArray(*resType)
 }
 
+func (fb *funcBuilder) genFilterLoop(c *ctx, recv string, elemType Type, fl *ast.FuncLit) (string, Type) {
+	if len(fl.Params) != 1 {
+		panic(fmt.Sprintf("nox: %s: 'filter' callback needs exactly one parameter", fb.fname))
+	}
+	idxVar := fb.cg.freshTmp("i")
+	elemC := fb.cg.ctype(elemType)
+	elemExpr := fmt.Sprintf("((%s*)%s.data)[%s]", elemC, recv, idxVar)
+	params := []cbParam{{fl.Params[0].Name, elemType, elemExpr}}
+	bodyC, resVar, resType := fb.genInlineCallback(c.scope, fl, params)
+	if resType == nil || resType.Kind != KBool {
+		panic(fmt.Sprintf("nox: %s: 'filter' callback must 'yield' a bool", fb.fname))
+	}
+	outTmp := fb.cg.freshTmp("filtered")
+	c.emit(compilef("nox_array %s = nox_array_new();", outTmp))
+	var loopBody strings.Builder
+	loopBody.WriteString(bodyC)
+	loopBody.WriteString(compilef("if (%s) { nox_array_push_raw(&%s, &%s, sizeof(%s)); }", resVar, outTmp, elemExpr, elemC))
+	loop := fmt.Sprintf("for (int64_t %s = 0; %s < %s.len; %s++) {\n%s}\n", idxVar, idxVar, recv, idxVar, indent(loopBody.String(), "    "))
+	c.emit(loop)
+	return outTmp, TArray(elemType)
+}
+
