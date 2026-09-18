@@ -198,3 +198,17 @@ let matrix = [
 ]
 ```
 
+## 6.1 基本操作
+
+```text
+numbers.length
+numbers[0]
+numbers[0] = 100
+
+numbers.push(6)
+numbers.pop()
+numbers.insert(1, 50)
+numbers.remove(1)
+numbers.clear()
+```
+
