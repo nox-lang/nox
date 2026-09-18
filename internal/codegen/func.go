@@ -372,3 +372,31 @@ func (fb *funcBuilder) genIfExpr(c *ctx, s *ast.IfStmt) (string, Type) {
 	return resultVar, *resultType
 }
 
+func (fb *funcBuilder) genIfChainExpr(scope *Scope, s *ast.IfStmt, resultVar string, resultType **Type) string {
+	c, pre := newCtx(scope)
+	condCode, condType := fb.genExpr(c, s.Cond)
+	if condType.Kind != KBool {
+		panic(fmt.Sprintf("nox: %s: if condition must be bool, got %s", fb.fname, condType.String()))
+	}
+	var sb strings.Builder
+	for _, p := range *pre {
+		sb.WriteString(p)
+	}
+	sb.WriteString(compilef("if (%s) {", condCode))
+	sb.WriteString(indent(fb.genBranchExpr(scope, s.Then, resultVar, resultType), "    "))
+	sb.WriteString("} else ")
+	switch e := s.Else.(type) {
+	case *ast.IfStmt:
+		sb.WriteString("{\n")
+		sb.WriteString(indent(fb.genIfChainExpr(scope, e, resultVar, resultType), "    "))
+		sb.WriteString("}\n")
+	case *ast.BlockStmt:
+		sb.WriteString("{\n")
+		sb.WriteString(indent(fb.genBranchExpr(scope, e, resultVar, resultType), "    "))
+		sb.WriteString("}\n")
+	default:
+		panic(fmt.Sprintf("nox: %s: an if-expression must have an 'else' covering every case", fb.fname))
+	}
+	return sb.String()
+}
+
