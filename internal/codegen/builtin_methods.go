@@ -57,3 +57,59 @@ func (fb *funcBuilder) genBuiltinMethodCall(c *ctx, recv string, recvType Type, 
 	panic(fmt.Sprintf("nox: %s: '.%s(...)' is not available on type %s", fb.fname, method, recvType.String()))
 }
 
+func (fb *funcBuilder) genConversion(recv string, t Type, method string) (string, Type) {
+	conv := func(fn string, rt Type) (string, Type) {
+		if fn == "" {
+			return recv, rt
+		}
+		return fmt.Sprintf("%s(%s)", fn, recv), rt
+	}
+	switch method {
+	case "toInt":
+		switch t.Kind {
+		case KInt:
+			return conv("", TInt())
+		case KFloat:
+			return conv("nox_float_to_int", TInt())
+		case KBool:
+			return conv("nox_bool_to_int", TInt())
+		case KString:
+			return conv("nox_string_to_int", TInt())
+		}
+	case "toFloat":
+		switch t.Kind {
+		case KFloat:
+			return conv("", TFloat())
+		case KInt:
+			return conv("nox_int_to_float", TFloat())
+		case KBool:
+			return conv("nox_bool_to_float", TFloat())
+		case KString:
+			return conv("nox_string_to_float", TFloat())
+		}
+	case "toBool":
+		switch t.Kind {
+		case KBool:
+			return conv("", TBool())
+		case KInt:
+			return conv("nox_int_to_bool", TBool())
+		case KFloat:
+			return conv("nox_float_to_bool", TBool())
+		case KString:
+			return conv("nox_string_to_bool", TBool())
+		}
+	case "toString":
+		switch t.Kind {
+		case KString:
+			return conv("", TString())
+		case KInt:
+			return conv("nox_int_to_string", TString())
+		case KFloat:
+			return conv("nox_float_to_string", TString())
+		case KBool:
+			return conv("nox_bool_to_string", TString())
+		}
+	}
+	panic(fmt.Sprintf("nox: %s: '.%s()' is not available on type %s", fb.fname, method, t.String()))
+}
+
