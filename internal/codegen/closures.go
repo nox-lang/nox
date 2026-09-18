@@ -261,3 +261,42 @@ func (fb *funcBuilder) genPropagateExpr(c *ctx, x *ast.PropagateExpr) (string, T
 	return tmp, t
 }
 
+func (fb *funcBuilder) genAwaitExpr(c *ctx, x *ast.AwaitExpr) (string, Type) {
+	code, t := fb.genExpr(c, x.X)
+	if t.Kind == KArray && t.Elem != nil && t.Elem.Kind == KTask {
+		// `await parallel { ... }`: an array of not-yet-joined Task
+		// handles — join each in order and collect their results.
+		taskType := *t.Elem
+		elemType := *taskType.Elem
+		tasksTmp := fb.cg.freshTmp("tasks")
+		c.emit(compilef("nox_array %s = %s;", tasksTmp, code))
+		resultsTmp := fb.cg.freshTmp("presults")
+		c.emit(compilef("nox_array %s = nox_array_new();", resultsTmp))
+		idxVar := fb.cg.freshTmp("i")
+		taskC := fb.cg.ctype(taskType)
+		tVar := fb.cg.freshTmp("t")
+		var body strings.Builder
+		body.WriteString(compilef("%s %s = ((%s*)%s.data)[%s];", taskC, tVar, taskC, tasksTmp, idxVar))
+		body.WriteString(compilef("NOX_THREAD_JOIN(%s.th);", tVar))
+		if elemType.Kind != KVoid {
+			elemC := fb.cg.ctype(elemType)
+			rVar := fb.cg.freshTmp("r")
+			body.WriteString(compilef("%s %s = *%s.result;", elemC, rVar, tVar))
+			body.WriteString(compilef("nox_array_push_raw(&%s, &%s, sizeof(%s));", resultsTmp, rVar, elemC))
+		}
+		loop := fmt.Sprintf("for (int64_t %s = 0; %s < %s.len; %s++) {\n%s}\n", idxVar, idxVar, tasksTmp, idxVar, indent(body.String(), "    "))
+		c.emit(loop)
+		return resultsTmp, TArray(elemType)
+	}
+	if t.Kind != KTask {
+		panic(fmt.Sprintf("nox: %s: 'await' requires a Task (the result of calling an async function) or an array of Tasks (from 'parallel { }'), got %s", fb.fname, t.String()))
+	}
+	tmp := fb.cg.freshTmp("task")
+	c.emit(compilef("%s %s = %s;", fb.cg.ctype(t), tmp, code))
+	c.emit(compilef("NOX_THREAD_JOIN(%s.th);", tmp))
+	if t.Elem.Kind == KVoid {
+		return "", TVoid()
+	}
+	return fmt.Sprintf("(*%s.result)", tmp), *t.Elem
+}
+
