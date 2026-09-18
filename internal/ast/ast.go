@@ -3,3 +3,5 @@ package ast
 
 import "nox/internal/token"
 
+type Node interface{ Pos() (int, int) }
+
