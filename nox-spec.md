@@ -212,3 +212,13 @@ numbers.remove(1)
 numbers.clear()
 ```
 
+## 6.2 each
+
+`each` は要素だけを受け取ります。
+
+```text
+numbers.each((x) {
+    io::Println(x)
+})
+```
+
