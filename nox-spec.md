@@ -1001,3 +1001,27 @@ nox build hello.nox
 
 とした場合は `hello.nox` 単体をビルドします。
 
+## 25.3 クロスビルド
+
+環境変数によって対象OSを指定できます。
+
+```text
+NOX_OS=windows nox build
+```
+
+```text
+NOX_OS=linux nox build
+```
+
+CPUアーキテクチャも指定できます。
+
+```text
+NOX_OS=linux NOX_ARCH=amd64 nox build
+```
+
+```text
+NOX_OS=linux NOX_ARCH=arm64 nox build
+```
+
+環境変数を指定しなかった場合は、現在の環境を対象とします。
+
