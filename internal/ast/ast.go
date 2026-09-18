@@ -99,3 +99,11 @@ type BlockStmt struct {
 
 func (*BlockStmt) stmtNode() {}
 
+type LetStmt struct {
+	Base
+	Name      string
+	Type      *TypeExpr // nil if inferred
+	Value     Expr      // nil if uninitialized (`let value`)
+	IsPrivate bool      // only meaningful at package (top) level
+}
+
