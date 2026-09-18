@@ -133,3 +133,23 @@ type Token struct {
 	Col     int
 }
 
+func (k Kind) String() string {
+	names := map[Kind]string{
+		EOF: "EOF", ILLEGAL: "ILLEGAL", IDENT: "IDENT", INT: "INT", FLOAT: "FLOAT", STRING: "STRING",
+		PACKAGE: "package", IMPORT: "import", INCLUDE: "include", AS: "as", LET: "let", FUNC: "func",
+		RETURN: "return", IF: "if", ELSE: "else", FOR: "for", WHILE: "while", IN: "in", BREAK: "break",
+		SWITCH: "switch", CASE: "case", DEFAULT: "default", CLASS: "class", PRIVATE: "private", THIS: "this",
+		TRUE: "true", FALSE: "false", NULL: "null", ASYNC: "async", AWAIT: "await", PARALLEL: "parallel",
+		TRY: "try", CATCH: "catch", DEFER: "defer", NEXT: "next", YIELD: "yield",
+		LPAREN: "(", RPAREN: ")", LBRACE: "{", RBRACE: "}", LBRACKET: "[", RBRACKET: "]",
+		COMMA: ",", COLON: ":", SEMI: ";", DOT: ".", DCOLON: "::", ELLIPSIS: "...", QUESTION: "?",
+		ASSIGN: "=", PLUS: "+", MINUS: "-", STAR: "*", SLASH: "/", PERCENT: "%",
+		AMP: "&", PIPE: "|", CARET: "^", NOT: "!",
+		LT: "<", GT: ">", LE: "<=", GE: ">=", EQ: "==", NE: "!=", AND: "&&", OR: "||",
+		PLUSEQ: "+=", MINUSEQ: "-=", STAREQ: "*=", SLASHEQ: "/=", PLUSPLUS: "++", MINUSMINUS: "--",
+	}
+	if n, ok := names[k]; ok {
+		return n
+	}
+	return "?"
+}
