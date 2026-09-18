@@ -263,3 +263,9 @@ func (fb *funcBuilder) requireFuncLit(argExpr ast.Expr, methodName string) *ast.
 	return fl
 }
 
+type cbParam struct {
+	name  string
+	typ   Type
+	cexpr string
+}
+
