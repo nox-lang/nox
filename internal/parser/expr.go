@@ -125,3 +125,36 @@ func (p *Parser) parseUnary() ast.Expr {
 	return p.parsePostfix()
 }
 
+func (p *Parser) parsePostfix() ast.Expr {
+	x := p.parsePrimary()
+	for {
+		switch p.cur().Kind {
+		case token.DOT:
+			p.advance()
+			name := p.expect(token.IDENT)
+			x = &ast.MemberExpr{Base: ast.NewBase(name.Line, name.Col), X: x, Name: name.Literal}
+		case token.LPAREN:
+			lp := p.advance()
+			var args []ast.Expr
+			for !p.at(token.RPAREN) {
+				args = append(args, p.parseExpr())
+				if !p.accept(token.COMMA) {
+					break
+				}
+			}
+			p.expect(token.RPAREN)
+			x = &ast.CallExpr{Base: ast.NewBase(lp.Line, lp.Col), Callee: x, Args: args}
+		case token.LBRACKET:
+			lb := p.advance()
+			idx := p.parseExpr()
+			p.expect(token.RBRACKET)
+			x = &ast.IndexExpr{Base: ast.NewBase(lb.Line, lb.Col), X: x, Index: idx}
+		case token.QUESTION:
+			q := p.advance()
+			x = &ast.PropagateExpr{Base: ast.NewBase(q.Line, q.Col), X: x}
+		default:
+			return x
+		}
+	}
+}
+
