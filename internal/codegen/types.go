@@ -23,3 +23,16 @@ const (
 	KUnknown // element type of an empty array literal, resolved from context
 )
 
+// Type is the codegen-level resolved type of a Nox value.
+type Type struct {
+	Kind Kind
+
+	Elem *Type // element type for KArray / KPointer / KTask
+
+	ClassName string // original Nox class name, for KClass
+	ClassKey  string // mangled/instantiated struct tag, for KClass
+
+	Params []Type // parameter types for KFunc
+	Ret    *Type  // return type for KFunc (nil means void)
+}
+
