@@ -163,3 +163,6 @@ type WhileStmt struct {
 	Body *BlockStmt
 }
 
+func (*WhileStmt) stmtNode() {}
+func (*WhileStmt) exprNode() {}
+
