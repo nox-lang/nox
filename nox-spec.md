@@ -65,3 +65,34 @@ import("libs/math")
 libs::math::add(1, 2)
 ```
 
+## 2.3 include
+
+`include` はCヘッダを直接読み込みます。
+
+```text
+include(
+    "stdio.h",
+    "stdlib.h"
+)
+```
+
+読み込んだC APIは名前空間からアクセスします。
+
+```text
+stdio::printf("Hello\n")
+```
+
+エイリアスも指定できます。
+
+```text
+include(
+    "stdio.h" as cstdio
+)
+```
+
+```text
+cstdio::printf("Hello\n")
+```
+
+`import` はNoxパッケージ、`include` はCヘッダという明確な役割分担になっています。
+
