@@ -479,3 +479,34 @@ return value
 
 という違いがあります。
 
+# 12. switch
+
+```text
+switch (value) {
+    case 1 {
+        io::Println("one")
+    }
+    case 2 {
+        io::Println("two")
+    }
+    default {
+        io::Println("other")
+    }
+}
+```
+
+複数の値を1つのcaseで扱うこともできます。
+
+```text
+switch (value) {
+    case 1, 2, 3 {
+        ...
+    }
+    default {
+        ...
+    }
+}
+```
+
+caseは自動的に終了します。
+
