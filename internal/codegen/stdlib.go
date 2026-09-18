@@ -96,3 +96,21 @@ func (fb *funcBuilder) genIOCall(c *ctx, sym string, args []ast.Expr) (string, T
 	panic(fmt.Sprintf("nox: %s: io has no function '%s'", fb.fname, sym))
 }
 
+// genFormatPrint lowers a Printf/Printfn-style `{}`-templated string,
+// resolved entirely at compile time (the format string must be a literal).
+func (fb *funcBuilder) genFormatPrint(c *ctx, format string, args []ast.Expr) {
+	parts := strings.Split(format, "{}")
+	if len(parts)-1 != len(args) {
+		panic(fmt.Sprintf("nox: %s: format string has %d placeholder(s) but %d argument(s) were given", fb.fname, len(parts)-1, len(args)))
+	}
+	for i, part := range parts {
+		if part != "" {
+			c.emit(compilef("nox_print_raw_cstr(%s);", cStringLiteral(part)))
+		}
+		if i < len(args) {
+			code, t := fb.genExpr(c, args[i])
+			c.emit(compilef("%s;", printCallFor(t, code)))
+		}
+	}
+}
+
