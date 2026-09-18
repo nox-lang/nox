@@ -158,3 +158,54 @@ func (p *Parser) parsePostfix() ast.Expr {
 	}
 }
 
+func (p *Parser) parsePrimary() ast.Expr {
+	t := p.cur()
+	switch t.Kind {
+	case token.INT:
+		p.advance()
+		return &ast.IntLit{Base: ast.NewBase(t.Line, t.Col), Value: parseIntLiteral(t.Literal)}
+	case token.FLOAT:
+		p.advance()
+		return &ast.FloatLit{Base: ast.NewBase(t.Line, t.Col), Value: parseFloatLiteral(t.Literal)}
+	case token.STRING:
+		p.advance()
+		return &ast.StringLit{Base: ast.NewBase(t.Line, t.Col), Value: t.Literal}
+	case token.TRUE:
+		p.advance()
+		return &ast.BoolLit{Base: ast.NewBase(t.Line, t.Col), Value: true}
+	case token.FALSE:
+		p.advance()
+		return &ast.BoolLit{Base: ast.NewBase(t.Line, t.Col), Value: false}
+	case token.NULL:
+		p.advance()
+		return &ast.NullLit{Base: ast.NewBase(t.Line, t.Col)}
+	case token.THIS:
+		p.advance()
+		return &ast.ThisExpr{Base: ast.NewBase(t.Line, t.Col)}
+	case token.PARALLEL:
+		return p.parseParallelExpr()
+	case token.IF:
+		return p.parseIfStmt().(ast.Expr)
+	case token.FOR:
+		return p.parseForStmt().(ast.Expr)
+	case token.WHILE:
+		return p.parseWhileStmt().(ast.Expr)
+	case token.SWITCH:
+		return p.parseSwitchStmt().(ast.Expr)
+	case token.LBRACKET:
+		return p.parseArrayLit()
+	case token.IDENT:
+		return p.parseIdentOrQualOrFuncLit()
+	case token.LPAREN:
+		if fl, ok := p.tryParseFuncLit(); ok {
+			return fl
+		}
+		p.advance()
+		x := p.parseExpr()
+		p.expect(token.RPAREN)
+		return x
+	}
+	p.errorf("expected an expression")
+	return nil
+}
+
