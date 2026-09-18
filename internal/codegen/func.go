@@ -203,3 +203,93 @@ func (fb *funcBuilder) inferDeferredLocalType(scope *Scope, name string) (Type, 
 	return Type{}, false
 }
 
+func (fb *funcBuilder) genAssignStmt(scope *Scope, s *ast.AssignStmt) string {
+	c, pre := newCtx(scope)
+	valCode, valType := fb.genExpr(c, s.Value)
+
+	switch target := s.Target.(type) {
+	case *ast.Ident:
+		existing, ok := scope.lookup(target.Name)
+		var sb strings.Builder
+		for _, p := range *pre {
+			sb.WriteString(p)
+		}
+		if !ok {
+			// implicit-typed first assignment (supports `let value` deferred inference)
+			if valType.ContainsUnknown() {
+				panic(fmt.Sprintf("nox: %s: cannot infer the type of '%s' from an empty array literal '[]'; declare it with an explicit type first (let %s: array<TYPE>)", fb.fname, target.Name, target.Name))
+			}
+			scope.define(target.Name, valType)
+			sb.WriteString(compilef("%s %s = %s;", fb.cg.ctype(valType), cIdent(target.Name), valCode))
+			return sb.String()
+		}
+		op := assignOpC(s.Op, existing)
+		if s.Op != token.ASSIGN && !existing.Equals(valType) {
+			panic(fmt.Sprintf("nox: %s: type mismatch in compound assignment to '%s'", fb.fname, target.Name))
+		}
+		if s.Op == token.ASSIGN && !existing.Equals(valType) {
+			panic(fmt.Sprintf("nox: %s: cannot assign %s to variable '%s' of type %s", fb.fname, valType.String(), target.Name, existing.String()))
+		}
+		if existing.Kind == KString && s.Op == token.PLUSEQ {
+			sb.WriteString(compilef("%s = nox_string_concat(%s, %s);", cIdent(target.Name), cIdent(target.Name), valCode))
+			return sb.String()
+		}
+		sb.WriteString(compilef("%s %s %s;", cIdent(target.Name), op, valCode))
+		return sb.String()
+	case *ast.IndexExpr:
+		xCode, xType := fb.genExpr(c, target.X)
+		idxCode, _ := fb.genExpr(c, target.Index)
+		var sb strings.Builder
+		for _, p := range *pre {
+			sb.WriteString(p)
+		}
+		elemC := fb.cg.ctype(*xType.Elem)
+		lvalue := fmt.Sprintf("((%s*)(%s).data)[%s]", elemC, xCode, idxCode)
+		sb.WriteString(compilef("nox_array_check_index(&(%s), %s);", xCode, idxCode))
+		if s.Op == token.PLUSEQ && xType.Elem.Kind == KString {
+			sb.WriteString(compilef("%s = nox_string_concat(%s, %s);", lvalue, lvalue, valCode))
+		} else {
+			sb.WriteString(compilef("%s %s %s;", lvalue, assignOpC(s.Op, *xType.Elem), valCode))
+		}
+		return sb.String()
+	case *ast.MemberExpr:
+		xCode, xType := fb.genExpr(c, target.X)
+		var sb strings.Builder
+		for _, p := range *pre {
+			sb.WriteString(p)
+		}
+		if xType.Kind != KClass {
+			panic(fmt.Sprintf("nox: %s: cannot assign to member '%s' of non-class value", fb.fname, target.Name))
+		}
+		ci := fb.cg.classInstances[xType.ClassKey]
+		ft, ok := ci.FieldTypes[target.Name]
+		if ok && fieldIsPrivate(ci.Decl, target.Name) && fb.currentClassKey != xType.ClassKey {
+			panic(fmt.Sprintf("nox: %s: '%s' is a private field of class '%s'", fb.fname, target.Name, ci.ClassName))
+		}
+		if !ok {
+			if ci.StructEmitted {
+				panic(fmt.Sprintf("nox: %s: class '%s' has no field '%s' (fields must be established by an assignment inside 'init')", fb.fname, ci.ClassName, target.Name))
+			}
+			if s.Op != token.ASSIGN {
+				panic(fmt.Sprintf("nox: %s: field '%s' of class '%s' must be assigned with '=' the first time (to establish its type)", fb.fname, target.Name, ci.ClassName))
+			}
+			if valType.ContainsUnknown() {
+				panic(fmt.Sprintf("nox: %s: cannot infer the type of field '%s' from an empty array literal '[]'; give it an explicit type (let %s: array<TYPE>) or assign a non-empty array first", fb.fname, target.Name, target.Name))
+			}
+			ci.FieldTypes[target.Name] = valType
+			ci.FieldOrder = append(ci.FieldOrder, target.Name)
+			ft = valType
+		} else if !ft.Equals(valType) {
+			panic(fmt.Sprintf("nox: %s: cannot assign %s to field '%s' of type %s", fb.fname, valType.String(), target.Name, ft.String()))
+		}
+		lvalue := fmt.Sprintf("(%s)->%s", xCode, target.Name)
+		if s.Op == token.PLUSEQ && ft.Kind == KString {
+			sb.WriteString(compilef("%s = nox_string_concat(%s, %s);", lvalue, lvalue, valCode))
+		} else {
+			sb.WriteString(compilef("%s %s %s;", lvalue, assignOpC(s.Op, ft), valCode))
+		}
+		return sb.String()
+	}
+	panic(fmt.Sprintf("nox: %s: invalid assignment target", fb.fname))
+}
+
