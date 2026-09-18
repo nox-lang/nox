@@ -43,3 +43,14 @@ type IncludeSpec struct {
 	Alias  string // "" if none given (defaults to header stem)
 }
 
+type File struct {
+	Base
+	Package  string
+	Imports  []*ImportSpec
+	Includes []*IncludeSpec
+	Funcs    []*FuncDecl
+	Classes  []*ClassDecl
+	Globals  []*LetStmt
+	Filename string
+}
+
