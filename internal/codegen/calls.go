@@ -140,3 +140,17 @@ func (fb *funcBuilder) genQualIdentCall(c *ctx, x *ast.QualIdent, args []ast.Exp
 	panic(fmt.Sprintf("nox: %s: cannot call '%s'", fb.fname, strings.Join(x.Parts, "::")))
 }
 
+// resolveNamespace splits a `::`-path into (namespace, trailing symbol),
+// trying progressively shorter namespace prefixes (a namespace registered
+// under an unaliased multi-segment import path, e.g. "libs::math", is
+// matched by its full joined path).
+func (cg *Codegen) resolveNamespace(parts []string) (*Namespace, string) {
+	for i := len(parts) - 1; i >= 1; i-- {
+		key := strings.Join(parts[:i], "::")
+		if ns, ok := cg.namespaces[key]; ok {
+			ns.namespaceKeyPrefix = key
+			return ns, strings.Join(parts[i:], "::")
+		}
+	}
+	panic(fmt.Sprintf("nox: unknown namespace '%s' (add an 'import' or 'include' for it)", strings.Join(parts, "::")))
+}
