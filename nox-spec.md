@@ -655,3 +655,22 @@ random::choice(array)
 random::shuffle(array)
 ```
 
+## 15.3 fs
+
+```text
+fs::read(path)
+fs::write(path, data)
+fs::append(path, data)
+
+fs::exists(path)
+fs::remove(path)
+fs::rename(old, new)
+fs::copy(src, dest)
+
+fs::mkdir(path)
+fs::rmdir(path)
+fs::list(path)
+```
+
+`fs::read()` の戻り値は `string` です。
+
