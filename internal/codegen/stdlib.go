@@ -382,3 +382,26 @@ func (fb *funcBuilder) genTimeCall(c *ctx, sym string, args []ast.Expr) (string,
 
 // ---------------- raw C (`include`d headers) ----------------
 
+// genIncludeCall passes a call straight through to a C function reached via
+// `include`. String literal arguments become raw C string literals; string
+// *values* are passed as their `.data` (const char*) pointer, matching what
+// C APIs expect. The call's own Nox-level type is approximated as `int`
+// since Nox has no visibility into the included header's real prototype;
+// this is fine for calls used as statements (e.g. `stdio::printf(...)`) and
+// is a documented limitation for anything that needs the real return value.
+func (fb *funcBuilder) genIncludeCall(c *ctx, funcName string, args []ast.Expr) (string, Type) {
+	var argCodes []string
+	for _, a := range args {
+		if lit, ok := a.(*ast.StringLit); ok {
+			argCodes = append(argCodes, cStringLiteral(lit.Value))
+			continue
+		}
+		code, t := fb.genExpr(c, a)
+		if t.Kind == KString {
+			argCodes = append(argCodes, fmt.Sprintf("(%s).data", code))
+		} else {
+			argCodes = append(argCodes, code)
+		}
+	}
+	return fmt.Sprintf("%s(%s)", funcName, strings.Join(argCodes, ", ")), TInt()
+}
