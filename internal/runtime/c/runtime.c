@@ -583,3 +583,13 @@ static int64_t nox_time_second(int64_t t) { time_t tt = (time_t)t; struct tm *lt
 /* ---------------- runtime init ---------------- */
 static nox_array nox_args_array;
 
+static void nox_runtime_init(int argc, char **argv) {
+    GC_INIT();
+    __nox_err_key_make();
+    srand((unsigned int)time(NULL));
+    nox_args_array = nox_array_new();
+    for (int i = 1; i < argc; i++) {
+        nox_string s = nox_string_from_cstr(argv[i]);
+        nox_array_push_raw(&nox_args_array, &s, sizeof(nox_string));
+    }
+}
