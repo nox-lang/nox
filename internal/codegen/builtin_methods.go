@@ -369,3 +369,28 @@ func (fb *funcBuilder) genFilterLoop(c *ctx, recv string, elemType Type, fl *ast
 	return outTmp, TArray(elemType)
 }
 
+func (fb *funcBuilder) genFindLoop(c *ctx, recv string, elemType Type, fl *ast.FuncLit) (string, Type) {
+	if len(fl.Params) != 1 {
+		panic(fmt.Sprintf("nox: %s: 'find' callback needs exactly one parameter", fb.fname))
+	}
+	idxVar := fb.cg.freshTmp("i")
+	elemC := fb.cg.ctype(elemType)
+	elemExpr := fmt.Sprintf("((%s*)%s.data)[%s]", elemC, recv, idxVar)
+	params := []cbParam{{fl.Params[0].Name, elemType, elemExpr}}
+	bodyC, resVar, resType := fb.genInlineCallback(c.scope, fl, params)
+	if resType == nil || resType.Kind != KBool {
+		panic(fmt.Sprintf("nox: %s: 'find' callback must 'yield' a bool", fb.fname))
+	}
+	outTmp := fb.cg.freshTmp("found")
+	foundVar := fb.cg.freshTmp("didfind")
+	c.emit(compilef("%s %s = %s;", elemC, outTmp, fb.cg.zeroValueC(elemType)))
+	c.emit(compilef("bool %s = false;", foundVar))
+	var loopBody strings.Builder
+	loopBody.WriteString(bodyC)
+	loopBody.WriteString(compilef("if (%s) { %s = %s; %s = true; break; }", resVar, outTmp, elemExpr, foundVar))
+	loop := fmt.Sprintf("for (int64_t %s = 0; %s < %s.len; %s++) {\n%s}\n", idxVar, idxVar, recv, idxVar, indent(loopBody.String(), "    "))
+	c.emit(loop)
+	_ = foundVar // reserved: not currently exposed at the Nox level (see README for the "not found" convention)
+	return outTmp, elemType
+}
+
