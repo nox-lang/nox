@@ -89,3 +89,20 @@ func min(a, b int) int {
 	return b
 }
 
+// callUserFunc generates a call to a top-level Nox function, instantiating
+// (monomorphizing) it for the given argument types if this is the first
+// time it's been called with them.
+func (fb *funcBuilder) callUserFunc(c *ctx, name string, callArgs []ast.Expr) (string, Type) {
+	decl, ok := fb.cg.funcsByName[name]
+	if !ok {
+		panic(fmt.Sprintf("nox: %s: call to undefined function '%s'", fb.fname, name))
+	}
+	argCodes, argTypes := fb.resolveCallArgs(c, name, decl.Params, callArgs, fb.cg.globalScope)
+	fi := fb.cg.getOrInstantiateFunc(name, decl, argTypes)
+	call := fmt.Sprintf("%s(%s)", fi.MangledName, strings.Join(argCodes, ", "))
+	if fi.IsAsync {
+		return call, TTask(fi.RetType)
+	}
+	return call, fi.RetType
+}
+
