@@ -304,3 +304,30 @@ func envOr(key, fallback string) string {
 	return fallback
 }
 
+// buildCompileCommand always invokes tcc — never gcc/cc — matching the
+// language spec's design: Nox is generated C compiled by tcc, full stop.
+// The tcc binary itself is "tcc" on PATH by default, or whatever NOX_TCC
+// points at; pointing NOX_TCC at a tcc build for another target (tcc ships
+// separate cross-compiling builds for e.g. Windows, distinct from the
+// native Linux one apt installs) is how cross-compilation is expected to
+// work here. Boehm GC is only linked for a native (host-matching) build,
+// since a target-matching build of it isn't something this tool bundles or
+// can assume exists for a cross target — a cross build instead compiles
+// with NOX_NO_GC (see runtime.c), which also means pthreads are unnecessary
+// there (see runtime.c's NOX_THREAD_* / Win32-native-thread abstraction),
+// so -lpthread is only linked for native POSIX builds too.
+func buildCompileCommand(targetOS, cPath, outPath string) *exec.Cmd {
+	tccPath := envOr("NOX_TCC", "tcc")
+	hostOS := runtime.GOOS
+	args := []string{cPath, "-o", outPath}
+	if targetOS == hostOS {
+		args = append(args, "-lgc")
+		if hostOS != "windows" {
+			args = append(args, "-lpthread")
+		}
+	} else {
+		args = append(args, "-DNOX_NO_GC")
+	}
+	args = append(args, "-lm")
+	return exec.Command(tccPath, args...)
+}
