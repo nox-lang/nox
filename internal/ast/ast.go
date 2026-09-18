@@ -109,3 +109,8 @@ type LetStmt struct {
 
 func (*LetStmt) stmtNode() {}
 
+type ExprStmt struct {
+	Base
+	X Expr
+}
+
