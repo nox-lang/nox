@@ -326,3 +326,9 @@ static void nox_array_shuffle_raw(nox_array *a, int64_t elemsize) {
     }
 }
 
+static void nox_array_choice_raw(nox_array *a, void *out, int64_t elemsize) {
+    if (a->len == 0) nox_panic("choice on empty array");
+    int64_t i = rand() % a->len;
+    memcpy(out, (char *)a->data + i * elemsize, (size_t)elemsize);
+}
+
