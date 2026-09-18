@@ -315,3 +315,35 @@ func cIdent(name string) string {
 
 // ---------------- if ----------------
 
+func (fb *funcBuilder) genIfStmt(scope *Scope, s *ast.IfStmt) string {
+	c, pre := newCtx(scope)
+	condCode, condType := fb.genExpr(c, s.Cond)
+	if condType.Kind != KBool {
+		panic(fmt.Sprintf("nox: %s: if condition must be bool, got %s", fb.fname, condType.String()))
+	}
+	var sb strings.Builder
+	for _, p := range *pre {
+		sb.WriteString(p)
+	}
+	sb.WriteString(compilef("if (%s) {", condCode))
+	sb.WriteString(indent(fb.genBlock(scope, s.Then), "    "))
+	if s.Else != nil {
+		sb.WriteString("} else ")
+		switch e := s.Else.(type) {
+		case *ast.IfStmt:
+			inner := fb.genIfStmt(scope, e)
+			// re-indent: drop trailing newline management by concatenation
+			sb.WriteString("{\n")
+			sb.WriteString(indent(inner, "    "))
+			sb.WriteString("}\n")
+		case *ast.BlockStmt:
+			sb.WriteString("{\n")
+			sb.WriteString(indent(fb.genBlock(scope, e), "    "))
+			sb.WriteString("}\n")
+		}
+	} else {
+		sb.WriteString("}\n")
+	}
+	return sb.String()
+}
+
