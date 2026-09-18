@@ -580,3 +580,6 @@ static int64_t nox_time_hour(int64_t t) { time_t tt = (time_t)t; struct tm *lt =
 static int64_t nox_time_minute(int64_t t) { time_t tt = (time_t)t; struct tm *lt = localtime(&tt); return lt->tm_min; }
 static int64_t nox_time_second(int64_t t) { time_t tt = (time_t)t; struct tm *lt = localtime(&tt); return lt->tm_sec; }
 
+/* ---------------- runtime init ---------------- */
+static nox_array nox_args_array;
+
