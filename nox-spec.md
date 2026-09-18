@@ -581,3 +581,38 @@ private func secret() {
 
 `private` はクラス内だけでなく、パッケージレベルの宣言にも使用できます。
 
+# 14. コマンドライン引数
+
+`main` に `args` を指定するとコマンドライン引数を取得できます。
+
+```text
+func main(args) {
+    ...
+}
+```
+
+`args` の型は、
+
+```text
+array<string>
+```
+
+です。
+
+実行ファイル名は含まれません。
+
+例えば、
+
+```text
+app hello world
+```
+
+の場合、
+
+```text
+args[0] == "hello"
+args[1] == "world"
+```
+
+となります。
+
