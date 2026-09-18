@@ -154,3 +154,93 @@ func retPtrOrNil(t Type) *Type {
 	return &cp
 }
 
+// genFuncLitValue compiles an anonymous function literal used as a
+// first-class value (assigned to a `let`, stored, or passed to something
+// other than a directly-inlined built-in higher-order method) into a
+// closure: a small generated top-level C function plus a captured-variable
+// environment struct, represented at runtime as a `{fn, env}` fat pointer.
+func (fb *funcBuilder) genFuncLitValue(c *ctx, x *ast.FuncLit) (string, Type) {
+	free := freeVarNames(x.Body, x.Params)
+	var capturedNames []string
+	var capturedTypes []Type
+	for _, n := range free {
+		if t, ok := c.scope.lookup(n); ok {
+			capturedNames = append(capturedNames, n)
+			capturedTypes = append(capturedTypes, t)
+		}
+	}
+
+	var paramTypes []Type
+	for _, p := range x.Params {
+		if p.Type == nil {
+			panic(fmt.Sprintf("nox: %s: an anonymous function stored in a variable needs explicit parameter types, e.g. (x: int) { ... }", fb.fname))
+		}
+		paramTypes = append(paramTypes, fb.cg.resolveTypeExpr(p.Type))
+	}
+
+	mangled := fb.cg.freshName("nox_closure")
+	var envStructName string
+	if len(capturedNames) > 0 {
+		envStructName = mangled + "__env"
+		var fields strings.Builder
+		for i, n := range capturedNames {
+			fields.WriteString(fmt.Sprintf("    %s %s;\n", fb.cg.ctype(capturedTypes[i]), cIdent(n)))
+		}
+		fb.cg.typeDefs = append(fb.cg.typeDefs, fmt.Sprintf("typedef struct {\n%s} %s;", fields.String(), envStructName))
+	}
+
+	innerScope := newScope(nil)
+	for i, n := range capturedNames {
+		innerScope.define(n, capturedTypes[i])
+	}
+	for i, p := range x.Params {
+		innerScope.define(p.Name, paramTypes[i])
+	}
+	innerFB := &funcBuilder{cg: fb.cg, fname: mangled}
+	if x.ReturnType != nil {
+		innerFB.retType = fb.cg.resolveTypeExpr(x.ReturnType)
+		innerFB.retTypeKnown = true
+	}
+	var unpackPrefix strings.Builder
+	if len(capturedNames) > 0 {
+		unpackPrefix.WriteString(fmt.Sprintf("%s* __env = (%s*)__envp;\n", envStructName, envStructName))
+		for i, n := range capturedNames {
+			unpackPrefix.WriteString(fmt.Sprintf("%s %s = __env->%s;\n", fb.cg.ctype(capturedTypes[i]), cIdent(n), cIdent(n)))
+		}
+	}
+	bodyC := innerFB.buildFunctionBody(innerScope, x.Body, "")
+	fullBody := unpackPrefix.String() + bodyC
+
+	retC := "void"
+	if innerFB.retType.Kind != KVoid {
+		retC = fb.cg.ctype(innerFB.retType)
+	}
+	cparams := []string{"void* __envp"}
+	for i, p := range x.Params {
+		cparams = append(cparams, fmt.Sprintf("%s %s", fb.cg.ctype(paramTypes[i]), cIdent(p.Name)))
+	}
+	forward := fmt.Sprintf("static %s %s(%s);", retC, mangled, strings.Join(cparams, ", "))
+	def := fmt.Sprintf("static %s %s(%s) {\n%s}", retC, mangled, strings.Join(cparams, ", "), indent(fullBody, "    "))
+	fi := &FuncInstance{MangledName: mangled, Forward: forward, Body: def, RetType: innerFB.retType, RetTypeKnown: true, ParamTypes: paramTypes}
+	fb.cg.funcInstances[mangled] = fi
+	fb.cg.funcOrder = append(fb.cg.funcOrder, mangled)
+
+	fnType := Type{Kind: KFunc, Params: paramTypes, Ret: retPtrOrNil(innerFB.retType)}
+	ctypeName := fb.cg.ctype(fnType) // ensures the closure fat-pointer struct typedef is registered
+
+	envExpr := "NULL"
+	if len(capturedNames) > 0 {
+		envTmp := fb.cg.freshTmp("env")
+		c.emit(compilef("%s* %s = (%s*)GC_MALLOC(sizeof(%s));", envStructName, envTmp, envStructName, envStructName))
+		for _, n := range capturedNames {
+			c.emit(compilef("%s->%s = %s;", envTmp, cIdent(n), cIdent(n)))
+		}
+		envExpr = envTmp
+	}
+	closTmp := fb.cg.freshTmp("clo")
+	c.emit(compilef("%s %s;", ctypeName, closTmp))
+	c.emit(compilef("%s.fn = %s;", closTmp, mangled))
+	c.emit(compilef("%s.env = %s;", closTmp, envExpr))
+	return closTmp, fnType
+}
+
