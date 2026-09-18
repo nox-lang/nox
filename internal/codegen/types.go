@@ -268,3 +268,13 @@ func (t Type) Ret2() Type {
 	return *t.Ret
 }
 
+func (cg *Codegen) ensureTaskType(t Type) string {
+	name := "NoxTask_" + mangle(*t.Elem)
+	if _, ok := cg.taskTypes[name]; ok {
+		return name
+	}
+	cg.taskTypes[name] = true
+	elemC := cg.ctype(*t.Elem)
+	cg.typeDefs = append(cg.typeDefs, fmt.Sprintf("typedef struct { nox_thread_t th; %s* result; } %s;", elemC, name))
+	return name
+}
