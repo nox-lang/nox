@@ -301,3 +301,7 @@ static void nox_array_remove_raw(nox_array *a, int64_t idx, int64_t elemsize) {
     a->len--;
 }
 
+static void nox_array_clear(nox_array *a) {
+    a->len = 0;
+}
+
