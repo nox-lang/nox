@@ -52,3 +52,31 @@ func (fb *funcBuilder) genCallExpr(c *ctx, x *ast.CallExpr) (string, Type) {
 	panic(fmt.Sprintf("nox: %s: expression is not callable", fb.fname))
 }
 
+// genDeleteMethod implements `.delete()`, available on strings, arrays,
+// class instances, and pointers: it explicitly frees the underlying
+// GC-managed memory right now rather than waiting for the collector, and
+// clears the (necessarily addressable — see genReceiverLvalue) receiver so
+// it can't be read back accidentally. This is a deliberate escape hatch
+// from automatic memory management, not something normal Nox code needs;
+// using the value again afterwards is undefined behavior, exactly like a
+// manual free() in C.
+func (fb *funcBuilder) genDeleteMethod(c *ctx, recv string, recvType Type, args []ast.Expr) (string, Type) {
+	if len(args) != 0 {
+		panic(fmt.Sprintf("nox: %s: '.delete()' takes no arguments", fb.fname))
+	}
+	switch recvType.Kind {
+	case KString:
+		c.emit(compilef("if ((%s).data) { GC_FREE((%s).data); }", recv, recv))
+		c.emit(compilef("%s.data = NULL; %s.len = 0;", recv, recv))
+	case KArray:
+		c.emit(compilef("if ((%s).data) { GC_FREE((%s).data); }", recv, recv))
+		c.emit(compilef("%s.data = NULL; %s.len = 0; %s.cap = 0;", recv, recv, recv))
+	case KClass, KPointer:
+		c.emit(compilef("if (%s) { GC_FREE(%s); }", recv, recv))
+		c.emit(compilef("%s = NULL;", recv))
+	default:
+		panic(fmt.Sprintf("nox: %s: '.delete()' is not available on type %s", fb.fname, recvType.String()))
+	}
+	return "", TVoid()
+}
+
