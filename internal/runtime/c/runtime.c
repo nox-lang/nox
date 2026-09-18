@@ -534,3 +534,10 @@ static nox_string nox_path_dirname(nox_string p) {
     return nox_string_from_bytes(p.data, i - 1);
 }
 
+static nox_string nox_path_ext(nox_string p) {
+    int64_t i = p.len;
+    while (i > 0 && p.data[i - 1] != '.' && p.data[i - 1] != '/' && p.data[i - 1] != '\\') i--;
+    if (i == 0 || p.data[i - 1] != '.') return nox_string_from_cstr("");
+    return nox_string_from_bytes(p.data + i - 1, p.len - i + 1);
+}
+
