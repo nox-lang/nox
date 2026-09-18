@@ -108,3 +108,32 @@ func Init(dir, name string) error {
 	return nil
 }
 
+// Get fetches a dependency (e.g. "github.com/user/repo") via `git clone`
+// into <root>/.nox/pkg/<source>/, and records it in the manifest's
+// [dependencies] table (saved separately by the caller). It requires `git`
+// to be available on PATH; this is a best-effort implementation of `nox
+// get` — private registries, version pinning, and non-git sources are not
+// supported.
+func Get(root, source string) (string, error) {
+	dest := filepath.Join(root, ".nox", "pkg", filepath.FromSlash(source))
+	if _, err := os.Stat(dest); err == nil {
+		return dest, nil // already fetched
+	}
+	if err := os.MkdirAll(filepath.Dir(dest), 0755); err != nil {
+		return "", err
+	}
+	url := source
+	if !strings.Contains(url, "://") {
+		url = "https://" + url
+	}
+	if !strings.HasSuffix(url, ".git") {
+		url += ".git"
+	}
+	cmd := gitCloneCmd(url, dest)
+	out, err := cmd.CombinedOutput()
+	if err != nil {
+		return "", fmt.Errorf("git clone %s: %v\n%s", url, err, string(out))
+	}
+	return dest, nil
+}
+
