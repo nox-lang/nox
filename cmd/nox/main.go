@@ -297,3 +297,10 @@ func compileAndLink(file *ast.File, projectRoot, outName string, outputDir strin
 	return nil
 }
 
+func envOr(key, fallback string) string {
+	if v := os.Getenv(key); v != "" {
+		return v
+	}
+	return fallback
+}
+
