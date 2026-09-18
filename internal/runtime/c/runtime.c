@@ -45,3 +45,15 @@
   #define NOX_THREAD_CREATE(thptr, fn, arg) (*(thptr) = CreateThread(NULL, 0, (fn), (arg), 0, NULL))
   #define NOX_THREAD_JOIN(th) (WaitForSingleObject((th), INFINITE), CloseHandle(th))
 
+  typedef DWORD nox_tls_key_t;
+  #define NOX_TLS_CREATE(keyptr) (*(keyptr) = TlsAlloc())
+  #define NOX_TLS_GET(key) TlsGetValue(key)
+  #define NOX_TLS_SET(key, val) TlsSetValue((key), (val))
+#else
+  #include <pthread.h>
+  #include <sys/stat.h>
+  #include <sys/types.h>
+  #include <dirent.h>
+  #include <unistd.h>
+  #define NOX_MKDIR(p) mkdir(p, 0755)
+
