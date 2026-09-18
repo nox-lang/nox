@@ -294,3 +294,10 @@ static void nox_array_insert_raw(nox_array *a, int64_t idx, const void *elem, in
     a->len++;
 }
 
+static void nox_array_remove_raw(nox_array *a, int64_t idx, int64_t elemsize) {
+    nox_array_check_index(a, idx);
+    char *base = (char *)a->data;
+    memmove(base + idx * elemsize, base + (idx + 1) * elemsize, (size_t)((a->len - idx - 1) * elemsize));
+    a->len--;
+}
+
