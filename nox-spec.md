@@ -38,3 +38,30 @@ func main() {
 }
 ```
 
+## 2.2 import
+
+`import` はNoxのパッケージを読み込みます。
+
+```text
+import(
+    "io",
+    "libs/math" as math
+)
+```
+
+パッケージパスには `/` を使用し、読み込んだ名前空間へのアクセスには `::` を使用します。
+
+```text
+math::add(1, 2)
+```
+
+エイリアスを指定しない場合はパスが名前空間になります。
+
+```text
+import("libs/math")
+```
+
+```text
+libs::math::add(1, 2)
+```
+
