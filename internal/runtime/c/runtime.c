@@ -137,3 +137,15 @@ static nox_string nox_string_from_cstr(const char *cstr) {
     return nox_string_from_bytes(cstr, (int64_t)strlen(cstr));
 }
 
+static nox_string nox_string_concat(nox_string a, nox_string b) {
+    int64_t n = a.len + b.len;
+    char *buf = (char *)GC_MALLOC(n + 1);
+    if (a.len > 0) memcpy(buf, a.data, a.len);
+    if (b.len > 0) memcpy(buf + a.len, b.data, b.len);
+    buf[n] = 0;
+    nox_string s;
+    s.data = buf;
+    s.len = n;
+    return s;
+}
+
