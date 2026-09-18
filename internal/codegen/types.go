@@ -69,3 +69,39 @@ func (t Type) ContainsUnknown() bool {
 	return false
 }
 
+func (t Type) Equals(o Type) bool {
+	if t.Kind == KUnknown || o.Kind == KUnknown {
+		return true
+	}
+	if t.Kind != o.Kind {
+		return false
+	}
+	switch t.Kind {
+	case KArray, KPointer, KTask:
+		if t.Elem == nil || o.Elem == nil {
+			return t.Elem == o.Elem
+		}
+		return t.Elem.Equals(*o.Elem)
+	case KClass:
+		return t.ClassKey == o.ClassKey
+	case KFunc:
+		if len(t.Params) != len(o.Params) {
+			return false
+		}
+		for i := range t.Params {
+			if !t.Params[i].Equals(o.Params[i]) {
+				return false
+			}
+		}
+		if (t.Ret == nil) != (o.Ret == nil) {
+			return false
+		}
+		if t.Ret != nil && !t.Ret.Equals(*o.Ret) {
+			return false
+		}
+		return true
+	default:
+		return true
+	}
+}
+
