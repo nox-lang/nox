@@ -194,3 +194,41 @@ from `main`:
   resolves if some `Dog.new(...)` call has already been monomorphized
   elsewhere in the program.
 
+## `return` / `next` / `yield` / `break`: four distinct, non-overlapping jumps
+
+The original spec overloads `return` with three different meanings
+depending on where it's written (a plain return; "collect this value and
+keep looping" inside `for`/`while`; implicitly, a callback's result inside
+`each`/`map`/`filter`/`find`). Later direction explicitly asked for `return`
+to mean the same single thing everywhere, like in most other languages, and
+for the other two roles to get their own keywords. As implemented:
+
+- **`return`** — always, unconditionally, exits the nearest enclosing
+  *function* (or closure/async body) with a value, full stop — even from
+  inside a `for`/`while` loop, even from inside an
+  `each`/`map`/`filter`/`find` callback (callbacks passed as a literal
+  lambda are inlined directly into the caller rather than compiled as a
+  separate function — see below — so a `return` inside one really does exit
+  the whole enclosing Nox function, not just that callback).
+- **`next`** / **`next <value>`** — `for`/`while` loop control, like C's
+  `continue`. Bare `next` just moves on to the next iteration. `next value`
+  *also* collects `value` into an array that becomes the loop's own value
+  when the loop is used as an expression (`let xs = for (...) { ... next
+  y }`) — this is what `return value` used to do inside a loop, per the
+  original spec's §11.1. `next` always targets the nearest enclosing real
+  loop, skipping over (but not affected by) an intervening `switch`
+  (switches never intercept it, matching how `break` does affect `switch`
+  but `next`/`continue` conceptually shouldn't).
+- **`yield <value>`** — used inside an `each`/`eachIndex`/`map`/`filter`/
+  `find` callback (or a `.sort(...)` comparator) to supply that
+  invocation's result, without exiting the enclosing function. This is what
+  bare `return value` used to mean inside those callbacks.
+- **`break`** / **`break <value>`** — unchanged from the spec: exits a loop
+  or `switch`, optionally carrying a final value out as that construct's
+  value when used as an expression.
+
+A loop can't mix `next <value>` and `break <value>` (which "shape" would the
+loop's value be, a collected array or a single break value?); that's a
+compile error pointing at the ambiguity. `yield` outside a callback, or
+`next` outside a loop, are compile errors too, not silent no-ops.
+
