@@ -300,3 +300,9 @@ type BinaryExpr struct {
 
 func (*BinaryExpr) exprNode() {}
 
+type UnaryExpr struct {
+	Base
+	Op token.Kind // MINUS, NOT, AMP, STAR
+	X  Expr
+}
+
