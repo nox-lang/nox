@@ -316,3 +316,9 @@ type CallExpr struct {
 
 func (*CallExpr) exprNode() {}
 
+type IndexExpr struct {
+	Base
+	X     Expr
+	Index Expr
+}
+
