@@ -394,3 +394,69 @@ func (fb *funcBuilder) genFindLoop(c *ctx, recv string, elemType Type, fl *ast.F
 	return outTmp, elemType
 }
 
+// genSort mutates recv in place: with no argument, ascending order using
+// the built-in comparator for the element type; with a literal
+// `(a, b) { return a < b }` comparator, a generated qsort() callback.
+func (fb *funcBuilder) genSort(c *ctx, recv string, elemType Type, args []ast.Expr) (string, Type) {
+	elemC := fb.cg.ctype(elemType)
+	if len(args) == 0 {
+		var cmp string
+		switch elemType.Kind {
+		case KInt:
+			cmp = "nox_cmp_int_asc"
+		case KFloat:
+			cmp = "nox_cmp_float_asc"
+		case KString:
+			cmp = "nox_cmp_string_asc"
+		case KBool:
+			cmp = "nox_cmp_bool_asc"
+		default:
+			panic(fmt.Sprintf("nox: %s: 'sort()' with no comparator is not supported for element type %s", fb.fname, elemType.String()))
+		}
+		c.emit(compilef("qsort(%s.data, %s.len, sizeof(%s), %s);", recv, recv, elemC, cmp))
+		return "", TVoid()
+	}
+	if len(args) != 1 {
+		panic(fmt.Sprintf("nox: %s: 'sort(...)' takes zero or one argument", fb.fname))
+	}
+	fl := fb.requireFuncLit(args[0], "sort")
+	if len(fl.Params) != 2 {
+		panic(fmt.Sprintf("nox: %s: 'sort' comparator needs exactly two parameters", fb.fname))
+	}
+	free := freeVarNames(fl.Body, fl.Params)
+	if len(free) > 0 {
+		panic(fmt.Sprintf("nox: %s: 'sort' comparator cannot reference outer variables (found '%s'); keep the comparison self-contained", fb.fname, free[0]))
+	}
+	predName := fb.cg.freshName("nox_sortpred")
+	inner := newScope(nil)
+	inner.define(fl.Params[0].Name, elemType)
+	inner.define(fl.Params[1].Name, elemType)
+	cfb := &funcBuilder{cg: fb.cg, fname: predName}
+	cfb.retType = TBool()
+	cfb.retTypeKnown = true
+	predBodyC := cfb.buildFunctionBody(inner, fl.Body, "")
+	predParams := fmt.Sprintf("%s %s, %s %s", elemC, cIdent(fl.Params[0].Name), elemC, cIdent(fl.Params[1].Name))
+	predForward := fmt.Sprintf("static bool %s(%s);", predName, predParams)
+	predDef := fmt.Sprintf("static bool %s(%s) {\n%s}", predName, predParams, indent(predBodyC, "    "))
+	predFI := &FuncInstance{MangledName: predName, Forward: predForward, Body: predDef}
+	fb.cg.funcInstances[predName] = predFI
+	fb.cg.funcOrder = append(fb.cg.funcOrder, predName)
+
+	// qsort needs a true three-way comparator; we only have a "less-than"
+	// predicate, so map true -> "a sorts before b" (-1) and false -> 1. This
+	// gives a correct (if not guaranteed-stable for equal elements)
+	// ascending-by-predicate sort, consistent with how the predicate is
+	// used in every example in the language spec.
+	mangled := fb.cg.freshName("nox_sortcmp")
+	var full strings.Builder
+	full.WriteString(fmt.Sprintf("%s __a = *(const %s*)__pa;\n", elemC, elemC))
+	full.WriteString(fmt.Sprintf("%s __b = *(const %s*)__pb;\n", elemC, elemC))
+	full.WriteString(fmt.Sprintf("return %s(__a, __b) ? -1 : 1;\n", predName))
+	forward := fmt.Sprintf("static int %s(const void* __pa, const void* __pb);", mangled)
+	def := fmt.Sprintf("static int %s(const void* __pa, const void* __pb) {\n%s}", mangled, indent(full.String(), "    "))
+	fi := &FuncInstance{MangledName: mangled, Forward: forward, Body: def}
+	fb.cg.funcInstances[mangled] = fi
+	fb.cg.funcOrder = append(fb.cg.funcOrder, mangled)
+	c.emit(compilef("qsort(%s.data, %s.len, sizeof(%s), %s);", recv, recv, elemC, mangled))
+	return "", TVoid()
+}
