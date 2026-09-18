@@ -76,3 +76,26 @@ func (cg *Codegen) resolveImports(projectRoot string) {
 	}
 }
 
+func findImportFiles(root, importPath string) ([]string, error) {
+	base := filepath.Join(root, filepath.FromSlash(importPath))
+	if st, err := os.Stat(base + ".nox"); err == nil && !st.IsDir() {
+		return []string{base + ".nox"}, nil
+	}
+	if st, err := os.Stat(base); err == nil && st.IsDir() {
+		entries, err := os.ReadDir(base)
+		if err != nil {
+			return nil, err
+		}
+		var files []string
+		for _, e := range entries {
+			if !e.IsDir() && strings.HasSuffix(e.Name(), ".nox") {
+				files = append(files, filepath.Join(base, e.Name()))
+			}
+		}
+		if len(files) == 0 {
+			return nil, fmt.Errorf("directory '%s' contains no .nox files", base)
+		}
+		return files, nil
+	}
+	return nil, fmt.Errorf("cannot find '%s.nox' or a directory '%s' (looked under %s)", importPath, importPath, root)
+}
