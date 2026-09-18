@@ -82,3 +82,53 @@ func (fb *funcBuilder) genBlock(parent *Scope, b *ast.BlockStmt) string {
 	return sb.String()
 }
 
+func (fb *funcBuilder) genStmt(scope *Scope, st ast.Stmt) string {
+	switch s := st.(type) {
+	case *ast.LetStmt:
+		return fb.genLetStmt(scope, s) + fb.errorCheckSnippet()
+	case *ast.ExprStmt:
+		c, pre := newCtx(scope)
+		code, t := fb.genExpr(c, s.X)
+		_ = t
+		var sb strings.Builder
+		for _, p := range *pre {
+			sb.WriteString(p)
+		}
+		if code != "" {
+			sb.WriteString(compilef("%s;", code))
+		}
+		return sb.String() + fb.errorCheckSnippet()
+	case *ast.AssignStmt:
+		return fb.genAssignStmt(scope, s) + fb.errorCheckSnippet()
+	case *ast.IfStmt:
+		return fb.genIfStmt(scope, s)
+	case *ast.ForCondStmt:
+		code, _, _ := fb.genForCond(scope, s, false)
+		return code
+	case *ast.ForInStmt:
+		code, _, _ := fb.genForIn(scope, s, false)
+		return code
+	case *ast.WhileStmt:
+		code, _, _ := fb.genWhile(scope, s, false)
+		return code
+	case *ast.BreakStmt:
+		return fb.genBreakStmt(scope, s)
+	case *ast.NextStmt:
+		return fb.genNextStmt(scope, s)
+	case *ast.YieldStmt:
+		return fb.genYieldStmt(scope, s)
+	case *ast.ReturnStmt:
+		return fb.emitReturn(scope, s.Value)
+	case *ast.SwitchStmt:
+		code, _, _ := fb.genSwitch(scope, s, false)
+		return code
+	case *ast.DeferStmt:
+		return fb.genDeferStmt(scope, s)
+	case *ast.TryStmt:
+		return fb.genTryStmt(scope, s)
+	case *ast.BlockStmt:
+		return fb.genBlock(scope, s)
+	}
+	panic(fmt.Sprintf("codegen: unhandled statement %T", st))
+}
+
