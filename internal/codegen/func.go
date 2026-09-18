@@ -400,3 +400,34 @@ func (fb *funcBuilder) genIfChainExpr(scope *Scope, s *ast.IfStmt, resultVar str
 	return sb.String()
 }
 
+// genBranchExpr compiles one branch of an if-expression: every statement
+// but the last runs normally, and the last statement must be a bare value
+// expression, assigned into the shared resultVar.
+func (fb *funcBuilder) genBranchExpr(parentScope *Scope, block *ast.BlockStmt, resultVar string, resultType **Type) string {
+	scope := newScope(parentScope)
+	if len(block.Stmts) == 0 {
+		panic(fmt.Sprintf("nox: %s: an if-expression branch must end with a value expression", fb.fname))
+	}
+	var sb strings.Builder
+	for _, st := range block.Stmts[:len(block.Stmts)-1] {
+		sb.WriteString(fb.genStmt(scope, st))
+	}
+	es, ok := block.Stmts[len(block.Stmts)-1].(*ast.ExprStmt)
+	if !ok {
+		panic(fmt.Sprintf("nox: %s: an if-expression branch must end with a value expression", fb.fname))
+	}
+	c, pre := newCtx(scope)
+	code, t := fb.genExpr(c, es.X)
+	for _, p := range *pre {
+		sb.WriteString(p)
+	}
+	if *resultType == nil {
+		tc := t
+		*resultType = &tc
+	} else if !(*resultType).Equals(t) {
+		panic(fmt.Sprintf("nox: %s: if-expression branches have inconsistent types (%s vs %s)", fb.fname, (*resultType).String(), t.String()))
+	}
+	sb.WriteString(compilef("%s = %s;", resultVar, code))
+	return sb.String()
+}
+
