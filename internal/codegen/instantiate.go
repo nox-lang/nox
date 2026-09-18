@@ -168,3 +168,40 @@ func sanitizeIdent(s string) string {
 	return sb.String()
 }
 
+// emitSyncFunc generates a plain (non-async) function instance. If
+// thisType is non-nil, an implicit `this` parameter of that class type is
+// added (used for class methods; thisParamName names it, conventionally
+// "this").
+func (cg *Codegen) emitSyncFunc(fi *FuncInstance, decl *ast.FuncDecl, argTypes []Type, thisParamName string, thisType *Type) {
+	scope := newScope(nil)
+	var cparams []string
+	if thisType != nil {
+		scope.define(thisParamName, *thisType)
+		cparams = append(cparams, fmt.Sprintf("%s %s", cg.ctypeStatic(*thisType), cIdent(thisParamName)))
+	}
+	for i, p := range decl.Params {
+		scope.define(p.Name, argTypes[i])
+	}
+	fb := &funcBuilder{cg: cg, fname: fi.MangledName, isAsync: false, selfInstance: fi}
+	if fi.RetTypeKnown {
+		fb.retType = fi.RetType
+		fb.retTypeKnown = true
+	}
+	bodyC := fb.buildFunctionBody(scope, decl.Body, "")
+	fi.RetType = fb.retType
+	fi.RetTypeKnown = true
+
+	for i, p := range decl.Params {
+		cparams = append(cparams, fmt.Sprintf("%s %s", fb.cg.ctype(argTypes[i]), cIdent(p.Name)))
+	}
+	if len(cparams) == 0 {
+		cparams = append(cparams, "void")
+	}
+	retC := "void"
+	if fi.RetType.Kind != KVoid {
+		retC = cg.ctype(fi.RetType)
+	}
+	fi.Forward = fmt.Sprintf("static %s %s(%s);", retC, fi.MangledName, strings.Join(cparams, ", "))
+	fi.Body = fmt.Sprintf("static %s %s(%s) {\n%s}", retC, fi.MangledName, strings.Join(cparams, ", "), indent(bodyC, "    "))
+}
+
