@@ -279,3 +279,72 @@ func (fb *funcBuilder) genFloatArg(c *ctx, e ast.Expr) string {
 	panic(fmt.Sprintf("nox: %s: expected a numeric argument, got %s", fb.fname, t.String()))
 }
 
+func (fb *funcBuilder) genMathCall(c *ctx, sym string, args []ast.Expr) (string, Type) {
+	unaryFloat := func(cfn string) (string, Type) {
+		if len(args) != 1 {
+			panic(fmt.Sprintf("nox: %s: math::%s(x) takes exactly one argument", fb.fname, sym))
+		}
+		return fmt.Sprintf("%s(%s)", cfn, fb.genFloatArg(c, args[0])), TFloat()
+	}
+	switch sym {
+	case "abs":
+		if len(args) != 1 {
+			panic(fmt.Sprintf("nox: %s: math::abs(x) takes exactly one argument", fb.fname))
+		}
+		code, t := fb.genExpr(c, args[0])
+		switch t.Kind {
+		case KInt:
+			return fmt.Sprintf("nox_math_abs_i(%s)", code), TInt()
+		case KFloat:
+			return fmt.Sprintf("nox_math_abs_f(%s)", code), TFloat()
+		}
+		panic(fmt.Sprintf("nox: %s: math::abs(x) expects an int or float", fb.fname))
+	case "min", "max":
+		if len(args) != 2 {
+			panic(fmt.Sprintf("nox: %s: math::%s(a, b) takes exactly two arguments", fb.fname, sym))
+		}
+		a0, t0 := fb.genExpr(c, args[0])
+		a1, t1 := fb.genExpr(c, args[1])
+		if !t0.Equals(t1) || (t0.Kind != KInt && t0.Kind != KFloat) {
+			panic(fmt.Sprintf("nox: %s: math::%s(a, b) expects two arguments of the same numeric type", fb.fname, sym))
+		}
+		suffix := "_i"
+		if t0.Kind == KFloat {
+			suffix = "_f"
+		}
+		return fmt.Sprintf("nox_math_%s%s(%s, %s)", sym, suffix, a0, a1), t0
+	case "pow":
+		if len(args) != 2 {
+			panic(fmt.Sprintf("nox: %s: math::pow(x, y) takes exactly two arguments", fb.fname))
+		}
+		return fmt.Sprintf("pow(%s, %s)", fb.genFloatArg(c, args[0]), fb.genFloatArg(c, args[1])), TFloat()
+	case "sqrt":
+		return unaryFloat("sqrt")
+	case "floor":
+		return unaryFloat("floor")
+	case "ceil":
+		return unaryFloat("ceil")
+	case "round":
+		return unaryFloat("round")
+	case "sin":
+		return unaryFloat("sin")
+	case "cos":
+		return unaryFloat("cos")
+	case "tan":
+		return unaryFloat("tan")
+	case "asin":
+		return unaryFloat("asin")
+	case "acos":
+		return unaryFloat("acos")
+	case "atan":
+		return unaryFloat("atan")
+	case "log":
+		return unaryFloat("log")
+	case "log10":
+		return unaryFloat("log10")
+	case "exp":
+		return unaryFloat("exp")
+	}
+	panic(fmt.Sprintf("nox: %s: math has no function '%s'", fb.fname, sym))
+}
+
