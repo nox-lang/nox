@@ -76,3 +76,5 @@ typedef struct {
     char msg[1024];
 } nox_err_state;
 
+static nox_tls_key_t __nox_err_key;
+
