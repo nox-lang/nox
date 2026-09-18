@@ -257,3 +257,43 @@ func (l *Lexer) Next() token.Token {
 	return token.Token{}
 }
 
+func (l *Lexer) lexNumber(line, col int) token.Token {
+	var sb strings.Builder
+	isFloat := false
+	for isDigit(l.peekCh()) {
+		sb.WriteRune(l.advance())
+	}
+	if l.peekCh() == '.' && isDigit(l.peekAt(1)) {
+		isFloat = true
+		sb.WriteRune(l.advance())
+		for isDigit(l.peekCh()) {
+			sb.WriteRune(l.advance())
+		}
+	}
+	if l.peekCh() == 'e' || l.peekCh() == 'E' {
+		save := l.pos
+		sb2 := sb.String()
+		var tmp strings.Builder
+		tmp.WriteRune(l.advance())
+		if l.peekCh() == '+' || l.peekCh() == '-' {
+			tmp.WriteRune(l.advance())
+		}
+		if isDigit(l.peekCh()) {
+			isFloat = true
+			for isDigit(l.peekCh()) {
+				tmp.WriteRune(l.advance())
+			}
+			sb.Reset()
+			sb.WriteString(sb2)
+			sb.WriteString(tmp.String())
+		} else {
+			l.pos = save
+		}
+	}
+	kind := token.INT
+	if isFloat {
+		kind = token.FLOAT
+	}
+	return token.Token{Kind: kind, Literal: sb.String(), Line: line, Col: col}
+}
+
