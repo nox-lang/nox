@@ -82,3 +82,11 @@ type FieldDecl struct {
 	IsPrivate bool
 }
 
+type ClassDecl struct {
+	Base
+	Name      string
+	Fields    []*FieldDecl
+	Methods   []*FuncDecl
+	IsPrivate bool
+}
+
