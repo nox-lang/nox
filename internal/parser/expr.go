@@ -5,3 +5,17 @@ import (
 	"nox/internal/token"
 )
 
+// Precedence (low -> high):
+//   ||
+//   &&
+//   |
+//   ^
+//   &  (binary)
+//   == !=
+//   < > <= >=
+//   + -
+//   * / %
+//   unary - ! & *
+//   postfix . () [] ?
+//   primary
+
