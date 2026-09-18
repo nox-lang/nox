@@ -154,3 +154,40 @@ func (fb *funcBuilder) errorCheckSnippet() string {
 
 // ---------------- let / assign ----------------
 
+func (fb *funcBuilder) genLetStmt(scope *Scope, s *ast.LetStmt) string {
+	c, pre := newCtx(scope)
+	if s.Value == nil {
+		// Uninitialized variable: type must be resolvable from annotation,
+		// or inferred later from the first assignment in this scope.
+		if s.Type != nil {
+			t := fb.cg.resolveTypeExpr(s.Type)
+			scope.define(s.Name, t)
+			return compilef("%s %s = %s;", fb.cg.ctype(t), cIdent(s.Name), fb.cg.zeroValueC(t))
+		}
+		t, ok := fb.inferDeferredLocalType(scope, s.Name)
+		if !ok {
+			panic(fmt.Sprintf("nox: cannot infer type of uninitialized variable '%s' in %s; add an explicit type (let %s: TYPE)", s.Name, fb.fname, s.Name))
+		}
+		scope.define(s.Name, t)
+		return compilef("%s %s = %s;", fb.cg.ctype(t), cIdent(s.Name), fb.cg.zeroValueC(t))
+	}
+	code, t := fb.genExpr(c, s.Value)
+	if s.Type != nil {
+		want := fb.cg.resolveTypeExpr(s.Type)
+		if !want.Equals(t) {
+			panic(fmt.Sprintf("nox: %s: cannot assign %s to 'let %s: %s'", fb.fname, t.String(), s.Name, want.String()))
+		}
+		t = want
+	}
+	if t.ContainsUnknown() {
+		panic(fmt.Sprintf("nox: %s: cannot infer the element type of an empty array literal assigned to '%s'; add an explicit type (let %s: array<TYPE> = [])", fb.fname, s.Name, s.Name))
+	}
+	scope.define(s.Name, t)
+	var sb strings.Builder
+	for _, p := range *pre {
+		sb.WriteString(p)
+	}
+	sb.WriteString(compilef("%s %s = %s;", fb.cg.ctype(t), cIdent(s.Name), code))
+	return sb.String()
+}
+
