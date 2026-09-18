@@ -380,3 +380,5 @@ func (fb *funcBuilder) genTimeCall(c *ctx, sym string, args []ast.Expr) (string,
 	panic(fmt.Sprintf("nox: %s: time has no function '%s'", fb.fname, sym))
 }
 
+// ---------------- raw C (`include`d headers) ----------------
+
