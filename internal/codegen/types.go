@@ -178,3 +178,12 @@ func mangle(t Type) string {
 	return "x"
 }
 
+func mangleList(ts []Type) string {
+	var sb strings.Builder
+	for _, t := range ts {
+		sb.WriteString("_")
+		sb.WriteString(mangle(t))
+	}
+	return sb.String()
+}
+
