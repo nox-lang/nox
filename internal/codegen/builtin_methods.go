@@ -269,3 +269,39 @@ type cbParam struct {
 	cexpr string
 }
 
+// genInlineCallback inlines fl's body with its parameters bound to the given
+// C source expressions, in a fresh nested scope. A `yield expr` inside fl's
+// body does not return from the enclosing Nox function — it yields a
+// per-invocation result (Nox's map/filter/find/each callback semantics),
+// available afterwards as (resultVar, resultType) — resultType is nil if
+// the body never used `yield`. Unlike `yield`, a `return` inside fl's body
+// is an ordinary return from the *enclosing* function, since the callback
+// is inlined directly rather than compiled as its own function.
+func (fb *funcBuilder) genInlineCallback(scope *Scope, fl *ast.FuncLit, params []cbParam) (bodyC string, resultVar string, resultType *Type) {
+	if len(fl.Params) != len(params) {
+		panic(fmt.Sprintf("nox: %s: callback expects %d parameter(s), got %d", fb.fname, len(params), len(fl.Params)))
+	}
+	inner := newScope(scope)
+	var sb strings.Builder
+	for i, p := range fl.Params {
+		inner.define(p.Name, params[i].typ)
+		sb.WriteString(compilef("%s %s = %s;", fb.cg.ctype(params[i].typ), cIdent(p.Name), params[i].cexpr))
+	}
+	resultVar = fb.cg.freshTmp("hofres")
+	label := fb.cg.freshTmp("hoflabel")
+	sb.WriteString("%%HOFRESDECL%%\n")
+	lc := &loopCtx{mode: "hofvalue", resultVar: resultVar, hofLabel: label}
+	fb.loopStack = append(fb.loopStack, lc)
+	sb.WriteString(fb.genBlock(inner, fl.Body))
+	fb.loopStack = fb.loopStack[:len(fb.loopStack)-1]
+	sb.WriteString(compilef("%s: ;", label))
+
+	resultType = lc.resultType
+	decl := ""
+	if resultType != nil {
+		decl = fmt.Sprintf("%s %s;", fb.cg.ctype(*resultType), resultVar)
+	}
+	bodyC = strings.ReplaceAll(sb.String(), "%%HOFRESDECL%%", decl)
+	return bodyC, resultVar, resultType
+}
+
