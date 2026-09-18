@@ -309,3 +309,7 @@ func assignOpC(op token.Kind, t Type) string {
 	return "="
 }
 
+func cIdent(name string) string {
+	return "v_" + name
+}
+
