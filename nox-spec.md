@@ -629,3 +629,16 @@ math
 time
 ```
 
+## 15.1 io
+
+```text
+io::Print(...)
+io::Println(...)
+io::Printf(...)
+io::Printfn(...)
+
+io::Scan(...)
+io::Scanln(...)
+io::Scanf(...)
+```
+
