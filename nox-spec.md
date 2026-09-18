@@ -730,3 +730,35 @@ time::minute(t)
 time::second(t)
 ```
 
+# 16. async / await
+
+`async` と `await` は言語組み込み機能です。
+
+```text
+async func fetchData() {
+    return "Hello"
+}
+
+func main() {
+    let data = await fetchData()
+    io::Println(data)
+}
+```
+
+非同期処理を変数に保存してからawaitすることもできます。
+
+```text
+let task = fetchData()
+let data = await task
+```
+
+複数の処理を先に開始できます。
+
+```text
+let a = fetchA()
+let b = fetchB()
+
+let resultA = await a
+let resultB = await b
+```
+
