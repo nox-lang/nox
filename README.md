@@ -164,3 +164,33 @@ internal/pkgmgr/         nox.toml + `nox init`/`nox get`
 examples/                Sample programs (see "What's been tested")
 ```
 
+### How codegen works: monomorphization, not a type checker
+
+The spec asks for "strong type inference" and shows both annotated and
+*unannotated* function parameters (`func add(a, b)` and class fields typed
+only by how a constructor happens to be called, e.g. `Dog.new("Pochi", 3)`
+with no type anywhere in the class body). A conventional
+Hindley-Milner-style inference pass doesn't fall out of that naturally when
+combined with C as a backend — there's no polymorphism in C. Instead, this
+compiler treats any function/class whose parameters aren't fully annotated
+as an implicit generic, and **monomorphizes on demand**: the first time
+`add(1, 2)` is seen, a concrete `add__i_i` is generated for `(int, int)`;
+`add(1.5, 2.5)` elsewhere gets its own `add__f_f`. This is the same idea as
+C++ templates or Zig's comptime generics, driven by the call graph starting
+from `main`:
+
+- A function that's never called (with any concrete types) is never
+  emitted — dead-code elimination is a side effect of the architecture.
+- **A genuinely recursive function whose return type isn't established
+  before its first self-call needs an explicit return-type annotation**
+  (`func fib(n): int { ... }`). If the base case's `return` is textually
+  first, this isn't needed. If the recursive call comes first, the
+  compiler asks for the annotation rather than silently producing
+  something wrong.
+- A class's field types are discovered by compiling `init` and watching for
+  `this.field = ...` assignments — the type of the first assignment wins. A
+  field never assigned in `init` needs an explicit type or a default value.
+  An explicit type annotation on a *class* type (`let x: Dog`) only
+  resolves if some `Dog.new(...)` call has already been monomorphized
+  elsewhere in the program.
+
