@@ -24,3 +24,17 @@
 #include <gc.h>
 #endif
 
+/* ---------------- portable threading / thread-local storage ----------------
+ * Nox's async/await/Parallel and per-thread error state need threads and
+ * thread-local storage. On Windows this uses the native Win32 API
+ * (CreateThread/TlsAlloc) directly rather than pthreads, since a pthreads
+ * implementation isn't something this toolchain bundles for that target.
+ * Everywhere else, plain POSIX pthreads is used (tcc does not support the
+ * `__thread` storage-class keyword, which is why TLS goes through an
+ * explicit key/slot API either way, not a compiler-level thread-local
+ * variable). */
+#if defined(_WIN32)
+  #include <direct.h>
+  #include <windows.h>
+  #define NOX_MKDIR(p) _mkdir(p)
+
