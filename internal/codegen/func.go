@@ -592,3 +592,41 @@ func (fb *funcBuilder) assembleLoop(lc *loopCtx, header, bodyC string, isExprCtx
 	return sb.String(), resultType, valueVar
 }
 
+func (fb *funcBuilder) genForCond(scope *Scope, s *ast.ForCondStmt, isExprCtx bool) (string, Type, string) {
+	c, pre := newCtx(scope)
+	condCode := "1"
+	if s.Cond != nil {
+		var ct Type
+		condCode, ct = fb.genExpr(c, s.Cond)
+		if ct.Kind != KBool {
+			panic(fmt.Sprintf("nox: %s: for-condition must be bool", fb.fname))
+		}
+	}
+	var preSB strings.Builder
+	for _, p := range *pre {
+		preSB.WriteString(p)
+	}
+	lc := fb.beginLoop(s.Body)
+	bodyC := fb.genBlock(scope, s.Body)
+	bodyC += compilef("%s: ;", lc.continueLabel)
+	fb.endLoop()
+	header := fmt.Sprintf("for (; %s; )", condCode)
+	// re-evaluate condition each iteration if it references mutable state:
+	// since Nox conditions are arbitrary expressions (not just idents), we
+	// must recompute them every loop iteration, not hoist once. Use a while
+	// wrapper that re-runs the condition's `pre` computations each pass.
+	if len(*pre) != 0 {
+		// condition has side-effecting pre-statements: emit as for(;;){ pre; if(!cond) break; body }
+		var innerSB strings.Builder
+		for _, p := range *pre {
+			innerSB.WriteString(p)
+		}
+		innerSB.WriteString(compilef("if (!(%s)) break;", condCode))
+		innerSB.WriteString(bodyC)
+		loopCode, rt, vv := fb.assembleLoop(lc, "for (;;)", innerSB.String(), isExprCtx)
+		return preSB.String() + loopCode, rt, vv
+	}
+	loopCode, rt, vv := fb.assembleLoop(lc, header, bodyC, isExprCtx)
+	return preSB.String() + loopCode, rt, vv
+}
+
