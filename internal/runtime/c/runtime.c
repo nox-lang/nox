@@ -497,3 +497,26 @@ static nox_array nox_fs_list(nox_string path) {
     return result;
 }
 
+/* ---------------- path ---------------- */
+static nox_string nox_path_join2(nox_string a, nox_string b) {
+    if (a.len == 0) return b;
+    if (b.len == 0) return a;
+#if defined(_WIN32)
+    char sep = '\\';
+#else
+    char sep = '/';
+#endif
+    bool need_sep = a.data[a.len - 1] != '/' && a.data[a.len - 1] != '\\';
+    int64_t n = a.len + (need_sep ? 1 : 0) + b.len;
+    char *buf = (char *)GC_MALLOC(n + 1);
+    memcpy(buf, a.data, a.len);
+    int64_t off = a.len;
+    if (need_sep) buf[off++] = sep;
+    memcpy(buf + off, b.data, b.len);
+    buf[n] = 0;
+    nox_string s;
+    s.data = buf;
+    s.len = n;
+    return s;
+}
+
