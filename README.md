@@ -232,3 +232,109 @@ loop's value be, a collected array or a single break value?); that's a
 compile error pointing at the ambiguity. `yield` outside a callback, or
 `next` outside a loop, are compile errors too, not silent no-ops.
 
+## `if` as an expression
+
+`if` can be used as a statement exactly as it always was — no `else`
+required, ordinary statements inside. It can *also* be used as an
+expression (`let x = if (c) { a } else { b }`), which is a separate, and
+stricter, form: **every branch must be present** (an `else`, or an `else
+if` chain ending in `else`, is required — there's no "value" for a path
+that falls through nothing) and **each branch's last statement must be a
+bare value expression**, which becomes that branch's contribution to the
+result (Rust/Kotlin-style trailing-expression value, not a `break`/`yield`
+keyword) — deliberately so that `break`/`next` written inside a plain
+statement-form `if` (overwhelmingly the more common case — `if (x) { break
+}` inside a loop, to exit early) keep meaning exactly what they've always
+meant, targeting the enclosing loop, completely unaffected by whether that
+`if` happens to also be usable as an expression elsewhere.
+
+## `.delete()`
+
+Available on strings, arrays, class instances, and pointers: explicitly
+frees the underlying GC-managed memory *right now* rather than waiting for
+the collector, and clears the receiver (only meaningful, i.e. only has a
+lasting effect, when the receiver is a real variable/array-element/class-field
+— see `genReceiverLvalue` in the codegen). This is a deliberate escape hatch
+from automatic memory management for a specific reason to want one (freeing
+something known-large and known-dead early); it is **not** something normal
+Nox code needs to reach for, and using a value again after `.delete()`-ing
+it is undefined behavior, exactly like a manual `free()` in C. On a
+`NOX_NO_GC` (cross-compiled) build this is a real `free()`; on a native
+build it's Boehm GC's `GC_FREE`.
+
+## Filled-in gaps
+
+Some corners the spec leaves unspecified (intentionally, per its own text
+in a few places), plus the amendments above. Deliberate choices, not
+oversights:
+
+- **`array.find()` when nothing matches**: returns the element type's zero
+  value (`0`, `""`, `false`, or `null` for a class/pointer). `null` can't
+  normally appear in Nox source (the spec forbids assigning it), but
+  comparing a result against it — `result == null` — is allowed as a
+  narrow, specific exception, since otherwise there'd be no way to check a
+  `find()` result over a class-typed array at all.
+- **Untyped `let value` with no initializer**: requires an explicit type
+  (`let value: int`) — deferred inference from a *later* assignment
+  elsewhere in the function was judged too failure-prone to implement
+  reliably in the time available, so it's a clear compile error pointing at
+  the fix instead.
+- **Untyped variadic parameters** (`values...`): element type inferred from
+  the first call site's arguments; zero variadic arguments with no
+  annotation defaults to `int`.
+- **Default-argument expressions**: evaluated in the callee's own scope
+  (can see earlier parameters and globals, not the caller's locals).
+- **`io::print`/`println`**: any number of arguments of any printable type,
+  printed in sequence with no separator. **`io::printf`/`printfn`**: the
+  `{}`-placeholder format string must be a string literal, resolved
+  entirely at compile time.
+- **`io::scan`/`scanln`/`scanf`**: take **zero** arguments and *return* a
+  string (`scan` — one whitespace-delimited token; `scanln`/`scanf` — one
+  line); convert with `.toInt()`/`.toFloat()` etc. `scanf` does not do real
+  `scanf`-style format parsing.
+- **`time::now()`/`unix()`**: a plain `int` Unix timestamp, no separate
+  opaque time type (none is in the spec's basic-types list, §5).
+- **`math::sqrt(16)` etc. with a bare int literal**: Nox performs zero
+  implicit conversion between typed *values* (§5), but an integer *literal*
+  (not a variable) argument to these specific stdlib functions auto-widens
+  to float, since the spec's own example does exactly this.
+- **`include`d C functions**: called by bare name (`stdio::printf(...)`).
+  String arguments become raw `char*`. The call's Nox-level type is
+  approximated as `int` (there's no way to know an included header's real
+  prototype) — fine for calls used as statements, a known limitation
+  otherwise.
+- **Closures passed to `each`/`map`/`filter`/`find`/`sort`**: must be a
+  literal anonymous function at the call site (as in every spec example),
+  e.g. `arr.each((x) { ... })` — a closure already stored in a variable
+  isn't accepted there, with a clear error rather than a miscompile.
+  Literal callbacks are inlined directly (not compiled as a separate
+  closure/function) — which is also why `return` inside one exits the
+  *enclosing function*, not just the callback (see above).
+- **`defer` inside a loop or `if`**: a per-`defer` "armed" flag checked once
+  at the function's single exit point, not a dynamic stack — a `defer` that
+  executes 3 times across 3 loop iterations still only runs **once**, at
+  the very end (last-registration-wins), not three times.
+- **`async`/`parallel`/`Task`**: calling an `async func` starts it running
+  immediately (spawns a thread) and returns a `Task` handle; `await` blocks
+  for the result. `parallel { a(); b(); c() }` starts all three immediately
+  and, per every spec example, is itself wrapped in `await` — so
+  `parallel { ... }` evaluates to an array of not-yet-joined task handles,
+  and `await` on that array specifically joins all of them in order and
+  collects the results. `Task` isn't nameable in a Nox type annotation; it
+  only exists transiently between a call and its `await`.
+- **Error/`Result` model**: rather than an explicit `Result<T, E>` type, a
+  fallible call (the `fs::*` functions, plus any Nox function using `?` or
+  calling another fallible function) sets an internal per-thread error flag
+  and returns the type's zero value on failure. `?` checks the flag and
+  propagates (early-returns, running `defer`s) if set; unhandled, the flag
+  auto-propagates up the call stack after every statement — like an
+  exception — until a `try { ... } catch (e) { ... }` catches it (`e` is
+  the message, as a `string`) or it reaches `main` uncaught.
+- **Bitwise operators** (`& | ^`) and compound assignment (`+= -= *= /=`):
+  not in the spec's grammar, added at ordinary precedence as a small,
+  additive convenience.
+- **Pointers**: `pointer<T>` maps to a real `T*`. `&expr` (on a variable,
+  array element, or class field) and `*expr` are the address-of and
+  dereference operators, since the spec names the type but shows no syntax
+  for producing or using a pointer value.
+
