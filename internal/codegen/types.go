@@ -54,3 +54,5 @@ func TTask(elem Type) Type {
 	return Type{Kind: KTask, Elem: &e}
 }
 
+func (t Type) IsVoid() bool { return t.Kind == KVoid }
+
