@@ -75,3 +75,14 @@ func (p *Parser) parseStmt() ast.Stmt {
 	}
 }
 
+// canStartExpr reports whether the current token could begin an expression
+// (used to decide whether `break`/`return` carries a value).
+func (p *Parser) canStartExpr() bool {
+	switch p.cur().Kind {
+	case token.RBRACE, token.EOF, token.CASE, token.DEFAULT:
+		return false
+	default:
+		return true
+	}
+}
+
