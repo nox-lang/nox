@@ -187,3 +187,31 @@ func mangleList(ts []Type) string {
 	return sb.String()
 }
 
+// ctype returns the C spelling for a Nox type, registering any auxiliary
+// typedefs (closures, tasks) it needs along the way.
+func (cg *Codegen) ctype(t Type) string {
+	switch t.Kind {
+	case KInt:
+		return "int64_t"
+	case KFloat:
+		return "double"
+	case KBool:
+		return "bool"
+	case KString:
+		return "nox_string"
+	case KVoid:
+		return "void"
+	case KArray:
+		return "nox_array"
+	case KPointer:
+		return cg.ctype(*t.Elem) + "*"
+	case KClass:
+		return "struct " + t.ClassKey + "*"
+	case KFunc:
+		return cg.ensureClosureType(t)
+	case KTask:
+		return cg.ensureTaskType(t)
+	}
+	panic(fmt.Sprintf("ctype: unhandled kind %v", t.Kind))
+}
+
