@@ -221,3 +221,5 @@ type DeferStmt struct {
 	Body *BlockStmt
 }
 
+func (*DeferStmt) stmtNode() {}
+
