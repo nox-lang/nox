@@ -296,3 +296,22 @@ numbers.sort((a, b) {
 let reversed = numbers.reverse()
 ```
 
+# 7. 文字列
+
+文字列では以下の操作を使用できます。
+
+```text
+text.length
+text.empty()
+text.contains("abc")
+text.startsWith("abc")
+text.endsWith("abc")
+text.substring(0, 5)
+```
+
+文字列の連結には `+` を使用します。
+
+```text
+let message = "Hello, " + name
+```
+
