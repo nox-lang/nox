@@ -114,3 +114,5 @@ type ExprStmt struct {
 	X Expr
 }
 
+func (*ExprStmt) stmtNode() {}
+
