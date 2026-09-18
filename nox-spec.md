@@ -905,3 +905,22 @@ Nox
 
 Noxには `nox` コマンドを用意します。
 
+## 23.1 パッケージ初期化
+
+```text
+nox init hello
+```
+
+新しいNoxパッケージを作成します。
+
+基本的な構成は、
+
+```text
+hello/
+├── nox.toml
+└── src/
+    └── main.nox
+```
+
+です。
+
