@@ -57,3 +57,10 @@
   #include <unistd.h>
   #define NOX_MKDIR(p) mkdir(p, 0755)
 
+  typedef pthread_t nox_thread_t;
+  #define NOX_THREAD_FUNC void*
+  typedef void* nox_thread_arg_t;
+  #define NOX_THREAD_RETURN return NULL
+  #define NOX_THREAD_CREATE(thptr, fn, arg) pthread_create((thptr), NULL, (fn), (arg))
+  #define NOX_THREAD_JOIN(th) pthread_join((th), NULL)
+
