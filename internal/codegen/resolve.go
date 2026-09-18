@@ -49,3 +49,8 @@ func (cg *Codegen) resolveTypeExpr(te *ast.TypeExpr) Type {
 
 // ---------------- namespace registration ----------------
 
+func (cg *Codegen) registerStdlibNamespaces() {
+	for _, name := range []string{"io", "random", "fs", "path", "math", "time"} {
+		cg.namespaces[name] = &Namespace{Kind: NSStdlib}
+	}
+}
