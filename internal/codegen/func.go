@@ -551,3 +551,44 @@ func (fb *funcBuilder) endLoop() *loopCtx {
 	return lc
 }
 
+// assembleLoop wraps a generated C loop body with whatever preamble/epilogue
+// the loop's mode requires, and reports the resulting (code, Type, isExpr).
+func (fb *funcBuilder) assembleLoop(lc *loopCtx, header, bodyC string, isExprCtx bool) (string, Type, string) {
+	var sb strings.Builder
+	resultType := TVoid()
+	valueVar := ""
+	switch lc.mode {
+	case "collect":
+		elem := TInt()
+		if lc.elemType != nil {
+			elem = *lc.elemType
+		}
+		sb.WriteString(compilef("nox_array %s = nox_array_new();", lc.collectVar))
+		sb.WriteString(header + " {\n")
+		sb.WriteString(indent(bodyC, "    "))
+		sb.WriteString("}\n")
+		resultType = TArray(elem)
+		valueVar = lc.collectVar
+	case "breakvalue":
+		rt := TInt()
+		if lc.resultType != nil {
+			rt = *lc.resultType
+		}
+		sb.WriteString(compilef("%s %s = %s;", fb.cg.ctype(rt), lc.resultVar, fb.cg.zeroValueC(rt)))
+		sb.WriteString(compilef("bool %s = false;", lc.brokeVar))
+		sb.WriteString(header + " {\n")
+		sb.WriteString(indent(bodyC, "    "))
+		sb.WriteString("}\n")
+		resultType = rt
+		valueVar = lc.resultVar
+	default:
+		sb.WriteString(header + " {\n")
+		sb.WriteString(indent(bodyC, "    "))
+		sb.WriteString("}\n")
+		if isExprCtx {
+			panic(fmt.Sprintf("nox: %s: this loop/switch produces no value (no collecting 'next' or value-carrying 'break') but is used as an expression", fb.fname))
+		}
+	}
+	return sb.String(), resultType, valueVar
+}
+
