@@ -50,3 +50,9 @@ type loopCtx struct {
 	continueLabel string // for real loops: label `next`/`next value` jumps to
 }
 
+// ctx threads a per-statement hoisting buffer through expression codegen.
+type ctx struct {
+	scope *Scope
+	pre   *[]string
+}
+
