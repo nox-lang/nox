@@ -924,3 +924,26 @@ hello/
 
 です。
 
+## 23.2 パッケージ取得
+
+```text
+nox get github.com/rimsky-yamatov/noxlib
+```
+
+取得したパッケージは `nox.toml` に依存関係として記録されます。
+
+例えば、
+
+```toml
+[package]
+name = "hello"
+version = "0.1.0"
+
+[dependencies]
+noxlib = "github.com/rimsky-yamatov/noxlib"
+```
+
+のようになります。
+
+取得したNoxパッケージは、Noxコードから `import` して利用します。
+
