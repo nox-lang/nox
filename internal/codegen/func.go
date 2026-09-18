@@ -545,3 +545,9 @@ func (fb *funcBuilder) beginLoop(b *ast.BlockStmt) *loopCtx {
 	return lc
 }
 
+func (fb *funcBuilder) endLoop() *loopCtx {
+	lc := fb.loopStack[len(fb.loopStack)-1]
+	fb.loopStack = fb.loopStack[:len(fb.loopStack)-1]
+	return lc
+}
+
