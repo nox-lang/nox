@@ -251,3 +251,5 @@ func (*QualIdent) exprNode() {}
 
 type ThisExpr struct{ Base }
 
+func (*ThisExpr) exprNode() {}
+
