@@ -262,3 +262,15 @@ let result = numbers.filter((x) {
 })
 ```
 
+## 6.7 find
+
+条件に一致する最初の要素を取得します。
+
+```text
+let result = numbers.find((x) {
+    return x > 10
+})
+```
+
+見つからなかった場合の詳細な仕様は今後決定します。
+
