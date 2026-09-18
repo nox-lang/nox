@@ -53,3 +53,46 @@ func (fb *funcBuilder) genStdlibCall(c *ctx, pkg, sym string, args []ast.Expr) (
 
 // ---------------- io ----------------
 
+func (fb *funcBuilder) genIOCall(c *ctx, sym string, args []ast.Expr) (string, Type) {
+	switch sym {
+	case "print", "println":
+		for _, a := range args {
+			code, t := fb.genExpr(c, a)
+			c.emit(compilef("%s;", printCallFor(t, code)))
+		}
+		if sym == "println" {
+			c.emit("nox_print_raw_cstr(\"\\n\");\n")
+		}
+		return "", TVoid()
+	case "printf", "printfn":
+		if len(args) == 0 {
+			panic(fmt.Sprintf("nox: %s: io::%s requires a format string", fb.fname, sym))
+		}
+		fmtLit, ok := args[0].(*ast.StringLit)
+		if !ok {
+			panic(fmt.Sprintf("nox: %s: io::%s: the format string must be a string literal", fb.fname, sym))
+		}
+		fb.genFormatPrint(c, fmtLit.Value, args[1:])
+		if sym == "printfn" {
+			c.emit("nox_print_raw_cstr(\"\\n\");\n")
+		}
+		return "", TVoid()
+	case "scan":
+		if len(args) != 0 {
+			panic(fmt.Sprintf("nox: %s: io::scan() takes no arguments in this implementation; it returns the next whitespace-delimited token as a string", fb.fname))
+		}
+		return "nox_io_scan()", TString()
+	case "scanln":
+		if len(args) != 0 {
+			panic(fmt.Sprintf("nox: %s: io::scanln() takes no arguments in this implementation; it returns the next line as a string", fb.fname))
+		}
+		return "nox_io_scanln()", TString()
+	case "scanf":
+		// Simplified: reads a full line, same as Scanln. Full scanf-style
+		// format parsing is not implemented; use .toInt()/.toFloat() on the
+		// returned string to convert individual values.
+		return "nox_io_scanln()", TString()
+	}
+	panic(fmt.Sprintf("nox: %s: io has no function '%s'", fb.fname, sym))
+}
+
