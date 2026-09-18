@@ -263,3 +263,5 @@ func (fb *funcBuilder) genPathCall(c *ctx, sym string, args []ast.Expr) (string,
 	panic(fmt.Sprintf("nox: %s: path has no function '%s'", fb.fname, sym))
 }
 
+// ---------------- math ----------------
+
