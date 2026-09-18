@@ -332,3 +332,20 @@ static void nox_array_choice_raw(nox_array *a, void *out, int64_t elemsize) {
     memcpy(out, (char *)a->data + i * elemsize, (size_t)elemsize);
 }
 
+/* default ascending comparators for sort() with no custom comparator */
+static int nox_cmp_int_asc(const void *pa, const void *pb) {
+    int64_t a = *(const int64_t *)pa, b = *(const int64_t *)pb;
+    return (a > b) - (a < b);
+}
+static int nox_cmp_float_asc(const void *pa, const void *pb) {
+    double a = *(const double *)pa, b = *(const double *)pb;
+    return (a > b) - (a < b);
+}
+static int nox_cmp_string_asc(const void *pa, const void *pb) {
+    return nox_string_cmp(*(const nox_string *)pa, *(const nox_string *)pb);
+}
+static int nox_cmp_bool_asc(const void *pa, const void *pb) {
+    bool a = *(const bool *)pa, b = *(const bool *)pb;
+    return (a ? 1 : 0) - (b ? 1 : 0);
+}
+
