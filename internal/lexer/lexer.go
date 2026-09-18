@@ -297,3 +297,12 @@ func (l *Lexer) lexNumber(line, col int) token.Token {
 	return token.Token{Kind: kind, Literal: sb.String(), Line: line, Col: col}
 }
 
+func (l *Lexer) lexIdent(line, col int) token.Token {
+	var sb strings.Builder
+	for isAlnum(l.peekCh()) {
+		sb.WriteRune(l.advance())
+	}
+	s := sb.String()
+	return token.Token{Kind: token.Lookup(s), Literal: s, Line: line, Col: col}
+}
+
