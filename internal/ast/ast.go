@@ -97,3 +97,5 @@ type BlockStmt struct {
 	Stmts []Stmt
 }
 
+func (*BlockStmt) stmtNode() {}
+
