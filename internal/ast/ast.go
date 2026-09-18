@@ -247,3 +247,5 @@ type QualIdent struct {
 	Parts []string
 }
 
+func (*QualIdent) exprNode() {}
+
