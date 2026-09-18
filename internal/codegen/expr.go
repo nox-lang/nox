@@ -154,3 +154,67 @@ func (fb *funcBuilder) genArrayLit(c *ctx, x *ast.ArrayLit) (string, Type) {
 
 // ---------------- binary / unary ----------------
 
+func (fb *funcBuilder) genBinaryExpr(c *ctx, x *ast.BinaryExpr) (string, Type) {
+	if x.Op == token.AND || x.Op == token.OR {
+		return fb.genShortCircuit(c, x)
+	}
+	// `x == null` / `x != null`: null cannot appear as a general expression
+	// (Nox forbids explicitly assigning it), but comparing a pointer or
+	// class value against null — e.g. to check an array `.find(...)` result
+	// — is common and necessary, so it's handled here as a special case
+	// rather than through the generic NullLit codegen path.
+	if (x.Op == token.EQ || x.Op == token.NE) && (isNullLit(x.X) || isNullLit(x.Y)) {
+		return fb.genNullComparison(c, x)
+	}
+	lc, lt := fb.genExpr(c, x.X)
+	rc, rt := fb.genExpr(c, x.Y)
+
+	switch x.Op {
+	case token.PLUS:
+		if lt.Kind == KString && rt.Kind == KString {
+			return fmt.Sprintf("nox_string_concat(%s, %s)", lc, rc), TString()
+		}
+		requireSameNumeric(fb.fname, lt, rt)
+		return fmt.Sprintf("(%s + %s)", lc, rc), lt
+	case token.MINUS:
+		requireSameNumeric(fb.fname, lt, rt)
+		return fmt.Sprintf("(%s - %s)", lc, rc), lt
+	case token.STAR:
+		requireSameNumeric(fb.fname, lt, rt)
+		return fmt.Sprintf("(%s * %s)", lc, rc), lt
+	case token.SLASH:
+		requireSameNumeric(fb.fname, lt, rt)
+		return fmt.Sprintf("(%s / %s)", lc, rc), lt
+	case token.PERCENT:
+		if lt.Kind != KInt || rt.Kind != KInt {
+			panic(fmt.Sprintf("nox: %s: '%%' requires int operands", fb.fname))
+		}
+		return fmt.Sprintf("(%s %% %s)", lc, rc), TInt()
+	case token.LT, token.GT, token.LE, token.GE:
+		if lt.Kind == KString && rt.Kind == KString {
+			op := map[token.Kind]string{token.LT: "<", token.GT: ">", token.LE: "<=", token.GE: ">="}[x.Op]
+			return fmt.Sprintf("(nox_string_cmp(%s, %s) %s 0)", lc, rc, op), TBool()
+		}
+		requireSameNumeric(fb.fname, lt, rt)
+		return fmt.Sprintf("(%s %s %s)", lc, x.Op.String(), rc), TBool()
+	case token.EQ, token.NE:
+		if !lt.Equals(rt) {
+			panic(fmt.Sprintf("nox: %s: cannot compare %s with %s", fb.fname, lt.String(), rt.String()))
+		}
+		neg := ""
+		if x.Op == token.NE {
+			neg = "!"
+		}
+		if lt.Kind == KString {
+			return fmt.Sprintf("(%snox_string_eq(%s, %s))", neg, lc, rc), TBool()
+		}
+		return fmt.Sprintf("(%s %s %s)", lc, x.Op.String(), rc), TBool()
+	case token.AMP, token.PIPE, token.CARET:
+		if lt.Kind != KInt || rt.Kind != KInt {
+			panic(fmt.Sprintf("nox: %s: bitwise operators require int operands", fb.fname))
+		}
+		return fmt.Sprintf("(%s %s %s)", lc, x.Op.String(), rc), TInt()
+	}
+	panic(fmt.Sprintf("nox: %s: unhandled binary operator %s", fb.fname, x.Op.String()))
+}
+
