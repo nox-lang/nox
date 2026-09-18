@@ -86,3 +86,36 @@ const (
 	MINUSMINUS
 )
 
+var keywords = map[string]Kind{
+	"package":  PACKAGE,
+	"import":   IMPORT,
+	"include":  INCLUDE,
+	"as":       AS,
+	"let":      LET,
+	"func":     FUNC,
+	"return":   RETURN,
+	"if":       IF,
+	"else":     ELSE,
+	"for":      FOR,
+	"while":    WHILE,
+	"in":       IN,
+	"break":    BREAK,
+	"next":     NEXT,
+	"yield":    YIELD,
+	"switch":   SWITCH,
+	"case":     CASE,
+	"default":  DEFAULT,
+	"class":    CLASS,
+	"private":  PRIVATE,
+	"this":     THIS,
+	"true":     TRUE,
+	"false":    FALSE,
+	"null":     NULL,
+	"async":    ASYNC,
+	"await":    AWAIT,
+	"parallel": PARALLEL,
+	"try":      TRY,
+	"catch":    CATCH,
+	"defer":    DEFER,
+}
+
