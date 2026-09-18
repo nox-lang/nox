@@ -305,3 +305,24 @@ func (fb *funcBuilder) genInlineCallback(scope *Scope, fl *ast.FuncLit, params [
 	return bodyC, resultVar, resultType
 }
 
+func (fb *funcBuilder) genEachLoop(c *ctx, recv string, elemType Type, fl *ast.FuncLit, wantIndex bool) (string, Type) {
+	idxVar := fb.cg.freshTmp("i")
+	elemC := fb.cg.ctype(elemType)
+	var params []cbParam
+	if wantIndex {
+		if len(fl.Params) != 2 {
+			panic(fmt.Sprintf("nox: %s: 'eachIndex' callback needs two parameters (index, value)", fb.fname))
+		}
+		params = []cbParam{
+			{fl.Params[0].Name, TInt(), idxVar},
+			{fl.Params[1].Name, elemType, fmt.Sprintf("((%s*)%s.data)[%s]", elemC, recv, idxVar)},
+		}
+	} else {
+		params = []cbParam{{fl.Params[0].Name, elemType, fmt.Sprintf("((%s*)%s.data)[%s]", elemC, recv, idxVar)}}
+	}
+	bodyC, _, _ := fb.genInlineCallback(c.scope, fl, params)
+	loop := fmt.Sprintf("for (int64_t %s = 0; %s < %s.len; %s++) {\n%s}\n", idxVar, idxVar, recv, idxVar, indent(bodyC, "    "))
+	c.emit(loop)
+	return "", TVoid()
+}
+
