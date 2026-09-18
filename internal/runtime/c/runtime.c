@@ -217,3 +217,7 @@ static bool nox_float_to_bool(double v) { return v != 0.0; }
 static int64_t nox_bool_to_int(bool v) { return v ? 1 : 0; }
 static double nox_bool_to_float(bool v) { return v ? 1.0 : 0.0; }
 
+static nox_string nox_get_error_message(void) {
+    return nox_string_from_cstr(nox_err_state_get()->msg);
+}
+
