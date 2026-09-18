@@ -234,3 +234,66 @@ func parseAndMerge(files []string) (*ast.File, error) {
 
 // ---------------- codegen -> C -> tcc ----------------
 
+// compileAndLink generates C for file and compiles it with tcc. outputDir
+// is where the binary (and, if keepC, the .c file) are written; when
+// !keepC, the C file is written to a temporary location and removed once
+// compilation finishes.
+func compileAndLink(file *ast.File, projectRoot, outName string, outputDir string, keepC bool) error {
+	cSource, err := codegen.Generate(file, noxruntime.Prelude, projectRoot)
+	if err != nil {
+		return err
+	}
+
+	if err := os.MkdirAll(outputDir, 0755); err != nil {
+		return err
+	}
+
+	var cPath string
+	if keepC {
+		cPath = filepath.Join(outputDir, outName+".c")
+		if err := os.WriteFile(cPath, []byte(cSource), 0644); err != nil {
+			return err
+		}
+	} else {
+		tmp, err := os.CreateTemp("", "nox-*.c")
+		if err != nil {
+			return err
+		}
+		cPath = tmp.Name()
+		_, writeErr := tmp.WriteString(cSource)
+		tmp.Close()
+		if writeErr != nil {
+			os.Remove(cPath)
+			return writeErr
+		}
+		defer os.Remove(cPath)
+	}
+
+	targetOS := envOr("NOX_OS", runtime.GOOS)
+	targetArch := envOr("NOX_ARCH", runtime.GOARCH)
+
+	outPath := filepath.Join(outputDir, outName)
+	if targetOS == "windows" {
+		outPath += ".exe"
+	}
+
+	cmd := buildCompileCommand(targetOS, cPath, outPath)
+	fmt.Printf("compiling -> %s (%s/%s) via %s\n", outPath, targetOS, targetArch, cmd.Path)
+	out, err := cmd.CombinedOutput()
+	if err != nil {
+		if _, lookErr := exec.LookPath(cmd.Path); lookErr != nil && !filepath.IsAbs(cmd.Path) {
+			return fmt.Errorf("'%s' was not found on PATH — install tcc, or point NOX_TCC at the tcc binary to use (e.g. a cross-compiling tcc build for %s)", cmd.Path, targetOS)
+		}
+		return fmt.Errorf("compilation failed:\n%s\n%v", string(out), err)
+	}
+	if len(strings.TrimSpace(string(out))) > 0 {
+		fmt.Println(string(out))
+	}
+	if keepC {
+		fmt.Printf("built %s (C source: %s)\n", outPath, cPath)
+	} else {
+		fmt.Printf("built %s\n", outPath)
+	}
+	return nil
+}
+
