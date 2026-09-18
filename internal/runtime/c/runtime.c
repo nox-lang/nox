@@ -94,3 +94,5 @@ static nox_err_state *nox_err_state_get(void) {
     return st;
 }
 
+#define NOX_HAS_ERR (nox_err_state_get()->has_err)
+
