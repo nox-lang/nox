@@ -85,3 +85,51 @@ func (p *Parser) reset(m int) { p.pos = m }
 
 // ---------------- File level ----------------
 
+func (p *Parser) parseFile() *ast.File {
+	f := &ast.File{Filename: p.filename}
+	if p.at(token.PACKAGE) {
+		p.advance()
+		name := p.expect(token.IDENT)
+		f.Package = name.Literal
+	}
+	for {
+		switch {
+		case p.at(token.IMPORT):
+			f.Imports = append(f.Imports, p.parseImport()...)
+		case p.at(token.INCLUDE):
+			f.Includes = append(f.Includes, p.parseInclude()...)
+		default:
+			goto decls
+		}
+	}
+decls:
+	for !p.at(token.EOF) {
+		switch {
+		case p.at(token.PRIVATE):
+			save := p.mark()
+			p.advance()
+			if p.at(token.CLASS) {
+				p.reset(save)
+				f.Classes = append(f.Classes, p.parseClassDecl())
+			} else if p.at(token.ASYNC) || p.at(token.FUNC) {
+				p.reset(save)
+				f.Funcs = append(f.Funcs, p.parseFuncDecl())
+			} else if p.at(token.LET) {
+				p.reset(save)
+				f.Globals = append(f.Globals, p.parseLetStmt())
+			} else {
+				p.errorf("expected class, func, or let after 'private'")
+			}
+		case p.at(token.CLASS):
+			f.Classes = append(f.Classes, p.parseClassDecl())
+		case p.at(token.ASYNC), p.at(token.FUNC):
+			f.Funcs = append(f.Funcs, p.parseFuncDecl())
+		case p.at(token.LET):
+			f.Globals = append(f.Globals, p.parseLetStmt())
+		default:
+			p.errorf("expected a top-level declaration (func, class, let, import, include)")
+		}
+	}
+	return f
+}
+
