@@ -258,3 +258,5 @@ type IntLit struct {
 	Value int64
 }
 
+func (*IntLit) exprNode() {}
+
