@@ -355,3 +355,8 @@ type AwaitExpr struct {
 
 func (*AwaitExpr) exprNode() {}
 
+type ParallelExpr struct {
+	Base
+	Calls []Expr
+}
+
