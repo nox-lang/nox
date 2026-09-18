@@ -714,3 +714,19 @@ math::PI
 math::E
 ```
 
+## 15.6 time
+
+```text
+time::now()
+time::unix()
+time::sleep(seconds)
+time::clock()
+
+time::year(t)
+time::month(t)
+time::day(t)
+time::hour(t)
+time::minute(t)
+time::second(t)
+```
+
