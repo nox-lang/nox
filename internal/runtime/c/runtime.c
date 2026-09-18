@@ -461,3 +461,11 @@ static void nox_fs_mkdir(nox_string path) {
     if (NOX_MKDIR(path.data) != 0 && errno != EEXIST) nox_set_error(strerror(errno));
 }
 
+static void nox_fs_rmdir(nox_string path) {
+#if defined(_WIN32)
+    if (_rmdir(path.data) != 0) nox_set_error(strerror(errno));
+#else
+    if (rmdir(path.data) != 0) nox_set_error(strerror(errno));
+#endif
+}
+
