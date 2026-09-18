@@ -271,3 +271,9 @@ static nox_array nox_string_split_lines(nox_string s) {
     return result;
 }
 
+static void nox_array_pop_raw(nox_array *a, void *out, int64_t elemsize) {
+    if (a->len == 0) nox_panic("pop from empty array");
+    a->len--;
+    memcpy(out, (char *)a->data + a->len * elemsize, (size_t)elemsize);
+}
+
