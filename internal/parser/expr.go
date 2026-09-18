@@ -222,3 +222,76 @@ func (p *Parser) parseIdentOrQualOrFuncLit() ast.Expr {
 	return &ast.Ident{Base: ast.NewBase(first.Line, first.Col), Name: first.Literal}
 }
 
+// tryParseFuncLit attempts to parse `(params) { body }` at the current
+// position (which is a LPAREN). On failure it rewinds and returns false.
+func (p *Parser) tryParseFuncLit() (ast.Expr, bool) {
+	save := p.mark()
+	lp := p.cur()
+	ok := func() bool {
+		defer func() { recover() }() // treat any parse error as "not a func lit"
+		p.advance()                  // (
+		for !p.at(token.RPAREN) {
+			if !p.at(token.IDENT) {
+				return false
+			}
+			p.advance()
+			if p.at(token.COLON) {
+				p.advance()
+				p.parseType()
+			}
+			if p.at(token.ELLIPSIS) {
+				p.advance()
+			}
+			if p.at(token.ASSIGN) {
+				p.advance()
+				p.parseExpr()
+			}
+			if !p.at(token.COMMA) {
+				break
+			}
+			p.advance()
+		}
+		if !p.at(token.RPAREN) {
+			return false
+		}
+		p.advance() // )
+		if p.at(token.COLON) {
+			p.advance()
+			p.parseType()
+		}
+		return p.at(token.LBRACE)
+	}()
+	if !ok {
+		p.reset(save)
+		return nil, false
+	}
+	p.reset(save)
+	// Re-parse for real (constructing AST nodes this time).
+	p.advance() // (
+	var params []*ast.Param
+	for !p.at(token.RPAREN) {
+		nt := p.expect(token.IDENT)
+		param := &ast.Param{Base: ast.NewBase(nt.Line, nt.Col), Name: nt.Literal}
+		if p.accept(token.COLON) {
+			param.Type = p.parseType()
+		}
+		if p.accept(token.ELLIPSIS) {
+			param.Variadic = true
+		}
+		if p.accept(token.ASSIGN) {
+			param.Default = p.parseExpr()
+		}
+		params = append(params, param)
+		if !p.accept(token.COMMA) {
+			break
+		}
+	}
+	p.expect(token.RPAREN)
+	fl := &ast.FuncLit{Base: ast.NewBase(lp.Line, lp.Col), Params: params}
+	if p.accept(token.COLON) {
+		fl.ReturnType = p.parseType()
+	}
+	fl.Body = p.parseBlock()
+	return fl, true
+}
+
