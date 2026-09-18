@@ -630,3 +630,26 @@ func (fb *funcBuilder) genForCond(scope *Scope, s *ast.ForCondStmt, isExprCtx bo
 	return preSB.String() + loopCode, rt, vv
 }
 
+func (fb *funcBuilder) genWhile(scope *Scope, s *ast.WhileStmt, isExprCtx bool) (string, Type, string) {
+	c, pre := newCtx(scope)
+	condCode, ct := fb.genExpr(c, s.Cond)
+	if ct.Kind != KBool {
+		panic(fmt.Sprintf("nox: %s: while-condition must be bool", fb.fname))
+	}
+	lc := fb.beginLoop(s.Body)
+	bodyC := fb.genBlock(scope, s.Body)
+	bodyC += compilef("%s: ;", lc.continueLabel)
+	fb.endLoop()
+	if len(*pre) == 0 {
+		header := fmt.Sprintf("while (%s)", condCode)
+		return fb.assembleLoop(lc, header, bodyC, isExprCtx)
+	}
+	var innerSB strings.Builder
+	for _, p := range *pre {
+		innerSB.WriteString(p)
+	}
+	innerSB.WriteString(compilef("if (!(%s)) break;", condCode))
+	innerSB.WriteString(bodyC)
+	return fb.assembleLoop(lc, "for (;;)", innerSB.String(), isExprCtx)
+}
+
