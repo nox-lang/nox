@@ -36,3 +36,21 @@ type Type struct {
 	Ret    *Type  // return type for KFunc (nil means void)
 }
 
+func TInt() Type    { return Type{Kind: KInt} }
+func TFloat() Type  { return Type{Kind: KFloat} }
+func TBool() Type   { return Type{Kind: KBool} }
+func TString() Type { return Type{Kind: KString} }
+func TVoid() Type   { return Type{Kind: KVoid} }
+func TArray(elem Type) Type {
+	e := elem
+	return Type{Kind: KArray, Elem: &e}
+}
+func TPointer(elem Type) Type {
+	e := elem
+	return Type{Kind: KPointer, Elem: &e}
+}
+func TTask(elem Type) Type {
+	e := elem
+	return Type{Kind: KTask, Elem: &e}
+}
+
