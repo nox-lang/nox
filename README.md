@@ -77,3 +77,28 @@ Put the resulting `nox` binary on your `PATH`.
 `-lm` is always linked; `-lgc`/`-lpthread` are added only for a native
 build (see `buildCompileCommand` in `cmd/nox/main.go`).
 
+## Using the `nox` CLI
+
+```
+nox init <name>                  Scaffold a new package: ./<name>/nox.toml, ./<name>/src/main.nox
+nox build                        Build the package in the current directory (nox.toml + src/) -> build/<name>
+nox build <file.nox>             Build one file -> an executable next to it. No build/ directory,
+                                  no .c file kept, unless...
+nox build <file.nox> --emit-c    ...this is passed, which also writes <file>.c next to it.
+nox get <source>                 Fetch a dependency (e.g. github.com/user/repo) via `git clone`
+```
+
+The distinction is deliberate: `nox build` alone only makes sense for a
+package that has a `nox.toml` (created by `nox init`), and always produces
+`build/<package-name>` (plus `build/<package-name>.c`), matching the spec's
+description of multiple files under `src/` becoming one executable.
+`nox build <file.nox>` is the lightweight, no-ceremony path for a single
+file — by default it leaves nothing behind but the executable itself.
+
+`import("some/path")` pulls in *another* package: resolved relative to the
+project root (the directory with `nox.toml`, or the entry file's directory
+for `nox build <file.nox>`), as either `some/path.nox` or a directory
+`some/path/` of `.nox` files. Per the spec, the unaliased path becomes the
+`::`-namespace (`import("libs/math")` → `libs::math::add(...)`); an alias
+shortens it (`import("libs/math") as m` → `m::add(...)`).
+
