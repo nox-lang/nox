@@ -7,3 +7,8 @@ const (
 	EOF Kind = iota
 	ILLEGAL
 
+	IDENT
+	INT
+	FLOAT
+	STRING
+
