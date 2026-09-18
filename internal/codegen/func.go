@@ -689,3 +689,5 @@ func (fb *funcBuilder) genForIn(scope *Scope, s *ast.ForInStmt, isExprCtx bool) 
 	return preSB.String() + loopCode, rt, vv
 }
 
+// ---------------- switch ----------------
+
