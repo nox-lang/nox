@@ -685,3 +685,32 @@ path::stem(path)
 path::absolute(path)
 ```
 
+## 15.5 math
+
+```text
+math::abs(x)
+math::min(a, b)
+math::max(a, b)
+math::pow(x, y)
+math::sqrt(x)
+
+math::floor(x)
+math::ceil(x)
+math::round(x)
+
+math::sin(x)
+math::cos(x)
+math::tan(x)
+
+math::asin(x)
+math::acos(x)
+math::atan(x)
+
+math::log(x)
+math::log10(x)
+math::exp(x)
+
+math::PI
+math::E
+```
+
