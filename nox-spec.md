@@ -232,3 +232,13 @@ numbers.eachIndex((index, value) {
 })
 ```
 
+## 6.4 eachLine
+
+文字列を1行ずつ処理できます。
+
+```text
+text.eachLine((line) {
+    io::Println(line)
+})
+```
+
