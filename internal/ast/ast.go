@@ -5,3 +5,8 @@ import "nox/internal/token"
 
 type Node interface{ Pos() (int, int) }
 
+type Expr interface {
+	Node
+	exprNode()
+}
+
