@@ -265,3 +265,5 @@ type FloatLit struct {
 	Value float64
 }
 
+func (*FloatLit) exprNode() {}
+
