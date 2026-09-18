@@ -107,3 +107,153 @@ func (l *Lexer) skipWhitespaceAndComments() {
 	}
 }
 
+func (l *Lexer) Next() token.Token {
+	l.skipWhitespaceAndComments()
+	line, col := l.line, l.col
+	c := l.peekCh()
+	if c == 0 {
+		return token.Token{Kind: token.EOF, Line: line, Col: col}
+	}
+
+	if isDigit(c) {
+		return l.lexNumber(line, col)
+	}
+	if isAlpha(c) {
+		return l.lexIdent(line, col)
+	}
+	if c == '"' {
+		return l.lexString(line, col)
+	}
+
+	// operators / punctuation
+	switch c {
+	case '(':
+		l.advance()
+		return token.Token{Kind: token.LPAREN, Literal: "(", Line: line, Col: col}
+	case ')':
+		l.advance()
+		return token.Token{Kind: token.RPAREN, Literal: ")", Line: line, Col: col}
+	case '{':
+		l.advance()
+		return token.Token{Kind: token.LBRACE, Literal: "{", Line: line, Col: col}
+	case '}':
+		l.advance()
+		return token.Token{Kind: token.RBRACE, Literal: "}", Line: line, Col: col}
+	case '[':
+		l.advance()
+		return token.Token{Kind: token.LBRACKET, Literal: "[", Line: line, Col: col}
+	case ']':
+		l.advance()
+		return token.Token{Kind: token.RBRACKET, Literal: "]", Line: line, Col: col}
+	case ',':
+		l.advance()
+		return token.Token{Kind: token.COMMA, Literal: ",", Line: line, Col: col}
+	case '?':
+		l.advance()
+		return token.Token{Kind: token.QUESTION, Literal: "?", Line: line, Col: col}
+	case ':':
+		l.advance()
+		if l.peekCh() == ':' {
+			l.advance()
+			return token.Token{Kind: token.DCOLON, Literal: "::", Line: line, Col: col}
+		}
+		return token.Token{Kind: token.COLON, Literal: ":", Line: line, Col: col}
+	case '.':
+		if l.peekAt(1) == '.' && l.peekAt(2) == '.' {
+			l.advance()
+			l.advance()
+			l.advance()
+			return token.Token{Kind: token.ELLIPSIS, Literal: "...", Line: line, Col: col}
+		}
+		l.advance()
+		return token.Token{Kind: token.DOT, Literal: ".", Line: line, Col: col}
+	case '+':
+		l.advance()
+		if l.peekCh() == '=' {
+			l.advance()
+			return token.Token{Kind: token.PLUSEQ, Literal: "+=", Line: line, Col: col}
+		}
+		if l.peekCh() == '+' {
+			l.advance()
+			return token.Token{Kind: token.PLUSPLUS, Literal: "++", Line: line, Col: col}
+		}
+		return token.Token{Kind: token.PLUS, Literal: "+", Line: line, Col: col}
+	case '-':
+		l.advance()
+		if l.peekCh() == '=' {
+			l.advance()
+			return token.Token{Kind: token.MINUSEQ, Literal: "-=", Line: line, Col: col}
+		}
+		if l.peekCh() == '-' {
+			l.advance()
+			return token.Token{Kind: token.MINUSMINUS, Literal: "--", Line: line, Col: col}
+		}
+		return token.Token{Kind: token.MINUS, Literal: "-", Line: line, Col: col}
+	case '*':
+		l.advance()
+		if l.peekCh() == '=' {
+			l.advance()
+			return token.Token{Kind: token.STAREQ, Literal: "*=", Line: line, Col: col}
+		}
+		return token.Token{Kind: token.STAR, Literal: "*", Line: line, Col: col}
+	case '/':
+		l.advance()
+		if l.peekCh() == '=' {
+			l.advance()
+			return token.Token{Kind: token.SLASHEQ, Literal: "/=", Line: line, Col: col}
+		}
+		return token.Token{Kind: token.SLASH, Literal: "/", Line: line, Col: col}
+	case '%':
+		l.advance()
+		return token.Token{Kind: token.PERCENT, Literal: "%", Line: line, Col: col}
+	case '&':
+		l.advance()
+		if l.peekCh() == '&' {
+			l.advance()
+			return token.Token{Kind: token.AND, Literal: "&&", Line: line, Col: col}
+		}
+		return token.Token{Kind: token.AMP, Literal: "&", Line: line, Col: col}
+	case '|':
+		l.advance()
+		if l.peekCh() == '|' {
+			l.advance()
+			return token.Token{Kind: token.OR, Literal: "||", Line: line, Col: col}
+		}
+		return token.Token{Kind: token.PIPE, Literal: "|", Line: line, Col: col}
+	case '^':
+		l.advance()
+		return token.Token{Kind: token.CARET, Literal: "^", Line: line, Col: col}
+	case '!':
+		l.advance()
+		if l.peekCh() == '=' {
+			l.advance()
+			return token.Token{Kind: token.NE, Literal: "!=", Line: line, Col: col}
+		}
+		return token.Token{Kind: token.NOT, Literal: "!", Line: line, Col: col}
+	case '<':
+		l.advance()
+		if l.peekCh() == '=' {
+			l.advance()
+			return token.Token{Kind: token.LE, Literal: "<=", Line: line, Col: col}
+		}
+		return token.Token{Kind: token.LT, Literal: "<", Line: line, Col: col}
+	case '>':
+		l.advance()
+		if l.peekCh() == '=' {
+			l.advance()
+			return token.Token{Kind: token.GE, Literal: ">=", Line: line, Col: col}
+		}
+		return token.Token{Kind: token.GT, Literal: ">", Line: line, Col: col}
+	case '=':
+		l.advance()
+		if l.peekCh() == '=' {
+			l.advance()
+			return token.Token{Kind: token.EQ, Literal: "==", Line: line, Col: col}
+		}
+		return token.Token{Kind: token.ASSIGN, Literal: "=", Line: line, Col: col}
+	}
+
+	l.errorf("unexpected character %q", c)
+	return token.Token{}
+}
+
