@@ -244,3 +244,5 @@ func (fb *funcBuilder) genFuncLitValue(c *ctx, x *ast.FuncLit) (string, Type) {
 	return closTmp, fnType
 }
 
+// ---------------- ? / await / Parallel ----------------
+
