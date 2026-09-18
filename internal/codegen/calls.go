@@ -117,3 +117,26 @@ func (fb *funcBuilder) genQualIdentValue(c *ctx, x *ast.QualIdent) (string, Type
 	panic(fmt.Sprintf("nox: %s: '%s' cannot be used as a value", fb.fname, strings.Join(x.Parts, "::")))
 }
 
+func (fb *funcBuilder) genQualIdentCall(c *ctx, x *ast.QualIdent, args []ast.Expr) (string, Type) {
+	ns, sym := fb.cg.resolveNamespace(x.Parts)
+	switch ns.Kind {
+	case NSStdlib:
+		return fb.genStdlibCall(c, x.Parts[0], sym, args)
+	case NSInclude:
+		return fb.genIncludeCall(c, sym, args)
+	case NSUser:
+		decl, ok := ns.Funcs[sym]
+		if !ok {
+			panic(fmt.Sprintf("nox: %s: '%s' has no function '%s'", fb.fname, strings.Join(x.Parts[:len(x.Parts)-1], "::"), sym))
+		}
+		argCodes, argTypes := fb.resolveCallArgs(c, sym, decl.Params, args, fb.cg.globalScope)
+		fi := fb.cg.getOrInstantiateFunc(ns.namespaceKeyPrefix+"::"+sym, decl, argTypes)
+		call := fmt.Sprintf("%s(%s)", fi.MangledName, strings.Join(argCodes, ", "))
+		if fi.IsAsync {
+			return call, TTask(fi.RetType)
+		}
+		return call, fi.RetType
+	}
+	panic(fmt.Sprintf("nox: %s: cannot call '%s'", fb.fname, strings.Join(x.Parts, "::")))
+}
+
