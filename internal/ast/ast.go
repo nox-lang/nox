@@ -292,3 +292,9 @@ type ArrayLit struct {
 
 func (*ArrayLit) exprNode() {}
 
+type BinaryExpr struct {
+	Base
+	Op   token.Kind
+	X, Y Expr
+}
+
