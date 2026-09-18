@@ -319,3 +319,12 @@ func Generate(file *ast.File, runtimePrelude string, projectRoot string) (out st
 	return sb.String(), nil
 }
 
+func sortedKeys(m map[string]*ast.LetStmt) []string {
+	var ks []string
+	for k := range m {
+		ks = append(ks, k)
+	}
+	sort.Strings(ks)
+	return ks
+}
+
