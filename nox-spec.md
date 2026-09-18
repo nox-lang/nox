@@ -967,3 +967,29 @@ version = "0.1.0"
 
 # 25. ビルド
 
+## 25.1 パッケージ全体
+
+```text
+nox build
+```
+
+`nox init` で作成したパッケージ全体をビルドします。
+
+複数の `.nox` ファイルが存在していても、基本的に**1つの実行ファイル**として出力されます。
+
+```text
+hello/
+├── nox.toml
+└── src/
+    ├── main.nox
+    ├── math.nox
+    └── util.nox
+```
+
+↓
+
+```text
+build/
+└── hello.exe
+```
+
