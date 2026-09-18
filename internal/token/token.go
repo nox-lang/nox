@@ -59,3 +59,30 @@ const (
 	ELLIPSIS // ...
 	QUESTION // ?
 
+	// Operators
+	ASSIGN   // =
+	PLUS     // +
+	MINUS    // -
+	STAR     // *
+	SLASH    // /
+	PERCENT  // %
+	AMP      // &
+	PIPE     // |
+	CARET    // ^
+	NOT      // !
+	LT       // <
+	GT       // >
+	LE       // <=
+	GE       // >=
+	EQ       // ==
+	NE       // !=
+	AND      // &&
+	OR       // ||
+	PLUSEQ   // +=
+	MINUSEQ  // -=
+	STAREQ   // *=
+	SLASHEQ  // /=
+	PLUSPLUS // ++
+	MINUSMINUS
+)
+
