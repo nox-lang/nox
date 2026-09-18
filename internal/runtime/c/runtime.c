@@ -469,3 +469,31 @@ static void nox_fs_rmdir(nox_string path) {
 #endif
 }
 
+static nox_array nox_fs_list(nox_string path) {
+    nox_array result = nox_array_new();
+#if defined(_WIN32)
+    WIN32_FIND_DATAA fd;
+    char pattern[1024];
+    snprintf(pattern, sizeof(pattern), "%s\\*", path.data);
+    HANDLE h = FindFirstFileA(pattern, &fd);
+    if (h == INVALID_HANDLE_VALUE) { nox_set_error("cannot list directory"); return result; }
+    do {
+        if (strcmp(fd.cFileName, ".") == 0 || strcmp(fd.cFileName, "..") == 0) continue;
+        nox_string s = nox_string_from_cstr(fd.cFileName);
+        nox_array_push_raw(&result, &s, sizeof(nox_string));
+    } while (FindNextFileA(h, &fd));
+    FindClose(h);
+#else
+    DIR *d = opendir(path.data);
+    if (!d) { nox_set_error(strerror(errno)); return result; }
+    struct dirent *ent;
+    while ((ent = readdir(d)) != NULL) {
+        if (strcmp(ent->d_name, ".") == 0 || strcmp(ent->d_name, "..") == 0) continue;
+        nox_string s = nox_string_from_cstr(ent->d_name);
+        nox_array_push_raw(&result, &s, sizeof(nox_string));
+    }
+    closedir(d);
+#endif
+    return result;
+}
+
