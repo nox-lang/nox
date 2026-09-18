@@ -15,3 +15,10 @@ func parseIntLiteral(s string) int64 {
 	return v
 }
 
+func parseFloatLiteral(s string) float64 {
+	v, err := strconv.ParseFloat(s, 64)
+	if err != nil {
+		return 0
+	}
+	return v
+}
