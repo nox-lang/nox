@@ -219,3 +219,32 @@ func (fb *funcBuilder) genMethodCall(c *ctx, recvCode string, recvType Type, met
 	return call, fi.RetType
 }
 
+// emitSyncFuncWithClass is emitSyncFunc plus tagging the generated
+// funcBuilder with the owning class so private-member checks inside the
+// method body know they're "at home".
+func (cg *Codegen) emitSyncFuncWithClass(fi *FuncInstance, decl *ast.FuncDecl, argTypes []Type, thisType Type, classKey string) {
+	scope := newScope(nil)
+	scope.define("this", thisType)
+	for i, p := range decl.Params {
+		scope.define(p.Name, argTypes[i])
+	}
+	fb := &funcBuilder{cg: cg, fname: fi.MangledName, currentClassKey: classKey, selfInstance: fi}
+	if fi.RetTypeKnown {
+		fb.retType = fi.RetType
+		fb.retTypeKnown = true
+	}
+	bodyC := fb.buildFunctionBody(scope, decl.Body, "")
+	fi.RetType = fb.retType
+	fi.RetTypeKnown = true
+
+	cparams := []string{fmt.Sprintf("%s %s", cg.ctype(thisType), cIdent("this"))}
+	for i, p := range decl.Params {
+		cparams = append(cparams, fmt.Sprintf("%s %s", cg.ctype(argTypes[i]), cIdent(p.Name)))
+	}
+	retC := "void"
+	if fi.RetType.Kind != KVoid {
+		retC = cg.ctype(fi.RetType)
+	}
+	fi.Forward = fmt.Sprintf("static %s %s(%s);", retC, fi.MangledName, strings.Join(cparams, ", "))
+	fi.Body = fmt.Sprintf("static %s %s(%s) {\n%s}", retC, fi.MangledName, strings.Join(cparams, ", "), indent(bodyC, "    "))
+}
