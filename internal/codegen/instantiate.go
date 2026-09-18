@@ -153,3 +153,18 @@ func (cg *Codegen) getOrInstantiateFunc(name string, decl *ast.FuncDecl, argType
 	return fi
 }
 
+// sanitizeIdent strips characters that are not valid in a C identifier
+// fragment (Nox identifiers are already alnum/underscore, so this is mostly
+// a defensive no-op).
+func sanitizeIdent(s string) string {
+	var sb strings.Builder
+	for _, r := range s {
+		if (r >= 'a' && r <= 'z') || (r >= 'A' && r <= 'Z') || (r >= '0' && r <= '9') || r == '_' {
+			sb.WriteRune(r)
+		} else {
+			sb.WriteByte('_')
+		}
+	}
+	return sb.String()
+}
+
