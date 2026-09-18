@@ -88,3 +88,23 @@ func (m *Manifest) Save(path string) error {
 	return os.WriteFile(path, []byte(sb.String()), 0644)
 }
 
+// Init scaffolds a new package directory: <dir>/nox.toml and
+// <dir>/src/main.nox.
+func Init(dir, name string) error {
+	if err := os.MkdirAll(filepath.Join(dir, "src"), 0755); err != nil {
+		return err
+	}
+	m := DefaultManifest(name)
+	if err := m.Save(filepath.Join(dir, "nox.toml")); err != nil {
+		return err
+	}
+	mainPath := filepath.Join(dir, "src", "main.nox")
+	if _, err := os.Stat(mainPath); os.IsNotExist(err) {
+		stub := "package main\n\nimport(\n    \"io\"\n)\n\nfunc main() {\n    io::println(\"Hello, World!\")\n}\n"
+		if err := os.WriteFile(mainPath, []byte(stub), 0644); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
