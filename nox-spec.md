@@ -357,3 +357,29 @@ let double = (x) {
 }
 ```
 
+# 9. if
+
+```text
+if (condition) {
+    ...
+} else if (condition) {
+    ...
+} else {
+    ...
+}
+```
+
+`if` は暗黙的に値を返しません。
+
+値を返す場合は `return` を使用します。
+
+```text
+func check(x) {
+    if (x > 10) {
+        return x
+    }
+
+    return 0
+}
+```
+
