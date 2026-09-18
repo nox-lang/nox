@@ -123,3 +123,5 @@ type AssignStmt struct {
 	Value  Expr
 }
 
+func (*AssignStmt) stmtNode() {}
+
