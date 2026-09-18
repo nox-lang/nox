@@ -154,3 +154,36 @@ func buildSingleFile(path string, emitC bool) error {
 	return compileAndLink(file, importRoot, stem, filepath.Dir(path), emitC)
 }
 
+func buildPackage() error {
+	manifestPath, root, ok := pkgmgr.FindManifest(".")
+	if !ok {
+		return fmt.Errorf("no nox.toml found in this directory or any parent (try 'nox init <name>' or 'nox build <file.nox>')")
+	}
+	m, err := pkgmgr.Load(manifestPath)
+	if err != nil {
+		return err
+	}
+	srcDir := filepath.Join(root, "src")
+	var noxFiles []string
+	err = filepath.Walk(srcDir, func(p string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		if !info.IsDir() && strings.HasSuffix(p, ".nox") {
+			noxFiles = append(noxFiles, p)
+		}
+		return nil
+	})
+	if err != nil {
+		return err
+	}
+	if len(noxFiles) == 0 {
+		return fmt.Errorf("no .nox files found under %s", srcDir)
+	}
+	merged, err := parseAndMerge(noxFiles)
+	if err != nil {
+		return err
+	}
+	return compileAndLink(merged, root, m.Name, filepath.Join(root, "build"), true)
+}
+
