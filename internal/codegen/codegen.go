@@ -352,3 +352,36 @@ func indent(s, pre string) string {
 	return sb.String()
 }
 
+// prepassGlobals resolves and generates initializers for top-level `let`
+// declarations, in file order (a global's initializer may only reference
+// globals declared earlier in the same file).
+func (cg *Codegen) prepassGlobals() {
+	fb := &funcBuilder{cg: cg, fname: "__globals__"}
+	for _, g := range cg.file.Globals {
+		if g.Value == nil {
+			if g.Type == nil {
+				panic(fmt.Sprintf("nox: global 'let %s' needs an initializer or an explicit type", g.Name))
+			}
+			t := cg.resolveTypeExpr(g.Type)
+			cg.globalScope.define(g.Name, t)
+			continue
+		}
+		c, pre := newCtx(cg.globalScope)
+		code, t := fb.genExpr(c, g.Value)
+		if g.Type != nil {
+			want := cg.resolveTypeExpr(g.Type)
+			if !want.Equals(t) {
+				panic(fmt.Sprintf("nox: global '%s': cannot assign %s to declared type %s", g.Name, t.String(), want.String()))
+			}
+			t = want
+		}
+		if t.ContainsUnknown() {
+			panic(fmt.Sprintf("nox: global 'let %s': cannot infer the type from an empty array literal '[]'; add an explicit type (let %s: array<TYPE> = [])", g.Name, g.Name))
+		}
+		cg.globalScope.define(g.Name, t)
+		for _, p := range *pre {
+			cg.globalInitC = append(cg.globalInitC, strings.TrimRight(p, "\n"))
+		}
+		cg.globalInitC = append(cg.globalInitC, fmt.Sprintf("g_%s = %s;", g.Name, code))
+	}
+}
