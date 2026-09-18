@@ -245,3 +245,145 @@ func (fb *funcBuilder) genNullComparison(c *ctx, x *ast.BinaryExpr) (string, Typ
 	return fmt.Sprintf("(%s %s NULL)", code, op), TBool()
 }
 
+// genShortCircuit implements `&&`/`||` while preserving short-circuit
+// evaluation even when the right-hand operand requires hoisted
+// pre-statements (e.g. it contains a `?` propagation or an await).
+func (fb *funcBuilder) genShortCircuit(c *ctx, x *ast.BinaryExpr) (string, Type) {
+	lcCode, lt := fb.genExpr(c, x.X)
+	if lt.Kind != KBool {
+		panic(fmt.Sprintf("nox: %s: '%s' requires bool operands", fb.fname, x.Op.String()))
+	}
+	rc2, rpre := newCtx(c.scope)
+	rcCode, rt := fb.genExpr(rc2, x.Y)
+	if rt.Kind != KBool {
+		panic(fmt.Sprintf("nox: %s: '%s' requires bool operands", fb.fname, x.Op.String()))
+	}
+	if len(*rpre) == 0 {
+		op := "&&"
+		if x.Op == token.OR {
+			op = "||"
+		}
+		return fmt.Sprintf("(%s %s %s)", lcCode, op, rcCode), TBool()
+	}
+	tmp := fb.cg.freshTmp("sc")
+	var elseBranch strings.Builder
+	for _, p := range *rpre {
+		elseBranch.WriteString(p)
+	}
+	elseBranch.WriteString(compilef("%s = %s;", tmp, rcCode))
+	c.emit(compilef("bool %s;", tmp))
+	if x.Op == token.AND {
+		c.emit(compilef("if (!(%s)) { %s = false; } else {", lcCode, tmp))
+	} else {
+		c.emit(compilef("if (%s) { %s = true; } else {", lcCode, tmp))
+	}
+	c.emit(indent(elseBranch.String(), "    "))
+	c.emit("}\n")
+	return tmp, TBool()
+}
+
+func (fb *funcBuilder) genUnaryExpr(c *ctx, x *ast.UnaryExpr) (string, Type) {
+	switch x.Op {
+	case token.MINUS:
+		code, t := fb.genExpr(c, x.X)
+		if t.Kind != KInt && t.Kind != KFloat {
+			panic(fmt.Sprintf("nox: %s: unary '-' requires a numeric operand", fb.fname))
+		}
+		return fmt.Sprintf("(-%s)", code), t
+	case token.NOT:
+		code, t := fb.genExpr(c, x.X)
+		if t.Kind != KBool {
+			panic(fmt.Sprintf("nox: %s: unary '!' requires a bool operand", fb.fname))
+		}
+		return fmt.Sprintf("(!%s)", code), TBool()
+	case token.AMP:
+		lvalue, t := fb.genLvalue(c, x.X)
+		return fmt.Sprintf("(&%s)", lvalue), TPointer(t)
+	case token.STAR:
+		code, t := fb.genExpr(c, x.X)
+		if t.Kind != KPointer {
+			panic(fmt.Sprintf("nox: %s: unary '*' requires a pointer operand", fb.fname))
+		}
+		return fmt.Sprintf("(*%s)", code), *t.Elem
+	}
+	panic(fmt.Sprintf("nox: %s: unhandled unary operator", fb.fname))
+}
+
+// genLvalue returns a C lvalue expression (suitable for `&`) for the subset
+// of expressions that denote a storage location: identifiers, array
+// indexing, and class member access.
+func (fb *funcBuilder) genLvalue(c *ctx, e ast.Expr) (string, Type) {
+	switch x := e.(type) {
+	case *ast.Ident:
+		return fb.genIdent(c, x)
+	case *ast.IndexExpr:
+		xCode, xType := fb.genExpr(c, x.X)
+		idxCode, _ := fb.genExpr(c, x.Index)
+		if xType.Kind != KArray {
+			panic(fmt.Sprintf("nox: %s: indexing requires an array", fb.fname))
+		}
+		c.emit(compilef("nox_array_check_index(&(%s), %s);", xCode, idxCode))
+		elemC := fb.cg.ctype(*xType.Elem)
+		return fmt.Sprintf("((%s*)(%s).data)[%s]", elemC, xCode, idxCode), *xType.Elem
+	case *ast.MemberExpr:
+		xCode, xType := fb.genExpr(c, x.X)
+		if xType.Kind != KClass {
+			panic(fmt.Sprintf("nox: %s: cannot take the address of a member of a non-class value", fb.fname))
+		}
+		ci := fb.cg.classInstances[xType.ClassKey]
+		ft, ok := ci.FieldTypes[x.Name]
+		if !ok {
+			panic(fmt.Sprintf("nox: %s: class '%s' has no field '%s'", fb.fname, ci.ClassName, x.Name))
+		}
+		if fieldIsPrivate(ci.Decl, x.Name) && fb.currentClassKey != xType.ClassKey {
+			panic(fmt.Sprintf("nox: %s: '%s' is a private field of class '%s'", fb.fname, x.Name, ci.ClassName))
+		}
+		return fmt.Sprintf("(%s)->%s", xCode, x.Name), ft
+	}
+	panic(fmt.Sprintf("nox: %s: expression is not addressable", fb.fname))
+}
+
+// ---------------- indexing / member read ----------------
+
+func (fb *funcBuilder) genIndexExpr(c *ctx, x *ast.IndexExpr) (string, Type) {
+	xCode, xType := fb.genExpr(c, x.X)
+	idxCode, idxType := fb.genExpr(c, x.Index)
+	if xType.Kind != KArray {
+		panic(fmt.Sprintf("nox: %s: indexing requires an array, got %s", fb.fname, xType.String()))
+	}
+	if idxType.Kind != KInt {
+		panic(fmt.Sprintf("nox: %s: array index must be int", fb.fname))
+	}
+	tmp := fb.cg.freshTmp("arrv")
+	c.emit(compilef("nox_array %s = %s;", tmp, xCode))
+	c.emit(compilef("nox_array_check_index(&%s, %s);", tmp, idxCode))
+	elemC := fb.cg.ctype(*xType.Elem)
+	return fmt.Sprintf("(((%s*)%s.data)[%s])", elemC, tmp, idxCode), *xType.Elem
+}
+
+// genMemberRead handles `.` access used as a value, not a call: array/string
+// `.length`, and class field reads. Method calls (`.push(...)`,
+// `.substring(...)`, etc.) are handled by genCallExpr instead.
+func (fb *funcBuilder) genMemberRead(c *ctx, x *ast.MemberExpr) (string, Type) {
+	xCode, xType := fb.genExpr(c, x.X)
+	switch xType.Kind {
+	case KArray:
+		if x.Name == "length" {
+			return fmt.Sprintf("((int64_t)(%s).len)", xCode), TInt()
+		}
+	case KString:
+		if x.Name == "length" {
+			return fmt.Sprintf("((int64_t)(%s).len)", xCode), TInt()
+		}
+	case KClass:
+		ci := fb.cg.classInstances[xType.ClassKey]
+		if ft, ok := ci.FieldTypes[x.Name]; ok {
+			if fieldIsPrivate(ci.Decl, x.Name) && fb.currentClassKey != xType.ClassKey {
+				panic(fmt.Sprintf("nox: %s: '%s' is a private field of class '%s'", fb.fname, x.Name, ci.ClassName))
+			}
+			return fmt.Sprintf("(%s)->%s", xCode, x.Name), ft
+		}
+		panic(fmt.Sprintf("nox: %s: class '%s' has no field '%s'", fb.fname, ci.ClassName, x.Name))
+	}
+	panic(fmt.Sprintf("nox: %s: value of type %s has no property '%s'", fb.fname, xType.String(), x.Name))
+}
