@@ -350,3 +350,33 @@ func (fb *funcBuilder) genMathCall(c *ctx, sym string, args []ast.Expr) (string,
 
 // ---------------- time ----------------
 
+func (fb *funcBuilder) genTimeCall(c *ctx, sym string, args []ast.Expr) (string, Type) {
+	intArg := func(i int) string {
+		code, t := fb.genExpr(c, args[i])
+		if t.Kind != KInt {
+			panic(fmt.Sprintf("nox: %s: time::%s expects an int argument", fb.fname, sym))
+		}
+		return code
+	}
+	switch sym {
+	case "now":
+		return "nox_time_now()", TInt()
+	case "unix":
+		return "nox_time_unix()", TInt()
+	case "sleep":
+		if len(args) != 1 {
+			panic(fmt.Sprintf("nox: %s: time::sleep(seconds) takes exactly one argument", fb.fname))
+		}
+		c.emit(compilef("nox_time_sleep(%s);", fb.genFloatArg(c, args[0])))
+		return "", TVoid()
+	case "clock":
+		return "nox_time_clock()", TFloat()
+	case "year", "month", "day", "hour", "minute", "second":
+		if len(args) != 1 {
+			panic(fmt.Sprintf("nox: %s: time::%s(t) takes exactly one argument", fb.fname, sym))
+		}
+		return fmt.Sprintf("nox_time_%s(%s)", sym, intArg(0)), TInt()
+	}
+	panic(fmt.Sprintf("nox: %s: time has no function '%s'", fb.fname, sym))
+}
+
