@@ -10,3 +10,8 @@ type Expr interface {
 	exprNode()
 }
 
+type Stmt interface {
+	Node
+	stmtNode()
+}
+
