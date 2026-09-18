@@ -105,3 +105,5 @@ func (fb *funcBuilder) genClosureCall(c *ctx, closureCode string, t Type, args [
 	return call, ret
 }
 
+// ---------------- QualIdent as a value / call ----------------
+
