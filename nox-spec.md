@@ -818,3 +818,30 @@ try {
 }
 ```
 
+# 19. defer
+
+`defer` は現在の関数を終了する直前に処理を実行します。
+
+```text
+func test() {
+    defer {
+        io::Println("cleanup")
+    }
+
+    io::Println("work")
+}
+```
+
+実行順は、
+
+```text
+work
+cleanup
+```
+
+となります。
+
+`return` で関数を終了する場合も、終了前に `defer` が実行されます。
+
+`defer` はGCの代わりではなく、明示的な後処理に使用します。
+
