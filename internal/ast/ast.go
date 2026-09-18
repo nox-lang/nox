@@ -314,3 +314,5 @@ type CallExpr struct {
 	Args   []Expr
 }
 
+func (*CallExpr) exprNode() {}
+
