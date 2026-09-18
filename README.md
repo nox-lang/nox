@@ -338,3 +338,17 @@ oversights:
   dereference operators, since the spec names the type but shows no syntax
   for producing or using a pointer value.
 
+## Known limitations
+
+- No self-hosting — this is the "implement in a real language first" phase.
+- Class field types can't be forward-declared for another not-yet-used
+  class — see the monomorphization section above.
+- `nox get` shells out to `git clone --depth 1`; only git-reachable sources
+  work, no registry, no version pinning/locking beyond `git`'s default ref.
+- No nested `func` declarations inside a function body — only top-level
+  functions and anonymous function *expressions* (`(x) { ... }`), matching
+  every example in the spec.
+- Cross-compilation's exact `NOX_TCC`-pointed-at-a-cross-build workflow is
+  implemented but not verified end-to-end in this environment (see
+  "Cross-compilation" above for exactly what *was* verified).
+
