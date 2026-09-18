@@ -15,3 +15,17 @@ func (p *Parser) parseBlock() *ast.BlockStmt {
 	return b
 }
 
+func (p *Parser) parseLetStmt() *ast.LetStmt {
+	isPrivate := p.accept(token.PRIVATE)
+	lt := p.expect(token.LET)
+	name := p.expect(token.IDENT)
+	ls := &ast.LetStmt{Base: ast.NewBase(lt.Line, lt.Col), Name: name.Literal, IsPrivate: isPrivate}
+	if p.accept(token.COLON) {
+		ls.Type = p.parseType()
+	}
+	if p.accept(token.ASSIGN) {
+		ls.Value = p.parseExpr()
+	}
+	return ls
+}
+
