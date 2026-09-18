@@ -13,3 +13,14 @@
 #include <time.h>
 #include <errno.h>
 
+#ifdef NOX_NO_GC
+/* This build targets a platform where the bundled Boehm GC isn't available.
+ * Memory is left to accumulate for the life of the process instead of being
+ * collected. */
+#include <stdlib.h>
+#define GC_MALLOC(sz) calloc(1, (sz))
+#define GC_INIT() ((void)0)
+#else
+#include <gc.h>
+#endif
+
