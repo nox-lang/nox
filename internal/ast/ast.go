@@ -17,3 +17,5 @@ type Stmt interface {
 
 type Base struct{ Line, Col int }
 
+func (b Base) Pos() (int, int) { return b.Line, b.Col }
+
