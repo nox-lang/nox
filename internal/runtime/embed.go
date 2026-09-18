@@ -3,3 +3,5 @@
 // ship the .c file separately.
 package runtime
 
+import _ "embed"
+
