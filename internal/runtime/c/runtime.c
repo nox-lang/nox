@@ -285,3 +285,12 @@ static void nox_array_check_index(nox_array *a, int64_t i) {
     }
 }
 
+static void nox_array_insert_raw(nox_array *a, int64_t idx, const void *elem, int64_t elemsize) {
+    if (idx < 0 || idx > a->len) nox_panic("array insert index out of range");
+    nox_array_reserve(a, a->len + 1, elemsize);
+    char *base = (char *)a->data;
+    memmove(base + (idx + 1) * elemsize, base + idx * elemsize, (size_t)((a->len - idx) * elemsize));
+    memcpy(base + idx * elemsize, elem, (size_t)elemsize);
+    a->len++;
+}
+
