@@ -9,3 +9,17 @@ import (
 
 type Kind int
 
+const (
+	KInt Kind = iota
+	KFloat
+	KBool
+	KString
+	KArray
+	KPointer
+	KVoid
+	KClass
+	KFunc
+	KTask
+	KUnknown // element type of an empty array literal, resolved from context
+)
+
