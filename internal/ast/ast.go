@@ -107,3 +107,5 @@ type LetStmt struct {
 	IsPrivate bool      // only meaningful at package (top) level
 }
 
+func (*LetStmt) stmtNode() {}
+
