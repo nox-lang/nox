@@ -101,3 +101,13 @@ func (p *Parser) parseAdditive() ast.Expr {
 	return x
 }
 
+func (p *Parser) parseMultiplicative() ast.Expr {
+	x := p.parseUnary()
+	for p.at(token.STAR) || p.at(token.SLASH) || p.at(token.PERCENT) {
+		t := p.advance()
+		y := p.parseUnary()
+		x = &ast.BinaryExpr{Base: ast.NewBase(t.Line, t.Col), Op: t.Kind, X: x, Y: y}
+	}
+	return x
+}
+
