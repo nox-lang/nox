@@ -100,3 +100,14 @@ static void nox_clear_error(void) {
     nox_err_state_get()->has_err = false;
 }
 
+static void nox_set_error(const char *msg) {
+    nox_err_state *st = nox_err_state_get();
+    st->has_err = true;
+    if (msg) {
+        strncpy(st->msg, msg, sizeof(st->msg) - 1);
+        st->msg[sizeof(st->msg) - 1] = 0;
+    } else {
+        st->msg[0] = 0;
+    }
+}
+
