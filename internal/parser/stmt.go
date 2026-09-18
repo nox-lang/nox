@@ -103,3 +103,40 @@ func (p *Parser) parseIfStmt() ast.Stmt {
 	return is
 }
 
+func (p *Parser) parseForStmt() ast.Stmt {
+	ft := p.expect(token.FOR)
+	p.expect(token.LPAREN)
+	// Try to detect array form: (IDENT ("," IDENT)? "in" Expr)
+	save := p.mark()
+	if p.at(token.IDENT) {
+		first := p.advance()
+		if p.accept(token.COMMA) {
+			if p.at(token.IDENT) {
+				second := p.advance()
+				if p.accept(token.IN) {
+					arr := p.parseExpr()
+					p.expect(token.RPAREN)
+					body := p.parseBlock()
+					return &ast.ForInStmt{Base: ast.NewBase(ft.Line, ft.Col), IndexName: first.Literal, ValueName: second.Literal, Array: arr, Body: body}
+				}
+			}
+			p.reset(save)
+		} else if p.accept(token.IN) {
+			arr := p.parseExpr()
+			p.expect(token.RPAREN)
+			body := p.parseBlock()
+			return &ast.ForInStmt{Base: ast.NewBase(ft.Line, ft.Col), ValueName: first.Literal, Array: arr, Body: body}
+		} else {
+			p.reset(save)
+		}
+	}
+	// condition form
+	var cond ast.Expr
+	if !p.at(token.RPAREN) {
+		cond = p.parseExpr()
+	}
+	p.expect(token.RPAREN)
+	body := p.parseBlock()
+	return &ast.ForCondStmt{Base: ast.NewBase(ft.Line, ft.Col), Cond: cond, Body: body}
+}
+
