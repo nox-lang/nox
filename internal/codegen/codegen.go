@@ -190,3 +190,132 @@ func (cg *Codegen) freshName(prefix string) string {
 	return fmt.Sprintf("%s_%d", prefix, cg.nameCounter)
 }
 
+// Generate compiles the parsed file into a single C source string.
+func Generate(file *ast.File, runtimePrelude string, projectRoot string) (out string, err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			if s, ok := r.(string); ok {
+				err = fmt.Errorf("%s", s)
+				return
+			}
+			if e, ok := r.(error); ok {
+				err = e
+				return
+			}
+			panic(r)
+		}
+	}()
+
+	cg := NewCodegen(file)
+	cg.resolveImports(projectRoot)
+
+	mainDecl, ok := cg.funcsByName["main"]
+	if !ok {
+		return "", fmt.Errorf("no 'main' function found")
+	}
+
+	// Resolve global (top-level) let declarations' types eagerly using only
+	// literal-ish initializers; more complex globals are resolved lazily on
+	// first reference from within a function body.
+	cg.prepassGlobals()
+
+	// Determine main's parameter convention: func main() or func main(args).
+	var mainArgsParam string
+	if len(mainDecl.Params) > 1 {
+		return "", fmt.Errorf("main: expected at most 1 parameter (args), got %d", len(mainDecl.Params))
+	}
+	if len(mainDecl.Params) == 1 {
+		mainArgsParam = mainDecl.Params[0].Name
+	}
+
+	mainScope := newScope(nil)
+	if mainArgsParam != "" {
+		mainScope.define(mainArgsParam, TArray(TString()))
+	}
+
+	fb := &funcBuilder{cg: cg, fname: "main"}
+	bodyC := fb.buildFunctionBody(mainScope, mainDecl.Body, "return 0;")
+	if fb.retType.Kind != KVoid {
+		return "", fmt.Errorf("main: must not return a value (got %s)", fb.retType.String())
+	}
+
+	var sb strings.Builder
+	sb.WriteString(runtimePrelude)
+	sb.WriteString("\n/* ---------------- generated program ---------------- */\n")
+
+	for _, h := range cg.includeHeaders {
+		sb.WriteString(fmt.Sprintf("#include <%s>\n", h))
+	}
+	sb.WriteString("\n")
+
+	// Struct/closure/task typedefs and forward declarations, then bodies, are
+	// appended progressively into cg.funcInstances / cg.classInstances as
+	// codegen for main() (and everything it transitively calls) runs above.
+	// We now flush everything in dependency-safe order: typedefs first (they
+	// grow monotonically), then class structs, then function forward decls,
+	// then function bodies, then main().
+
+	sb.WriteString("/* global variables */\n")
+	for _, name := range sortedKeys(cg.globalDecls) {
+		g := cg.globalDecls[name]
+		t, ok := cg.globalScope.lookup(g.Name)
+		if !ok {
+			continue // never referenced; skip (dead code)
+		}
+		sb.WriteString(fmt.Sprintf("static %s g_%s;\n", cg.ctype(t), g.Name))
+	}
+	sb.WriteString("\n")
+
+	sb.WriteString("/* closures & tasks */\n")
+	for _, td := range cg.typeDefs {
+		sb.WriteString(td + "\n")
+	}
+	sb.WriteString("\n")
+
+	sb.WriteString("/* classes */\n")
+	for _, key := range cg.classOrder {
+		ci := cg.classInstances[key]
+		sb.WriteString(ci.StructC + "\n")
+	}
+	sb.WriteString("\n")
+
+	sb.WriteString("/* forward declarations */\n")
+	for _, key := range cg.funcOrder {
+		fi := cg.funcInstances[key]
+		sb.WriteString(fi.Forward + "\n")
+	}
+	for _, key := range cg.classOrder {
+		ci := cg.classInstances[key]
+		for _, mname := range sortedMethodKeys(ci.Methods) {
+			sb.WriteString(ci.Methods[mname].Forward + "\n")
+		}
+	}
+	sb.WriteString("\n")
+
+	sb.WriteString("/* function bodies */\n")
+	for _, key := range cg.funcOrder {
+		fi := cg.funcInstances[key]
+		sb.WriteString(fi.Body + "\n\n")
+	}
+	for _, key := range cg.classOrder {
+		ci := cg.classInstances[key]
+		for _, mname := range sortedMethodKeys(ci.Methods) {
+			sb.WriteString(ci.Methods[mname].Body + "\n\n")
+		}
+	}
+
+	sb.WriteString("static void nox_init_globals(void) {\n")
+	for _, line := range cg.globalInitC {
+		sb.WriteString("    " + line + "\n")
+	}
+	sb.WriteString("}\n\n")
+
+	sb.WriteString("int main(int argc, char** argv) {\n")
+	sb.WriteString("    nox_runtime_init(argc, argv);\n")
+	sb.WriteString("    nox_init_globals();\n")
+	sb.WriteString(indent(bodyC, "    "))
+	sb.WriteString("}\n")
+
+	return sb.String(), nil
+}
+
