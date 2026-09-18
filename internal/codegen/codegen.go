@@ -328,3 +328,12 @@ func sortedKeys(m map[string]*ast.LetStmt) []string {
 	return ks
 }
 
+func sortedMethodKeys(m map[string]*FuncInstance) []string {
+	var ks []string
+	for k := range m {
+		ks = append(ks, k)
+	}
+	sort.Strings(ks)
+	return ks
+}
+
