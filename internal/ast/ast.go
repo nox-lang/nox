@@ -360,3 +360,5 @@ type ParallelExpr struct {
 	Calls []Expr
 }
 
+func (*ParallelExpr) exprNode() {}
+
