@@ -148,3 +148,7 @@ func (fb *funcBuilder) errorJumpCode() string {
 	return "%%RETZERO%% goto __nox_exit;"
 }
 
+func (fb *funcBuilder) errorCheckSnippet() string {
+	return compilef("if (NOX_HAS_ERR) { %s }", fb.errorJumpCode())
+}
+
