@@ -218,3 +218,9 @@ func (fb *funcBuilder) genBinaryExpr(c *ctx, x *ast.BinaryExpr) (string, Type) {
 	panic(fmt.Sprintf("nox: %s: unhandled binary operator %s", fb.fname, x.Op.String()))
 }
 
+func requireSameNumeric(fname string, lt, rt Type) {
+	if (lt.Kind != KInt && lt.Kind != KFloat) || !lt.Equals(rt) {
+		panic(fmt.Sprintf("nox: %s: arithmetic requires two operands of the same numeric type (got %s and %s); Nox performs no implicit conversion (use .toFloat()/.toInt())", fname, lt.String(), rt.String()))
+	}
+}
+
