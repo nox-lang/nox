@@ -265,3 +265,17 @@ func (fb *funcBuilder) genPathCall(c *ctx, sym string, args []ast.Expr) (string,
 
 // ---------------- math ----------------
 
+// genFloatArg accepts either an int or a float argument, widening int to
+// float automatically (stdlib convenience; the core language itself
+// performs no implicit conversions — see requireSameNumeric).
+func (fb *funcBuilder) genFloatArg(c *ctx, e ast.Expr) string {
+	code, t := fb.genExpr(c, e)
+	switch t.Kind {
+	case KFloat:
+		return code
+	case KInt:
+		return fmt.Sprintf("((double)(%s))", code)
+	}
+	panic(fmt.Sprintf("nox: %s: expected a numeric argument, got %s", fb.fname, t.String()))
+}
+
