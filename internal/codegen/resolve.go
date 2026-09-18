@@ -47,3 +47,5 @@ func (cg *Codegen) resolveTypeExpr(te *ast.TypeExpr) Type {
 	panic(fmt.Sprintf("nox: unknown type '%s'", te.Name))
 }
 
+// ---------------- namespace registration ----------------
+
