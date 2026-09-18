@@ -285,3 +285,8 @@ type NullLit struct{ Base }
 
 func (*NullLit) exprNode() {}
 
+type ArrayLit struct {
+	Base
+	Elems []Expr
+}
+
