@@ -139,3 +139,42 @@ func (t Type) String() string {
 	return "?"
 }
 
+// mangle produces a short, unique, C-identifier-safe fragment identifying a
+// type, used to build monomorphized function/class/closure names.
+func mangle(t Type) string {
+	switch t.Kind {
+	case KInt:
+		return "i"
+	case KFloat:
+		return "f"
+	case KBool:
+		return "b"
+	case KString:
+		return "s"
+	case KVoid:
+		return "v"
+	case KArray:
+		return "A" + mangle(*t.Elem)
+	case KPointer:
+		return "P" + mangle(*t.Elem)
+	case KTask:
+		return "T" + mangle(*t.Elem)
+	case KClass:
+		return "C" + t.ClassKey
+	case KFunc:
+		var sb strings.Builder
+		sb.WriteString("F")
+		for _, p := range t.Params {
+			sb.WriteString(mangle(p))
+		}
+		sb.WriteString("_")
+		if t.Ret != nil {
+			sb.WriteString(mangle(*t.Ret))
+		} else {
+			sb.WriteString("v")
+		}
+		return sb.String()
+	}
+	return "x"
+}
+
