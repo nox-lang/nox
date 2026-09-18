@@ -132,3 +132,6 @@ type IfStmt struct {
 	Else Stmt // *IfStmt, *BlockStmt, or nil
 }
 
+func (*IfStmt) stmtNode() {}
+func (*IfStmt) exprNode() {}
+
