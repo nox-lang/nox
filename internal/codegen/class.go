@@ -25,3 +25,8 @@ func fieldDecl(decl *ast.ClassDecl, name string) *ast.FieldDecl {
 	return nil
 }
 
+func fieldIsPrivate(decl *ast.ClassDecl, name string) bool {
+	f := fieldDecl(decl, name)
+	return f != nil && f.IsPrivate
+}
+
