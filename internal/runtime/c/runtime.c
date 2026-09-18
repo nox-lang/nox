@@ -96,3 +96,7 @@ static nox_err_state *nox_err_state_get(void) {
 
 #define NOX_HAS_ERR (nox_err_state_get()->has_err)
 
+static void nox_clear_error(void) {
+    nox_err_state_get()->has_err = false;
+}
+
