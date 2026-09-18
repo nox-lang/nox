@@ -326,3 +326,24 @@ func (fb *funcBuilder) genEachLoop(c *ctx, recv string, elemType Type, fl *ast.F
 	return "", TVoid()
 }
 
+func (fb *funcBuilder) genMapLoop(c *ctx, recv string, elemType Type, fl *ast.FuncLit) (string, Type) {
+	if len(fl.Params) != 1 {
+		panic(fmt.Sprintf("nox: %s: 'map' callback needs exactly one parameter", fb.fname))
+	}
+	idxVar := fb.cg.freshTmp("i")
+	elemC := fb.cg.ctype(elemType)
+	params := []cbParam{{fl.Params[0].Name, elemType, fmt.Sprintf("((%s*)%s.data)[%s]", elemC, recv, idxVar)}}
+	bodyC, resVar, resType := fb.genInlineCallback(c.scope, fl, params)
+	if resType == nil {
+		panic(fmt.Sprintf("nox: %s: 'map' callback must 'yield' a value", fb.fname))
+	}
+	outTmp := fb.cg.freshTmp("mapped")
+	c.emit(compilef("nox_array %s = nox_array_new();", outTmp))
+	var loopBody strings.Builder
+	loopBody.WriteString(bodyC)
+	loopBody.WriteString(compilef("nox_array_push_raw(&%s, &%s, sizeof(%s));", outTmp, resVar, fb.cg.ctype(*resType)))
+	loop := fmt.Sprintf("for (int64_t %s = 0; %s < %s.len; %s++) {\n%s}\n", idxVar, idxVar, recv, idxVar, indent(loopBody.String(), "    "))
+	c.emit(loop)
+	return outTmp, TArray(*resType)
+}
+
