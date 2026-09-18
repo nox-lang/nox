@@ -230,3 +230,40 @@ func (p *Parser) parseFuncDecl() *ast.FuncDecl {
 	return fd
 }
 
+func (p *Parser) parseClassDecl() *ast.ClassDecl {
+	isPrivate := p.accept(token.PRIVATE)
+	ct := p.expect(token.CLASS)
+	name := p.expect(token.IDENT)
+	cd := &ast.ClassDecl{Base: ast.NewBase(ct.Line, ct.Col), Name: name.Literal, IsPrivate: isPrivate}
+	p.expect(token.LBRACE)
+	for !p.at(token.RBRACE) {
+		memberPrivate := p.accept(token.PRIVATE)
+		if p.at(token.LET) {
+			lt := p.advance()
+			fname := p.expect(token.IDENT)
+			field := &ast.FieldDecl{Base: ast.NewBase(lt.Line, lt.Col), Name: fname.Literal, IsPrivate: memberPrivate}
+			if p.accept(token.COLON) {
+				field.Type = p.parseType()
+			}
+			if p.accept(token.ASSIGN) {
+				field.Default = p.parseExpr()
+			}
+			cd.Fields = append(cd.Fields, field)
+		} else if p.at(token.ASYNC) || p.at(token.FUNC) {
+			isAsync := p.accept(token.ASYNC)
+			ft := p.expect(token.FUNC)
+			mname := p.expect(token.IDENT)
+			m := &ast.FuncDecl{Base: ast.NewBase(ft.Line, ft.Col), Name: mname.Literal, IsPrivate: memberPrivate, IsAsync: isAsync}
+			m.Params = p.parseParamList()
+			if p.accept(token.COLON) {
+				m.ReturnType = p.parseType()
+			}
+			m.Body = p.parseBlock()
+			cd.Methods = append(cd.Methods, m)
+		} else {
+			p.errorf("expected field ('let') or method ('func') in class body")
+		}
+	}
+	p.expect(token.RBRACE)
+	return cd
+}
