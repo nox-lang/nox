@@ -36,3 +36,16 @@ Hello, World!
 > as the historical starting point; this README describes the language and
 > compiler as actually implemented.
 
+## Status
+
+This implements essentially the full language: package/import/include, `let`
+with type inference, arrays with all their methods, strings, functions
+(defaults, variadics, closures), classes, `if` (as a statement *and* an
+expression), `for`/`while`/`switch`, `break`/`next`/`yield`, `defer`,
+`try`/`catch`/`?`, `async`/`await`/`parallel`, pointers, `.delete()`, the six
+standard library packages, and the `nox` CLI (`init`/`build`/`get`) with
+cross-compilation. It's been exercised with the programs under `examples/`
+(see "What's been tested"), but it's a from-scratch implementation and has
+**not** had long-term, adversarial testing — a solid, working first version,
+not a hardened toolchain.
+
