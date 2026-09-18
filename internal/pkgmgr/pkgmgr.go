@@ -137,3 +137,21 @@ func Get(root, source string) (string, error) {
 	return dest, nil
 }
 
+// path and directory, or ("", "", false) if none is found.
+func FindManifest(dir string) (manifestPath, root string, ok bool) {
+	d, err := filepath.Abs(dir)
+	if err != nil {
+		return "", "", false
+	}
+	for {
+		p := filepath.Join(d, "nox.toml")
+		if _, err := os.Stat(p); err == nil {
+			return p, d, true
+		}
+		parent := filepath.Dir(d)
+		if parent == d {
+			return "", "", false
+		}
+		d = parent
+	}
+}
