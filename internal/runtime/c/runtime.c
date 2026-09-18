@@ -236,3 +236,13 @@ static nox_array nox_array_new(void) {
     return a;
 }
 
+static void nox_array_reserve(nox_array *a, int64_t mincap, int64_t elemsize) {
+    if (a->cap >= mincap) return;
+    int64_t newcap = a->cap < 4 ? 4 : a->cap * 2;
+    if (newcap < mincap) newcap = mincap;
+    void *nd = GC_MALLOC(newcap * elemsize);
+    if (a->len > 0) memcpy(nd, a->data, (size_t)(a->len * elemsize));
+    a->data = nd;
+    a->cap = newcap;
+}
+
