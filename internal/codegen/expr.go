@@ -84,3 +84,32 @@ func formatFloatLiteral(v float64) string {
 	return s
 }
 
+func cStringLiteral(s string) string {
+	var sb strings.Builder
+	sb.WriteByte('"')
+	for _, r := range s {
+		switch r {
+		case '"':
+			sb.WriteString(`\"`)
+		case '\\':
+			sb.WriteString(`\\`)
+		case '\n':
+			sb.WriteString(`\n`)
+		case '\t':
+			sb.WriteString(`\t`)
+		case '\r':
+			sb.WriteString(`\r`)
+		case 0:
+			sb.WriteString(`\0`)
+		default:
+			if r < 32 {
+				sb.WriteString(fmt.Sprintf(`\x%02x`, r))
+			} else {
+				sb.WriteRune(r)
+			}
+		}
+	}
+	sb.WriteByte('"')
+	return sb.String()
+}
+
