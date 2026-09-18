@@ -352,3 +352,55 @@ oversights:
   implemented but not verified end-to-end in this environment (see
   "Cross-compilation" above for exactly what *was* verified).
 
+## What's been tested
+
+Everything under `examples/` was written to exercise a broad cross-section
+of the language and has been built and run (output verified by hand),
+natively on Linux with `tcc`:
+
+- `01_hello.nox` — the spec's own Hello World.
+- `02_arrays_and_functions.nox` — arithmetic, generically-typed functions,
+  `if`/`while`, arrays (`length`, `push`, `pop`, indexed `for`),
+  `each`/`map`/`filter` (using `yield`).
+- `03_classes_and_control_flow.nox` — a class with a constructor and
+  methods, `switch` as both a statement and an expression, loop
+  `break <value>`, loop-collecting `next <value>`, `defer` ordering (LIFO).
+- `04_errors_closures_pointers.nox` — `fs::write`/`fs::read`, `?`
+  propagation, `try`/`catch` (happy path and a real I/O error), closures
+  with and without captured variables, `pointer<T>`/`&`/`*`, default and
+  variadic arguments.
+- `05_async_await_parallel.nox` — `async func`, `await`, `parallel { }`.
+- `06_strings_and_sorting.nox` — every string method, `sort()` with and
+  without a custom comparator, multi-dimensional arrays, a `private` class
+  field, calling an `include`d C function directly, `find()` (`yield`).
+- `07_recursion_and_globals.nox` — global variables, recursion with an
+  inferred vs. an annotated return type, compound assignment, int vs.
+  float division.
+- `08_stdlib_and_nested_loops.nox` — a class instantiated at two different
+  field types (`Box.new(42)` and `Box.new("hello")`), string
+  (in)equality/ordering, `random`/`path`/`time`/`math`, nested loops with
+  independent `next`/`break` targets.
+- `09_classes_in_arrays.nox` — arrays of class instances, `.find()`
+  returning `null` and comparing against it.
+
+Beyond the example files, also exercised directly: `if` as an expression
+(including an `else if` chain), bare `next` as pure loop control with no
+collection, `return` from inside a `for` loop now genuinely exiting the
+enclosing function (not collecting), `.delete()` on a string, `NOX_TCC`
+pointing at a non-default tcc binary, `nox build <file.nox>` leaving no
+`build/` directory behind, `--emit-c` producing the `.c` file alongside the
+binary, `nox build` package mode continuing to produce `build/<name>` (with
+its `.c`) for a `nox init`-created project with multiple files under
+`src/`, `nox init`, and `nox get` against a real public GitHub repository.
+The Windows-specific runtime path (Win32 threads/TLS, no pthread
+dependency) was compiled with a Windows-target C compiler and run under
+Wine, producing output identical to the native Linux build for both a
+plain program and one using `async`/`await`/`parallel`, and was confirmed
+via its DLL import table to depend on nothing but `KERNEL32.dll` and
+`msvcrt.dll` — no pthreads DLL, direct or indirect.
+
+What this *doesn't* cover: long-running programs (GC behavior under real
+memory pressure), deeply adversarial/malformed input to the parser, `arm64`
+in any form, the actual `NOX_TCC`-points-at-a-cross-tcc invocation path
+(no such binary was available to test with), and programs beyond a few
+hundred lines.
