@@ -346,3 +346,5 @@ type PropagateExpr struct {
 	X Expr
 }
 
+func (*PropagateExpr) exprNode() {}
+
