@@ -38,3 +38,10 @@
   #include <windows.h>
   #define NOX_MKDIR(p) _mkdir(p)
 
+  typedef HANDLE nox_thread_t;
+  #define NOX_THREAD_FUNC DWORD WINAPI
+  typedef LPVOID nox_thread_arg_t;
+  #define NOX_THREAD_RETURN return 0
+  #define NOX_THREAD_CREATE(thptr, fn, arg) (*(thptr) = CreateThread(NULL, 0, (fn), (arg), 0, NULL))
+  #define NOX_THREAD_JOIN(th) (WaitForSingleObject((th), INFINITE), CloseHandle(th))
+
