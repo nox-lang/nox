@@ -71,3 +71,5 @@ func compilef(format string, args ...interface{}) string {
 	return s
 }
 
+// ---------------- blocks & statement dispatch ----------------
+
