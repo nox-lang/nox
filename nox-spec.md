@@ -349,3 +349,11 @@ func sum(values...) {
 }
 ```
 
+## 8.3 無名関数
+
+```text
+let double = (x) {
+    return x * 2
+}
+```
+
