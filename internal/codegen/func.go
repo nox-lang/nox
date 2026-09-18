@@ -38,3 +38,15 @@ type deferEntry struct {
 	bodyC   string
 }
 
+type loopCtx struct {
+	mode          string // "collect" | "breakvalue" | "hofvalue" | "plain"
+	isSwitch      bool   // true if this context represents a `switch`, not a loop
+	collectVar    string
+	elemType      *Type
+	resultVar     string
+	brokeVar      string
+	resultType    *Type
+	hofLabel      string // for "hofvalue": label to jump to after storing the result
+	continueLabel string // for real loops: label `next`/`next value` jumps to
+}
+
