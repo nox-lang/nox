@@ -288,3 +288,11 @@ numbers.sort((a, b) {
 })
 ```
 
+## 6.9 reverse
+
+`reverse` は新しい配列を返します。
+
+```text
+let reversed = numbers.reverse()
+```
+
