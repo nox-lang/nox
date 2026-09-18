@@ -70,3 +70,9 @@
   #define NOX_TLS_SET(key, val) pthread_setspecific((key), (val))
 #endif
 
+/* ---------------- error propagation state (per-thread) ---------------- */
+typedef struct {
+    bool has_err;
+    char msg[1024];
+} nox_err_state;
+
