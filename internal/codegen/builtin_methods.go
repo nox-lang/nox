@@ -40,3 +40,20 @@ func (fb *funcBuilder) genReceiverLvalue(c *ctx, e ast.Expr) (string, Type) {
 	return tmp, t
 }
 
+func (fb *funcBuilder) genBuiltinMethodCall(c *ctx, recv string, recvType Type, method string, args []ast.Expr) (string, Type) {
+	switch method {
+	case "toInt", "toFloat", "toBool", "toString":
+		if len(args) != 0 {
+			panic(fmt.Sprintf("nox: %s: '.%s()' takes no arguments", fb.fname, method))
+		}
+		return fb.genConversion(recv, recvType, method)
+	}
+	switch recvType.Kind {
+	case KString:
+		return fb.genStringMethod(c, recv, method, args)
+	case KArray:
+		return fb.genArrayMethod(c, recv, recvType, method, args)
+	}
+	panic(fmt.Sprintf("nox: %s: '.%s(...)' is not available on type %s", fb.fname, method, recvType.String()))
+}
+
