@@ -113,3 +113,20 @@ numbers.length
 text.substring(0, 5)
 ```
 
+# 4. 変数
+
+変数の宣言には `let` を使用します。
+
+```text
+let name = "Tomoya"
+let age = 14
+```
+
+型を明示することもできます。
+
+```text
+let age: int = 14
+```
+
+基本的には型推論が使用されます。
+
