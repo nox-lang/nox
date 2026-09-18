@@ -116,3 +116,59 @@ func (fb *funcBuilder) genFormatPrint(c *ctx, format string, args []ast.Expr) {
 
 // ---------------- random ----------------
 
+func (fb *funcBuilder) genRandomCall(c *ctx, sym string, args []ast.Expr) (string, Type) {
+	switch sym {
+	case "rand":
+		if len(args) == 0 {
+			return "((int64_t)rand())", TInt()
+		}
+		if len(args) == 2 {
+			a0, t0 := fb.genExpr(c, args[0])
+			a1, t1 := fb.genExpr(c, args[1])
+			if t0.Kind != KInt || t1.Kind != KInt {
+				panic(fmt.Sprintf("nox: %s: random::rand(min, max) expects int arguments", fb.fname))
+			}
+			return fmt.Sprintf("((%s) + (int64_t)(rand() %% (((%s) - (%s)) + 1)))", a0, a1, a0), TInt()
+		}
+		panic(fmt.Sprintf("nox: %s: random::rand() takes zero or two arguments", fb.fname))
+	case "randf":
+		if len(args) == 0 {
+			return "((double)rand() / (double)RAND_MAX)", TFloat()
+		}
+		if len(args) == 2 {
+			a0 := fb.genFloatArg(c, args[0])
+			a1 := fb.genFloatArg(c, args[1])
+			return fmt.Sprintf("((%s) + ((double)rand() / (double)RAND_MAX) * ((%s) - (%s)))", a0, a1, a0), TFloat()
+		}
+		panic(fmt.Sprintf("nox: %s: random::randf() takes zero or two arguments", fb.fname))
+	case "choice":
+		if len(args) != 1 {
+			panic(fmt.Sprintf("nox: %s: random::choice(array) takes exactly one argument", fb.fname))
+		}
+		code, t := fb.genExpr(c, args[0])
+		if t.Kind != KArray {
+			panic(fmt.Sprintf("nox: %s: random::choice(array) expects an array", fb.fname))
+		}
+		elemType := *t.Elem
+		elemC := fb.cg.ctype(elemType)
+		arrTmp := fb.cg.freshTmp("choicearr")
+		c.emit(compilef("nox_array %s = %s;", arrTmp, code))
+		outTmp := fb.cg.freshTmp("choiceval")
+		c.emit(compilef("%s %s;", elemC, outTmp))
+		c.emit(compilef("nox_array_choice_raw(&%s, &%s, sizeof(%s));", arrTmp, outTmp, elemC))
+		return outTmp, elemType
+	case "shuffle":
+		if len(args) != 1 {
+			panic(fmt.Sprintf("nox: %s: random::shuffle(array) takes exactly one argument", fb.fname))
+		}
+		lv, t := fb.genReceiverLvalue(c, args[0])
+		if t.Kind != KArray {
+			panic(fmt.Sprintf("nox: %s: random::shuffle(array) expects an array", fb.fname))
+		}
+		elemC := fb.cg.ctype(*t.Elem)
+		c.emit(compilef("nox_array_shuffle_raw(&%s, sizeof(%s));", lv, elemC))
+		return "", TVoid()
+	}
+	panic(fmt.Sprintf("nox: %s: random has no function '%s'", fb.fname, sym))
+}
+
