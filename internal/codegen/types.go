@@ -105,3 +105,37 @@ func (t Type) Equals(o Type) bool {
 	}
 }
 
+func (t Type) String() string {
+	switch t.Kind {
+	case KInt:
+		return "int"
+	case KFloat:
+		return "float"
+	case KBool:
+		return "bool"
+	case KString:
+		return "string"
+	case KVoid:
+		return "void"
+	case KArray:
+		return "array<" + t.Elem.String() + ">"
+	case KPointer:
+		return "pointer<" + t.Elem.String() + ">"
+	case KClass:
+		return t.ClassName
+	case KTask:
+		return "Task<" + t.Elem.String() + ">"
+	case KFunc:
+		var ps []string
+		for _, p := range t.Params {
+			ps = append(ps, p.String())
+		}
+		ret := "void"
+		if t.Ret != nil {
+			ret = t.Ret.String()
+		}
+		return "func(" + strings.Join(ps, ", ") + "):" + ret
+	}
+	return "?"
+}
+
