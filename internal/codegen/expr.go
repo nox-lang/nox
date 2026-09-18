@@ -115,3 +115,16 @@ func cStringLiteral(s string) string {
 
 // ---------------- identifiers ----------------
 
+func (fb *funcBuilder) genIdent(c *ctx, x *ast.Ident) (string, Type) {
+	if t, ok := c.scope.lookup(x.Name); ok {
+		return cIdent(x.Name), t
+	}
+	if _, ok := fb.cg.globalDecls[x.Name]; ok {
+		if t, ok2 := fb.cg.globalScope.lookup(x.Name); ok2 {
+			return "g_" + x.Name, t
+		}
+		panic(fmt.Sprintf("nox: global 'let %s' is referenced before it is defined", x.Name))
+	}
+	panic(fmt.Sprintf("nox: %s: undefined name '%s'", fb.fname, x.Name))
+}
+
